@@ -1,0 +1,9 @@
+<tr>
+  <td><%= user.email %></td>
+  <td><%= user.role %></td>
+  <td><%= user.first_name %></td>
+  <td><%= user.last_name %></td>
+  <td><%= link_to 'Ver', [@supplier, user] %></td>
+  <td><%= link_to 'Editar', [:edit, @supplier, user] %></td>
+  <td><%= link_to 'Eliminar', user, method: :delete, data: {confirm: '¿Está seguro?'} %></td>
+</tr>

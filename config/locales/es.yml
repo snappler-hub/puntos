@@ -1,0 +1,19 @@
+es:
+  activerecord:
+    models:
+      User: 'Usuario'
+      Supplier: 'Prestador'
+    attributes:
+      supplier:
+        name: 'Nombre'
+        description: 'Descripción'
+        active: 'Activo'
+      user:
+        email: 'Correo electrónico'
+        password: 'Contraseña'
+        password_confirmation: 'Confirmación de contraseña'
+        role: 'Permisos'
+        supplier: 'Prestador'
+        first_name: 'Nombre'
+        last_name: 'Apellido'
+        created_by: 'Creado por' # TODO: No se usa

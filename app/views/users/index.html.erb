@@ -1,0 +1,26 @@
+<header class="content-header">
+  <%= link_to 'Nuevo Usuario', [:new, @supplier, :user],
+      class: 'btn btn-primary pull-right' %>
+  <h1>Usuarios</h1>
+</header>
+
+<!-- Main content -->
+<section class="content">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Correo electrónico</th>
+        <th>Rol</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= render @users %>
+    </tbody>
+  </table>
+
+</section>

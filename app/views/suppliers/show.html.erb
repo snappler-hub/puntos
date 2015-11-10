@@ -1,0 +1,25 @@
+<header class="content-header">
+  <%= link_to 'Editar', edit_supplier_path(@supplier),
+      class: 'btn btn-sm btn-success pull-right' %>
+  <%= link_to 'Volver', suppliers_path,
+      class: 'btn btn-sm btn-default pull-right' %>
+  <h1>Ver Prestador</h1>
+</header>
+
+<section class="content">
+
+  <dl>
+    <dt>Nombre</dt>
+    <dd><%= @supplier.name %></dd>
+    
+    <dt>Descripción</dt>
+    <dd><%= @supplier.description %></dd>
+  
+    <dt>Activo</dt>
+    <dd><%= @supplier.active ? icon_ok : icon_not_ok %></dd>
+  </dl>
+
+  <strong>Usuarios</strong><br />
+  <%= link_to 'Ver', [@supplier, :users] %>
+
+</section>

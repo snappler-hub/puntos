@@ -1,0 +1,11 @@
+<header class="content-header">
+  <%= link_to 'Ver', [@supplier, @user],
+      class: 'btn btn-primary pull-right' %>
+  <%= link_to 'Volver', [@supplier, :users],
+      class: 'btn btn-default pull-right' %>
+  <h1>Editar Usuario</h1>
+</header>
+
+<section class="content">
+  <%= render 'form' %>
+</section>
