@@ -20,15 +20,4 @@ class SessionsController < ApplicationController
     redirect_to(:login, notice: 'Ha abandonado el sistema correctamente.')
   end
 
-  private
-
-  def current_user_path
-    case current_user.role
-      when 'god'    then suppliers_path
-      when 'admin'  then current_user.supplier || root_path
-      when 'seller' then root_path
-      else root_path
-    end
-  end
-
 end

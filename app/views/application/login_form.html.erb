@@ -1,23 +1,30 @@
 <header class="content-header">
-  <h1><%= t :login %></h1>
+  <h1>Iniciar Sesión</h1>
 </header>
 
 <section class="content">
 
-  <%= form_tag sessions_path do %>
-    <div class="form-group has-feedback">
-      <%= label_tag :email %><br />
-      <%= text_field_tag :email, nil, class: 'form-control' %>
-    </div>
-
-    <div class="form-group has-feedback">
-      <%= label_tag :password %><br />
-      <%= password_field_tag :password, nil, class: 'form-control' %>
-    </div>
-
-    <div class="actions">
-      <%= submit_tag 'Login', class: 'btn btn-lg btn-primary' %>
-    </div>
+  <% if logged_in? %>
+    Usted inició sesión como <strong><%= current_user_name %></strong>
+    <br /><br /><br />
+    <%= link_to 'Continuar usando la aplicación', current_user_path, class: 'btn btn-block btn-lg btn-success' %>
+    <%= link_to 'Cerrar sesión', logout_path, method: :delete, class: 'btn btn-block btn-lg btn-danger' %>
+  <% else %>
+    <%= form_tag sessions_path do %>
+      <div class="form-group has-feedback">
+        <%= label_tag :email %><br />
+        <%= text_field_tag :email, nil, class: 'form-control' %>
+      </div>
+  
+      <div class="form-group has-feedback">
+        <%= label_tag :password %><br />
+        <%= password_field_tag :password, nil, class: 'form-control' %>
+      </div>
+  
+      <div class="actions">
+        <%= submit_tag 'Login', class: 'btn btn-lg btn-primary' %>
+      </div>
+    <% end %>
   <% end %>
 
 </section>
