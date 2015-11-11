@@ -12,11 +12,14 @@
     <%= f.label :description %>
     <%= f.text_area :description, class: 'form-control' %>
   </fieldset>
+  
+  <% if god? %>
+    <fieldset class="form-group">
+      <%= f.label :active %><br />
+      <%= f.check_box :active %>
+    </fieldset>
+  <% end %>
 
-  <fieldset class="form-group">
-    <%= f.label :active %><br />
-    <%= f.check_box :active %>
-  </fieldset>
   <div class="actions">
     <%= f.submit 'Guardar Prestador', class: 'btn btn-primary' %>
   </div>

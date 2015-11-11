@@ -7,11 +7,13 @@ Rails.application.routes.draw do
   end
 
   resources :sessions, only: :create
-  delete 'logout', to: 'sessions#destroy', as: :logout
-  get 'login', to: 'sessions#login_form', as: :login
+  resources :password_resets, only: [:new, :create, :edit, :update]
 
-  get 'admin' => 'application#admin', as: :admin
-  get 'profile' => 'users#edit', as: :profile
+  get 'admin', to: 'application#admin', as: :admin
+  get 'profile', to:'users#edit', as: :profile
+
+  get 'login', to: 'sessions#login_form', as: :login
+  delete 'logout', to: 'sessions#destroy', as: :logout
   
   root 'application#home'
 

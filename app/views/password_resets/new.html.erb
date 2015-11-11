@@ -1,0 +1,18 @@
+<header class="content-header">
+  <h1>Reiniciar Contraseña</h1>
+</header>
+
+<section class="content">
+
+  <%= form_tag password_resets_path do %>
+   <fieldset class="form-group">
+      <%= label_tag :email %><br />
+      <%= text_field_tag :email, nil, class: 'form-control' %>
+    </fieldset>
+
+    <div class="actions">
+      <%= submit_tag 'Enviar instrucciones', class: 'btn btn-lg btn-primary' %>
+    </div>
+  <% end %>
+
+</section>
