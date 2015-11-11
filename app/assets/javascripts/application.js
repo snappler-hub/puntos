@@ -11,9 +11,9 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 
-//= require turbolinks
 
 //= require bootstrap.js
 // require plugins/input-mask/jquery.inputmask.js
@@ -35,3 +35,17 @@
 
 //= require plugins/dist/js/pages/dashboard.js
 //= require plugins/dist/js/demo.js
+//= require turbolinks
+
+$(document).ready(function() {
+  $.AdminLTE.layout.activate();
+});
+
+$(document).on('page:load', function() {
+  var o;
+  o = $.AdminLTE.options;
+  if (o.sidebarPushMenu) {
+    $.AdminLTE.pushMenu.activate(o.sidebarToggleSelector);
+  }
+  $.AdminLTE.layout.activate();
+});

@@ -1,5 +1,7 @@
 class SuppliersController < ApplicationController
   before_action :set_supplier, only: [:show, :edit, :update, :destroy]
+  before_action :only_authorize_god!, only: [:index, :new, :create, :destroy]  
+  before_action :only_authorize_admin!, only: [:show, :edit, :update]
 
   # GET /suppliers
   # GET /suppliers.json

@@ -1,14 +1,6 @@
 <%= form_for [@supplier, @user] do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+  <% @user.errors.full_messages.each do |message| %>
+    <p><%= message %></p>
   <% end %>
 
   <div class="row">
@@ -50,12 +42,13 @@
     </fieldset>
   <% end %>
 
-  <fieldset class="form-group">
-    <%= f.label :role %>
-    <%= f.select :role, User::ROLES, {}, {class: 'form-control', include_blank: false} %>
-  </fieldset>
-
-
+  <% unless is_me?(@user) %>
+    <fieldset class="form-group">
+      <%= f.label :role %>
+      <%= f.select :role, User::ROLES.map{|role| [t("roles.#{role}"), role]},
+          {}, {class: 'form-control', include_blank: false} %>
+    </fieldset>
+  <% end %>
 
   <div class="actions">
     <%= f.submit 'Guardar Usuario', class: 'btn btn-primary' %>

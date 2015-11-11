@@ -17,3 +17,9 @@ es:
         first_name: 'Nombre'
         last_name: 'Apellido'
         created_by: 'Creado por' # TODO: No se usa
+
+  roles:
+    god: 'Dios'
+    admin: 'Administrador'
+    seller: 'Vendedor'
+    normal_user: 'Usuario final'

@@ -4,8 +4,10 @@ class Supplier < ActiveRecord::Base
 
   has_many :users
 
+  validates :name, presence: true
+
   def destroyable?
-    true #TODO: only if has no users.
+    users.empty
   end
 
   def to_param

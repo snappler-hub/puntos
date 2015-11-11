@@ -35,11 +35,15 @@ module ApplicationHelper
   end
 
   def god?
-    logged_in? && current_user.role == 'superadmin'
+    logged_in? && current_user.role == 'god'
   end
 
   def supplier?
     logged_in? && current_user.role == 'admin' && current_user.supplier_id
+  end
+
+  def is_me?(user)
+    logged_in? && current_user == user
   end
 
 end

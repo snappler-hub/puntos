@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_supplier
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :only_authorize_admin!, except: [:edit, :update]
 
   # GET /users
   # GET /users.json
@@ -24,6 +25,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    authorize!(admin_permission? || is_me?)
   end
 
   # POST /users
@@ -46,10 +48,12 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
-  def update
+  def update    
+    authorize!(admin_permission? || is_me?)
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to [@supplier, @user], notice: 'El usuario ha sido actualizado correctamente.' }
+        retirect_path = is_me? ? profile_path : [@supplier, @user]
+        format.html { redirect_to retirect_path, notice: 'El usuario ha sido actualizado correctamente.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -71,7 +75,9 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      if @supplier
+      if request.original_fullpath == '/profile'
+        @user = current_user
+      elsif @supplier
         @user = @supplier.users.find(params[:id])
       else
         @user = User.find(params[:id])
@@ -84,8 +90,12 @@ class UsersController < ApplicationController
       end
     end
 
+    def is_me?
+      current_user == @user
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :password, :role, :first_name, :last_name, :supplier_id)
+      params.require(:user).permit(:email, :password, :password_confirmation, :role, :first_name, :last_name, :supplier_id)
     end
 end

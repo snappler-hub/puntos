@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#login_form', as: :login
 
   get 'admin' => 'application#admin', as: :admin
+  get 'profile' => 'users#edit', as: :profile
   
   root 'application#home'
 

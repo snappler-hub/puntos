@@ -1,9 +1,13 @@
 <header class="content-header">
-  <%= link_to 'Ver', [@supplier, @user],
+  <% if is_me?(@user) %>
+    <h1>Cambiar contraseña</h1>
+  <% else %>
+    <%= link_to 'Ver', [@supplier, @user],
       class: 'btn btn-primary pull-right' %>
-  <%= link_to 'Volver', [@supplier, :users],
+    <%= link_to 'Volver', [@supplier, :users],
       class: 'btn btn-default pull-right' %>
-  <h1>Editar Usuario</h1>
+    <h1>Editar Usuario</h1>
+  <% end %>
 </header>
 
 <section class="content">

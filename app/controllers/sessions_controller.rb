@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       redirect_back_or_to(current_user_path, notice: 'Ha iniciado sesión correctamente.')
     else
       flash.now[:alert] = 'Ocurrió un error al intentar iniciar sesión.'
-      render action: 'new'
+      render action: 'login_form'
     end
   end
 
@@ -24,8 +24,9 @@ class SessionsController < ApplicationController
 
   def current_user_path
     case current_user.role
-      when 'superadmin'   then suppliers_path
-      when /admin|seller/ then current_user.supplier || root_path
+      when 'god'    then suppliers_path
+      when 'admin'  then current_user.supplier || root_path
+      when 'seller' then root_path
       else root_path
     end
   end

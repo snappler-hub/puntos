@@ -13,9 +13,36 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def only_authorize_admin!
+    authorize! admin_permission?
+  end
+
+  def only_authorize_god!
+    authorize! is?(:god)
+  end
+
+  def authorize!(condition)
+    unless condition
+      flash[:warning] = 'No tienes los permisos necesarios para acceder a esta página.'
+      redirect_to login_path
+    end
+  end
+
   def not_authenticated
     flash[:warning] = 'Debes autenticarte para acceder a esta página.'
     redirect_to login_path
+  end
+
+  def is?(role)
+    logged_in? && current_user.is?(role)
+  end
+
+  def admin_permission?
+    if @supplier
+      is?(:admin) && (current_user.supplier == @supplier) || is?(:god)
+    else
+      is?(:god)
+    end
   end
 
 end
