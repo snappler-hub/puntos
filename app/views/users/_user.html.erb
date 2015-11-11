@@ -1,6 +1,9 @@
 <tr>
   <td><%= user.email %></td>
-  <td><%= user.role %></td>
+  <td><%= I18n.t user.role, scope: :roles %></td>
+  <% unless @supplier %>
+    <td><%= user.supplier.name if user.supplier_id %></td>
+  <% end %>
   <td><%= user.first_name %></td>
   <td><%= user.last_name %></td>
   <td><%= link_to 'Ver', [@supplier, user] %></td>

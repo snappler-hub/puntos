@@ -12,4 +12,8 @@ class User < ActiveRecord::Base
     role == a_role.to_s
   end
 
+  def to_param
+    "#{id}-#{first_name}-#{last_name}".parameterize
+  end
+
 end

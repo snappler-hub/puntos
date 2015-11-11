@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     if @supplier
       @users = @supplier.users
     else
-      @users = User.all
+      @users = User.includes(:supplier).all
     end
   end
 
@@ -94,8 +94,12 @@ class UsersController < ApplicationController
       current_user == @user
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Un usuario no debe poder cambiar su propio +role+ ni +supplier+.
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :role, :first_name, :last_name, :supplier_id)
+      if is_me?
+        params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name)
+      else
+        params.require(:user).permit(:email, :password, :password_confirmation, :role, :first_name, :last_name, :supplier_id)
+      end
     end
 end
