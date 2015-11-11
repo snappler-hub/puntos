@@ -1,6 +1,9 @@
 class PasswordResetsController < ApplicationController
   skip_before_filter :require_login
   layout 'sessions'
+
+  def new
+  end
   # request password reset.
   # you get here when the user entered his email in the reset password form and submitted it.
   def create 
@@ -9,10 +12,13 @@ class PasswordResetsController < ApplicationController
     # This line sends an email to the user with instructions on how to reset their password (a url with a random token)
     # TODO: Enviar instrucciones por Mandril
     # @user.deliver_reset_password_instructions! if @user
-    binding.pry
-    #@user.generate_reset_password_token!
-
-    redirect_to(root_path, notice: 'Se han enviado instrucciones a su correo electrónico.')
+    if @user
+      @user.generate_reset_password_token!
+      MandrillPasswordReset.new(@user).submit!
+      redirect_to login_path, notice: 'Se han enviado instrucciones a su correo electrónico.'
+    else
+      redirect_to new_password_reset_path, alert: 'El correo electrónico especificado no es válido.'
+    end
   end
 
   # This is the reset password form.

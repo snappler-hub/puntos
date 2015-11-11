@@ -1,7 +1,8 @@
 module ApplicationHelper
 
   def flash_message(klass, message)
-    klass = 'success' if klass == 'notice' || klass == 'alert'
+    klass = 'success' if klass == 'notice'
+    klass = 'danger'  if klass == 'alert'
     flash.discard(klass)
     content_tag :article, class: "alert alert-#{klass}" do
       concat close_button(:alert)
