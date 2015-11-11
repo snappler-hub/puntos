@@ -1,5 +1,9 @@
 <header class="content-header">
-  <h1>Iniciar Sesión</h1>
+  <% if logged_in? %>
+    <h1>¿Estás perdido?</h1>
+  <% else %>
+    <h1>Iniciar Sesión</h1>
+  <% end %>
 </header>
 
 <section class="content">
