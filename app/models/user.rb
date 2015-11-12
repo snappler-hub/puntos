@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 
   belongs_to :supplier
   belongs_to :created_by, class_name: 'User'
+  has_many :cards
 
   validates :supplier, presence: true
   validates :password, confirmation: true
