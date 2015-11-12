@@ -1,0 +1,11 @@
+<tr>
+  <td><%= l supplier_request.created_at, format: :short %></td>
+  <td> <%= supplier_request.full_client_name %> </td>
+  <td> <%= t "supplier_request.status.#{supplier_request.status}" %> </td>
+  <td> <%= supplier_request.phone %> </td>
+  <td> <%= supplier_request.email %> </td>
+  
+  <td><%= link_to 'Ver', [@supplier, supplier_request] %></td>
+  <td><%= link_to 'Editar', [:edit, @supplier, supplier_request] %></td>
+  <td><%= link_to 'Eliminar', supplier_request, method: :delete, data: {confirm: '¿Está seguro?'} %></td>
+</tr>

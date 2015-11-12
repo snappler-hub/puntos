@@ -3,6 +3,7 @@ class Supplier < ActiveRecord::Base
   include Destroyable
 
   has_many :users
+  has_many :supplier_requests
 
   validates :name, presence: true
 

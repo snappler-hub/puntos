@@ -1,32 +1,53 @@
 es:
+  dictionary:
+    name: &name Nombre
+    lastname: &lastname Apellido
+    description: &description Descripción
+    email: &email Correo Electrónico
+    status: &status Estado
+    
+    
   activerecord:
     models:
       User: 'Usuario'
       Supplier: 'Prestador'
     attributes:
       supplier:
-        name: 'Nombre'
-        description: 'Descripción'
+        name: *name
+        description: *description
         active: 'Activo'
       user:
-        email: 'Correo electrónico'
+        email: *email
         password: 'Contraseña'
         password_confirmation: 'Confirmación de contraseña'
         role: 'Permisos'
         supplier: 'Prestador'
-        first_name: 'Nombre'
-        last_name: 'Apellido'
+        first_name: *name
+        last_name: *lastname
         created_by: 'Creado por' # TODO: No se usa
+      supplier_request:
+        firstname: *name
+        lastname: *lastname
+        identification_type: Tipo de Documento
+        identification_number: Nro de Documento
+        phone: Teléfono
+        email: *email
+        address: Domicilio
+        notes: Notas
 
   activemodel:
     attributes:
       supplier_filter:
-        name: 'Nombre'
-        state: 'Estado'
+        name: *name
+        state: *status
         filter: 'Filtrar'
       user_filter:
-        email: 'Correo electrónico'
+        email: *email
         role: 'Permisos'
+        filter: 'Filtrar'
+      supplier_request_filter:
+        status: *status
+        email: *email
         filter: 'Filtrar'
 
   roles:
@@ -34,3 +55,13 @@ es:
     admin: 'Administrador'
     seller: 'Vendedor'
     normal_user: 'Usuario final'
+    
+    
+  supplier_request:
+    status:
+      requested: Solicitada
+      rejected: Rechazada
+      in_progress: En curso
+      emitted: Emitida
+      pre_delivered: En entrega
+      delivered: Entregada

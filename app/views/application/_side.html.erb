@@ -42,6 +42,13 @@
             <span>Usuarios</span>
           <% end %>
         </li>
+        
+        <li>
+          <%= link_to [current_user.supplier, :supplier_requests] do %>
+            <i class="fa fa-file-text-o"></i>
+            <span>Solicitudes</span>
+          <% end %>
+        </li>
       <% end %>
 
     </ul>
