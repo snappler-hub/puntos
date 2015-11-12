@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
+
+  dragonfly_accessor :image
+
   belongs_to :supplier
   belongs_to :created_by, class_name: 'User'
 
@@ -7,6 +10,7 @@ class User < ActiveRecord::Base
   validates :password, confirmation: true
 
   ROLES = %w(god admin seller normal_user)
+  DOCUMENT_TYPES = %w(dni cuil passport)
 
   def is?(a_role)
     role == a_role.to_s

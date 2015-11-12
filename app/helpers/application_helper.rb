@@ -35,6 +35,10 @@ module ApplicationHelper
     icon(:close, class: 'text-danger')
   end
 
+  def permitted_roles
+    god? ? User::ROLES : User::ROLES - ['god']
+  end
+
   def god?
     logged_in? && current_user.role == 'god'
   end

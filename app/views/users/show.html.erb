@@ -1,34 +1,69 @@
 <header class="content-header">
-  <%= link_to 'Editar', [:edit, @supplier, @user],
-      class: 'btn btn-sm btn-success pull-right' %>
   <%= link_to 'Volver', [@supplier, :users],
-      class: 'btn btn-sm btn-default pull-right' %>
-  <h1>Ver Usuario</h1>
+      class: 'btn btn-default pull-right' %>
+  <h1>Información del usuario</h1>
 </header>
 
 <section class="content">
 
-  <dl>
-    <dt>Nombre</dt>
-    <dd><%= @user.first_name %></dd>
-    
-    <dt>Apellido</dt>
-    <dd><%= @user.last_name %></dd>
-  
-    <dt>Email</dt>
-    <dd><%= @user.email %></dd>
+  <div class="row">
 
-    <dt>Permisos</dt>
-    <dd><%= @user.role %></dd>
+    <div class="col-md-4">
+      <article class="box box-primary">
+        <section class="box-body box-profile">
+          <%= image_tag @user.image.thumb('100x200').url, class: 'profile-user-img img-responsive' if @user.image %>
+          <h3 class="profile-username text-center"><%= @user.first_name %> <%= @user.last_name %></h3>
+          <p class="text-muted text-center"><%= @user.email %></p>
+          <ul class="list-group list-group-unbordered">
+            <li class="list-group-item">
+              <b><%= I18n.t @user.document_type, scope: :document_types %></b>
+              <a class="pull-right"><%= @user.document_number %></a>
+            </li>
+            <li class="list-group-item">
+              <b>Permisos</b> <a class="pull-right"><%= @user.role %></a>
+            </li>
+            <li class="list-group-item">
+              <b>Prestador</b>
+              <a class="pull-right"><%= @user.supplier.name %></a>
+            </li>
+          </ul>
+          <%= link_to 'Editar', [:edit, @supplier, @user],
+              class: 'btn btn-block btn-primary' %>
+        </section>
+      </article>
+    </div>
 
-    <dt>Creado por</dt>
-    <dd>
-      <%= @user.created_by.email %><br/>
-      <date class="small"><%= @user.created_at %></date>
-    </dd>
-
-    <dt>Prestador</dt>
-    <dd><%= @user.supplier.name %></dd>
-  </dl>
-
+    <div class="col-md-4">
+      <article class="box box-primary">
+        <section class="box-body box-profile">
+          <h3 class="profile-username text-center">Información Adicional</h3>
+          <ul class="list-group list-group-unbordered">
+            <li class="list-group-item">
+              <b>Teléfono(s)</b> <a class="pull-right"><%= @user.phone %></a>
+            </li>
+            <li class="list-group-item">
+              <b>Dirección</b>
+              <a class="pull-right"><%= @user.address %></a>
+            </li>
+            <li class="list-group-item">
+              <b>Número Interno</b>
+              <a class="pull-right"><%= @user.number %></a>
+            </li>
+            <li class="list-group-item">
+              <b>Nombre de usuario</b>
+              <a class="pull-right"><%= @user.username %></a>
+            </li>
+            <li class="list-group-item">
+              <b>Creado por</b>
+              <a class="pull-right"><%= @user.created_by.email %></a>
+            </li>
+            <li class="list-group-item">
+              <b>Fecha creación</b>
+              <a class="pull-right"><%= @user.created_at %></a>
+            </li>
+          </ul>
+        </section>
+      </article>
+    </div>
+  </div>
 </section>

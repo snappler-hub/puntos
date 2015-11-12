@@ -9,14 +9,21 @@ es:
         description: 'Descripción'
         active: 'Activo'
       user:
+        document_type: 'Tipo de Documento'
+        document_number: 'Nro. de Documento'
+        first_name: 'Nombre'
+        last_name: 'Apellido'
+        number: 'Número'
+        username: 'Nombre de usuario'
         email: 'Correo electrónico'
         password: 'Contraseña'
         password_confirmation: 'Confirmación de contraseña'
         role: 'Permisos'
-        supplier: 'Prestador'
-        first_name: 'Nombre'
-        last_name: 'Apellido'
+        supplier_id: 'Prestador'
         created_by: 'Creado por' # TODO: No se usa
+        phone: 'Teléfono(s)'
+        address: 'Dirección'
+        image: 'Foto de perfil'
 
   activemodel:
     attributes:
@@ -34,3 +41,8 @@ es:
     admin: 'Administrador'
     seller: 'Vendedor'
     normal_user: 'Usuario final'
+
+  document_types:
+    dni: 'DNI'
+    cuil: 'CUIL'
+    passport: 'Pasaporte'
