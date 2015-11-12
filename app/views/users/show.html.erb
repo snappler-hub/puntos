@@ -1,0 +1,34 @@
+<header class="content-header">
+  <%= link_to 'Editar', [:edit, @supplier, @user],
+      class: 'btn btn-sm btn-success pull-right' %>
+  <%= link_to 'Volver', [@supplier, :users],
+      class: 'btn btn-sm btn-default pull-right' %>
+  <h1>Ver Usuario</h1>
+</header>
+
+<section class="content">
+
+  <dl>
+    <dt>Nombre</dt>
+    <dd><%= @user.first_name %></dd>
+    
+    <dt>Apellido</dt>
+    <dd><%= @user.last_name %></dd>
+  
+    <dt>Email</dt>
+    <dd><%= @user.email %></dd>
+
+    <dt>Permisos</dt>
+    <dd><%= @user.role %></dd>
+
+    <dt>Creado por</dt>
+    <dd>
+      <%= @user.created_by.email %><br/>
+      <date class="small"><%= @user.created_at %></date>
+    </dd>
+
+    <dt>Prestador</dt>
+    <dd><%= @user.supplier.name %></dd>
+  </dl>
+
+</section>

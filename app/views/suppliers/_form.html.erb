@@ -1,0 +1,26 @@
+<%= form_for(@supplier) do |f| %>
+  <% @supplier.errors.full_messages.each do |message| %>
+    <p><%= message %></p>
+  <% end %>
+
+  <fieldset class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </fieldset>
+
+  <fieldset class="form-group">
+    <%= f.label :description %>
+    <%= f.text_area :description, class: 'form-control' %>
+  </fieldset>
+  
+  <% if god? %>
+    <fieldset class="form-group">
+      <%= f.label :active %><br />
+      <%= f.check_box :active %>
+    </fieldset>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit 'Guardar Prestador', class: 'btn btn-primary' %>
+  </div>
+<% end %>

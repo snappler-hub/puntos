@@ -1,0 +1,7 @@
+<tr>
+  <td><%= supplier.name %></td>
+  <td><%= supplier.active ? icon_ok : icon_not_ok %></td>
+  <td><%= link_to 'Ver', supplier %></td>
+  <td><%= link_to 'Editar', edit_supplier_path(supplier) %></td>
+  <td><%= link_to 'Eliminar', supplier, method: :delete, data: {confirm: '¿Está seguro?'} %></td>
+</tr>

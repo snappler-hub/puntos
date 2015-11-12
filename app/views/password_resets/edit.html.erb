@@ -1,0 +1,30 @@
+<header class="content-header">
+  <h1>Elija una nueva contraseña</h1>
+</header>
+
+<section class="content">
+  <%= form_for @user, url: password_reset_path(@token), html: {method: :put} do |f| %>
+    <% @user.errors.full_messages.each do |msg| %>
+      <p><%= msg %></p>
+    <% end %>
+
+    <fieldset class="form-group">
+      <%= f.label :email %><br />
+      <%= @user.email %>
+    </fieldset>
+
+    <fieldset class="form-group">
+      <%= f.label :password %><br />
+      <%= f.password_field :password, class: 'form-control' %>
+    </fieldset>
+
+    <fieldset class="form-group">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+    </fieldset>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</section>

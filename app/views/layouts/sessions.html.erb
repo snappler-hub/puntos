@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head><%= render 'head' %></head>
+  <body class="hold-transition login-page">
+    <div class="login-box">
+
+      <div class="login-box-body">
+        <section id="content-flash">
+          <%= flash_messages if flash %>
+        </section>
+        <%= yield %>
+      </div>
+
+     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+    </div>
+
+  </body>
+</html>
