@@ -11,24 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151112201319) do
+ActiveRecord::Schema.define(version: 20151112210109) do
+
+  create_table "cards", force: :cascade do |t|
+    t.string   "number",         limit: 255
+    t.integer  "user_id",        limit: 4
+    t.boolean  "terms_accepted",             default: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+  end
+
+  add_index "cards", ["user_id"], name: "index_cards_on_user_id", using: :btree
 
   create_table "supplier_requests", force: :cascade do |t|
-    t.integer  "supplier_id",           limit: 4
-    t.integer  "user_id",               limit: 4
-    t.integer  "created_by_id",         limit: 4
+    t.integer  "supplier_id",     limit: 4
+    t.integer  "user_id",         limit: 4
+    t.integer  "created_by_id",   limit: 4
     t.datetime "resolution_date"
-    t.integer  "status",                limit: 4,     default: 0
-    t.string   "firstname",             limit: 255,               null: false
-    t.string   "lastname",              limit: 255,               null: false
-    t.string   "identification_type",   limit: 255,               null: false
-    t.string   "identification_number", limit: 255,               null: false
-    t.string   "phone",                 limit: 255
-    t.string   "email",                 limit: 255
-    t.string   "address",               limit: 255
-    t.text     "notes",                 limit: 65535
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.integer  "status",          limit: 4,     default: 0
+    t.string   "firstname",       limit: 255,               null: false
+    t.string   "lastname",        limit: 255,               null: false
+    t.string   "document_type",   limit: 255,               null: false
+    t.string   "document_number", limit: 255,               null: false
+    t.string   "phone",           limit: 255
+    t.string   "email",           limit: 255
+    t.string   "address",         limit: 255
+    t.text     "notes",           limit: 65535
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
   add_index "supplier_requests", ["created_by_id"], name: "index_supplier_requests_on_created_by_id", using: :btree
@@ -59,6 +69,14 @@ ActiveRecord::Schema.define(version: 20151112201319) do
     t.string   "reset_password_token",            limit: 255
     t.datetime "reset_password_token_expires_at"
     t.datetime "reset_password_email_sent_at"
+    t.integer  "number",                          limit: 4
+    t.string   "document_type",                   limit: 255
+    t.string   "document_number",                 limit: 255
+    t.string   "phone",                           limit: 255
+    t.string   "address",                         limit: 255
+    t.string   "username",                        limit: 255
+    t.string   "image_uid",                       limit: 255
+    t.string   "image_name",                      limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -66,6 +84,7 @@ ActiveRecord::Schema.define(version: 20151112201319) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
   add_index "users", ["supplier_id"], name: "index_users_on_supplier_id", using: :btree
 
+  add_foreign_key "cards", "users"
   add_foreign_key "supplier_requests", "suppliers"
   add_foreign_key "supplier_requests", "users"
 end

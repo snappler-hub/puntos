@@ -20,7 +20,7 @@
       <div class="col-md-3">
         <fieldset class="form-group">
           <%= f.label :role %>
-          <%= f.select :role, User::ROLES.map{|role| [t("roles.#{role}"), role]},
+          <%= f.select :role, permitted_roles.map{|role| [t("roles.#{role}"), role]},
             {include_blank: true}, {class: 'form-control'} %>
         </fieldset>
       </div>

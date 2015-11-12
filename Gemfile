@@ -22,6 +22,7 @@ gem 'pry'
 
 gem 'mandrill-api'
 gem 'kaminari'
+gem 'dragonfly', '~> 1.0.12'
 
 group :development, :test do
   gem 'byebug'

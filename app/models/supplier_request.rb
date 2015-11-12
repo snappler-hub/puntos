@@ -10,11 +10,12 @@ class SupplierRequest < ActiveRecord::Base
   # -- Validations
   validates :firstname, presence: true
   validates :lastname, presence: true
-  validates :identification_type, presence: true
-  validates :identification_number, presence: true  
+  validates :document_type, presence: true
+  validates :document_number, presence: true  
 
   # -- Misc
   enum status: { requested: 0, rejected: 1, in_progress: 2, emitted: 3, pre_delivered: 4, delivered: 5 }
+  DOCUMENT_TYPES = %w(dni cuil passport)
     
   # -- Methods
   
@@ -25,6 +26,6 @@ class SupplierRequest < ActiveRecord::Base
   
   # Returns identification type and number
   def full_identification
-    "#{identification_type} #{identification_number}"
+    "#{document_type} #{document_number}"
   end
 end

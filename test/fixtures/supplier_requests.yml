@@ -5,8 +5,8 @@ one:
   status: 0
   firstname: MyString
   lastname: MyString
-  identification_type: MyString
-  identification_number: MyString
+  document_type: MyString
+  document_number: MyString
   phone: MyString
   email: MyString
   address: MyString
@@ -17,8 +17,8 @@ two:
   status: 1
   firstname: MyString
   lastname: MyString
-  identification_type: MyString
-  identification_number: MyString
+  document_type: MyString
+  document_number: MyString
   phone: MyString
   email: MyString
   address: MyString

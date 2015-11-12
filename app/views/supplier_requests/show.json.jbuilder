@@ -1,1 +1,1 @@
-json.extract! @supplier_request, :id, :firstname, :lastname, :identification_type, :identification_number, :phone, :email, :address, :notes
+json.extract! @supplier_request, :id, :firstname, :lastname, :document_type, :document_number, :phone, :email, :address, :notes

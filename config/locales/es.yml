@@ -25,15 +25,32 @@ es:
         first_name: *name
         last_name: *lastname
         created_by: 'Creado por' # TODO: No se usa
+        document_type: 'Tipo de Documento'
+        document_number: 'Nro. de Documento'
+        first_name: 'Nombre'
+        last_name: 'Apellido'
+        number: 'Número'
+        username: 'Nombre de usuario'
+        email: 'Correo electrónico'
+        password: 'Contraseña'
+        password_confirmation: 'Confirmación de contraseña'
+        role: 'Permisos'
+        supplier_id: 'Prestador'
+        created_by: 'Creado por' # TODO: No se usa
+        phone: 'Teléfono(s)'
+        address: 'Dirección'
+        image: 'Foto de perfil'
+        
       supplier_request:
         firstname: *name
         lastname: *lastname
-        identification_type: Tipo de Documento
-        identification_number: Nro de Documento
+        document_type: Tipo de Documento
+        document_number: Nro de Documento
         phone: Teléfono
         email: *email
         address: Domicilio
         notes: Notas
+        
 
   activemodel:
     attributes:
@@ -56,7 +73,6 @@ es:
     seller: 'Vendedor'
     normal_user: 'Usuario final'
     
-    
   supplier_request:
     status:
       requested: Solicitada
@@ -65,3 +81,8 @@ es:
       emitted: Emitida
       pre_delivered: En entrega
       delivered: Entregada
+
+  document_types:
+    dni: 'DNI'
+    cuil: 'CUIL'
+    passport: 'Pasaporte'
