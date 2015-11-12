@@ -1,6 +1,6 @@
 puts 'BEGIN Seed Users'
 
-u1 = User.where(email: 'marcelo@manes.com.ar').first_or_create do |user|
+User.where(email: 'marcelo@manes.com.ar').first_or_create do |user|
   user.password = 'marcelo@manes.com.ar'
   user.role = 'god'
   user.first_name = 'Marcelo'
@@ -8,7 +8,7 @@ u1 = User.where(email: 'marcelo@manes.com.ar').first_or_create do |user|
   user.supplier = Supplier.where(name: 'Farmacia Manes').first
 end
 
-u2 = User.where(email: 'perla@manes.com.ar').first_or_create do |user|
+User.where(email: 'perla@manes.com.ar').first_or_create do |user|
   user.password = 'perla@manes.com.ar'
   user.role = 'god'
   user.first_name = 'Perla'
@@ -17,7 +17,7 @@ u2 = User.where(email: 'perla@manes.com.ar').first_or_create do |user|
   user.supplier = Supplier.where(name: 'Farmacia Manes').first
 end
 
-u3 = User.where(email: 'drogueria@manes.com.ar').first_or_create do |user|
+User.where(email: 'drogueria@manes.com.ar').first_or_create do |user|
   user.password = 'drogueria@manes.com.ar'
   user.role = 'admin'
   user.first_name = 'Drogueria'
