@@ -18,6 +18,13 @@ es:
         last_name: 'Apellido'
         created_by: 'Creado por' # TODO: No se usa
 
+  activemodel:
+    attributes:
+      supplier_filter:
+        name: 'Nombre'
+        state: 'Estado'
+        filter: 'Filtrar'
+
   roles:
     god: 'Dios'
     admin: 'Administrador'

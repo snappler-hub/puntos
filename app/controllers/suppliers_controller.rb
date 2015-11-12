@@ -6,7 +6,8 @@ class SuppliersController < ApplicationController
   # GET /suppliers
   # GET /suppliers.json
   def index
-    @suppliers = Supplier.all
+    @filter = SupplierFilter.new(filter_params)
+    @suppliers = @filter.call.page(params[:page])
   end
 
   # GET /suppliers/1
@@ -76,5 +77,9 @@ class SuppliersController < ApplicationController
       else
         params.require(:supplier).permit(:name, :description)
       end
+    end
+
+    def filter_params
+      params.require(:supplier_filter).permit(:name, :state) if params[:supplier_filter]
     end
 end

@@ -7,6 +7,34 @@
 <!-- Main content -->
 <section class="content">
 
+  <%= form_for @filter, url: :suppliers, method: :get do |f| %>
+
+  <div class="row">
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </fieldset>
+    </div>
+  
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <%= f.label :state %>
+        <%= f.select :state, [['Activo', true], ['Inactivo', false]],
+          {include_blank: true}, {class: 'form-control'} %>
+      </fieldset>
+    </div>
+
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <%= f.label :filter %><br />
+        <%= f.submit 'Filtrar', class: 'btn btn-primary' %>
+      </fieldset>
+    </div>
+  </div>
+
+  <% end %>
+
   <table class="table">
     <thead>
       <tr>
@@ -20,5 +48,7 @@
       <%= render @suppliers %>
     </tbody>
   </table>
+
+  <%= paginate @suppliers %>
 
 </section>

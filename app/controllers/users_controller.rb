@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     else
       @users = User.includes(:supplier).all
     end
+    @users = @users.page(params[:page])
   end
 
   # GET /users/1
