@@ -6,12 +6,8 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    if @supplier
-      @users = @supplier.users
-    else
-      @users = User.includes(:supplier).all
-    end
-    @users = @users.page(params[:page])
+    @filter = UserFilter.new(filter_params)
+    @users = @filter.call(@supplier).page(params[:page])
   end
 
   # GET /users/1
@@ -102,5 +98,9 @@ class UsersController < ApplicationController
       else
         params.require(:user).permit(:email, :password, :password_confirmation, :role, :first_name, :last_name, :supplier_id)
       end
+    end
+
+    def filter_params
+      params.require(:user_filter).permit(:email, :role) if params[:user_filter]
     end
 end

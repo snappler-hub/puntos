@@ -24,6 +24,10 @@ es:
         name: 'Nombre'
         state: 'Estado'
         filter: 'Filtrar'
+      user_filter:
+        email: 'Correo electrónico'
+        role: 'Permisos'
+        filter: 'Filtrar'
 
   roles:
     god: 'Dios'
