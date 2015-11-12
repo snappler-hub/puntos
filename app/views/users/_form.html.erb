@@ -116,8 +116,11 @@
   </div>
 
   <fieldset class="form-group">
-    <%= image_tag @user.image.thumb('100x200').url, class: :thumbnail if @user.image %>
     <%= f.label :image %>
+    <%= image_tag @user.image.thumb('100x200').url, class: :thumbnail if @user.image %>
+    <% if @user.image %>
+      <%= f.check_box :remove_image %> <%= f.label :remove_image, 'Remover foto' %>
+    <% end %>
     <%= f.file_field :image %>
     <p class="help-block">
       <%= @user.image ? 'Click para cambiar la foto' : 'Seleccione una fotografía' %>
