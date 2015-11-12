@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   validates :supplier, presence: true
   validates :password, confirmation: true
 
-  ROLES = ['god', 'admin', 'seller', 'normal_user']
+  ROLES = %w(god admin seller normal_user)
 
   def is?(a_role)
     role == a_role.to_s
