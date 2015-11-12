@@ -33,6 +33,10 @@ class ApplicationController < ActionController::Base
     redirect_to login_path
   end
 
+  def god?
+    is? :god
+  end
+
   def is?(role)
     logged_in? && current_user.is?(role)
   end

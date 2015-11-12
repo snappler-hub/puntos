@@ -21,6 +21,7 @@ gem 'sorcery'
 gem 'pry'
 
 gem 'mandrill-api'
+gem 'kaminari'
 
 group :development, :test do
   gem 'byebug'

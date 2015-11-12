@@ -7,16 +7,43 @@
 <!-- Main content -->
 <section class="content">
 
+  <%= form_for @filter, url: [@supplier, :users], method: :get do |f| %>
+
+    <div class="row">
+      <div class="col-md-3">
+        <fieldset class="form-group">
+          <%= f.label :email %>
+          <%= f.text_field :email, class: 'form-control' %>
+        </fieldset>
+      </div>
+
+      <div class="col-md-3">
+        <fieldset class="form-group">
+          <%= f.label :role %>
+          <%= f.select :role, User::ROLES.map{|role| [t("roles.#{role}"), role]},
+            {include_blank: true}, {class: 'form-control'} %>
+        </fieldset>
+      </div>
+
+      <div class="col-md-3">
+        <fieldset class="form-group">
+          <%= f.label :filter %><br />
+          <%= f.submit 'Filtrar', class: 'btn btn-primary' %>
+        </fieldset>
+      </div>
+    </div>
+
+  <% end %>
+
   <table class="table">
     <thead>
       <tr>
         <th>Correo electrónico</th>
+        <th>Nombre y Apellido</th>
         <th>Rol</th>
         <% unless @supplier %>
           <th>Prestador</th>
         <% end %>
-        <th>Nombre</th>
-        <th>Apellido</th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -26,4 +53,5 @@
     </tbody>
   </table>
 
+  <%= paginate @users %>
 </section>
