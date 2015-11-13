@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
   ROLES = %w(god admin seller normal_user)
   DOCUMENT_TYPES = %w(dni cuil passport)
 
+  def card
+    cards.last || false
+  end
+
   def is?(a_role)
     role == a_role.to_s
   end

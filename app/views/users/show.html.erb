@@ -70,8 +70,13 @@
       <article class="box box-primary">
         <section class="box-body box-profile">
           <h3 class="profile-username text-center">Información de tarjetas</h3>
-          <p class="text-muted text-center">Aún no tiene tarjetas</p>
-
+          <% if @user.cards.empty? %>
+            <p class="text-muted text-center">Aún no tiene tarjetas</p>
+          <% elsif @user.card.active? %>
+            <%= @user.card.number %>
+          <% else %>
+            <p class="text-muted text-center">No tiene tarjetas activas</p>
+          <% end %>
         </section>
       </article>
     </div>

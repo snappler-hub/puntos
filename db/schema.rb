@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 20151112210109) do
     t.integer  "created_by_id",   limit: 4
     t.datetime "resolution_date"
     t.integer  "status",          limit: 4,     default: 0
-    t.string   "firstname",       limit: 255,               null: false
-    t.string   "lastname",        limit: 255,               null: false
+    t.string   "first_name",      limit: 255,               null: false
+    t.string   "last_name",       limit: 255,               null: false
     t.string   "document_type",   limit: 255,               null: false
     t.string   "document_number", limit: 255,               null: false
     t.string   "phone",           limit: 255

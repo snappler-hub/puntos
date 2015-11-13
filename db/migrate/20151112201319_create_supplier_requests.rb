@@ -6,8 +6,8 @@ class CreateSupplierRequests < ActiveRecord::Migration
       t.integer :created_by_id
       t.datetime :resolution_date
       t.integer :status, default: 0 # Enumerable
-      t.string :firstname, null: false
-      t.string :lastname, null: false
+      t.string :first_name, null: false
+      t.string :last_name, null: false
       t.string :document_type, null: false
       t.string :document_number, null: false
       t.string :phone
