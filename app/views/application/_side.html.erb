@@ -1,64 +1,55 @@
-<!-- Left side column. contains the sidebar -->
-<aside class="main-sidebar">
-  <!-- sidebar: style can be found in sidebar.less -->
-  <section class="sidebar">
+<ul class="sidebar-menu">
+  <li class="header">Opciones</li>
 
-    <!-- sidebar menu: : style can be found in sidebar.less -->
-    <ul class="sidebar-menu">
-      <li class="header">Opciones</li>
+  <li>
+    <%= link_to root_path, data: {confirm: '¿Abandonar el area de administración?'} do %>
+      <i class="fa fa-home"></i>
+      <span>Inicio</span>
+    <% end %>
+  </li>
 
-      <li>
-        <%= link_to root_path, data: {confirm: '¿Abandonar el area de administración?'} do %>
-          <i class="fa fa-home"></i>
-          <span>Inicio</span>
-        <% end %>
-      </li>
+  <li>
+    <%= link_to admin_path do %>
+      <i class="fa fa-cog"></i>
+      <span>Panel</span>
+    <% end %>
+  </li>
 
-      <li>
-        <%= link_to admin_path do %>
-          <i class="fa fa-cog"></i>
-          <span>Panel</span>
-        <% end %>
-      </li>
-
-      <% if god? %>
-        <li>
-          <%= link_to suppliers_path do %>
-            <i class="fa fa-square"></i>
-            <span>Prestadores</span>
-          <% end %>
-        </li>
-      
-        <li>
-          <%= link_to users_path do %>
-            <i class="fa fa-users"></i>
-            <span>Todos los usuarios</span>
-          <% end %>
-        </li>
-      <% elsif supplier? %>
-        <li>
-          <%= link_to current_user.supplier do %>
-            <i class="fa fa-square"></i>
-            <span>Prestador</span>
-          <% end %>
-        </li>
-
-        <li>
-          <%= link_to [current_user.supplier, :users] do %>
-            <i class="fa fa-users"></i>
-            <span>Usuarios</span>
-          <% end %>
-        </li>
-        
-        <li>
-          <%= link_to [current_user.supplier, :supplier_requests] do %>
-            <i class="fa fa-file-text-o"></i>
-            <span>Solicitudes</span>
-          <% end %>
-        </li>
+  <% if god? %>
+    <li>
+      <%= link_to suppliers_path do %>
+        <i class="fa fa-square"></i>
+        <span>Prestadores</span>
       <% end %>
+    </li>
+      
+    <li>
+      <%= link_to users_path do %>
+        <i class="fa fa-users"></i>
+        <span>Todos los usuarios</span>
+      <% end %>
+    </li>
+  <% elsif supplier? %>
+    <li>
+      <%= link_to current_user.supplier do %>
+        <i class="fa fa-square"></i>
+        <span>Prestador</span>
+      <% end %>
+    </li>
 
-    </ul>
-  </section><!-- /.sidebar -->
+    <li>
+      <%= link_to [current_user.supplier, :users] do %>
+        <i class="fa fa-users"></i>
+        <span>Usuarios</span>
+      <% end %>
+    </li>
+        
+    <li>
+      <%= link_to [current_user.supplier, :supplier_requests] do %>
+        <i class="fa fa-file-text-o"></i>
+        <span>Solicitudes</span>
+      <% end %>
+    </li>
+  <% end %>
 
-</aside>
+</ul>

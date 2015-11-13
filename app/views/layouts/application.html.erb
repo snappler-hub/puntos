@@ -6,15 +6,18 @@
 
       <%= render 'navbar' %>
 
-      <%= render 'side' %>
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <%= render 'side' %>
+        </section>
+      </aside>
 
-      <div class="content-wrapper">
-
+      <article class="content-wrapper">
         <%= yield %>
         <section id="snackbar-container">
           <%= flash_messages if flash %>
         </section>
-      </div>
+      </article>
 
       <footer class="main-footer">
         <div class="pull-right hidden-xs">
@@ -24,12 +27,9 @@
         <strong>Manes</strong>
       </footer>
 
-
-
      <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
     </div>
-
 
   </body>
 </html>
