@@ -5,8 +5,7 @@ es:
     description: &description Descripción
     email: &email Correo Electrónico
     status: &status Estado
-    
-    
+
   activerecord:
     models:
       User: 'Usuario'
@@ -40,7 +39,7 @@ es:
         phone: 'Teléfono(s)'
         address: 'Dirección'
         image: 'Foto de perfil'
-        
+
       supplier_request:
         firstname: *name
         lastname: *lastname
@@ -50,7 +49,7 @@ es:
         email: *email
         address: Domicilio
         notes: Notas
-        
+
 
   activemodel:
     attributes:
@@ -72,7 +71,7 @@ es:
     admin: 'Administrador'
     seller: 'Vendedor'
     normal_user: 'Usuario final'
-    
+
   supplier_request:
     status:
       requested: Solicitada
@@ -85,4 +84,4 @@ es:
   document_types:
     dni: 'DNI'
     cuil: 'CUIL'
-    passport: 'Pasaporte'
+    passport: 'Pasaporte'    
