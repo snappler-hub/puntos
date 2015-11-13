@@ -1,17 +1,22 @@
+<div class="row">
+<div class="col-md-6">
+<article class="box box-primary">
+<section class="box-body">
+
 <%= form_for [@supplier, @user] do |f| %>
   <% @user.errors.full_messages.each do |message| %>
     <p><%= message %></p>
   <% end %>
 
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-6">
       <fieldset class="form-group">
         <%= f.label :first_name %>
         <%= f.text_field :first_name, class: 'form-control' %>
       </fieldset>
     </div>
   
-    <div class="col-md-3">
+    <div class="col-md-6">
       <fieldset class="form-group">
         <%= f.label :last_name %>
         <%= f.text_field :last_name, class: 'form-control' %>
@@ -20,7 +25,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-4">
       <fieldset class="form-group">
         <%= f.label :document_type %>
         <%= f.select :document_type,
@@ -29,7 +34,7 @@
       </fieldset>    
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-8">
       <fieldset class="form-group">
         <%= f.label :document_number %>
         <%= f.text_field :document_number, class: 'form-control' %>
@@ -38,21 +43,21 @@
   </div>
 
   <div class="row">
-    <div class="col-md-1">
+    <div class="col-md-2">
       <fieldset class="form-group">
         <%= f.label :number %>
         <%= f.text_field :number, class: 'form-control' %>
       </fieldset>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-4">
       <fieldset class="form-group">
         <%= f.label :username %>
         <%= f.text_field :username, class: 'form-control' %>
       </fieldset>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-6">
       <fieldset class="form-group">
         <%= f.label :email %>
         <%= f.text_field :email, class: 'form-control' %>
@@ -61,14 +66,14 @@
   </div>
 
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-6">
       <fieldset class="form-group">
         <%= f.label :password %>
         <%= f.password_field :password, class: 'form-control' %>
       </fieldset>    
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-6">
       <fieldset class="form-group">
         <%= f.label :password_confirmation %>
         <%= f.password_field :password_confirmation, class: 'form-control' %>
@@ -77,14 +82,14 @@
   </div>
 
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-4">
       <fieldset class="form-group">
         <%= f.label :phone %>
         <%= f.text_field :phone, class: 'form-control' %>
       </fieldset>    
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-8">
       <fieldset class="form-group">
         <%= f.label :address %>
         <%= f.text_field :address, class: 'form-control' %>
@@ -94,7 +99,7 @@
 
   <div class="row">
     <% unless is_me?(@user) %>
-      <div class="col-md-2">
+      <div class="col-md-4">
         <fieldset class="form-group">
           <%= f.label :role %>
           <%= f.select :role,
@@ -105,7 +110,7 @@
     <% end %>
 
     <% if god? && !@supplier %>
-      <div class="col-md-4">
+      <div class="col-md-8">
         <fieldset class="form-group">
           <%= f.label :supplier_id %>
           <%= f.collection_select :supplier_id, Supplier.all,
@@ -128,6 +133,11 @@
   </fieldset>
 
   <div class="actions">
-    <%= f.submit 'Guardar Usuario', class: 'btn btn-primary' %>
+    <%= f.submit 'Guardar', class: 'btn btn-primary' %>
   </div>
 <% end %>
+
+</section>
+</article>
+</div>
+</div>

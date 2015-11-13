@@ -6,6 +6,8 @@
 
 <!-- Main content -->
 <section class="content">
+<article class="box box-primary">
+<section class="box-body">
 
   <%= form_for @filter, url: [@supplier, :users], method: :get do |f| %>
 
@@ -54,4 +56,7 @@
   </table>
 
   <%= paginate @users %>
+
+</section>
+</article>
 </section>
