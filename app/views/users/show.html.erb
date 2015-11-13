@@ -53,14 +53,16 @@
               <b>Nombre de usuario</b>
               <a class="pull-right"><%= @user.username %></a>
             </li>
-            <li class="list-group-item">
-              <b>Creado por</b>
-              <a class="pull-right"><%= @user.created_by.email %></a>
-            </li>
-            <li class="list-group-item">
-              <b>Fecha de creación</b>
-              <a class="pull-right"><%= @user.created_at %></a>
-            </li>
+            <% if @user.created_by %>
+              <li class="list-group-item">
+                <b>Creado por</b>
+                <a class="pull-right"><%= @user.created_by.email %></a>
+              </li>
+              <li class="list-group-item">
+                <b>Fecha de creación</b>
+                <a class="pull-right"><%= @user.created_at %></a>
+              </li>
+            <% end %>
           </ul>
         </section>
       </article>
@@ -72,7 +74,7 @@
           <h3 class="profile-username text-center">Información de tarjetas</h3>
           <% if @user.cards.empty? %>
             <p class="text-muted text-center">Aún no tiene tarjetas</p>
-          <% elsif @user.card.active? %>
+          <% elsif @user.card.terms_accepted? %>
             <%= @user.card.number %>
           <% else %>
             <p class="text-muted text-center">No tiene tarjetas activas</p>

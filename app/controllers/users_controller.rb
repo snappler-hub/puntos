@@ -23,6 +23,9 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     authorize!(admin_permission? || is_me?)
+    if is_me? && normal_user?
+      render layout: 'public'
+    end
   end
 
   # POST /users

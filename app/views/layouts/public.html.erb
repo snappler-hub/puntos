@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head><%= render 'head' %></head>
+  <body class="skin-green fixed">
+    <div class="wrapper">
+
+      <%= render 'navbar' %>
+
+      <%= render 'public/side' %>
+
+      <div class="content-wrapper">
+        <section id="content-flash">
+          <%= flash_messages if flash %>
+        </section>
+        <%= yield %>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Version</b>
+          <%= Plenario::Application::VERSION %>
+        </div>
+        <strong>Manes</strong>
+      </footer>
+
+     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+    </div>
+
+  </body>
+</html>

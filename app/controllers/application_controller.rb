@@ -8,9 +8,6 @@ class ApplicationController < ActionController::Base
   def admin
   end
 
-  def index
-  end
-
   private
 
   def only_authorize_admin!
@@ -37,8 +34,8 @@ class ApplicationController < ActionController::Base
     is? :god
   end
 
-  def is?(role)
-    logged_in? && current_user.is?(role)
+  def normal_user?
+    is? :normal_user
   end
 
   def admin_permission?
@@ -52,11 +49,19 @@ class ApplicationController < ActionController::Base
   def current_user_path
     case current_user.role
       when 'god'    then suppliers_path
-      when 'admin'  then current_user.supplier || root_path
-      when 'seller' then root_path
+      when 'admin'  then current_user.supplier || admin_path
+      when 'seller' then admin_path
       else root_path
     end
   end
   helper_method :current_user_path
 
+  def can_admin?
+    is?(:god) || is?(:admin) || is?(:seller)
+  end
+  helper_method :can_admin?
+
+  def is?(role)
+    logged_in? && current_user.is?(role)
+  end
 end
