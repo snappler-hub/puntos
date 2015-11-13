@@ -1,13 +1,11 @@
 module ApplicationHelper
 
   def flash_message(klass, message)
-    klass = 'success' if klass == 'notice'
-    klass = 'danger'  if klass == 'alert'
+    #klass = 'success' if klass == 'notice'
+    #klass = 'danger'  if klass == 'alert'
     flash.discard(klass)
-    content_tag :article, class: "alert alert-#{klass}" do
-      concat close_button(:alert)
-      concat message
-    end
+    content_tag :span, '', class: 'snackbar-message',
+      data: {toggle: :snackbar, content: message, timeout: 10000}
   end
 
   def flash_messages

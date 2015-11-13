@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :require_login
 
   def admin
+    flash[:notice] = 'Probando Snackbar.'
   end
 
   private

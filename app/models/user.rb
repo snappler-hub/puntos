@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   validates :password, confirmation: true
   validates :role, inclusion: {in: ROLES}
   validates :document_type, inclusion: {in: DOCUMENT_TYPES}
+  validates :email, uniqueness: true
 
   def card
     cards.last || false

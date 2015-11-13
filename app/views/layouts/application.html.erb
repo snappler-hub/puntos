@@ -9,10 +9,11 @@
       <%= render 'side' %>
 
       <div class="content-wrapper">
-        <section id="content-flash">
+
+        <%= yield %>
+        <section id="snackbar-container">
           <%= flash_messages if flash %>
         </section>
-        <%= yield %>
       </div>
 
       <footer class="main-footer">
@@ -23,9 +24,12 @@
         <strong>Manes</strong>
       </footer>
 
+
+
      <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
     </div>
+
 
   </body>
 </html>
