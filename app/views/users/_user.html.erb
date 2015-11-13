@@ -7,5 +7,5 @@
   <% end %>
   <td><%= link_to 'Ver', [@supplier, user] %></td>
   <td><%= link_to 'Editar', [:edit, @supplier, user] %></td>
-  <td><%= link_to 'Eliminar', user, method: :delete, data: {confirm: '¿Está seguro?'} %></td>
+  <td><%= link_to 'Eliminar', [@supplier, user], method: :delete, data: {confirm: '¿Está seguro?'} unless is_me?(user) %></td>
 </tr>

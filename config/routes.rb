@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  namespace :api do
+    resources :cards, only: :create
+    resources :sellings, only: :update do
+      post :authorize, on: :collection
+    end
+  end
+
   resources :users
   resources :supplier_requests do
     resources :comments, only: [:create, :index]

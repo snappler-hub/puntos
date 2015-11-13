@@ -11,7 +11,6 @@ one:
   email: MyString
   address: MyString
   notes: MyText
-  created_by: users(:one)
 
 two:
   resolution_date: 2015-11-12 17:13:19

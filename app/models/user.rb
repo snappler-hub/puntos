@@ -8,12 +8,13 @@ class User < ActiveRecord::Base
 
   belongs_to :supplier
   belongs_to :created_by, class_name: 'User'
-  has_many :cards
+  has_many :cards, dependent: :destroy
 
   validates :supplier, presence: true
   validates :password, confirmation: true
   validates :role, inclusion: {in: ROLES}
   validates :document_type, inclusion: {in: DOCUMENT_TYPES}
+  validates :email, uniqueness: true
 
   def to_s
     "#{first_name} #{last_name}"

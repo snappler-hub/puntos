@@ -13,6 +13,7 @@
 //= require version
 //= require jquery
 //= require jquery.turbolinks
+//= require jquery-ui
 //= require jquery_ujs
 
 
@@ -34,20 +35,21 @@
 //= require plugins/fastclick/fastclick.min.js
 //= require plugins/dist/js/app.js
 
-//= require plugins/dist/js/pages/dashboard.js
-//= require plugins/dist/js/demo.js
+//= require snackbar.js
 //= require turbolinks
 //= require comments
 
-$(document).ready(function () {
-    $.AdminLTE.layout.activate();
-});
+$(document).on('page:change', function () {
+  if($('.snackbar-message').length > 0){
+    $('.snackbar-message').snackbar('show');
+  };
 
-$(document).on('page:load', function () {
-    var o;
-    o = $.AdminLTE.options;
-    if (o.sidebarPushMenu) {
-        $.AdminLTE.pushMenu.activate(o.sidebarToggleSelector);
-    }
-    $.AdminLTE.layout.activate();
+  $("[data-controlsidebar]").on('click', function () {
+    change_layout($(this).data('controlsidebar'));
+    var slide = !AdminLTE.options.controlSidebarOptions.slide;
+    AdminLTE.options.controlSidebarOptions.slide = slide;
+    if (!slide){
+      $('.control-sidebar').removeClass('control-sidebar-open');
+    };
+  });
 });
