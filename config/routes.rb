@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
 
   resources :users
+  resources :supplier_requests do
+    resources :comments, only: [:create, :index]
+  end
   resources :comments, only: [:destroy]
   
   resources :suppliers do
     resources :users
-    resources :supplier_requests, except: [:destroy]
-  end
-  resources :supplier_requests, only: [:destroy] do
-    resources :comments, only: [:create, :index]
+    resources :supplier_requests
   end
 
   resources :sessions, only: :create

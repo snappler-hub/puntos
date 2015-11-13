@@ -2,7 +2,9 @@ class CommentsController < ApplicationController
   layout false
   
   before_filter :load_commentable, only: [:index, :create]
+  before_filter :commentable_permission!, only: [:index, :create]
   before_filter :get_comment, only: [:destroy, :update]
+  before_filter :comment_permission!, except: [:index, :create]
 
   def index
     @comments = @commentable.comments.page(params[:page])
@@ -51,5 +53,12 @@ class CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:text)
   end
-
+  
+  def commentable_permission!
+    authorize! current_user.can_view?(@commentable)
+  end
+  
+  def comment_permission!
+    authorize! @comment.user == current_user
+  end
 end

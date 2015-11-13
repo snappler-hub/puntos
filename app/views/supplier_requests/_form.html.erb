@@ -61,6 +61,28 @@
   </div>
   
   <div class="row">
+    <% if god? && !@supplier %>
+      <div class="col-md-4">
+        <fieldset class="form-group">
+          <%= f.label :supplier_id %>
+          <%= f.collection_select :supplier_id, Supplier.all,
+              :id, :name, {}, {class: 'form-control', include_blank: false} %>
+        </fieldset>
+      </div>
+      
+      <div class="col-md-4">
+        <fieldset class="form-group">
+          <%= f.label :status %>
+          <%= f.select :status, SupplierRequest.statuses.keys.map { |s| [I18n.t("supplier_request.status.#{s}"),s] },
+            {include_blank: false}, {class: 'form-control'} %>
+        </fieldset>
+      </div>
+      
+      
+    <% end %>
+  </div>
+  
+  <div class="row">
     <div class="col-md-12">
       <fieldset class="form-group">
         <%= f.label :notes %>

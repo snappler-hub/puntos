@@ -71,21 +71,32 @@ class SupplierRequestsController < ApplicationController
   def set_supplier
     if params[:supplier_id]
       @supplier = Supplier.find(params[:supplier_id])
-    else
-      @supplier = current_user.supplier if current_user.supplier
     end
   end
   
   def set_supplier_request
-    @supplier_request = @supplier.supplier_requests.find(params[:id])
+    if @supplier
+      @supplier_request = @supplier.supplier_requests.find(params[:id])
+    else
+      @supplier_request = SupplierRequest.find(params[:id])
+    end
   end
   
   def filter_params
-    params.require(:supplier_request_filter).permit(:status, :name, :document_number) if params[:supplier_request_filter]
+    if params[:supplier_request_filter]
+      allow_params = [:status, :name, :document_number]
+      allow_params << :supplier_id if god?
+      
+      parameters = params.require(:supplier_request_filter).permit(allow_params) 
+    end
   end
   
   def supplier_request_params
-    params.require(:supplier_request).permit(:first_name, :last_name, :document_type, :document_number, :phone, :email, :address, :notes)
+    allow_params = [:first_name, :last_name, :document_type, :document_number, :phone, :email, :address, :notes]
+    allow_params << :supplier_id << :status if god?
+    
+    parameters = params.require(:supplier_request).permit(allow_params)
+    
   end
   
 end

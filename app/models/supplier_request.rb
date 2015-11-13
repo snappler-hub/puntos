@@ -10,6 +10,8 @@ class SupplierRequest < ActiveRecord::Base
 
   # -- Validations
   validates :first_name, :last_name, :document_type, :document_number, presence: true
+  validates :supplier, presence: true
+  validates :created_by, presence: true
 
   # -- Misc
   enum status: {requested: 0, rejected: 1, in_progress: 2, emitted: 3, pre_delivered: 4, delivered: 5}
@@ -24,5 +26,9 @@ class SupplierRequest < ActiveRecord::Base
   # Returns identification type and number
   def full_identification
     "#{document_type} #{document_number}"
+  end
+  
+  def can_be_viewed_by?(user)
+    (user.is? :god) || (user.is?(:admin) && (user.supplier == self.supplier))
   end
 end

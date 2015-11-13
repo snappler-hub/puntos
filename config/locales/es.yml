@@ -50,6 +50,8 @@ es:
         email: *email
         address: Domicilio
         notes: Notas
+        status: Estado
+        supplier_id: Prestador
         
 
   activemodel:
@@ -66,6 +68,7 @@ es:
         status: *status
         name: Solicitante
         document_number: Nro de Documento
+        supplier_id: Prestador
         filter: Filtrar
 
   roles:

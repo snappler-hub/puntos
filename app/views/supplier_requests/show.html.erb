@@ -1,6 +1,4 @@
 <header class="content-header">
-  <%= link_to 'Editar', [:edit, @supplier, @supplier_request],
-      class: 'btn btn-sm btn-success pull-right' %>
   <%= link_to 'Volver', [@supplier, :supplier_requests],
       class: 'btn btn-sm btn-default pull-right' %>
   <h1>Ver Solicitud</h1>
@@ -34,6 +32,9 @@
 
     <dt>Prestador</dt>
     <dd><%= @supplier_request.supplier.name %></dd>
+    
+    <dt>Estado</dt>
+    <dd> <%= t "supplier_request.status.#{@supplier_request.status}" %> </dd>
     
     <dt>Notas</dt>
     <dd><%= @supplier_request.notes.presence || '--' %></dd>

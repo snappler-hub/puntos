@@ -35,6 +35,13 @@
             <span>Todos los usuarios</span>
           <% end %>
         </li>
+        
+        <li>
+          <%= link_to supplier_requests_path do %>
+            <i class="fa fa-file-text-o"></i>
+            <span>Todas las solicitudes</span>
+          <% end %>
+        </li>
       <% elsif supplier? %>
         <li>
           <%= link_to current_user.supplier do %>
