@@ -42,8 +42,8 @@ es:
         image: 'Foto de perfil'
         
       supplier_request:
-        firstname: *name
-        lastname: *lastname
+        first_name: *name
+        last_name: *lastname
         document_type: Tipo de Documento
         document_number: Nro de Documento
         phone: Teléfono
@@ -64,8 +64,9 @@ es:
         filter: 'Filtrar'
       supplier_request_filter:
         status: *status
-        email: *email
-        filter: 'Filtrar'
+        name: Solicitante
+        document_number: Nro de Documento
+        filter: Filtrar
 
   roles:
     god: 'Dios'

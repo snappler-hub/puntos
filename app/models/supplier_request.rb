@@ -6,6 +6,7 @@ class SupplierRequest < ActiveRecord::Base
   # -- Associations
   belongs_to :supplier
   belongs_to :created_by, class_name: 'User'
+  has_many :comments, as: :commentable
 
   # -- Validations
   validates :first_name, :last_name, :document_type, :document_number, presence: true

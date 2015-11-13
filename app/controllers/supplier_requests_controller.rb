@@ -81,7 +81,7 @@ class SupplierRequestsController < ApplicationController
   end
   
   def filter_params
-    params.require(:supplier_request_filter).permit(:status, :email) if params[:supplier_request_filter]
+    params.require(:supplier_request_filter).permit(:status, :name, :document_number) if params[:supplier_request_filter]
   end
   
   def supplier_request_params

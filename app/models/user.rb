@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
   validates :role, inclusion: {in: ROLES}
   validates :document_type, inclusion: {in: DOCUMENT_TYPES}
 
+  def to_s
+    "#{first_name} #{last_name}"
+  end
+  
   def card
     cards.last || false
   end

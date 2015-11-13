@@ -1,0 +1,16 @@
+<div id="<%= dom_id(comment) %>" class="comment">
+  
+  <div class="comment-info"> 
+    <b> <%= comment.user %> </b>
+    <small class="comment-date text-muted"> <%= l comment.created_at, format: :short %> </small>    
+    
+    <%= link_to fa_icon(:trash).html_safe, comment, method: :delete, 
+          remote: true, class: 'remove-comment text-danger' if comment.is_owner?(current_user)  %>
+          
+  </div>
+  
+  <div class="comment-text"> 
+    <%= simple_format comment.text %>
+  </div>
+  
+</div>

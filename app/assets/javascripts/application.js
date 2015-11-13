@@ -37,6 +37,7 @@
 //= require plugins/dist/js/pages/dashboard.js
 //= require plugins/dist/js/demo.js
 //= require turbolinks
+//= require comments
 
 $(document).ready(function () {
     $.AdminLTE.layout.activate();

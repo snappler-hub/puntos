@@ -3,23 +3,24 @@
 one:
   resolution_date: 2015-11-12 17:13:19
   status: 0
-  firstname: MyString
-  lastname: MyString
+  first_name: MyString
+  last_name: MyString
   document_type: MyString
   document_number: MyString
   phone: MyString
   email: MyString
   address: MyString
-  note: MyText
+  notes: MyText
+  created_by: users(:one)
 
 two:
   resolution_date: 2015-11-12 17:13:19
   status: 1
-  firstname: MyString
-  lastname: MyString
+  first_name: MyString
+  last_name: MyString
   document_type: MyString
   document_number: MyString
   phone: MyString
   email: MyString
   address: MyString
-  note: MyText
+  notes: MyText

@@ -18,7 +18,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'sorcery'
 
-gem 'pry'
 
 gem 'mandrill-api'
 gem 'kaminari'
@@ -26,6 +25,7 @@ gem 'dragonfly', '~> 1.0.12'
 
 group :development, :test do
   gem 'byebug'
+  gem 'pry'
 end
 
 group :development do
