@@ -34,7 +34,6 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.supplier = @supplier if @supplier
     @user.created_by = current_user if current_user
-
     respond_to do |format|
       if @user.save
         format.html { redirect_to [@supplier, @user], notice: 'El usuario ha sido creado correctamente.' }
