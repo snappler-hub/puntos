@@ -4,19 +4,20 @@
   <h1>Solicitudes</h1>
 </header>
 
-<!-- Main content -->
 <section class="content">
+<article class="box box-primary">
+<section class="box-body">
 
   <%= render 'filter' %>
 
   <table class="table">
     <thead>
       <tr>
-        <th> Fecha </th>
-        <th> Cliente </th>
-        <th> Estado </th>
-        <th> Documento </th>
-        <th> Correo </th>
+        <th>Fecha</th>
+        <th>Cliente</th>
+        <th>Estado</th>
+        <th>Documento</th>
+        <th>Correo</th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -28,4 +29,6 @@
 
   <%= paginate @supplier_requests %>
 
+</section>
+</article>
 </section>

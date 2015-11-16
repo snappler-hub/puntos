@@ -39,6 +39,5 @@ $(document).on('page:change', function () {
   $('.comments_widget').each(function(key, item) {
     var widget = new $.CommentsWidget(item);
     widget.launch();
-  });
-  
+  });  
 });

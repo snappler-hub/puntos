@@ -1,49 +1,58 @@
 <header class="content-header">
   <%= link_to 'Volver', [@supplier, :supplier_requests],
-      class: 'btn btn-sm btn-default pull-right' %>
+      class: 'btn btn-default pull-right' %>
   <h1>Ver Solicitud</h1>
 </header>
 
 <section class="content">
 
-  <dl>
-    <dt>Fecha</dt>
-    <dd><%= l @supplier_request.created_at %></dd>
-    
-    <dt>Nombre</dt>
-    <dd><%= @supplier_request.full_client_name %></dd>
-    
-    <dt>Documento</dt>
-    <dd><%= @supplier_request.full_identification %></dd>
-  
-    <dt>Correo Electrónico</dt>
-    <dd><%= @supplier_request.email.presence || '--' %></dd>
-    
-    <dt>Teléfono</dt>
-    <dd><%= @supplier_request.phone.presence || '--' %></dd>
-    
-    <dt>Domicilio</dt>
-    <dd><%= @supplier_request.address.presence || '--' %></dd>
+  <div class="row">
+    <div class="col-md-4">
+      <article class="box box-primary">
+        <section class="box-body box-profile">
+          <h3 class="profile-username text-center">
+            <%= @supplier_request.full_client_name %>
+          </h3>
+          <p class="text-muted text-center">
+            Solicitada por <%= @supplier_request.created_by.email %><br />
+            <%= l @supplier_request.created_at %>         
+          </p>
+          <ul class="list-group list-group-unbordered">
+            <li class="list-group-item">
+              <b><%= I18n.t @supplier_request.document_type, scope: :document_types %></b>
+              <a class="pull-right"><%= @supplier_request.document_number %></a>
+            </li>
+            <li class="list-group-item">
+              <b>Correo electrónico</b>
+              <a class="pull-right"><%= @supplier_request.email %></a>
+            </li>
+            <li class="list-group-item">
+              <b>Teléfono</b>
+              <a class="pull-right"><%= @supplier_request.phone %></a>
+            </li>
+            <li class="list-group-item">
+              <b>Domicilio</b>
+              <a class="pull-right"><%= @supplier_request.address %></a>
+            </li>
+            <li class="list-group-item">
+              <b>Prestador</b>
+              <a class="pull-right"><%= @supplier_request.supplier.name %></a>
+            </li>
+            <li class="list-group-item">
+              <b>Estado</b>
+              <a class="pull-right"><%= t "supplier_request.status.#{@supplier_request.status}" %></a>
+            </li>
+          </ul>
+          <% if @supplier_request.notes %>
+            <strong>Notas</strong>
+            <p><%= @supplier_request.notes %></p>
+          <% end %>
+        </section>
+      </article>
+    </div>
+  </div>
 
-    <dt>Creado por</dt>
-    <dd>
-      <%= @supplier_request.created_by.email %>
-    </dd>
-
-    <dt>Prestador</dt>
-    <dd><%= @supplier_request.supplier.name %></dd>
-    
-    <dt>Estado</dt>
-    <dd> <%= t "supplier_request.status.#{@supplier_request.status}" %> </dd>
-    
-    <dt>Notas</dt>
-    <dd><%= @supplier_request.notes.presence || '--' %></dd>
-  </dl>
-
-</section>
-
-<section class="content">
-  
-  <%= comment_widget(url_for([@supplier_request, :comments]))  %>
-  
+  <section class="content">
+    <%= comment_widget(url_for([@supplier_request, :comments])) %>
+  </section>
 </section>
