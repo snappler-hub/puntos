@@ -1,16 +1,17 @@
-<div id="<%= dom_id(comment) %>" class="comment">
-  
-  <div class="comment-info"> 
-    <b> <%= comment.user %> </b>
-    <small class="comment-date text-muted"> <%= l comment.created_at, format: :short %> </small>    
-    
-    <%= link_to fa_icon(:trash).html_safe, comment, method: :delete, 
-          remote: true, class: 'remove-comment text-danger' if comment.is_owner?(current_user)  %>
-          
+<div id="<%= dom_id(comment) %>" class="post comment">
+  <div class="user-block">
+    <% if comment.user.image %>
+      <%= image_tag comment.user.image.thumb('64x64').url, class: 'img-circle img-bordered-sm' %>
+    <% else %>
+      <%= image_tag 'default_avatar.png', class: 'img-circle img-bordered-sm'%>
+    <% end %>
+    <span class="username">
+      <a href="#"><%= comment.user %></a>
+      <%= link_to fa_icon(:times).html_safe, comment, method: :delete, 
+          remote: true, class: 'pull-right btn-box-tool remove-comment' if comment.is_owner?(current_user) %>
+    </span>
+    <span class="description"><%= l comment.created_at, format: :short %></span>
   </div>
-  
-  <div class="comment-text"> 
-    <%= simple_format comment.text %>
-  </div>
-  
+                  <!-- /.user-block -->
+  <p><%= simple_format comment.text %></p>
 </div>
