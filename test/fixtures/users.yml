@@ -24,3 +24,13 @@ admin:
   created_by_id: god
   supplier: drogueria_manes
 
+
+seller:
+  email: 'usuario@normal.com.ar'
+  role: 'seller'
+  first_name: 'Usuario'
+  last_name: 'Común'
+  document_number: '12345671'
+  document_type: 'dni'
+  created_by_id: admin
+  supplier: drogueria_manes
