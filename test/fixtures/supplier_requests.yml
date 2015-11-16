@@ -3,23 +3,13 @@
 one:
   resolution_date: 2015-11-12 17:13:19
   status: 0
-  first_name: MyString
-  last_name: MyString
-  document_type: MyString
-  document_number: MyString
-  phone: MyString
-  email: MyString
-  address: MyString
-  notes: MyText
-
-two:
-  resolution_date: 2015-11-12 17:13:19
-  status: 1
-  first_name: MyString
-  last_name: MyString
-  document_type: MyString
-  document_number: MyString
-  phone: MyString
-  email: MyString
-  address: MyString
-  notes: MyText
+  first_name: Jorge
+  last_name: Snappler
+  document_type: dni
+  document_number: 12312321
+  phone: 21231231
+  email: snappler@snappler.com
+  address: Diag 79 y 55
+  notes: Probando
+  supplier: drogueria_manes
+  created_by: admin
