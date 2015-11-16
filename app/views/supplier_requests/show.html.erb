@@ -1,7 +1,7 @@
 <header class="content-header">
   <%= link_to 'Volver', [@supplier, :supplier_requests],
       class: 'btn btn-default pull-right' %>
-  <h1>Ver Solicitud</h1>
+  <h1>Información de solicitud</h1>
 </header>
 
 <section class="content">
@@ -50,9 +50,9 @@
         </section>
       </article>
     </div>
+    <div class="col-md-8">
+      <%= comment_widget(url_for([@supplier_request, :comments])) %>
+    </div>
   </div>
 
-  <section class="content">
-    <%= comment_widget(url_for([@supplier_request, :comments])) %>
-  </section>
 </section>
