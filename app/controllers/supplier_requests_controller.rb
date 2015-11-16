@@ -1,6 +1,6 @@
 class SupplierRequestsController < ApplicationController
   before_action :set_supplier
-  before_action :set_supplier_request, only: [:show, :edit, :update, :destroy]
+  before_action :set_supplier_request, only: [:show, :edit, :update, :destroy, :new_user]
   before_action :only_authorize_admin!, except: [:show, :edit, :update, :destroy]
 
   # GET /supplier_requests
@@ -18,6 +18,21 @@ class SupplierRequestsController < ApplicationController
   # GET /supplier_requests/new
   def new
     @supplier_request = SupplierRequest.new
+  end
+
+  def new_user
+
+    @user_card_form = UserCardForm.from_request(@supplier_request)
+  end
+
+  def create_user
+    @user_card_form = UserCardForm.new(user_card_params)
+    user = @user_card_form.submit
+    if user
+      redirect_to user, notice: 'Creado exitosamente'
+    else
+      render 'new_user', alert: 'Error al crear usuario'
+    end
   end
   
   # POST /supplier_requests
@@ -86,7 +101,6 @@ class SupplierRequestsController < ApplicationController
     if params[:supplier_request_filter]
       allow_params = [:status, :name, :document_number]
       allow_params << :supplier_id if god?
-      
       parameters = params.require(:supplier_request_filter).permit(allow_params) 
     end
   end
@@ -94,9 +108,11 @@ class SupplierRequestsController < ApplicationController
   def supplier_request_params
     allow_params = [:first_name, :last_name, :document_type, :document_number, :phone, :email, :address, :notes]
     allow_params << :supplier_id << :status if god?
-    
     parameters = params.require(:supplier_request).permit(allow_params)
-    
+  end
+
+  def user_card_params
+    params.require(:user_card_form).permit(*UserCardForm::ALL_ATTRIBUTES)
   end
   
 end

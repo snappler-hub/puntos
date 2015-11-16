@@ -84,6 +84,8 @@
             <%= @user.card.number %>
           <% else %>
             <p class="text-muted text-center">No tiene tarjetas activas</p>
+            <p class="text-muted text-center">Nro. de tarjeta: <%= @user.card.number %></p>
+
           <% end %>
         </section>
       </article>

@@ -1,0 +1,111 @@
+  <div class="row">
+    <div class="col-md-6">
+      <fieldset class="form-group">
+        <%= f.label :first_name %>
+        <%= f.text_field :first_name, class: 'form-control', required: true %>
+      </fieldset>
+    </div>
+  
+    <div class="col-md-6">
+      <fieldset class="form-group">
+        <%= f.label :last_name %>
+        <%= f.text_field :last_name, class: 'form-control', required: true %>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <fieldset class="form-group">
+        <%= f.label :document_type %>
+        <%= f.select :document_type,
+            User::DOCUMENT_TYPES.map{|type| [t("document_types.#{type}"), type]},
+            {}, {class: 'form-control', include_blank: true} %>
+      </fieldset>    
+    </div>
+
+    <div class="col-md-8">
+      <fieldset class="form-group">
+        <%= f.label :document_number %>
+        <%= f.text_field :document_number, class: 'form-control' %>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        <%= f.label :number %>
+        <%= f.text_field :number, class: 'form-control' %>
+      </fieldset>
+    </div>
+
+    <div class="col-md-4">
+      <fieldset class="form-group">
+        <%= f.label :username %>
+        <%= f.text_field :username, class: 'form-control' %>
+      </fieldset>
+    </div>
+
+    <div class="col-md-6">
+      <fieldset class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: 'form-control', required: true %>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <fieldset class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %>
+      </fieldset>    
+    </div>
+
+    <div class="col-md-6">
+      <fieldset class="form-group">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <fieldset class="form-group">
+        <%= f.label :phone %>
+        <%= f.text_field :phone, class: 'form-control' %>
+      </fieldset>    
+    </div>
+
+    <div class="col-md-8">
+      <fieldset class="form-group">
+        <%= f.label :address %>
+        <%= f.text_field :address, class: 'form-control' %>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="row">
+    <% unless is_me?(@user) %>
+      <div class="col-md-4">
+        <fieldset class="form-group">
+          <%= f.label :role %>
+          <%= f.select :role,
+              permitted_roles.map {|role| [t("roles.#{role}"), role]},
+              {}, {class: 'form-control', include_blank: false} %>
+        </fieldset>
+      </div>
+    <% end %>
+
+    <% if god? && !@supplier %>
+      <div class="col-md-8">
+        <fieldset class="form-group">
+          <%= f.label :supplier_id %>
+          <%= f.collection_select :supplier_id, Supplier.all,
+              :id, :name, {}, {class: 'form-control', include_blank: false} %>
+        </fieldset>
+      </div>
+    <% end %>
+  </div>

@@ -10,9 +10,7 @@ class User < ActiveRecord::Base
   belongs_to :created_by, class_name: 'User'
   has_many :cards, dependent: :destroy
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :supplier, presence: true
+  validates :first_name, :last_name, :supplier, presence: true
   validates :password, confirmation: true
   validates :role, inclusion: {in: ROLES}
   validates :document_type, inclusion: {in: DOCUMENT_TYPES}
@@ -24,6 +22,15 @@ class User < ActiveRecord::Base
   
   def card
     cards.last || false
+  end
+
+  #Este método lo uso para crear una tarjeta al crear un usuario.
+  def card_number=(card_number)
+    @card_number = card_number
+  end
+
+  def card_number
+    @card_number || card && card.number
   end
 
   def accept_terms_of_use!

@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   resources :users
   resources :supplier_requests do
+    get :new_user, on: :member
+    post :create_user, on: :collection
     resources :comments, only: [:create, :index]
   end
   resources :comments, only: [:destroy]

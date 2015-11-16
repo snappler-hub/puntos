@@ -1,10 +1,12 @@
 es:
   dictionary:
-    name: &name Nombre
-    lastname: &lastname Apellido
-    description: &description Descripción
-    email: &email Correo Electrónico
-    status: &status Estado
+    name: &first_name 'Nombre'
+    last_name: &last_name 'Apellido'
+    description: &description 'Descripción'
+    email: &email 'Correo Electrónico'
+    status: &status 'Estado'
+    phone: &phone 'Teléfono(s)'
+    address: &address 'Domicilio'
 
   activerecord:
     models:
@@ -12,7 +14,7 @@ es:
       Supplier: 'Prestador'
     attributes:
       supplier:
-        name: *name
+        name: 'Nombre'
         description: *description
         active: 'Activo'
       user:
@@ -20,34 +22,28 @@ es:
         password: 'Contraseña'
         password_confirmation: 'Confirmación de contraseña'
         role: 'Permisos'
-        supplier: 'Prestador'
-        first_name: *name
-        last_name: *lastname
+        first_name: *first_name
+        last_name: *last_name
         created_by: 'Creado por' # TODO: No se usa
         document_type: 'Tipo de Documento'
         document_number: 'Nro. de Documento'
-        first_name: 'Nombre'
-        last_name: 'Apellido'
         number: 'Número'
         username: 'Nombre de usuario'
-        email: 'Correo electrónico'
-        password: 'Contraseña'
-        password_confirmation: 'Confirmación de contraseña'
-        role: 'Permisos'
+        supplier: 'Prestador'
         supplier_id: 'Prestador'
         created_by: 'Creado por' # TODO: No se usa
-        phone: 'Teléfono(s)'
-        address: 'Dirección'
+        phone: *phone
+        address: *address
         image: 'Foto de perfil'
 
       supplier_request:
-        first_name: *name
-        last_name: *lastname
+        first_name: *first_name
+        last_name: *last_name
         document_type: Tipo de Documento
         document_number: Nro de Documento
-        phone: Teléfono
+        phone: *phone
         email: *email
-        address: Domicilio
+        address: *address
         notes: Notas
         status: Estado
         supplier_id: Prestador
@@ -56,7 +52,7 @@ es:
   activemodel:
     attributes:
       supplier_filter:
-        name: *name
+        name: 'Nombre'
         state: *status
         filter: 'Filtrar'
       user_filter:
@@ -69,6 +65,21 @@ es:
         document_number: Nro de Documento
         supplier_id: Prestador
         filter: Filtrar
+      user_card_form:
+        email: *email
+        password: 'Contraseña'
+        password_confirmation: 'Confirmación de contraseña'
+        role: 'Permisos'
+        first_name: *first_name
+        last_name: *last_name
+        document_type: 'Tipo de Documento'
+        document_number: 'Nro. de Documento'
+        number: 'Número'
+        username: 'Nombre de usuario'
+        supplier_id: 'Prestador'
+        phone: *phone
+        address: 'Dirección'
+        card_number: 'Número de tarjeta'
 
   roles:
     god: 'Dios'

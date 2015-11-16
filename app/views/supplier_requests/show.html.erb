@@ -49,8 +49,10 @@
           <% end %>
         </section>
         <div class="box-footer">
+          <%= link_to 'Asignar tarjeta', [:new_user, @supplier_request],
+              class: 'btn btn-primary' if god? %>
           <%= link_to 'Editar', [:edit, @supplier, @supplier_request],
-              class: 'btn btn-primary' %>
+              class: 'btn btn-success' %>
           <%= link_to 'Eliminar', [@supplier, @supplier_request], method: :delete, class: 'btn btn-danger',
               data: {confirm: '¿Está seguro?'} unless is_me?(@user) %>
         </div>
