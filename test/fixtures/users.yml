@@ -5,14 +5,22 @@
 # below each fixture, per the syntax in the comments below
 #
 
-one: 
-  first_name: One
-  last_name: User
-  email: one@user.com
-# column: value
-#
-two: 
-  first_name: Two
-  last_name: User
-  email: two@user.com
-#  column: value
+god: 
+  email: 'marcelo@manes.com.ar'
+  role: 'god'
+  first_name: 'Marcelo'
+  last_name: 'Bauer'
+  document_number: '12345670'
+  document_type: 'dni'
+  supplier: farmacia_manes
+
+admin: 
+  email: 'drogueria@manes.com.ar'
+  role: 'admin'
+  first_name: 'Drogueria'
+  last_name: 'Manes'
+  document_number: '12345672'
+  document_type: 'dni'
+  created_by_id: god
+  supplier: drogueria_manes
+

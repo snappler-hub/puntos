@@ -9,7 +9,10 @@ class SupplierRequest < ActiveRecord::Base
   has_many :comments, as: :commentable
 
   # -- Validations
-  validates :first_name, :last_name, :document_type, :document_number, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :document_type, presence: true
+  validates :document_number, presence: true
   validates :supplier, presence: true
   validates :created_by, presence: true
 
