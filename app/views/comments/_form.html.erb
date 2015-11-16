@@ -2,7 +2,7 @@
              html: {id: dom_id(@commentable, 'comments-form')} do |f| %>
                
   <fieldset class="form-group">
-    <%= f.text_area :text, class: 'form-control', rows: 2 %>
+    <%= f.text_area :text, class: 'form-control', rows: 2, required: true %>
   </fieldset>
   
   <div class="actions">
