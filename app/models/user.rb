@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   belongs_to :created_by, class_name: 'User'
   has_many :cards, dependent: :destroy
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
   validates :supplier, presence: true
   validates :password, confirmation: true
   validates :role, inclusion: {in: ROLES}

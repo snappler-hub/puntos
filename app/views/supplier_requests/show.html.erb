@@ -15,7 +15,7 @@
           </h3>
           <p class="text-muted text-center">
             Solicitada por <%= @supplier_request.created_by.email %><br />
-            <%= l @supplier_request.created_at %>         
+            <%= l @supplier_request.created_at, format: :short %>         
           </p>
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
@@ -23,7 +23,7 @@
               <a class="pull-right"><%= @supplier_request.document_number %></a>
             </li>
             <li class="list-group-item">
-              <b>Correo electrónico</b>
+              <b>Correo </b>
               <a class="pull-right"><%= @supplier_request.email %></a>
             </li>
             <li class="list-group-item">
@@ -48,6 +48,12 @@
             <p><%= @supplier_request.notes %></p>
           <% end %>
         </section>
+        <div class="box-footer">
+          <%= link_to 'Editar', [:edit, @supplier, @supplier_request],
+              class: 'btn btn-primary' %>
+          <%= link_to 'Eliminar', [@supplier, @supplier_request], method: :delete, class: 'btn btn-danger',
+              data: {confirm: '¿Está seguro?'} unless is_me?(@user) %>
+        </div>
       </article>
     </div>
     <div class="col-md-8">
