@@ -1,8 +1,14 @@
 require 'test_helper'
 
 class SuppliersControllerTest < ActionController::TestCase
+  include Sorcery::TestHelpers::Rails::Integration
+  include Sorcery::TestHelpers::Rails::Controller
+  
   setup do
-    @supplier = suppliers(:one)
+    @supplier = suppliers(:sin_usuarios)
+    @user = users(:god)
+    
+    login_user(user = @user, route=login_url)
   end
 
   test "should get index" do

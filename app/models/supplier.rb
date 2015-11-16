@@ -8,7 +8,7 @@ class Supplier < ActiveRecord::Base
   validates :name, presence: true
 
   def destroyable?
-    users.empty
+    users.empty?
   end
 
   def to_param

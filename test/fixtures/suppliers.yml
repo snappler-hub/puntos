@@ -9,3 +9,8 @@ drogueria_manes:
   name: 'Droguería Manes'
   description: 'Servicios farmacéuticos, droguería, farmacia'
   active: true
+
+sin_usuarios:
+  name: 'Sin usuarios'
+  description: 'Un prestador sin usuarios'
+  active: true
