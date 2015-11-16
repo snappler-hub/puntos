@@ -10,8 +10,8 @@
       </div>
       
       <%= content_tag(:p, 'No hay comentarios', class: 'text-muted text-center', 
-              id: dom_id(@commentable, 'remove-comments') ) if @comments.empty? %>
-              
+              id: dom_id(@commentable, 'remove-comments')) if @comments.empty? %>
+
       <div class="comments-pagination">
         <%= link_to_next_page @comments, 'Siguiente', class: 'btn btn-default', remote: true %>
       </div>
@@ -19,7 +19,7 @@
     
   </div>
   
-  <h4> Nuevo Comentario </h4>
+  <h4>Nuevo Comentario</h4>
   <%= render 'form' %>
   
 </div>
