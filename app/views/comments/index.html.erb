@@ -1,9 +1,9 @@
 <div class="comments">
   <h3> Comentarios </h3>
-  
-  <div class="well row">
 
-    <div id="<%= dom_id(@commentable, 'comments') %>" class="col-md-12">
+  <div class="well">
+
+    <div id="<%= dom_id(@commentable, 'comments') %>">
       
       <div id="<%= dom_id(@commentable, 'comments-list') %>">
         <%= render @comments %>
@@ -19,12 +19,7 @@
     
   </div>
   
-  <div class="row">
-
-    <div class="col-md-12">
-      <h4> Nuevo Comentario </h4>
-      <%= render 'form' %>
-    </div>
-  </div>
+  <h4> Nuevo Comentario </h4>
+  <%= render 'form' %>
   
 </div>
