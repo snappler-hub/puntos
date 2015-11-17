@@ -24,6 +24,10 @@
  *= require_self
  */
 
+html.turbolinks-progress-bar::before {
+  background-color: white !important;
+}
+
 .label.requested {
   background-color: #f0ad4e;
 }
