@@ -26,7 +26,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_difference('User.count') do
       post :create, supplier_id: @user.supplier_id, user: {
         first_name: @supplier_user.first_name, last_name: @supplier_user.last_name, document_type: @supplier_user.document_type,
-        document_number: @supplier_user.document_number, phone: @supplier_user.phone, email: 'nuevo_email@prueba.com',
+        document_number: '12345678', phone: @supplier_user.phone, email: 'nuevo_email@prueba.com',
         address: @supplier_user.address, role: @supplier_user.role, password: '123123123', password_confirmation: '123123123'
       }
     end
