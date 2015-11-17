@@ -48,6 +48,11 @@ es:
         status: Estado
         supplier_id: Prestador
         
+      product:
+        code: Código
+        name: Nombre
+        points: Puntos
+        
 
   activemodel:
     attributes:
@@ -65,6 +70,9 @@ es:
         document_number: Nro de Documento
         supplier_id: Prestador
         filter: Filtrar
+      product_filter:
+        code: Código
+        name: Nombre
       user_card_form:
         email: *email
         password: 'Contraseña'
@@ -80,6 +88,7 @@ es:
         phone: *phone
         address: 'Dirección'
         card_number: 'Número de tarjeta'
+      
 
   roles:
     god: 'Dios'
