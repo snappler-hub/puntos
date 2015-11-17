@@ -1,9 +1,9 @@
 <tr>
   <td><%= l supplier_request.created_at, format: :short %></td>
-  <td> <%= supplier_request.full_client_name %> </td>
-  <td> <%= t "supplier_request.status.#{supplier_request.status}" %> </td>
-  <td> <%= supplier_request.document_number %> </td>
-  <td> <%= supplier_request.email %> </td>
+  <td><%= supplier_request.full_client_name %></td>
+  <td><%= content_tag :span, t("supplier_request.status.#{supplier_request.status}"), class: ['label', supplier_request.status] %></td>
+  <td><%= supplier_request.document_number %></td>
+  <td><%= supplier_request.email %></td>
   
   <td>
     <%= link_to 'Ver', [@supplier, supplier_request], class: 'btn btn-xs btn-primary' %>

@@ -23,3 +23,26 @@
  *= require snackbar
  *= require_self
  */
+
+.label.requested {
+  background-color: #f0ad4e;
+}
+
+.label.rejected {
+  background-color: #d9534f;
+}
+
+.label.in_progress {
+  background-color: #337ab7;
+}
+
+.label.emitted {
+  background-color: #5bc0de;
+}
+
+.label.pre_delivered {
+  background-color: #5bc0de;
+}
+
+.label.delivered {
+  background-color: #5cb85c;}
