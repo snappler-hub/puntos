@@ -11,6 +11,7 @@ user = User.where(email: 'usuario@final.com').first_or_create do |user|
   user.supplier = Supplier.where(name: 'Farmacia Manes').first
 end
 
-user.cards.create(number: '1234-5678-0001')
+card = user.cards.create
+card.update(number: card.generate_number)
 
 puts 'END Seed Cards'

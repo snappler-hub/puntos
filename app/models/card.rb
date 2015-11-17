@@ -4,4 +4,10 @@ class Card < ActiveRecord::Base
   # Atributos: 
   # - number 
   # - terms_accepted
+
+  def generate_number
+    hashids = Hashids.new("this is my salt", 16, "ABCDEF1234567890")
+    hashids.encode(id)
+  end
+
 end

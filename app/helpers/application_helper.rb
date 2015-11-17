@@ -53,4 +53,8 @@ module ApplicationHelper
     "#{current_user.first_name} #{current_user.last_name}"
   end
 
+  def format_card_number(number, separator: ' ')
+    number.scan(/.{1,4}/).join(separator)
+  end
+
 end

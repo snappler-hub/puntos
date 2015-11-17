@@ -1,6 +1,6 @@
 <header class="content-header">
   <div class="pull-right">
-    <%= link_to 'Volver', [@supplier, :users], class: 'btn btn-default' %>
+    <%= link_to 'Usuarios', [@supplier, :users], class: 'btn btn-info' %>
     <%= link_to 'Editar', [:edit, @supplier, @user], class: 'btn btn-success' %>
     <%= link_to 'Eliminar', [@supplier, @user], method: :delete, class: 'btn btn-danger',
          data: {confirm: '¿Está seguro?'} unless is_me?(@user) %>
@@ -79,7 +79,7 @@
             <ul class="list-group list-group-unbordered">
               <li class="list-group-item">
                 <b>Nro. de tarjeta</b>
-                <a class="pull-right"><%= @user.card.number%></a>
+                <a class="pull-right"><%= format_card_number @user.card.number %></a>
               </li>
 
               <% if @user.card.supplier_request %>

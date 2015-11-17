@@ -11,17 +11,17 @@ class CardManager
     user.username = request.full_client_name.parameterize
     user.role = 'normal_user'
     user.password = user.password_confirmation = user.email
-    user.cards.build(number: next_card_number, supplier_request: request)
+    user.cards.build(supplier_request: request)
     if user.save
+      card.update(number: card.generate_number)
       request.emitted! if request.requested?
     end
     return user
   end
 
-  private
-
-  def self.next_card_number
-    Card.count + 1
+  def self.form_user(user)
+    card = user.cards.create
+    card.update(number: card.generate_number)
   end
 
 end

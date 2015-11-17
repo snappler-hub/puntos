@@ -19,6 +19,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'sorcery'
 
+gem 'hashids'
 
 gem 'mandrill-api'
 gem 'kaminari'
