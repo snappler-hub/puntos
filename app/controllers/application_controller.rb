@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_path
-    case current_user.role
+    case current_user.role      
       when 'god'    then suppliers_path
       when 'admin'  then current_user.supplier || admin_path
       when 'seller' then admin_path

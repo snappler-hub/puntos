@@ -8,19 +8,26 @@ Rails.application.routes.draw do
   end
 
   resources :users
+
   resources :supplier_requests do
-    get :new_user, on: :member
-    post :create_user, on: :collection
+    post :add_card, on: :member
     resources :comments, only: [:create, :index]
   end
+
   resources :comments, only: [:destroy]
   
   resources :suppliers do
     resources :users
-    resources :supplier_requests
+    resources :supplier_requests do
+      collection do
+        get :document_form
+        post :load_form
+      end
+    end
   end
 
   resources :sessions, only: :create
+
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   get 'admin', to: 'application#admin', as: :admin

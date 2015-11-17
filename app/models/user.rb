@@ -10,11 +10,12 @@ class User < ActiveRecord::Base
   belongs_to :created_by, class_name: 'User'
   has_many :cards, dependent: :destroy
 
-  validates :first_name, :last_name, :supplier, presence: true
+  validates :first_name, :last_name, :supplier, :document_type, :document_number, presence: true
   validates :password, confirmation: true
   validates :role, inclusion: {in: ROLES}
   validates :document_type, inclusion: {in: DOCUMENT_TYPES}
   validates :email, uniqueness: true
+  validates :document_number, uniqueness: {scope: :document_type}
 
   def to_s
     "#{first_name} #{last_name}"
@@ -24,15 +25,7 @@ class User < ActiveRecord::Base
     cards.last || false
   end
 
-  #Este método lo uso para crear una tarjeta al crear un usuario.
-  def card_number=(card_number)
-    @card_number = card_number
-  end
-
-  def card_number
-    @card_number || card && card.number
-  end
-
+  #TODO: Esto no debería ir acá.
   def accept_terms_of_use!
     card ? card.update(terms_accepted: true) : false
   end

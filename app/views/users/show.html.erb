@@ -1,6 +1,10 @@
 <header class="content-header">
-  <%= link_to 'Volver', [@supplier, :users],
-      class: 'btn btn-default pull-right' %>
+  <div class="pull-right">
+    <%= link_to 'Volver', [@supplier, :users], class: 'btn btn-default' %>
+    <%= link_to 'Editar', [:edit, @supplier, @user], class: 'btn btn-success' %>
+    <%= link_to 'Eliminar', [@supplier, @user], method: :delete, class: 'btn btn-danger',
+         data: {confirm: '¿Está seguro?'} unless is_me?(@user) %>
+  </div>
   <h1>Información del usuario</h1>
 </header>
 
@@ -20,7 +24,7 @@
               <a class="pull-right"><%= @user.document_number %></a>
             </li>
             <li class="list-group-item">
-              <b>Permisos</b> <a class="pull-right"><%= @user.role %></a>
+              <b>Permisos</b> <a class="pull-right"><%= I18n.t @user.role, scope: 'roles' %></a>
             </li>
             <li class="list-group-item">
               <b>Prestador</b>
@@ -28,14 +32,6 @@
             </li>
           </ul>
         </section>
-        
-        <div class="box-footer">
-          <%= link_to 'Editar', [:edit, @supplier, @user],
-              class: 'btn btn-primary' %>
-          <%= link_to 'Eliminar', [@supplier, @user], method: :delete, class: 'btn btn-danger',
-              data: {confirm: '¿Está seguro?'} unless is_me?(@user) %>
-        </div>
-        
       </article>
     </div>
 
@@ -78,14 +74,32 @@
       <article class="box box-primary">
         <section class="box-body box-profile">
           <h3 class="profile-username text-center">Información de tarjetas</h3>
-          <% if @user.cards.empty? %>
-            <p class="text-muted text-center">Aún no tiene tarjetas</p>
-          <% elsif @user.card.terms_accepted? %>
-            <%= @user.card.number %>
-          <% else %>
-            <p class="text-muted text-center">No tiene tarjetas activas</p>
-            <p class="text-muted text-center">Nro. de tarjeta: <%= @user.card.number %></p>
 
+          <% if @user.card %>
+            <ul class="list-group list-group-unbordered">
+              <li class="list-group-item">
+                <b>Nro. de tarjeta</b>
+                <a class="pull-right"><%= @user.card.number%></a>
+              </li>
+
+              <% if @user.card.supplier_request %>
+                <li class="list-group-item">
+                  <b>Solicitada por</b>
+                  <%= link_to @user.card.supplier_request.created_by,
+                      @user.card.supplier_request, class: 'pull-right',
+                      title: 'Click para ver solicitud original' %>
+                </li>
+              <% end %>
+
+              <li class="list-group-item">
+                <b>Estado</b>
+                <a class="pull-right">
+                  <%= @user.card.terms_accepted? ? 'Activa' : 'Aún no ha aceptado los terminos de uso' %>
+                </a>
+              </li>
+            </ul>
+          <% else %>
+            <p class="text-muted text-center">Aún no tiene tarjetas</p>
           <% end %>
         </section>
       </article>

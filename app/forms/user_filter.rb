@@ -6,6 +6,6 @@ class UserFilter
     users = context ? context.users : User.all.includes(:supplier)
     users = users.where('email LIKE ?', "%#{@email}%") if @email.present?
     users = users.where(role: @role) if @role.present?
-    users
+    users.includes(:cards)
   end
 end

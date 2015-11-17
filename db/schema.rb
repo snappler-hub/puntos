@@ -11,16 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113171020) do
+ActiveRecord::Schema.define(version: 20151117125401) do
 
   create_table "cards", force: :cascade do |t|
-    t.string   "number",         limit: 255
-    t.integer  "user_id",        limit: 4
-    t.boolean  "terms_accepted",             default: false
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.string   "number",              limit: 255
+    t.integer  "user_id",             limit: 4
+    t.boolean  "terms_accepted",                  default: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.integer  "supplier_request_id", limit: 4
   end
 
+  add_index "cards", ["supplier_request_id"], name: "index_cards_on_supplier_request_id", using: :btree
   add_index "cards", ["user_id"], name: "index_cards_on_user_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
@@ -96,6 +98,7 @@ ActiveRecord::Schema.define(version: 20151113171020) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
   add_index "users", ["supplier_id"], name: "index_users_on_supplier_id", using: :btree
 
+  add_foreign_key "cards", "supplier_requests"
   add_foreign_key "cards", "users"
   add_foreign_key "comments", "users"
   add_foreign_key "supplier_requests", "suppliers"

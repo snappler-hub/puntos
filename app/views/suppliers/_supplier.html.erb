@@ -1,8 +1,10 @@
 <tr>
   <td><%= supplier.name %></td>
   <td><%= supplier.active ? icon_ok : icon_not_ok %></td>
-  <td><%= link_to 'Ver', supplier %></td>
-  <td><%= link_to 'Editar', edit_supplier_path(supplier) %></td>
-  <td><%= link_to 'Usuarios', [supplier, :users] %></td>
-  <td><%= link_to 'Eliminar', supplier, method: :delete, data: {confirm: '¿Está seguro?'} %></td>
+  <td>
+    <%= link_to 'Ver', supplier, class: 'btn btn-xs btn-primary' %>
+    <%= link_to 'Usuarios', [supplier, :users], class: 'btn btn-xs btn-info' %>
+    <%= link_to 'Editar', edit_supplier_path(supplier), class: 'btn btn-xs btn-success' %>
+    <%= link_to 'Eliminar', supplier, method: :delete, data: {confirm: '¿Está seguro?'}, class: 'btn btn-xs btn-danger' %>
+  </td>
 </tr>

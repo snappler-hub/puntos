@@ -1,6 +1,6 @@
 class SupplierRequestsController < ApplicationController
   before_action :set_supplier
-  before_action :set_supplier_request, only: [:show, :edit, :update, :destroy, :new_user]
+  before_action :set_supplier_request, only: [:show, :edit, :update, :destroy, :add_card]
   before_action :only_authorize_admin!, except: [:show, :edit, :update, :destroy]
 
   # GET /supplier_requests
@@ -14,20 +14,33 @@ class SupplierRequestsController < ApplicationController
   # GET /supplier_requests/1.json
   def show
   end
+
+  def document_form
+  end
+
+  def load_form
+    @user = User.find_or_initialize_by(document_number: params[:document_number], document_type: params[:document_type])
+    @supplier_request = SupplierRequest.new @user.attributes.slice('first_name', 'last_name', 'document_type', 'document_number', 'phone', 'email', 'address', 'supplier_id')
+    render 'new'
+  end
+
+  def add_card
+    user = CardManager.from_request(@supplier_request)
+    if user.errors.empty?
+      redirect_to user, notice: 'Acción realizada con éxito'
+    else
+      redirect_to @supplier_request, alert: 'No pudo realizarse la acción.'
+    end
+  end
   
   # GET /supplier_requests/new
   def new
     @supplier_request = SupplierRequest.new
   end
 
-  def new_user
-
-    @user_card_form = UserCardForm.from_request(@supplier_request)
-  end
-
   def create_user
     @user_card_form = UserCardForm.new(user_card_params)
-    user = @user_card_form.submit
+    user = @user_card_form.submit(@supplier_request)
     if user
       redirect_to user, notice: 'Creado exitosamente'
     else
@@ -109,10 +122,6 @@ class SupplierRequestsController < ApplicationController
     allow_params = [:first_name, :last_name, :document_type, :document_number, :phone, :email, :address, :notes]
     allow_params << :supplier_id << :status if god?
     parameters = params.require(:supplier_request).permit(allow_params)
-  end
-
-  def user_card_params
-    params.require(:user_card_form).permit(*UserCardForm::ALL_ATTRIBUTES)
   end
   
 end
