@@ -1,0 +1,36 @@
+<div class="row">
+<div class="col-md-6">
+<article class="box box-primary">
+<section class="box-body">
+
+<%= form_for(@product) do |f| %>
+  <% @product.errors.full_messages.each do |message| %>
+    <p><%= message %></p>
+  <% end %>
+
+  <fieldset class="form-group">
+    <%= f.label :code %>
+    <%= f.text_field :code, class: 'form-control', required: true %>
+  </fieldset>
+
+  <fieldset class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control', required: true %>
+  </fieldset>
+  
+  <div class="row">
+    <fieldset class="form-group col-md-4">
+      <%= f.label :points %>
+      <%= f.number_field :points, class: 'form-control', required: true %>
+    </fieldset>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Guardar producto', class: 'btn btn-primary', data: { 'disable-with' => 'Cargando...' } %>
+  </div>
+<% end %>
+
+</section>
+</article>
+</div>
+</div>

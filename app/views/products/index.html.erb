@@ -1,7 +1,7 @@
 <header class="content-header">
-  <%= link_to 'Nuevo Prestador', new_supplier_path,
+  <%= link_to 'Nuevo Producto', new_product_path,
       class: 'btn btn-primary pull-right' %>
-  <h1>Prestadores</h1>
+  <h1>Productos</h1>
 </header>
 
 <!-- Main content -->
@@ -14,18 +14,19 @@
   <table class="table">
     <thead>
       <tr>
+        <th>Código</th>
         <th>Nombre</th>
-        <th>Activo</th>
+        <th>Puntos</th>
         <th></th>
       </tr>
     </thead>
   
     <tbody>
-      <%= render @suppliers %>
+      <%= render @products %>
     </tbody>
   </table>
 
-  <%= paginate @suppliers %>
+  <%= paginate @products %>
 
 </section>
 </article>

@@ -40,6 +40,8 @@
 //= require comments
 
 $(document).on('page:change', function () {
+  Turbolinks.enableProgressBar();
+  
   if($('.snackbar-message').length > 0){
     $('.snackbar-message').snackbar('show');
   };
