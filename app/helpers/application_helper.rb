@@ -25,14 +25,6 @@ module ApplicationHelper
     content_tag(:i, nil, html_options)
   end
 
-  def icon_ok
-    icon(:check, class: 'text-success')
-  end
-
-  def icon_not_ok
-    icon(:close, class: 'text-danger')
-  end
-
   def permitted_roles
     god? ? User::ROLES : User::ROLES - ['god']
   end
@@ -51,10 +43,6 @@ module ApplicationHelper
 
   def current_user_name
     "#{current_user.first_name} #{current_user.last_name}"
-  end
-
-  def format_card_number(number, separator: ' ')
-    number.scan(/.{1,4}/).join(separator)
   end
 
 end

@@ -23,7 +23,7 @@ class PublicController < ApplicationController
   def accept_terms_of_use
     should_have_a_card_assigned!
     if should_accept_terms_of_use?
-      current_user.accept_terms_of_use!
+      CardManager.accept_terms_of_use!(current_user)
       redirect_to current_user_path, notice: 'Has aceptado los términos de uso de la tarjeta.'
     else
       redirect_to current_user_path, alert: 'No tiene tarjeta o no debe aceptar términos de uso'
@@ -43,11 +43,11 @@ class PublicController < ApplicationController
   end
 
   def no_cards_assigned?
-    current_user.cards.empty?
+    !current_user.card_number
   end
 
   def should_accept_terms_of_use?
-    current_user.card && !current_user.card.terms_accepted?
+    current_user.card_number && !current_user.terms_accepted?
   end
   helper_method :should_accept_terms_of_use?
 

@@ -16,20 +16,34 @@
       <article class="box box-primary">
         <section class="box-body box-profile">
           <%= image_tag @user.image.thumb('100x200').url, class: 'profile-user-img img-responsive' if @user.image %>
-          <h3 class="profile-username text-center"><%= @user.first_name %> <%= @user.last_name %></h3>
+          <h3 class="profile-username text-center">
+            <%= @user.first_name %>
+            <%= @user.last_name %>
+          </h3>
           <p class="text-muted text-center"><%= @user.email %></p>
           <ul class="list-group list-group-unbordered">
+
             <li class="list-group-item">
               <b><%= I18n.t @user.document_type, scope: :document_types %></b>
-              <a class="pull-right"><%= @user.document_number %></a>
+              <a class="pull-right">
+                <%= @user.document_number %>
+              </a>
             </li>
+
             <li class="list-group-item">
-              <b>Permisos</b> <a class="pull-right"><%= I18n.t @user.role, scope: 'roles' %></a>
+              <b>Permisos</b>
+              <a class="pull-right">
+                <%= I18n.t @user.role, scope: 'roles' %>
+              </a>
             </li>
+
             <li class="list-group-item">
               <b>Prestador</b>
-              <a class="pull-right"><%= @user.supplier.name %></a>
+              <a class="pull-right">
+                <%= @user.supplier.name %>
+              </a>
             </li>
+
           </ul>
         </section>
       </article>
@@ -40,31 +54,41 @@
         <section class="box-body box-profile">
           <h3 class="profile-username text-center">Información adicional</h3>
           <ul class="list-group list-group-unbordered">
+
             <li class="list-group-item">
-              <b>Teléfono(s)</b> <a class="pull-right"><%= @user.phone %></a>
+              <b>Teléfono(s)</b>
+              <a class="pull-right"><%= @user.phone %></a>
             </li>
+
             <li class="list-group-item">
               <b>Dirección</b>
               <a class="pull-right"><%= @user.address %></a>
             </li>
+
             <li class="list-group-item">
               <b>Número Interno</b>
               <a class="pull-right"><%= @user.number %></a>
             </li>
+
             <li class="list-group-item">
               <b>Nombre de usuario</b>
               <a class="pull-right"><%= @user.username %></a>
             </li>
+
             <% if @user.created_by %>
+
               <li class="list-group-item">
                 <b>Creado por</b>
                 <a class="pull-right"><%= @user.created_by.email %></a>
               </li>
+
               <li class="list-group-item">
                 <b>Fecha de creación</b>
                 <a class="pull-right"><%= @user.created_at %></a>
               </li>
+
             <% end %>
+
           </ul>
         </section>
       </article>
@@ -73,20 +97,21 @@
     <div class="col-md-4">
       <article class="box box-primary">
         <section class="box-body box-profile">
-          <h3 class="profile-username text-center">Información de tarjetas</h3>
+          <h3 class="profile-username text-center">Información de tarjeta</h3>
 
-          <% if @user.card %>
+          <% if @user.card_number %>
             <ul class="list-group list-group-unbordered">
+
               <li class="list-group-item">
-                <b>Nro. de tarjeta</b>
-                <a class="pull-right"><%= format_card_number @user.card.number %></a>
+                <b>Número de tarjeta</b>
+                <a class="pull-right"><%= format_card_number @user.card_number %></a>
               </li>
 
-              <% if @user.card.supplier_request %>
+              <% if @user.supplier_request %>
                 <li class="list-group-item">
                   <b>Solicitada por</b>
-                  <%= link_to @user.card.supplier_request.created_by,
-                      @user.card.supplier_request, class: 'pull-right',
+                  <%= link_to @user.supplier_request.created_by,
+                      @user.supplier_request, class: 'pull-right',
                       title: 'Click para ver solicitud original' %>
                 </li>
               <% end %>
@@ -94,12 +119,14 @@
               <li class="list-group-item">
                 <b>Estado</b>
                 <a class="pull-right">
-                  <%= @user.card.terms_accepted? ? 'Activa' : 'Aún no ha aceptado los terminos de uso' %>
+                  <%= @user.terms_accepted? ? 'Activa' : 'Aún no ha aceptado los terminos de uso' %>
                 </a>
               </li>
+
             </ul>
           <% else %>
             <p class="text-muted text-center">Aún no tiene tarjetas</p>
+            <p class="text-center"><%= link_to 'Asignar Tarjeta', [:assign_card, @user], method: :patch %></p>
           <% end %>
         </section>
       </article>

@@ -49,9 +49,9 @@
           <% end %>
         </section>
         <div class="box-footer">
-          <% if @supplier_request.card %>
-            <%= link_to 'Ver tarjeta', [@supplier, @supplier_request.card.user],
-              class: 'btn btn-primary' if @supplier_request.card.user %>
+          <% if @supplier_request.user %>
+            <%= link_to 'Ver tarjeta', [@supplier, @supplier_request.user],
+              class: 'btn btn-primary' if @supplier_request.user %>
           <% else %>
             <%= link_to 'Asignar tarjeta', [:add_card, @supplier_request],
               method: :post, class: 'btn btn-primary' if god? %>

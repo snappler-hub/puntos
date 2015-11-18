@@ -58,6 +58,9 @@ es:
       user_filter:
         email: *email
         role: 'Permisos'
+        card_number: 'Número de tarjeta'
+        document_number: 'Número de documento'
+        card_state: 'Estado de tarjeta'
         filter: 'Filtrar'
       supplier_request_filter:
         status: *status

@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
   DOCUMENT_TYPES = %w(dni cuil passport)
 
   belongs_to :supplier
+  belongs_to :supplier_request
   belongs_to :created_by, class_name: 'User'
-  has_many :cards, dependent: :destroy
 
   validates :first_name, :last_name, :supplier, :document_type, :document_number, presence: true
   validates :password, confirmation: true
@@ -19,15 +19,6 @@ class User < ActiveRecord::Base
 
   def to_s
     "#{first_name} #{last_name}"
-  end
-  
-  def card
-    cards.last || false
-  end
-
-  #TODO: Esto no debería ir acá.
-  def accept_terms_of_use!
-    card ? card.update(terms_accepted: true) : false
   end
 
   def is?(a_role)

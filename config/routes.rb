@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users
+  resources :users do
+    patch :assign_card, on: :member
+  end
 
   resources :supplier_requests do
     post :add_card, on: :member
