@@ -75,7 +75,7 @@ class ServicesController < ApplicationController
     if params[:service][:type] == 'ServicePoints'
       allowed_params << :amount 
     else
-      allowed_params << [product_pfpcs_attributes:[:id, :product_id, :amount, :_destroy]]
+      allowed_params << :vademecum_id << [product_pfpcs_attributes:[:id, :product_id, :amount, :_destroy]]
     end
 
     params.require(:service).permit(allowed_params)

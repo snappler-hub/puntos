@@ -32,6 +32,13 @@
           <% else %>  
             <!-- Servicio PFPC -->
             <ul class="list-group list-group-unbordered">
+              <li class="list-group-item">
+                <b> Vence en </b>
+                <a class="pull-right"> x días </a>
+              </li>
+            </ul>
+            <p class="text-muted text-center"> Acumulado en último Período </p>
+            <ul class="list-group list-group-unbordered">
               <% @service.product_pfpcs.each do |p| %>
                 <li class="list-group-item">
                   <b> <%= p.product %> </b>

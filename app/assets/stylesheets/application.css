@@ -55,3 +55,7 @@ html.turbolinks-progress-bar::before {
 .no-label {
   padding-top: 24px;
 }
+
+.no-bullets li {
+  list-style: none;
+}

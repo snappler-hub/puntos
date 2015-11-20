@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151120195110) do
+ActiveRecord::Schema.define(version: 20151120211330) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -56,16 +56,18 @@ ActiveRecord::Schema.define(version: 20151120195110) do
   end
 
   create_table "services", force: :cascade do |t|
-    t.string   "name",       limit: 255,              null: false
-    t.string   "type",       limit: 255,              null: false
-    t.integer  "user_id",    limit: 4
-    t.integer  "amount",     limit: 4
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.integer  "days",       limit: 4,   default: 30
+    t.string   "name",         limit: 255,              null: false
+    t.string   "type",         limit: 255,              null: false
+    t.integer  "user_id",      limit: 4
+    t.integer  "amount",       limit: 4
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "days",         limit: 4,   default: 30
+    t.integer  "vademecum_id", limit: 4
   end
 
   add_index "services", ["user_id"], name: "index_services_on_user_id", using: :btree
+  add_index "services", ["vademecum_id"], name: "index_services_on_vademecum_id", using: :btree
 
   create_table "supplier_requests", force: :cascade do |t|
     t.integer  "supplier_id",     limit: 4
@@ -146,6 +148,7 @@ ActiveRecord::Schema.define(version: 20151120195110) do
   add_foreign_key "product_pfpcs", "products"
   add_foreign_key "product_pfpcs", "services"
   add_foreign_key "services", "users"
+  add_foreign_key "services", "vademecums"
   add_foreign_key "supplier_requests", "suppliers"
   add_foreign_key "supplier_requests", "users"
   add_foreign_key "users", "supplier_requests"

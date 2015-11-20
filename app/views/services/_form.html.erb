@@ -5,17 +5,17 @@
 
 <%= form_for [@user, @service] do |f| %>
   <% @service.errors.full_messages.each do |message| %>
-    <p><%= message %></p>
+    <p class="text-danger"><%= message %></p>
   <% end %>
   
   <%= f.hidden_field :type %>
 
-  <fieldset class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control', required: true %>
-  </fieldset>
-  
   <div class="row">
+    <fieldset class="form-group col-md-10">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control', required: true %>
+    </fieldset>
+    
     <fieldset class="form-group col-md-2">
       <%= f.label :days %>
       <%= f.number_field :days, class: 'form-control', required: true %>

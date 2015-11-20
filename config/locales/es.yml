@@ -59,6 +59,13 @@ es:
       product_discount:
         product_id: Producto
         discount: Descuento
+      product_pfpc:
+        product_id: Producto
+        amount: Cantidad    
+      product_pfpcs:
+        product: Producto asociado  
+      product_discounts:
+        product: Producto 
         
   activemodel:
     attributes:
@@ -122,3 +129,5 @@ es:
   service_types:
     points: Por Puntos
     pfpc: PFPC
+    ServicePfpc: PFPC
+    ServicePoints: Por Puntos

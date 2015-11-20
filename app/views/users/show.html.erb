@@ -128,9 +128,12 @@
                 <% if @user.services.empty? %>
                   <a class="pull-right"> Sin Servicios </a>
                 <% else %>
-                  <ul>
+                  <ul class="no-bullets">
                     <% @user.services.each do |service| %>
-                      <li> <%= link_to service, [@user, service] %> </li>
+                      <li> 
+                        <%= link_to service, [@user, service] %> 
+                        <span class="text-muted"> (<%= t "service_types.#{service.type}" %>)</span>
+                      </li>
                     <% end %>
                   </ul>
                 <% end %>
