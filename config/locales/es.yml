@@ -53,8 +53,13 @@ es:
       service:
         name: Nombre
         amount: Puntos
+        days: Días
+      vademecum:
+        name: Nombre
+      product_discount:
+        product_id: Producto
+        discount: Descuento
         
-
   activemodel:
     attributes:
       supplier_filter:
@@ -64,6 +69,9 @@ es:
       user_filter:
         email: *email
         role: 'Permisos'
+        card_number: 'Número de tarjeta'
+        document_number: 'Número de documento'
+        card_state: 'Estado de tarjeta'
         filter: 'Filtrar'
       supplier_request_filter:
         status: *status
@@ -89,7 +97,7 @@ es:
         phone: *phone
         address: 'Dirección'
         card_number: 'Número de tarjeta'
-      
+
 
   roles:
     god: 'Dios'

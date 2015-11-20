@@ -14,10 +14,11 @@
 <section class="box-body">
 
   <%= render 'filter' %>
-  
+
   <table class="table">
     <thead>
       <tr>
+        <th>Documento</th>
         <th>Correo electrónico</th>
         <th>Nombre y Apellido</th>
         <th>Rol</th>
@@ -34,8 +35,15 @@
     </tbody>
   </table>
 
+
   <%= paginate @users %>
 
 </section>
 </article>
 </section>
+
+<% if @users.empty? && params[:user_filter] %>
+  <p class="text-center text-muted lead">
+    No se encontraron resultados
+  </p>
+<% end %>

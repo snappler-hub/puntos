@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_supplier
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :assign_card]
   before_action :only_authorize_admin!, except: [:edit, :update]
 
   # GET /users
@@ -18,6 +18,15 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+  end
+
+  def assign_card
+    if @user.card_number.blank?
+      CardManager.assign_card_number! @user
+      redirect_to @user, notice: "Se asignó la tarjeta con número #{@user.card_number}"
+    else
+      redirect_to @user, alert: "El usuario ya tiene tarjeta asignada"
+    end
   end
 
   # GET /users/1/edit
@@ -105,6 +114,6 @@ class UsersController < ApplicationController
     end
 
     def filter_params
-      params.require(:user_filter).permit(:email, :role) if params[:user_filter]
+      params.require(:user_filter).permit(:email, :role, :card_number, :document_number, :card_state) if params[:user_filter]
     end
 end

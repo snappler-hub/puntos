@@ -16,6 +16,7 @@ class SupplierRequestsController < ApplicationController
   end
 
   def document_form
+    authorize! is?(:admin) || is?(:seller)
   end
 
   def load_form
@@ -36,16 +37,6 @@ class SupplierRequestsController < ApplicationController
   # GET /supplier_requests/new
   def new
     @supplier_request = SupplierRequest.new
-  end
-
-  def create_user
-    @user_card_form = UserCardForm.new(user_card_params)
-    user = @user_card_form.submit(@supplier_request)
-    if user
-      redirect_to user, notice: 'Creado exitosamente'
-    else
-      render 'new_user', alert: 'Error al crear usuario'
-    end
   end
   
   # POST /supplier_requests

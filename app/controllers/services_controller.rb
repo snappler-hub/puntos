@@ -70,7 +70,7 @@ class ServicesController < ApplicationController
   end
   
   def service_params
-    allowed_params = [:name]
+    allowed_params = [:name, :days]
     
     if params[:service][:type] == 'ServicePoints'
       allowed_params << :amount 

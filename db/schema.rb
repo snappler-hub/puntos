@@ -11,19 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117202958) do
-
-  create_table "cards", force: :cascade do |t|
-    t.string   "number",              limit: 255
-    t.integer  "user_id",             limit: 4
-    t.boolean  "terms_accepted",                  default: false
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-    t.integer  "supplier_request_id", limit: 4
-  end
-
-  add_index "cards", ["supplier_request_id"], name: "index_cards_on_supplier_request_id", using: :btree
-  add_index "cards", ["user_id"], name: "index_cards_on_user_id", using: :btree
+ActiveRecord::Schema.define(version: 20151120195110) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -36,6 +24,17 @@ ActiveRecord::Schema.define(version: 20151117202958) do
 
   add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "product_discounts", force: :cascade do |t|
+    t.integer  "product_id",   limit: 4
+    t.integer  "vademecum_id", limit: 4
+    t.float    "discount",     limit: 24, default: 0.0
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  add_index "product_discounts", ["product_id"], name: "index_product_discounts_on_product_id", using: :btree
+  add_index "product_discounts", ["vademecum_id"], name: "index_product_discounts_on_vademecum_id", using: :btree
 
   create_table "product_pfpcs", force: :cascade do |t|
     t.integer  "product_id", limit: 4
@@ -57,12 +56,13 @@ ActiveRecord::Schema.define(version: 20151117202958) do
   end
 
   create_table "services", force: :cascade do |t|
-    t.string   "name",       limit: 255, null: false
-    t.string   "type",       limit: 255, null: false
+    t.string   "name",       limit: 255,              null: false
+    t.string   "type",       limit: 255,              null: false
     t.integer  "user_id",    limit: 4
     t.integer  "amount",     limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "days",       limit: 4,   default: 30
   end
 
   add_index "services", ["user_id"], name: "index_services_on_user_id", using: :btree
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 20151117202958) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                           limit: 255, null: false
+    t.string   "email",                           limit: 255,                 null: false
     t.string   "crypted_password",                limit: 255
     t.string   "salt",                            limit: 255
     t.string   "role",                            limit: 255
@@ -121,19 +121,32 @@ ActiveRecord::Schema.define(version: 20151117202958) do
     t.string   "username",                        limit: 255
     t.string   "image_uid",                       limit: 255
     t.string   "image_name",                      limit: 255
+    t.string   "card_number",                     limit: 255
+    t.boolean  "terms_accepted",                              default: false
+    t.boolean  "card_printed",                                default: false
+    t.boolean  "card_delivered",                              default: false
+    t.integer  "supplier_request_id",             limit: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
   add_index "users", ["supplier_id"], name: "index_users_on_supplier_id", using: :btree
+  add_index "users", ["supplier_request_id"], name: "index_users_on_supplier_request_id", using: :btree
 
-  add_foreign_key "cards", "supplier_requests"
-  add_foreign_key "cards", "users"
+  create_table "vademecums", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   add_foreign_key "comments", "users"
+  add_foreign_key "product_discounts", "products"
+  add_foreign_key "product_discounts", "vademecums"
   add_foreign_key "product_pfpcs", "products"
   add_foreign_key "product_pfpcs", "services"
   add_foreign_key "services", "users"
   add_foreign_key "supplier_requests", "suppliers"
   add_foreign_key "supplier_requests", "users"
+  add_foreign_key "users", "supplier_requests"
 end

@@ -29,7 +29,7 @@ class SupplierRequest < ActiveRecord::Base
   belongs_to :supplier
   belongs_to :created_by, class_name: 'User'
   has_many :comments, as: :commentable
-  has_one :card
+  has_one :user
 
   # -- Validations
   validates :first_name, :last_name, :document_type, :document_number, :supplier, :created_by, presence: true

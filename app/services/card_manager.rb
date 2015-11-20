@@ -12,17 +12,31 @@ class CardManager
     user.username = request.full_client_name.parameterize
     user.role = 'normal_user'
     user.password = user.password_confirmation = user.email
-    card = user.cards.build(supplier_request: request)
+    user.supplier_request = request
     if user.save
-      card.update(number: card.generate_number)
+      assign_card_number!(user)
       request.emitted! if request.requested?
     end
     return user
   end
 
   def self.form_user(user)
-    card = user.cards.create
-    card.update(number: card.generate_number)
+    user.assign_card_number!(user)
+  end
+
+  def self.accept_terms_of_use!(user)
+    user.update(terms_accepted: true)
+  end
+
+  def self.assign_card_number!(user)
+    user.update(card_number: generate_number(user.id))
+  end
+
+  private
+
+  def self.generate_number(id)
+    hashids = Hashids.new("this is my salt", 16, "ABCDEF1234567890")
+    hashids.encode(id)
   end
 
 end

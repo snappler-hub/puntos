@@ -1,17 +1,24 @@
 <tr>
+  <td>
+    <%= t user.document_type, scope: :document_types %>
+    <%= user.document_number %>
+  </td>
+
   <td><%= user.email %></td>
   <td><%= user.first_name %> <%= user.last_name %></td>
   <td><%= I18n.t user.role, scope: :roles %></td>
+
   <% unless @supplier %>
     <td><%= user.supplier.name if user.supplier_id %></td>
   <% end %>
 
-
   <td>
-    <% if !user.card %>
+    <% if !user.card_number %>
       <p class="small text-muted">Sin tarjeta</p>
-    <% elsif user.card.terms_accepted? %>
-      <p class="small text-success">Tarjeta activa</p>
+    <% elsif user.terms_accepted? %>
+      <p class="small text-success">
+        <%= format_card_number user.card_number, separator: ' - ' %>
+      </p>
     <% else %>
       <p class="small text-warning">Aún debe aceptar condiciones</p>
     <% end %>

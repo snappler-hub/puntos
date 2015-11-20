@@ -5,10 +5,11 @@
 #  id         :integer          not null, primary key
 #  name       :string(255)      not null
 #  type       :string(255)      not null
-#  card_id    :integer
+#  user_id    :integer
 #  amount     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  days       :integer
 #
 
 class ServicePoints < Service

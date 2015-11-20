@@ -23,11 +23,17 @@
       <% end %>
     </li>
     
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-bullseye"></i> <span>Productos</span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li> <%= link_to 'Listado', products_path %> </li>
+        <li> <%= link_to 'Vademecums', vademecums_path %> </li>
+      </ul>
+    </li>
     <li>
-      <%= link_to products_path do %>
-        <i class="fa fa-bullseye"></i>
-        <span>Productos</span>
-      <% end %>
+      
     </li>
       
     <li>

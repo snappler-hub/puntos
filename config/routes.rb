@@ -9,8 +9,11 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :services, except: [:index]
+    patch :assign_card, on: :member
   end
+
   resources :products, except: [:show]
+  resources :vademecums
   
   resources :supplier_requests do
     post :add_card, on: :member
