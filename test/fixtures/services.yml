@@ -1,0 +1,10 @@
+points:
+  name: Points
+  type: ServicePoints
+  card: cards(:one)
+  amount: 1000
+  
+pfpc:
+  name: PFPC
+  type: ServicePfpc
+  card: cards(:one)

@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
   belongs_to :supplier
   belongs_to :created_by, class_name: 'User'
   has_many :cards, dependent: :destroy
+  has_many :services
 
   validates :first_name, :last_name, :supplier, :document_type, :document_number, presence: true
   validates :password, confirmation: true

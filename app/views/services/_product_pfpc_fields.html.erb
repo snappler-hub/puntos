@@ -1,0 +1,25 @@
+<div class="nested-fields">
+  <div class="row">
+    <div class="col-md-7">
+      <fieldset class="form-group">
+        <%= f.label :product_id %>
+        <%= f.number_field :product_id, class: 'form-control', required: true %>
+      </fieldset>
+    </div>
+
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <%= f.label :amount %>
+        <%= f.text_field :amount, class: 'form-control', required: true %>
+      </fieldset>
+    </div>
+    
+    <div class="col-md-1">
+      <fieldset class="form-group no-label">
+        <%= link_to_remove_association "eliminar", f, class: 'btn btn-danger' %>
+      </fieldset>
+    </div>
+    
+    <%# link_to_remove_association "Eliminar", f %>
+  </div>
+</div>

@@ -14,7 +14,13 @@
 class ServicePfpc < Service
   
   # -- Associations
-  has_many :product_pfpcs
+  has_many :product_pfpcs, foreign_key: :service_id, dependent: :destroy
   has_many :products, through: :product_pfpcs
+  accepts_nested_attributes_for :product_pfpcs, reject_if: :all_blank, allow_destroy: true
+  
+  # -- Methods
+  def self.model_name
+    superclass.model_name
+  end
   
 end

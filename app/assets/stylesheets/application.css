@@ -51,3 +51,7 @@ html.turbolinks-progress-bar::before {
 .label.delivered {
   background-color: #5cb85c;
 }
+
+.no-label {
+  padding-top: 24px;
+}

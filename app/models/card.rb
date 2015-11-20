@@ -12,8 +12,12 @@
 #
 
 class Card < ActiveRecord::Base
+  
+  # -- Associations
   belongs_to :user
   belongs_to :supplier_request
+  has_many :services
+  
   # Atributos: 
   # - number 
   # - terms_accepted

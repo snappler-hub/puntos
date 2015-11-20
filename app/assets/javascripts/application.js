@@ -35,9 +35,11 @@
 //= require plugins/fastclick/fastclick.min.js
 //= require plugins/dist/js/app.js
 
+//= require cocoon
 //= require snackbar.js
 //= require turbolinks
 //= require comments
+
 
 $(document).on('page:change', function () {
   Turbolinks.enableProgressBar();

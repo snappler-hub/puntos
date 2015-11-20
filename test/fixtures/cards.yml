@@ -15,10 +15,10 @@
 
 one:
   number: MyString
-  user_id: 
-  terms_accepted: false
+  user: users(:final_user)
+  terms_accepted: true
 
 two:
   number: MyString
-  user_id: 
-  terms_accepted: false
+  user: users(:final_user)
+  terms_accepted: true

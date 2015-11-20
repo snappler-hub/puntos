@@ -16,11 +16,20 @@ class Service < ActiveRecord::Base
   # -- Scopes
   default_scope { order(:name) }
  
+  # -- Constants
+  TYPES = %w(points pfpc)
+  
   # -- Associations
-  belongs_to :card
+  belongs_to :user
   
   # -- Validations
   validates :name, presence: true
-  validates :card, presence: true
+  validates :user, presence: true
   
+  # -- Methods
+  
+  def to_s 
+    name
+  end
+    
 end

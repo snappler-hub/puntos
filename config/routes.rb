@@ -7,9 +7,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users
+  resources :users do
+    resources :services, except: [:index]
+  end
   resources :products, except: [:show]
-
+  
   resources :supplier_requests do
     post :add_card, on: :member
     resources :comments, only: [:create, :index]
