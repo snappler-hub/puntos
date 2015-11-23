@@ -1,0 +1,25 @@
+<div class="nested-fields">
+  <div class="row">
+    <div class="col-md-7">
+      <fieldset class="form-group">
+        <%= f.collection_select :product_id, Product.all, :id, :name, {}, {class: 'form-control'} %>
+      </fieldset>
+    </div>
+
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <div class="input-group">
+          <%= f.text_field :discount, class: 'form-control', required: true %>
+          <div class="input-group-addon"> % </div>
+        </div>
+      </fieldset>
+    </div>
+    
+    <div class="col-md-1">
+      <fieldset class="form-group">
+        <%= link_to_remove_association "eliminar", f, class: 'btn btn-danger' %>
+      </fieldset>
+    </div>
+    
+  </div>
+</div>

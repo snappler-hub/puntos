@@ -26,6 +26,11 @@
 #  username                        :string(255)
 #  image_uid                       :string(255)
 #  image_name                      :string(255)
+#  card_number                     :string(255)
+#  terms_accepted                  :boolean          default(FALSE)
+#  card_printed                    :boolean          default(FALSE)
+#  card_delivered                  :boolean          default(FALSE)
+#  supplier_request_id             :integer
 #
 
 require 'test_helper'

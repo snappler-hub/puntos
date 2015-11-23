@@ -26,6 +26,11 @@
 #  username                        :string(255)
 #  image_uid                       :string(255)
 #  image_name                      :string(255)
+#  card_number                     :string(255)
+#  terms_accepted                  :boolean          default(FALSE)
+#  card_printed                    :boolean          default(FALSE)
+#  card_delivered                  :boolean          default(FALSE)
+#  supplier_request_id             :integer
 #
 
 class User < ActiveRecord::Base
@@ -39,6 +44,7 @@ class User < ActiveRecord::Base
   belongs_to :supplier
   belongs_to :supplier_request
   belongs_to :created_by, class_name: 'User'
+  has_many :services
 
   validates :first_name, :last_name, :supplier, :document_type, :document_number, presence: true
   validates :password, confirmation: true

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151118164224) do
+ActiveRecord::Schema.define(version: 20151120211330) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 20151118164224) do
 
   add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "product_discounts", force: :cascade do |t|
+    t.integer  "product_id",   limit: 4
+    t.integer  "vademecum_id", limit: 4
+    t.float    "discount",     limit: 24, default: 0.0
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  add_index "product_discounts", ["product_id"], name: "index_product_discounts_on_product_id", using: :btree
+  add_index "product_discounts", ["vademecum_id"], name: "index_product_discounts_on_vademecum_id", using: :btree
 
   create_table "product_pfpcs", force: :cascade do |t|
     t.integer  "product_id", limit: 4
@@ -45,15 +56,19 @@ ActiveRecord::Schema.define(version: 20151118164224) do
   end
 
   create_table "services", force: :cascade do |t|
-    t.string   "name",       limit: 255, null: false
-    t.string   "type",       limit: 255, null: false
-    t.integer  "user_id",    limit: 4
-    t.integer  "amount",     limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+
+    t.string   "name",         limit: 255,              null: false
+    t.string   "type",         limit: 255,              null: false
+    t.integer  "user_id",      limit: 4
+    t.integer  "amount",       limit: 4
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "days",         limit: 4,   default: 30
+    t.integer  "vademecum_id", limit: 4
   end
 
   add_index "services", ["user_id"], name: "index_services_on_user_id", using: :btree
+  add_index "services", ["vademecum_id"], name: "index_services_on_vademecum_id", using: :btree
 
   create_table "supplier_requests", force: :cascade do |t|
     t.integer  "supplier_id",     limit: 4
@@ -122,10 +137,19 @@ ActiveRecord::Schema.define(version: 20151118164224) do
   add_index "users", ["supplier_id"], name: "index_users_on_supplier_id", using: :btree
   add_index "users", ["supplier_request_id"], name: "index_users_on_supplier_request_id", using: :btree
 
+  create_table "vademecums", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   add_foreign_key "comments", "users"
+  add_foreign_key "product_discounts", "products"
+  add_foreign_key "product_discounts", "vademecums"
   add_foreign_key "product_pfpcs", "products"
   add_foreign_key "product_pfpcs", "services"
   add_foreign_key "services", "users"
+  add_foreign_key "services", "vademecums"
   add_foreign_key "supplier_requests", "suppliers"
   add_foreign_key "supplier_requests", "users"
   add_foreign_key "users", "supplier_requests"

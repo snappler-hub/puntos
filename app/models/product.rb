@@ -18,5 +18,10 @@ class Product < ActiveRecord::Base
   # -- Validations
   validates :name, presence: true
   validates :code, presence: true, uniqueness: true
+
+  # -- Methods
   
+  def to_s
+    name
+  end
 end

@@ -1,0 +1,29 @@
+<header class="content-header">
+  <%= link_to 'Nuevo Vademecum', new_vademecum_path,
+      class: 'btn btn-primary pull-right' %>
+  <h1>Vademecums</h1>
+</header>
+
+<!-- Main content -->
+<section class="content">
+<article class="box box-primary">
+<section class="box-body">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <%= render @vademecums %>
+    </tbody>
+  </table>
+
+  <%= paginate @vademecums %>
+
+</section>
+</article>
+</section>

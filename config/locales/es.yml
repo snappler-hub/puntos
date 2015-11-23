@@ -35,7 +35,6 @@ es:
         phone: *phone
         address: *address
         image: 'Foto de perfil'
-
       supplier_request:
         first_name: *first_name
         last_name: *last_name
@@ -47,13 +46,27 @@ es:
         notes: Notas
         status: Estado
         supplier_id: Prestador
-
       product:
         code: Código
         name: Nombre
         points: Puntos
-
-
+      service:
+        name: Nombre
+        amount: Puntos
+        days: Días
+      vademecum:
+        name: Nombre
+      product_discount:
+        product_id: Producto
+        discount: Descuento
+      product_pfpc:
+        product_id: Producto
+        amount: Cantidad    
+      product_pfpcs:
+        product: Producto asociado  
+      product_discounts:
+        product: Producto 
+        
   activemodel:
     attributes:
       supplier_filter:
@@ -112,3 +125,9 @@ es:
     dni: 'DNI'
     cuil: 'CUIL'
     passport: 'Pasaporte'    
+    
+  service_types:
+    points: Por Puntos
+    pfpc: PFPC
+    ServicePfpc: PFPC
+    ServicePoints: Por Puntos

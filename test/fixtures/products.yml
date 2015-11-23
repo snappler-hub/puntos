@@ -16,3 +16,8 @@ one:
   code: 3123213
   name: Bayaspirina C
   points: 10
+  
+two:
+  code: 111
+  name: Tafirol
+  points: 100

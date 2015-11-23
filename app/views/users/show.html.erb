@@ -122,12 +122,46 @@
                   <%= @user.terms_accepted? ? 'Activa' : 'Aún no ha aceptado los terminos de uso' %>
                 </a>
               </li>
-
+              
+              <li class="list-group-item">
+                <b> Servicios</b>
+                <% if @user.services.empty? %>
+                  <a class="pull-right"> Sin Servicios </a>
+                <% else %>
+                  <ul class="no-bullets">
+                    <% @user.services.each do |service| %>
+                      <li> 
+                        <%= link_to service, [@user, service] %> 
+                        <span class="text-muted"> (<%= t "service_types.#{service.type}" %>)</span>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </li>
+            </ul>
+          <% else %>
+            <p class="text-muted text-center">Aún no tiene tarjeta</p>
+          <% end %>
+            
+          <!-- Create a service -->
+          <% if god? %>
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Nuevo Servicio <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <% Service::TYPES.each do |type| %>
+                  <li> <%= link_to t("service_types.#{type}"), new_user_service_path(@user, type: type) %> </li>
+                <% end %>
+              </ul>
+            </div>
+            
             </ul>
           <% else %>
             <p class="text-muted text-center">Aún no tiene tarjetas</p>
             <p class="text-center"><%= link_to 'Asignar Tarjeta', [:assign_card, @user], method: :patch %></p>
           <% end %>
+          
         </section>
       </article>
     </div>

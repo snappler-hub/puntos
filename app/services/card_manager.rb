@@ -6,6 +6,7 @@ class CardManager
     'address', 'supplier_id']
 
   def self.from_request(request)
+    # TODO: Transacción
     user = User.find_or_initialize_by(document_number: request.document_number, document_type: request.document_type)
     user.attributes = request.attributes.slice(*USER_ATTRIBUTES)    
     user.username = request.full_client_name.parameterize

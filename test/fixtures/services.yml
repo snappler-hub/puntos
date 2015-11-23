@@ -12,14 +12,13 @@
 #  days       :integer
 #
 
-class ServicePoints < Service
+points:
+  name: Points
+  type: ServicePoints
+  user: users(:final_user)
+  amount: 1000
   
-  # -- Validations
-  validates :amount, presence: true
-  
-  # -- Methods
-  def self.model_name
-    superclass.model_name
-  end
-  
-end
+pfpc:
+  name: PFPC
+  type: ServicePfpc
+  user: users(:final_user)

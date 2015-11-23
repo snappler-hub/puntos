@@ -23,6 +23,7 @@ gem 'hashids'
 gem 'mandrill-api'
 gem 'kaminari'
 gem 'dragonfly', '~> 1.0.12'
+gem "cocoon"
 
 group :development, :test do
   gem 'byebug'
