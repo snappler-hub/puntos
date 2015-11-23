@@ -8,7 +8,7 @@
 00008dosis                                             
 00009cm                                                
 00010metros                                            
-00011gal¢n                                             
+00011galón                                             
 00012unidades de 2 ml                                  
 00013unidades de 1 ml                                  
 00014unidades de 5 ml                                  
