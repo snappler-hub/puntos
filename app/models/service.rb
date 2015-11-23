@@ -17,10 +17,10 @@ class Service < ActiveRecord::Base
   default_scope { order(:name) }
  
   # -- Associations
-  belongs_to :card
+  belongs_to :user
   
   # -- Validations
   validates :name, presence: true
-  validates :card, presence: true
+  validates :user, presence: true
   
 end
