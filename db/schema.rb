@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(version: 20151120211330) do
   end
 
   create_table "services", force: :cascade do |t|
-
     t.string   "name",         limit: 255,              null: false
     t.string   "type",         limit: 255,              null: false
     t.integer  "user_id",      limit: 4
