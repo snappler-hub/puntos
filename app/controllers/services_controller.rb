@@ -31,6 +31,10 @@ class ServicesController < ApplicationController
   def edit
   end
   
+  # GET /cards/2/services/1/edit_products
+  def edit_products
+  end
+  
   # PATCH/PUT /cards/2/services/1
   def update    
     respond_to do |format|

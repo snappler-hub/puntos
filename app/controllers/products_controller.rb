@@ -7,6 +7,13 @@ class ProductsController < ApplicationController
     @filter = ProductFilter.new(filter_params)
     @products = @filter.call.page(params[:page])
   end
+  
+  # GET /products/search
+  def search
+    records = RecordSearcher.call(Product.all, params)
+    render json: records.to_json, callback: params[:callback]
+  end
+    
 
   # GET /products/1
   def show
