@@ -60,3 +60,8 @@ html.turbolinks-progress-bar::before {
 .no-bullets li {
   list-style: none;
 }
+
+
+.table.vertical-align-middle > tbody > tr > td{
+	vertical-align: middle;
+}
