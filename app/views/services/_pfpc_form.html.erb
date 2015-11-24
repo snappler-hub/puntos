@@ -10,7 +10,7 @@
   <div class="col-md-3"> <%= label_tag :products, 'Cantidad' %> </div>
 </div>
 
-<div class="product_pfpcs  form-group">
+<div id="js-productPfpcs" class="product_pfpcs  form-group">
   <%= f.fields_for :product_pfpcs do |p| %>
     <%= render 'product_pfpc_fields', f: p %>
   <% end %>

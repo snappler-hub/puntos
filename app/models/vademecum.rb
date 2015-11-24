@@ -5,6 +5,7 @@ class Vademecum < ActiveRecord::Base
   
   # -- Associations
   has_many :product_discounts, dependent: :destroy
+  has_many :products, through: :product_discounts
   accepts_nested_attributes_for :product_discounts, reject_if: :all_blank, allow_destroy: true
   
   # -- Validations

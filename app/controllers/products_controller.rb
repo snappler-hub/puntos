@@ -13,7 +13,6 @@ class ProductsController < ApplicationController
     records = RecordSearcher.call(Product.all, params)
     render json: records.to_json, callback: params[:callback]
   end
-    
 
   # GET /products/1
   def show
@@ -59,6 +58,16 @@ class ProductsController < ApplicationController
       format.html { redirect_to products_url, notice: 'El producto ha sido eliminado correctamente.' }
     end
   end
+  
+  # GET /products/search_for_service.json
+  # Retorna los productos que no están en ningún servicio del usuario (params[:user_id])
+  # que cumplen con la búsqueda
+  def search_for_service
+    user = User.find(params[:user_id])
+    products_for_search = Product.products_for_service(params[:vademecum_id], user)
+    records = RecordSearcher.call(products_for_search, params)
+    render json: records.to_json, callback: params[:callback]
+  end
 
   private
 
@@ -75,4 +84,5 @@ class ProductsController < ApplicationController
         params.require(:product_filter).permit(:code, :name)
       end
     end
+  
 end

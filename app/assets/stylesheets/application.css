@@ -22,41 +22,7 @@
  *= require plugins/datepicker/datepicker3.css
  *= require snackbar
  *= require select2
+ *= require main
  *= require_self
  */
 
-html.turbolinks-progress-bar::before {
-  background-color: white !important;
-}
-
-.label.requested {
-  background-color: #f0ad4e;
-}
-
-.label.rejected {
-  background-color: #d9534f;
-}
-
-.label.in_progress {
-  background-color: #337ab7;
-}
-
-.label.emitted {
-  background-color: #5bc0de;
-}
-
-.label.pre_delivered {
-  background-color: #5bc0de;
-}
-
-.label.delivered {
-  background-color: #5cb85c;
-}
-
-.no-label {
-  padding-top: 24px;
-}
-
-.no-bullets li {
-  list-style: none;
-}

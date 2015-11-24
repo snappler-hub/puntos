@@ -23,7 +23,7 @@ class ServicePfpc < Service
   # -- Validations
   validates :vademecum, presence: true
   
-  # -- Methods
+  # -- Methods 
   def self.model_name
     superclass.model_name
   end

@@ -1,0 +1,47 @@
+html.turbolinks-progress-bar::before {
+  background-color: white !important;
+}
+
+.label.requested {
+  background-color: #f0ad4e;
+}
+
+.label.rejected {
+  background-color: #d9534f;
+}
+
+.label.in_progress {
+  background-color: #337ab7;
+}
+
+.label.emitted {
+  background-color: #5bc0de;
+}
+
+.label.pre_delivered {
+  background-color: #5bc0de;
+}
+
+.label.delivered {
+  background-color: #5cb85c;
+}
+
+.no-label {
+  padding-top: 24px;
+}
+
+.no-bullets li {
+  list-style: none;
+}
+
+.select2-choice {
+  height: 37px;
+}
+.form-control.select2 {
+  border: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.select2-container .select2-choice abbr {
+  top: 6px;
+}

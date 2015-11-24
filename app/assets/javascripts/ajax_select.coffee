@@ -3,9 +3,14 @@ jQuery.fn.ajaxSelect = (options) ->
   
   defaults =
     placeholder: "Realizar una búsqueda"
+    formatNoMatches: 'No hay resultados'
     formatter: (record) ->
       record.name
     allow_clear: true
+    selectData: (term, page)->
+      query: term
+      limit: 10
+      page: page
 
   settings = $.extend(defaults, options)
 
@@ -23,9 +28,7 @@ jQuery.fn.ajaxSelect = (options) ->
       dataType: "jsonp"
       quietMillis: 100
       data: (term, page) ->
-        query: term
-        limit: 10
-        page: page
+        settings.selectData(term, page)
       results: (data, page) ->
         more = (page * 10) < data.total
 
