@@ -50,6 +50,14 @@ es:
         code: Código
         name: Nombre
         points: Puntos
+      reward:
+        code: Código
+        name: Nombre
+        need_points: Puntos
+        image: 'Imagen'
+        reward_kind: 'Tipo'
+        description: 'Descripción'
+        service_types: 'Servicios Aplicados'
       service:
         name: Nombre
         amount: Puntos
@@ -89,6 +97,11 @@ es:
       product_filter:
         code: Código
         name: Nombre
+      reward_filter:
+        code: Código
+        name: Nombre
+        need_points: Puntos
+        reward_kind: Tipo
       user_card_form:
         email: *email
         password: 'Contraseña'
@@ -131,3 +144,8 @@ es:
     pfpc: PFPC
     ServicePfpc: PFPC
     ServicePoints: Por Puntos
+
+  reward_kinds:
+    workshop: 'Taller'
+    product: 'Productos'
+    other: 'Otros'    

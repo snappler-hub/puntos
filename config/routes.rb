@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     end
     
   end
+  resources :rewards
   resources :vademecums
   
   resources :supplier_requests do

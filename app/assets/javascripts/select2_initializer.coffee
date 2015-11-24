@@ -36,3 +36,17 @@ jQuery.fn.ajaxSelect = (options) ->
         more: more
     formatResult: settings.formatter
     formatSelection: settings.formatter
+
+
+jQuery.fn.normalSelect = (options) ->
+  url = $(this).data('url')
+  
+  defaults =
+    allow_clear: true
+
+  settings = $.extend(defaults, options)
+
+  this.select2
+    placeholder: settings.placeholder
+    allowClear: settings.allow_clear
+
