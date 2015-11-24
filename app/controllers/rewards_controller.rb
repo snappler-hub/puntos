@@ -60,7 +60,9 @@ class RewardsController < ApplicationController
     end
 
     def reward_params
-      params.require(:reward).permit(:name, :description, :code, :need_points, :reward_kind, :image, :remove_image, :service_types)
+      params['reward']['service_types'] = params['reward']['service_types'] || []
+      params['reward']['service_types'] = params['reward']['service_types'].reject(&:blank?)
+      params.require(:reward).permit(:name, :description, :code, :need_points, :reward_kind, :image, :remove_image, :service_types => [])
     end
 
     def filter_params

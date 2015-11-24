@@ -65,3 +65,13 @@ html.turbolinks-progress-bar::before {
 .table.vertical-align-middle > tbody > tr > td{
 	vertical-align: middle;
 }
+
+.select2-container{
+  padding: 0px;
+  height: auto;
+  min-height: 34px;
+}
+.select2-container > ul.select2-choices{
+  border: 0;
+}
+  
