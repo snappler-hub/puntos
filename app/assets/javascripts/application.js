@@ -34,26 +34,14 @@
 //= require plugins/slimScroll/jquery.slimscroll.min.js
 //= require plugins/fastclick/fastclick.min.js
 //= require plugins/dist/js/app.js
+  
+//= require select2.min
 
 //= require cocoon
 //= require snackbar.js
 //= require turbolinks
+//= require ajax_select
+//= require init
+//= require services
 //= require comments
 
-
-$(document).on('page:change', function () {
-  Turbolinks.enableProgressBar();
-  
-  if($('.snackbar-message').length > 0){
-    $('.snackbar-message').snackbar('show');
-  };
-
-  $("[data-controlsidebar]").on('click', function () {
-    change_layout($(this).data('controlsidebar'));
-    var slide = !AdminLTE.options.controlSidebarOptions.slide;
-    AdminLTE.options.controlSidebarOptions.slide = slide;
-    if (!slide){
-      $('.control-sidebar').removeClass('control-sidebar-open');
-    };
-  });
-});

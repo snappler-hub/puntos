@@ -32,8 +32,10 @@ class ServicesControllerTest < ActionController::TestCase
   end
   
   test "should create pfpc service" do
+    vademecum = vademecums(:one)
     assert_difference('ServicePfpc.count') do
       post :create, user_id: @final_user.id, service: {
+        vademecum_id: vademecum.id, days: 30,
         name: @pfpc_service.name, type: @pfpc_service.type
       }
     end

@@ -12,7 +12,9 @@ Rails.application.routes.draw do
     patch :assign_card, on: :member
   end
 
-  resources :products, except: [:show]
+  resources :products, except: [:show] do
+    get :search, on: :collection
+  end
   resources :vademecums
   
   resources :supplier_requests do

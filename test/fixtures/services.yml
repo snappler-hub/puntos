@@ -22,3 +22,4 @@ pfpc:
   name: PFPC
   type: ServicePfpc
   user: users(:final_user)
+  vademecum: vademecums(:one)

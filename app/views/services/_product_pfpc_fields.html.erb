@@ -2,7 +2,9 @@
   <div class="row">
     <div class="col-md-7">
       <fieldset class="form-group">
-        <%= f.collection_select :product_id, Product.all, :id, :name, {}, {class: 'form-control'} %>
+        <%= f.hidden_field :product_id, class: 'form-control select2', 
+              data: { behavior: 'searchProduct', url: search_products_path,
+                  record_id: f.object.product_id, record_text: f.object.product.try(:name) } %>
       </fieldset>
     </div>
     
