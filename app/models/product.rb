@@ -17,11 +17,8 @@ class Product < ActiveRecord::Base
   scope :search, ->(q) { where("name LIKE :q", q: "%#{q}%") }
   
   # -- Validations
-  validates :name, presence: true
-  validates :code, presence: true, uniqueness: true
+  validates :name, :code, presence: true, uniqueness: true
 
-  # -- Methods
-  
   def to_s
     name
   end
