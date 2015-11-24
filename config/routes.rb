@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   end
 
   resources :products, except: [:show]
+  resources :rewards
   resources :vademecums
   
   resources :supplier_requests do

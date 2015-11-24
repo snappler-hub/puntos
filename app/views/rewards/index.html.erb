@@ -1,0 +1,35 @@
+<header class="content-header">
+  <%= link_to 'Nuevo Premio', new_reward_path,
+      class: 'btn btn-primary pull-right' %>
+  <h1>Premios</h1>
+</header>
+
+<!-- Main content -->
+<section class="content">
+<article class="box box-primary">
+<section class="box-body">
+
+  <%= render 'filter' %>
+
+  <table class="table vertical-align-middle">
+    <thead>
+      <tr>
+        <th>Imagen</th>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Puntos</th>
+        <th>Tipo</th>
+        <th></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <%= render @rewards %>
+    </tbody>
+  </table>
+
+  <%= paginate @rewards %>
+
+</section>
+</article>
+</section>
