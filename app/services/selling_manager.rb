@@ -7,10 +7,12 @@ class SellingManager
 
   def update
     # TODO: Impactar ventas
+    #SellingUpdater.new(...)
   end
 
   def authorize
     # TODO: Autorizar ventas
+    #SellingAuthorizer.new(...)
   end
 
   def valid_input?
