@@ -9,8 +9,8 @@
         <%= render @comments %>
       </div>
 
-      <%= content_tag(:p, 'No hay comentarios', class: 'text-muted text-center', 
-              id: dom_id(@commentable, 'remove-comments')) if @comments.empty? %>
+      <%= content_tag(:p, 'No hay comentarios', class: 'text-muted text-center',
+            id: dom_id(@commentable, 'remove-comments')) if @comments.empty? %>
 
       <div class="comments-pagination">
         <%= link_to_next_page @comments, 'Siguiente', class: 'btn btn-default', remote: true %>

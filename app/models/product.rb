@@ -11,10 +11,10 @@
 #
 
 class Product < ActiveRecord::Base
-  
+
   # -- Scopes
   default_scope { order(:code) }
-  
+
   # -- Validations
   validates :name, :code, presence: true, uniqueness: true
 

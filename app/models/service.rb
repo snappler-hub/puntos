@@ -19,7 +19,7 @@ class Service < ActiveRecord::Base
 
   # -- Constants
   TYPES = %w(points pfpc)
-  
+
   # -- Associations
   belongs_to :user
 

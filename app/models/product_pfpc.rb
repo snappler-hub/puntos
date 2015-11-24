@@ -11,15 +11,14 @@
 #
 
 class ProductPfpc < ActiveRecord::Base
-  
+
   # -- Associations
   belongs_to :product
   belongs_to :service, class_name:  "ServicePfpc", foreign_key: "service_id"
   
   # -- Validations
-  validates :product, presence: true
-  validates :service, presence: true
-  validates :amount, presence: true
-  validates :product, uniqueness: { scope: :service, message: 'ya está en uso. Verifique no tener productos repetidos' }
-  
+  validates :product, :service, :amount, presence: true
+  validates :product, uniqueness: { scope: :service,
+    message: 'ya está en uso. Verifique no tener productos repetidos' }
+
 end

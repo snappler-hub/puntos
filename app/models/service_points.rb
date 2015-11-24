@@ -13,13 +13,13 @@
 #
 
 class ServicePoints < Service
-  
+
   # -- Validations
   validates :amount, presence: true
-  
+
   # -- Methods
   def self.model_name
     superclass.model_name
   end
-  
+
 end
