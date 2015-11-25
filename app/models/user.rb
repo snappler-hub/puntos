@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
   belongs_to :supplier_request
   belongs_to :created_by, class_name: 'User'
   has_many :services
+  has_many :sales
   has_many :service_pfpcs
   has_many :points_services
 
