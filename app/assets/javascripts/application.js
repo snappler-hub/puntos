@@ -40,9 +40,10 @@
 //= require cocoon
 //= require snackbar.js
 //= require turbolinks
-//= require ajax_select
+//= require select2_initializer
 //= require init
 //= require services
 //= require comments
 //= require sales
+//= require awards
 

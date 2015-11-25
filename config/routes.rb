@@ -16,8 +16,13 @@ Rails.application.routes.draw do
   end
 
   resources :products, except: [:show] do
-    get :search, on: :collection
+    collection do
+      get :search
+      get :search_for_service
+    end
+    
   end
+  resources :rewards
   resources :vademecums
   
   resources :supplier_requests do

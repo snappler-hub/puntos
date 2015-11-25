@@ -46,6 +46,8 @@ class User < ActiveRecord::Base
   belongs_to :created_by, class_name: 'User'
   has_many :services
   has_many :sales
+  has_many :service_pfpcs
+  has_many :points_services
 
   validates :first_name, :last_name, :supplier, :document_type, :document_number, presence: true
   validates :password, confirmation: true

@@ -53,36 +53,35 @@ class ServicesController < ApplicationController
       format.html { redirect_to @user, notice: 'El servicio ha sido eliminado correctamente.' }
     end
   end
-    
   
   private
   
-  def build_service(parameters=nil)
-    if params[:type]
-      params[:type] == 'pfpc' ? ServicePfpc.new(parameters) : ServicePoints.new(parameters)
-    else
-      params[:service][:type] == 'ServicePoints' ? ServicePoints.new(parameters) : ServicePfpc.new(parameters)
+    def build_service(parameters=nil)
+      if params[:type]
+        params[:type] == 'pfpc' ? ServicePfpc.new(parameters) : ServicePoints.new(parameters)
+      else
+        params[:service][:type] == 'ServicePoints' ? ServicePoints.new(parameters) : ServicePfpc.new(parameters)
+      end
     end
-  end
   
-  def set_user
-    @user = User.find(params[:user_id]) 
-  end
+    def set_user
+      @user = User.find(params[:user_id]) 
+    end
   
-  def set_service
-    @service = Service.find(params[:id])
-  end
+    def set_service
+      @service = Service.find(params[:id])
+    end
   
-  def service_params
-    allowed_params = [:name, :days]
+    def service_params
+      allowed_params = [:name, :days]
     
-    if params[:service][:type] == 'ServicePoints'
-      allowed_params << :amount 
-    else
-      allowed_params << :vademecum_id << [product_pfpcs_attributes:[:id, :product_id, :amount, :_destroy]]
-    end
+      if params[:service][:type] == 'ServicePoints'
+        allowed_params << :amount 
+      else
+        allowed_params << :vademecum_id << [product_pfpcs_attributes:[:id, :product_id, :amount, :_destroy]]
+      end
 
-    params.require(:service).permit(allowed_params)
-  end
-  
+      params.require(:service).permit(allowed_params)
+    end
+    
 end

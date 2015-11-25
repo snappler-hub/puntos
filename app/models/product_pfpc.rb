@@ -18,7 +18,6 @@ class ProductPfpc < ActiveRecord::Base
   
   # -- Validations
   validates :product, presence: true
-  validates :service, presence: true
   validates :amount, presence: true
   validates :product, uniqueness: { scope: :service, message: 'ya está en uso. Verifique no tener productos repetidos' }
   
