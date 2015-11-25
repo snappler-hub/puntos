@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :cards, only: :create
-    resources :sellings, only: :update do
+    resources :sales, only: :update do
       post :authorize, on: :collection
     end
   end

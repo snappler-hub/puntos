@@ -1,7 +1,7 @@
-class Api::SellingsController < Api::MainController
+class Api::SaleController < Api::MainController
 
   def update
-    manager = SellingManager.new(query)
+    manager = SaleManager.new(query)
     if manager.valid_input?
       # Impactar ventas
       # TODO: manager.update
@@ -12,7 +12,7 @@ class Api::SellingsController < Api::MainController
   end
 
   def authorize
-    manager = SellingManager.new(query)
+    manager = SaleManager.new(query)
     if manager.valid_input?
       # Autorizar ventas
       # TODO: manager.authorize

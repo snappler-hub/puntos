@@ -5,4 +5,3 @@ $("#<%= dom_id(@commentable, 'comments-list') %>").append("<%= escape_javascript
 <% else %>
   $("#<%= dom_id(@commentable, 'comments') %> .comments-pagination").remove();
 <% end %>
-

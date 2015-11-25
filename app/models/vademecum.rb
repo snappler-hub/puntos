@@ -11,6 +11,10 @@ class Vademecum < ActiveRecord::Base
   validates :name, presence: true
   
   # -- Methods
+
+  def has?(product)
+    product_discounts.any? {|discount| discount.product == product}
+  end
   
   def to_s
     name

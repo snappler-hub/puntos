@@ -1,4 +1,4 @@
-class SellingManagerTest < ActiveSupport::TestCase
+class SaleManagerTest < ActiveSupport::TestCase
 
   VALID_QUERY = {
     ticket: '12345',
@@ -16,7 +16,7 @@ class SellingManagerTest < ActiveSupport::TestCase
   }
   
   test "input debe ser hash" do
-    manager = SellingManager.new([])
+    manager = SaleManager.new([])
     assert_equal false, manager.valid_input?
     assert_equal ['Consulta mal formada.'], manager.errors
   end

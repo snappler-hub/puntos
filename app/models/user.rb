@@ -64,6 +64,10 @@ class User < ActiveRecord::Base
   def to_param
     "#{id}-#{first_name}-#{last_name}".parameterize
   end
+
+  def vademecums
+    service.where(type: 'PFPC').map &:vademecum
+  end
   
   # -------------------------------
   def can_view?(resource)
