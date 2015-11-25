@@ -75,6 +75,7 @@ final_user:
   role: 'seller'
   first_name: 'Usuario'
   last_name: 'Común'
+  card_number: '1234123412341234'
   document_number: '12345671'
   document_type: 'dni'
   created_by_id: final_user

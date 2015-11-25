@@ -1,8 +1,9 @@
 class Api::SaleController < Api::MainController
 
   def update
-    manager = SaleManager.new(query)
-    if manager.valid_input?
+    adapter = SaleApiAdapter.new(query)
+    if adapter.valid_input?
+      manager = SaleManager.new(adapter.sale, adapter.seller)
       # Impactar ventas
       # TODO: manager.update
       render json: {status: :ok}, status: :ok

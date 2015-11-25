@@ -1,8 +1,8 @@
-class SaleManagerTest < ActiveSupport::TestCase
+class SaleApiAdapterTest < ActiveSupport::TestCase
 
   VALID_QUERY = {
-    ticket: '12345',
-    vendedor: 'some_seller',
+    ticket: users(:final_user).card_number,
+    vendedor: users(:seller).email,
     prestador: 'prestador1',
     fecha: '2016-05-05',
     sucursal: 'nombre_sucursal',
