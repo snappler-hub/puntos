@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125121610) do
+ActiveRecord::Schema.define(version: 20151125125051) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20151125121610) do
   create_table "period_products", force: :cascade do |t|
     t.integer  "service_period_id", limit: 4
     t.integer  "product_id",        limit: 4
-    t.integer  "ammount",           limit: 4
+    t.integer  "amount",            limit: 4
     t.integer  "accumulated",       limit: 4, default: 0
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 20151125121610) do
     t.datetime "updated_at",                            null: false
     t.integer  "days",         limit: 4,   default: 30
     t.integer  "vademecum_id", limit: 4
+    t.integer  "status",       limit: 4,   default: 0
   end
 
   add_index "services", ["user_id"], name: "index_services_on_user_id", using: :btree
