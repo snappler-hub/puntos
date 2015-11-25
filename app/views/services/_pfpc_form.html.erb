@@ -10,7 +10,7 @@
   <div class="col-md-3"> <%= label_tag :products, 'Cantidad' %> </div>
 </div>
 
-<div class="product_pfpcs  form-group">
+<div id="js-productPfpcs" class="product_pfpcs  form-group">
   <%= f.fields_for :product_pfpcs do |p| %>
     <%= render 'product_pfpc_fields', f: p %>
   <% end %>
@@ -18,3 +18,26 @@
     <%= link_to_add_association 'Nuevo Producto', f, :product_pfpcs, class: 'btn btn-default' %>
   </div>
 </div>
+
+<%= content_for(:form_help) do %>
+  <div class="box box-widget">
+    <!-- HEADER -->
+    <div class="box-header with-border">
+      <a href="#">Notas</a>
+      <div class="box-tools">
+        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+      </div>
+    </div>
+    
+    <!-- BODY -->
+    <div class="box-body">
+      <p>
+        Los productos serán filtrados por el Vademecum seleccionado.
+      </p>
+
+      <p>
+        Los productos previamente añadidos a otro servicio no están disponibles para la selección.
+      </p>
+    </div>
+  </div>
+<% end %>

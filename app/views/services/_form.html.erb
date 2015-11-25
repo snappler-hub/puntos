@@ -36,4 +36,11 @@
       </section>
     </article>
   </div>
+  
+  <% if content_for?(:form_help) %>
+    <div class="col-md-3">
+      <%= yield :form_help %>
+    </div>
+  <% end %>
+  
 </div>

@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-md-6">
+    <article class="box box-primary">
+      <section class="box-body">
+
+        <%= form_for(@reward) do |f| %>
+        <% @reward.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+        <% end %>
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <fieldset class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: 'form-control', required: true %>
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <fieldset class="form-group">
+              <%= f.label :code %>
+              <%= f.text_field :code, class: 'form-control', required: true %>
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <fieldset class="form-group">
+              <%= f.label :need_points %>
+              <%= f.number_field :need_points, class: 'form-control', required: true %>
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <fieldset class="form-group">
+              <%= f.label :reward_kind %>
+              <%= f.select :reward_kind,
+              Reward::REWARD_KINDS.map{|kind| [t("reward_kinds.#{kind}"), kind]},
+              {}, {class: 'form-control'} %>
+            </fieldset>
+          </div>
+        </div>
+
+        <fieldset class="form-group">
+          <%= f.label :service_types %>
+          <%= f.select :service_types,
+          Service::TYPES.map{|type| [t("service_types.#{type}"), type]},
+          {}, {multiple: :multiple, class: 'form-control select2'} %>
+        </fieldset>
+        
+
+        <fieldset class="form-group">
+          <%= f.label :description %>
+          <%= f.text_area :description, class: 'form-control' %>
+        </fieldset>
+
+
+        <fieldset class="form-group">
+          <%= f.label :image %>
+          <%= image_tag @reward.image.thumb('100x200').url, class: :thumbnail if @reward.image %>
+          <% if @reward.image %>
+          <%= f.check_box :remove_image %> <%= f.label :remove_image, 'Remover foto' %>
+          <% end %>
+          <%= f.file_field :image %>
+          <p class="help-block">
+            <%= @reward.image ? 'Click para cambiar la foto' : 'Seleccione una fotografía' %>
+          </p>
+        </fieldset>
+
+
+        <div class="actions">
+          <%= f.submit 'Guardar premio', class: 'btn btn-primary', data: { 'disable-with' => 'Cargando...' } %>
+        </div>
+        <% end %>
+
+      </section>
+    </article>
+  </div>
+</div>

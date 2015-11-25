@@ -3,12 +3,14 @@ class App.ServiceForm
   constructor: () ->
     @vademecum = $('#js-vademecumField').val()
     @bindEvents()
+    @bindSelects()
     
   # Binding de Eventos
   bindEvents: () ->
     that = @
     
-    $("[data-behavior~=searchProduct]").ajaxSelect()
+    $('#js-productPfpcs').on 'cocoon:after-insert', (e, insertedItem) ->
+      that.bindSelects()
     
     $('#js-vademecumField').change (e) =>
       # Si no tiene productos no hago nada
@@ -20,6 +22,15 @@ class App.ServiceForm
         that.vademecum = $(target).val
       else
         $(target).val(@vademecum)
+  
+  # Binding evento de select2 de productos
+  bindSelects: () ->
+    $("[data-behavior~=searchProduct]").ajaxSelect
+      selectData: (term, page) ->
+        query: term
+        page: page
+        limit: 10
+        vademecum_id: $('#js-vademecumField').val()
   
   # True si el servicio tiene productos
   hasProducts: () ->
