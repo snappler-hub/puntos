@@ -5,9 +5,9 @@ class ServicePeriod < ActiveRecord::Base
   has_many :period_products
   
   # -- Validations
-  validates :service, pesence: true
-  validates :start_date, pesence: true
-  validates :end_date, pesence: true
+  validates :service, presence: true
+  validates :start_date, presence: true
+  validates :end_date, presence: true
   
   # -- Misc
   enum status: { in_progress: 0, finished: 1 }
