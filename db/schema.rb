@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151120211330) do
+ActiveRecord::Schema.define(version: 20151124184947) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -54,6 +54,29 @@ ActiveRecord::Schema.define(version: 20151120211330) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "sale_products", force: :cascade do |t|
+    t.integer  "product_id", limit: 4
+    t.integer  "sale_id",    limit: 4
+    t.integer  "amount",     limit: 4,  default: 0
+    t.float    "cost",       limit: 24, default: 0.0
+    t.float    "discount",   limit: 24, default: 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sale_products", ["product_id"], name: "index_sale_products_on_product_id", using: :btree
+  add_index "sale_products", ["sale_id"], name: "index_sale_products_on_sale_id", using: :btree
+
+  create_table "sales", force: :cascade do |t|
+    t.integer  "seller_id",  limit: 4
+    t.integer  "client_id",  limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "sales", ["client_id"], name: "index_sales_on_client_id", using: :btree
+  add_index "sales", ["seller_id"], name: "index_sales_on_seller_id", using: :btree
 
   create_table "services", force: :cascade do |t|
     t.string   "name",         limit: 255,              null: false
@@ -147,6 +170,8 @@ ActiveRecord::Schema.define(version: 20151120211330) do
   add_foreign_key "product_discounts", "vademecums"
   add_foreign_key "product_pfpcs", "products"
   add_foreign_key "product_pfpcs", "services"
+  add_foreign_key "sale_products", "products"
+  add_foreign_key "sale_products", "sales"
   add_foreign_key "services", "users"
   add_foreign_key "services", "vademecums"
   add_foreign_key "supplier_requests", "suppliers"

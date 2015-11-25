@@ -6,10 +6,13 @@ Rails.application.routes.draw do
       post :authorize, on: :collection
     end
   end
-
+  
   resources :users do
     resources :services, except: [:index]
     patch :assign_card, on: :member
+    resources :sales, except: [:edit, :destroy, :create] do
+      resources :sale_products
+    end
   end
 
   resources :products, except: [:show] do

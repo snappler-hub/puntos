@@ -1,0 +1,35 @@
+<div class="row">
+<div class="col-md-6">
+<article class="box box-primary">
+<section class="box-body">
+
+<%= form_for [@user, @sale] do |f| %>
+  <% @sale.errors.full_messages.each do |message| %>
+    <p><%= message %></p>
+  <% end %>
+
+  <fieldset class="form-group">
+    <!-- VER EL SELECT2 -->
+    <%= f.hidden_field :client_id, class: 'select2', 
+          data: { behavior: 'searchClient', url: '#'} %>
+  </fieldset>
+  
+  <h3>Productos</h3>
+  <div class="form-group" id="sale_products">
+    <%= f.fields_for :sale_products do |p| %>
+      <%= render 'sale_product_fields', f: p %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association 'Agregar Producto', f, :sale_products, class: 'btn btn-default' %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Guardar venta', class: 'btn btn-primary', data: { 'disable-with' => 'Cargando...' } %>
+  </div>
+<% end %>
+
+</section>
+</article>
+</div>
+</div>
