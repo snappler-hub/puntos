@@ -45,5 +45,5 @@
 //= require services
 //= require comments
 //= require sales
-//= require awards
+//= require rewards
 

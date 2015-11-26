@@ -25,7 +25,11 @@ Rails.application.routes.draw do
     end
     
   end
-  resources :rewards
+  
+  resources :rewards do
+    get :list, on: :collection
+  end
+
   resources :vademecums
   
   resources :supplier_requests do

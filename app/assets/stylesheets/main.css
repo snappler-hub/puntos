@@ -45,3 +45,60 @@ html.turbolinks-progress-bar::before {
 .select2-container .select2-choice abbr {
   top: 6px;
 }
+
+.table.vertical-align-middle td{
+  vertical-align: middle;
+}
+
+
+
+.list_rewards .item .item-image{
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-color: #ccc;
+  cursor: pointer;
+  height: 230px;
+  -webkit-transition: height 0.5s ease; /* Safari */
+  transition: height 0.5s ease;
+}
+
+
+
+.list_rewards .item .item-description{
+  height: 35px;
+  -webkit-transition: height 0.5s ease; /* Safari */
+  transition: height 0.5s ease;
+}
+
+.list_rewards .item .item-description h3{
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.list_rewards .item .item-description h3 .name{
+  text-align: left;
+  float: left;
+  width: 75%;
+}
+
+.list_rewards .item .item-description h3 .points{
+  text-align: right;
+  float: left;
+  width: 25%;
+}
+
+.list_rewards .item .item-description h3 .clear-both{
+  clear:both;
+  display: block;
+}
+
+
+.list_rewards .item.open .item-description{
+  height: 155px;
+}
+
+.list_rewards .item.open .item-image{
+  height: 120px;
+}
+  

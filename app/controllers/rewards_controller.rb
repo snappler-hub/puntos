@@ -1,6 +1,13 @@
 class RewardsController < ApplicationController
   before_action :set_reward, only: [:show, :edit, :update, :destroy]
-  before_action :only_authorize_god!#, only: [:index, :new, :create, :destroy]  
+  before_action :only_authorize_god!, except: [:list]  
+
+
+  def list
+    @filter = RewardFilter.new(filter_params)
+    @rewards = @filter.call.page(params[:page])
+    render layout: "public"
+  end
 
   # GET /rewards
   def index
