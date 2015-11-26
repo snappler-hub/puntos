@@ -10,7 +10,7 @@ class App.ServiceForm
     that = @
     
     $('#js-productPfpcs').on 'cocoon:after-insert', (e, insertedItem) ->
-      that.bindSelects()
+      that.bindSelects(insertedItem)
     
     $('#js-vademecumField').change (e) =>
       # Si no tiene productos no hago nada
@@ -24,8 +24,9 @@ class App.ServiceForm
         $(target).val(@vademecum)
   
   # Binding evento de select2 de productos
-  bindSelects: () ->
-    $("[data-behavior~=searchProduct]").ajaxSelect
+  bindSelects: (parent) ->
+    elements = if (parent) then parent.find("[data-behavior~=searchProduct]") else $("[data-behavior~=searchProduct]")
+    elements.ajaxSelect
       selectData: (term, page) ->
         query: term
         page: page

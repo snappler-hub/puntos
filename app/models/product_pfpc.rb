@@ -14,7 +14,7 @@ class ProductPfpc < ActiveRecord::Base
   
   # -- Associations
   belongs_to :product
-  belongs_to :service, class_name:  "ServicePfpc", foreign_key: "service_id"
+  belongs_to :service, class_name:  "PfpcService", foreign_key: "service_id"
   
   # -- Validations
   validates :product, presence: true

@@ -13,7 +13,7 @@
             <%= @service.name %>
           </h3>
           
-          <% if @service.is_a?(ServicePoints) %>
+          <% if @service.is_a?(PointsService) %>
             <!-- Servicio de Puntos -->
             <p class="text-muted text-center">
               Puntos a cumplir: <b> <%= @service.amount %><b/>
