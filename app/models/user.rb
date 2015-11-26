@@ -40,14 +40,21 @@ class User < ActiveRecord::Base
 
   ROLES = %w(god admin seller normal_user)
   DOCUMENT_TYPES = %w(dni cuil passport)
+  
+  # -- Scopes
+  scope :search, ->(q) { where("card_number LIKE :q", q: "%#{q}%") }
+  scope :with_role, ->(role) { where(role: role) }
 
+  # -- Associations
   belongs_to :supplier
   belongs_to :supplier_request
   belongs_to :created_by, class_name: 'User'
   has_many :services
   has_many :pfpc_services
+  has_many :sales
   has_many :points_services
 
+  # -- Validations
   validates :first_name, :last_name, :supplier, :document_type, :document_number, presence: true
   validates :password, confirmation: true
   validates :role, inclusion: {in: ROLES}
@@ -55,6 +62,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
   validates :document_number, uniqueness: {scope: :document_type}
 
+  
   def to_s
     "#{first_name} #{last_name}"
   end

@@ -44,5 +44,6 @@
 //= require init
 //= require services
 //= require comments
+//= require sales
 //= require awards
 

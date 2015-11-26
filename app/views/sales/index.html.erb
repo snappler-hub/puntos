@@ -1,0 +1,31 @@
+<header class="content-header">
+  <% unless current_user.is?('normal_user') %>
+    <%= link_to 'Nueva Venta', new_user_sale_path,
+      class: 'btn btn-primary pull-right' %>
+  <% end %>
+  <h1>Ventas</h1>
+</header>
+
+<!-- Main content -->
+<section class="content">
+<article class="box box-primary">
+<section class="box-body">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Vendedor</th>
+        <th>Cliente</th>
+        <th>Fecha</th>
+        <th></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <%= render @sales %>
+    </tbody>
+  </table>
+
+</section>
+</article>
+</section>

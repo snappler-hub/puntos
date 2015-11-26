@@ -23,7 +23,7 @@ gem 'hashids'
 gem 'mandrill-api'
 gem 'kaminari'
 gem 'dragonfly', '~> 1.0.12'
-gem "cocoon"
+gem "cocoon" # Dinamyc add and remove nested resources
 
 group :development, :test do
   gem 'byebug'
@@ -38,4 +38,5 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'annotate'
+  gem 'hirb' # Give table format to irb console results
 end

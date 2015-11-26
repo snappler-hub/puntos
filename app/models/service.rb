@@ -39,7 +39,7 @@ class Service < ActiveRecord::Base
   def to_s 
     name
   end
-  
+
   # Marco el servicio como vencido
   def mark_as_expired
     self.status = :expired

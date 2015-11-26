@@ -104,6 +104,43 @@ ActiveRecord::Schema.define(version: 20151125125051) do
     t.datetime "updated_at",                  null: false
   end
 
+<<<<<<< HEAD
+=======
+  create_table "sale_products", force: :cascade do |t|
+    t.integer  "product_id", limit: 4
+    t.integer  "sale_id",    limit: 4
+    t.integer  "amount",     limit: 4,  default: 0
+    t.float    "cost",       limit: 24, default: 0.0
+    t.float    "discount",   limit: 24, default: 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sale_products", ["product_id"], name: "index_sale_products_on_product_id", using: :btree
+  add_index "sale_products", ["sale_id"], name: "index_sale_products_on_sale_id", using: :btree
+
+  create_table "sales", force: :cascade do |t|
+    t.integer  "seller_id",  limit: 4
+    t.integer  "client_id",  limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "sales", ["client_id"], name: "index_sales_on_client_id", using: :btree
+  add_index "sales", ["seller_id"], name: "index_sales_on_seller_id", using: :btree
+
+  create_table "service_periods", force: :cascade do |t|
+    t.integer  "service_id", limit: 4
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "status",     limit: 4, default: 0
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "service_periods", ["service_id"], name: "index_service_periods_on_service_id", using: :btree
+
+>>>>>>> 2621e3171fc311c8954ab2a84a46adfde3987b3c
   create_table "services", force: :cascade do |t|
     t.string   "name",           limit: 255,              null: false
     t.string   "type",           limit: 255,              null: false
@@ -203,6 +240,12 @@ ActiveRecord::Schema.define(version: 20151125125051) do
   add_foreign_key "product_discounts", "vademecums"
   add_foreign_key "product_pfpcs", "products"
   add_foreign_key "product_pfpcs", "services"
+<<<<<<< HEAD
+=======
+  add_foreign_key "sale_products", "products"
+  add_foreign_key "sale_products", "sales"
+  add_foreign_key "service_periods", "services"
+>>>>>>> 2621e3171fc311c8954ab2a84a46adfde3987b3c
   add_foreign_key "services", "users"
   add_foreign_key "services", "vademecums"
   add_foreign_key "supplier_requests", "suppliers"
