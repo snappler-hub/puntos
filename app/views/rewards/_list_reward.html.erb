@@ -3,12 +3,16 @@
 	<article class="box box-success">
 		<section class="box-body item">
 			<div class="item-image" style="background-image:url(<%= reward.image.url %>)">
+				<a href="javascript:;" class="add-cart-button"><i class="fa fa-3x fa-cart-plus"></i></a>
 			</div>
 			<div class="item-description">
 				<h3><span class="name"><%= reward.name %></span><span class="points"><%= reward.need_points %></span><span class='clear-both'></span></h3>
-				
-				<%# reward.code %>
-				<%# t reward.reward_kind, scope: :reward_kinds %>
+				<div class="full-description" style="display:none;">
+					<hr>
+					<h4><span class="left"><%= t reward.reward_kind, scope: :reward_kinds %></span><span class="right">#<%= reward.code %></span><span class='clear-both'></span></h4>
+					<hr>
+					<span class="description"><%= reward.description %></span>
+				</div>
 			</div>
 		</section>
 	</article>

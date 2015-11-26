@@ -63,10 +63,18 @@ html.turbolinks-progress-bar::before {
   transition: height 0.5s ease;
 }
 
-
+.list_rewards .item .item-image .add-cart-button{
+  float: right;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #cfc;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 
 .list_rewards .item .item-description{
   height: 35px;
+  overflow: hidden;
   -webkit-transition: height 0.5s ease; /* Safari */
   transition: height 0.5s ease;
 }
@@ -88,10 +96,44 @@ html.turbolinks-progress-bar::before {
   width: 25%;
 }
 
-.list_rewards .item .item-description h3 .clear-both{
+.list_rewards .item .item-description .clear-both{
   clear:both;
   display: block;
 }
+
+.list_rewards .item .item-description hr{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.list_rewards .item .item-description .full-description h4{
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.list_rewards .item .item-description .full-description h4 .left{
+  text-align: left;
+  float: left;
+  width: 50%;
+  color: #00a65a;
+}
+
+.list_rewards .item .item-description .full-description h4 .right{
+  text-align: right;
+  float: right;
+  width: 50%;
+  color: #00a65a;  
+}
+
+.list_rewards .item .item-description .full-description span.description{
+  display: block;
+  height: 76px;
+  overflow: auto;
+  white-space: pre-line;
+  width: 100%; 
+}
+
+
 
 
 .list_rewards .item.open .item-description{
