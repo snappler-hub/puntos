@@ -3,47 +3,35 @@
   <h1>Información de servicio</h1>
 </header>
 
+<% klass = (@service.in_progress?) ? 'success' : 'danger' %>
+
 <section class="content">
 
   <div class="row">
     <div class="col-md-4">
-      <article class="box box-primary">
+      <article class="box box-<%= klass %>">
         <section class="box-body box-profile">
           <h3 class="profile-username text-center">
             <%= @service.name %>
           </h3>
           
           <% if @service.is_a?(PointsService) %>
+            
             <!-- Servicio de Puntos -->
             <p class="text-muted text-center">
               Puntos a cumplir: <b> <%= @service.amount %><b/>
             </p>
-            
-            <ul class="list-group list-group-unbordered">
-              <li class="list-group-item">
-                <b> Puntos Acumulados</b>
-                <a class="pull-right"> 0 </a>
-              </li>
-              <li class="list-group-item">
-                <b> Vence en </b>
-                <a class="pull-right"> x días </a>
-              </li>
-            </ul>
+          
           <% else %>  
+          
             <!-- Servicio PFPC -->
-            <ul class="list-group list-group-unbordered">
-              <li class="list-group-item">
-                <b> Vence en </b>
-                <a class="pull-right"> x días </a>
-              </li>
-            </ul>
-            <p class="text-muted text-center"> Acumulado en último Período </p>
+            <p class="text-muted text-center"> Productos </p>
             <ul class="list-group list-group-unbordered">
               <% @service.product_pfpcs.each do |p| %>
                 <li class="list-group-item">
                   <b> <%= p.product %> </b>
                   <div class="pull-right">
-                    0 de <a> <%= p.amount %> </a>
+                    <%= p.amount %>
                   </div>
                 </li>
               <% end %>
@@ -60,6 +48,25 @@
         </div>
       </article>
     </div>
+    
+    <div class="col-md-4">
+      <article class="box box-<%= klass %>">
+        <section class="box-body box-profile">
+          <h3 class="profile-username text-center">
+            Período Actual
+          </h3>
+        
+          <% if @service.expired? %>
+            <%= render 'inactive_service' %>
+          <% elsif @service.is_a?(PointsService) %>
+            <%= render 'points_period' %>
+          <% else %>
+            <%= render 'pfpc_period' %>
+          <% end %>
+        </section>
+      </article>
+    </div>
+    
   </div>
 
 </section>
