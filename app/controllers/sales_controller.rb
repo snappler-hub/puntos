@@ -18,14 +18,7 @@ class SalesController < ApplicationController
   
   # POST users/1/sales
   def create
-    @sale = Sale.new(sale_params)
-    respond_to do |format|
-      if @sale.save
-        format.html { redirect_to user_sales_path, notice: 'La venta ha sido creado correctamente.' }
-      else
-        format.html { render :new }
-      end
-    end
+    #Para que choque con la API
   end
   
   def destroy
