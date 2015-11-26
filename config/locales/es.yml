@@ -73,7 +73,16 @@ es:
       product_pfpcs:
         product: Producto asociado  
       product_discounts:
-        product: Producto 
+        product: Producto
+      sale:
+        seller_id: Vendedor
+        client_id: Cliente
+      sale_product:
+        product_id: Producto
+        sale_id: Venta
+        amount: Cantidad
+        cost: Costo
+        discount: Descuento
         
   activemodel:
     attributes:

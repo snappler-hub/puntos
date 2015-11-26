@@ -14,6 +14,13 @@
       <span>Panel</span>
     <% end %>
   </li>
+  
+  <li>
+    <%= link_to user_sales_path(current_user) do %>
+      <i class="fa fa-shopping-cart"></i>
+      <span>Ventas</span>
+    <% end %>
+  </li>
 
   <% if god? %>
     <li>

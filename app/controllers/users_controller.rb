@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_supplier
   before_action :set_user, only: [:show, :edit, :update, :destroy, :assign_card]
-  before_action :only_authorize_admin!, except: [:edit, :update]
+  before_action :only_authorize_admin!, except: [:edit, :update, :search]
 
   # GET /users
   # GET /users.json
@@ -27,6 +27,13 @@ class UsersController < ApplicationController
     else
       redirect_to @user, alert: "El usuario ya tiene tarjeta asignada"
     end
+  end
+  
+  # GET /users/search
+  def search
+    block = lambda {|x| {name: x.card_number, id: x.id} }
+    records = RecordSearcher.call(User.all, params, &block)
+    render json: records.to_json, callback: params[:callback]
   end
 
   # GET /users/1/edit

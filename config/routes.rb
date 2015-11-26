@@ -8,9 +8,12 @@ Rails.application.routes.draw do
   end
   
   resources :users do
+    collection do
+      get :search
+    end
     resources :services, except: [:index]
     patch :assign_card, on: :member
-    resources :sales, except: [:edit, :destroy, :create] do
+    resources :sales, except: [:edit, :destroy, :create, :update] do
       resources :sale_products
     end
   end

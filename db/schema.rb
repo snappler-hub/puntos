@@ -67,6 +67,19 @@ ActiveRecord::Schema.define(version: 20151125121610) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "rewards", force: :cascade do |t|
+    t.string   "name",          limit: 255,   null: false
+    t.text     "description",   limit: 65535
+    t.string   "code",          limit: 255,   null: false
+    t.integer  "need_points",   limit: 4
+    t.string   "reward_kind",   limit: 255,   null: false
+    t.string   "image_uid",     limit: 255
+    t.string   "image_name",    limit: 255
+    t.text     "service_types", limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
   create_table "sale_products", force: :cascade do |t|
     t.integer  "product_id", limit: 4
     t.integer  "sale_id",    limit: 4
@@ -89,19 +102,6 @@ ActiveRecord::Schema.define(version: 20151125121610) do
 
   add_index "sales", ["client_id"], name: "index_sales_on_client_id", using: :btree
   add_index "sales", ["seller_id"], name: "index_sales_on_seller_id", using: :btree
-
-  create_table "rewards", force: :cascade do |t|
-    t.string   "name",          limit: 255,   null: false
-    t.text     "description",   limit: 65535
-    t.string   "code",          limit: 255,   null: false
-    t.integer  "need_points",   limit: 4
-    t.string   "reward_kind",   limit: 255,   null: false
-    t.string   "image_uid",     limit: 255
-    t.string   "image_name",    limit: 255
-    t.text     "service_types", limit: 65535
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-  end
 
   create_table "service_periods", force: :cascade do |t|
     t.integer  "service_id", limit: 4
