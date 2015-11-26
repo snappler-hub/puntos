@@ -14,13 +14,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  service_period_id: 
+  pfpc_period_id: 
   product_id: 
   amount: 1
   accumulated: 1
 
 two:
-  service_period_id: 
+  pfpc_period_id: 
   product_id: 
   amount: 1
   accumulated: 1
