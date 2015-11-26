@@ -21,7 +21,7 @@ class ServicesControllerTest < ActionController::TestCase
   end
   
   test "should create points service" do
-    assert_difference('ServicePoints.count') do
+    assert_difference('PointsService.count') do
       post :create, user_id: @final_user.id, service: {
         name: @points_service.name, type: @points_service.type, amount: @points_service.amount
       }
@@ -33,7 +33,7 @@ class ServicesControllerTest < ActionController::TestCase
   
   test "should create pfpc service" do
     vademecum = vademecums(:one)
-    assert_difference('ServicePfpc.count') do
+    assert_difference('PfpcService.count') do
       post :create, user_id: @final_user.id, service: {
         vademecum_id: vademecum.id, days: 30,
         name: @pfpc_service.name, type: @pfpc_service.type
@@ -53,7 +53,7 @@ class ServicesControllerTest < ActionController::TestCase
   end
   
   test "should destroy points service" do
-    assert_difference('ServicePoints.count', -1) do
+    assert_difference('PointsService.count', -1) do
       delete :destroy, id: @points_service, user_id: @final_user.id
     end
 
@@ -61,7 +61,7 @@ class ServicesControllerTest < ActionController::TestCase
   end
   
   test "should destroy PFPC service" do
-    assert_difference('ServicePfpc.count', -1) do
+    assert_difference('PfpcService.count', -1) do
       delete :destroy, id: @pfpc_service, user_id: @final_user
     end
 

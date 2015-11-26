@@ -22,7 +22,7 @@
           </fieldset>
         </div>
 
-        <% if @service.is_a?(ServicePfpc) %>
+        <% if @service.is_a?(PfpcService) %>
           <%= render 'pfpc_form', f: f %>
         <% else %>
           <%= render 'points_form', f: f %>

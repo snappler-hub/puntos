@@ -2,25 +2,27 @@
 #
 # Table name: services
 #
-#  id           :integer          not null, primary key
-#  name         :string(255)      not null
-#  type         :string(255)      not null
-#  user_id      :integer
-#  amount       :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  days         :integer          default(30)
-#  vademecum_id :integer
+#  id             :integer          not null, primary key
+#  name           :string(255)      not null
+#  type           :string(255)      not null
+#  user_id        :integer
+#  last_period_id :integer
+#  amount         :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  days           :integer          default(30)
+#  vademecum_id   :integer
+#  status         :integer          default(0)
 #
 
 points:
   name: Points
-  type: ServicePoints
+  type: PointsService
   user: users(:final_user)
   amount: 1000
   
 pfpc:
   name: PFPC
-  type: ServicePfpc
+  type: PfpcService
   user: users(:final_user)
   vademecum: vademecums(:one)

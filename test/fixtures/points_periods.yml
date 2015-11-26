@@ -11,10 +11,20 @@
 #  updated_at :datetime         not null
 #
 
-require 'test_helper'
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-class ServicePeriodTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
-end
+one:
+  service_id: 
+  start_date: 2015-11-25
+  end_date: 2015-11-25
+  status: 0
+  amount: 
+  accumulated:
+
+two:
+  service_id: 
+  start_date: 2015-11-25
+  end_date: 2015-11-25
+  status: 0
+  amount: 
+  accumulated:
