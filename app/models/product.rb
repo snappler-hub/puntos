@@ -24,14 +24,16 @@ class Product < ActiveRecord::Base
   end
   
   def self.products_for_service(params_vademecum, user)
-    pfpc_services = user.service_pfpcs
-    products_in_services = pfpc_services.joins(:products)
-    product_ids = products_in_services.pluck(:id)
+    pfpc_services = user.pfpc_services
+    products_in_services = pfpc_services.joins(:product_pfpcs)
+    product_ids = products_in_services.pluck(:product_id)
     
     if params_vademecum
       products = Vademecum.find(params_vademecum).products.where.not(id: product_ids)
     else
       products = Product.all
     end
+    
+    products
   end
 end

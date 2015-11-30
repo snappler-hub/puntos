@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125121610) do
+ActiveRecord::Schema.define(version: 20151125125051) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -26,16 +26,40 @@ ActiveRecord::Schema.define(version: 20151125121610) do
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "period_products", force: :cascade do |t|
-    t.integer  "service_period_id", limit: 4
-    t.integer  "product_id",        limit: 4
-    t.integer  "ammount",           limit: 4
-    t.integer  "accumulated",       limit: 4, default: 0
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.integer  "pfpc_period_id", limit: 4
+    t.integer  "product_id",     limit: 4
+    t.integer  "amount",         limit: 4
+    t.integer  "accumulated",    limit: 4, default: 0
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
+  add_index "period_products", ["pfpc_period_id"], name: "index_period_products_on_pfpc_period_id", using: :btree
   add_index "period_products", ["product_id"], name: "index_period_products_on_product_id", using: :btree
-  add_index "period_products", ["service_period_id"], name: "index_period_products_on_service_period_id", using: :btree
+
+  create_table "pfpc_periods", force: :cascade do |t|
+    t.integer  "service_id", limit: 4
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "status",     limit: 4, default: 0
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "pfpc_periods", ["service_id"], name: "index_pfpc_periods_on_service_id", using: :btree
+
+  create_table "points_periods", force: :cascade do |t|
+    t.integer  "service_id",  limit: 4
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "status",      limit: 4, default: 0
+    t.integer  "amount",      limit: 4, default: 0
+    t.integer  "accumulated", limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "points_periods", ["service_id"], name: "index_points_periods_on_service_id", using: :btree
 
   create_table "product_discounts", force: :cascade do |t|
     t.integer  "product_id",   limit: 4
@@ -66,6 +90,19 @@ ActiveRecord::Schema.define(version: 20151125121610) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "barcode",    limit: 255
+  end
+
+  create_table "rewards", force: :cascade do |t|
+    t.string   "name",          limit: 255,   null: false
+    t.text     "description",   limit: 65535
+    t.string   "code",          limit: 255,   null: false
+    t.integer  "need_points",   limit: 4
+    t.string   "reward_kind",   limit: 255,   null: false
+    t.string   "image_uid",     limit: 255
+    t.string   "image_name",    limit: 255
+    t.text     "service_types", limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "rewards", force: :cascade do |t|
@@ -116,16 +153,19 @@ ActiveRecord::Schema.define(version: 20151125121610) do
   add_index "service_periods", ["service_id"], name: "index_service_periods_on_service_id", using: :btree
 
   create_table "services", force: :cascade do |t|
-    t.string   "name",         limit: 255,              null: false
-    t.string   "type",         limit: 255,              null: false
-    t.integer  "user_id",      limit: 4
-    t.integer  "amount",       limit: 4
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.integer  "days",         limit: 4,   default: 30
-    t.integer  "vademecum_id", limit: 4
+    t.string   "name",           limit: 255,              null: false
+    t.string   "type",           limit: 255,              null: false
+    t.integer  "user_id",        limit: 4
+    t.integer  "last_period_id", limit: 4
+    t.integer  "amount",         limit: 4
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "days",           limit: 4,   default: 30
+    t.integer  "vademecum_id",   limit: 4
+    t.integer  "status",         limit: 4,   default: 0
   end
 
+  add_index "services", ["last_period_id"], name: "index_services_on_last_period_id", using: :btree
   add_index "services", ["user_id"], name: "index_services_on_user_id", using: :btree
   add_index "services", ["vademecum_id"], name: "index_services_on_vademecum_id", using: :btree
 
@@ -203,15 +243,16 @@ ActiveRecord::Schema.define(version: 20151125121610) do
   end
 
   add_foreign_key "comments", "users"
+  add_foreign_key "period_products", "pfpc_periods"
   add_foreign_key "period_products", "products"
-  add_foreign_key "period_products", "service_periods"
+  add_foreign_key "pfpc_periods", "services"
+  add_foreign_key "points_periods", "services"
   add_foreign_key "product_discounts", "products"
   add_foreign_key "product_discounts", "vademecums"
   add_foreign_key "product_pfpcs", "products"
   add_foreign_key "product_pfpcs", "services"
   add_foreign_key "sale_products", "products"
   add_foreign_key "sale_products", "sales"
-  add_foreign_key "service_periods", "services"
   add_foreign_key "services", "users"
   add_foreign_key "services", "vademecums"
   add_foreign_key "supplier_requests", "suppliers"

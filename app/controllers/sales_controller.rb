@@ -1,18 +1,24 @@
 class SalesController < ApplicationController
-  before_action :set_sale, only: [:show, :edit, :update, :destroy]
+  before_action :set_sale, only: [:show]
+  
+  #GET users/1/sales/1
+  def show
+  end
 
-  # GET user_id/sales
+  # GET users/1/sales
   def index
     @sales = Sale.where(seller: current_user)
   end
   
+  # GET users/1/sales/new
   def new
-    @user = current_user
     @sale = Sale.new
     @products = Product.all
   end
   
+  # POST users/1/sales
   def create
+    #Para que choque con la API
   end
   
   def destroy

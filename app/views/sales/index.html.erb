@@ -1,6 +1,8 @@
 <header class="content-header">
-  <%= link_to 'Nueva Venta', new_user_sale_path,
+  <% unless current_user.is?('normal_user') %>
+    <%= link_to 'Nueva Venta', new_user_sale_path,
       class: 'btn btn-primary pull-right' %>
+  <% end %>
   <h1>Ventas</h1>
 </header>
 

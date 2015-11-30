@@ -3,19 +3,19 @@
 <article class="box box-primary">
 <section class="box-body">
 
-<%= form_for [@user, @sale] do |f| %>
+<%= form_for [current_user, @sale] do |f| %>
   <% @sale.errors.full_messages.each do |message| %>
     <p><%= message %></p>
   <% end %>
 
+  <h4>Cliente</h4>
   <fieldset class="form-group">
-    <!-- VER EL SELECT2 -->
-    <%= f.hidden_field :client_id, class: 'select2', 
-          data: { behavior: 'searchClient', url: '#'} %>
+    <%= f.hidden_field :client_id, class: 'select2',
+          data: { behavior: 'searchClient', url: search_users_path } %>
   </fieldset>
   
-  <h3>Productos</h3>
-  <div class="form-group" id="sale_products">
+  <h4>Productos</h4>
+  <div id="js-productSales" class="product_sales form-group" >
     <%= f.fields_for :sale_products do |p| %>
       <%= render 'sale_product_fields', f: p %>
     <% end %>
@@ -25,7 +25,8 @@
   </div>
 
   <div class="actions">
-    <%= f.submit 'Guardar venta', class: 'btn btn-primary', data: { 'disable-with' => 'Cargando...' } %>
+    <%= f.submit 'Hacer algo', class: 'btn btn-primary', data: { 'disable-with' => 'Cargando...' } %>
+    <%= f.submit 'Hacer otro algo', class: 'btn btn-info', data: { 'disable-with' => 'Cargando...' } %>
   </div>
 <% end %>
 

@@ -1,0 +1,65 @@
+<header class="content-header">
+  <%= link_to 'Volver', user_sales_path, class: 'btn btn-default pull-right' %>
+  <h1>Información de una venta</h1>
+</header>
+
+<section class="content">
+
+  <div class="row">
+    <div class="col-md-4">
+      <article class="box box-primary">
+        <section class="box-body box-profile">
+          <h3 class="text-center">
+            <%= @service.name %>
+          </h3>
+          
+          <% if @service.is_a?(ServicePoints) %>
+            <!-- Servicio de Puntos -->
+            <p class="text-muted text-center">
+              Puntos a cumplir: <b> <%= @service.amount %><b/>
+            </p>
+            
+            <ul class="list-group list-group-unbordered">
+              <li class="list-group-item">
+                <b> Puntos Acumulados</b>
+                <a class="pull-right"> 0 </a>
+              </li>
+              <li class="list-group-item">
+                <b> Vence en </b>
+                <a class="pull-right"> x días </a>
+              </li>
+            </ul>
+          <% else %>  
+            <!-- Servicio PFPC -->
+            <ul class="list-group list-group-unbordered">
+              <li class="list-group-item">
+                <b> Vence en </b>
+                <a class="pull-right"> x días </a>
+              </li>
+            </ul>
+            <p class="text-muted text-center"> Acumulado en último Período </p>
+            <ul class="list-group list-group-unbordered">
+              <% @service.product_pfpcs.each do |p| %>
+                <li class="list-group-item">
+                  <b> <%= p.product %> </b>
+                  <div class="pull-right">
+                    0 de <a> <%= p.amount %> </a>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+          
+          
+        </section>
+        <div class="box-footer">
+          <%= link_to 'Editar', [:edit, @user, @service],
+              class: 'btn btn-success' %>
+          <%= link_to 'Eliminar', [@user, @service], method: :delete, class: 'btn btn-danger',
+              data: {confirm: '¿Está seguro?'} %>
+        </div>
+      </article>
+    </div>
+  </div>
+
+</section>
