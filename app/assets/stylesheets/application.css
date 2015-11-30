@@ -22,6 +22,7 @@
  *= require plugins/datepicker/datepicker3.css
  *= require snackbar
  *= require select2
+ *= require select2-bootstrap
  *= require main
  *= require_self
  *= require css-sales
