@@ -13,6 +13,7 @@ class SaleFromAuthorization
   end
 
   def create
+    #TODO: aquí debe impactar en los períodos.
     build.save!
   end
 
@@ -20,7 +21,6 @@ class SaleFromAuthorization
 
   def sale_products
     @authorization.products.map do |product|
-      #binding.pry
       SaleProduct.new(
         product_id: product[:id],
         amount:     product[:amount],

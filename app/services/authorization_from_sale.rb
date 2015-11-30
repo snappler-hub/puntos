@@ -1,4 +1,4 @@
-class SaleManager
+class AuthorizationFromSale
 
   def initialize(sale, seller)
     @client   = sale.client
@@ -20,6 +20,8 @@ class SaleManager
     authorization.save!
     return authorization
   end
+
+  private
 
   def products
     @sale_products.map do |sale_product|
