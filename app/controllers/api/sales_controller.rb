@@ -1,6 +1,6 @@
 class Api::SaleController < Api::MainController
 
-  def update
+  def authorize
     adapter = SaleApiAdapter.new(query)
     if adapter.valid_input?
       manager = SaleManager.new(adapter.sale, adapter.seller)
@@ -12,7 +12,7 @@ class Api::SaleController < Api::MainController
     end
   end
 
-  def authorize
+  def update
     manager = SaleManager.new(query)
     if manager.valid_input?
       # Autorizar ventas
