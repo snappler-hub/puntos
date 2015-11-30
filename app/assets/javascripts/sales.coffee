@@ -21,7 +21,9 @@ class App.SaleForm
         limit: 10    
     
 
-# $(document).on 'click', '.add_fields', ->
+$(document).on 'click', '#js-clearAuthorizationContnet', ->
+    $('#js-authorization').empty()
+    
 $(document).on "page:change", ->
     saleForm = new App.SaleForm()
 

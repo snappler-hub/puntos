@@ -12,7 +12,7 @@
 #
 
 class Comment < ActiveRecord::Base
-  
+
   # -- Scopes
   default_scope { order(created_at: :desc) }
 
@@ -21,13 +21,11 @@ class Comment < ActiveRecord::Base
   belongs_to :user
 
   # -- Validations
-  validates :text, presence: true
-  validates :user, presence: true
-  
-  # -- Methods
+  validates :text, :user, presence: true
 
+  # -- Methods
   def is_owner?(aUser)
-    aUser == self.user    
+    aUser == self.user
   end
 
 end

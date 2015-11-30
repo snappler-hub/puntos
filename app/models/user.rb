@@ -74,7 +74,11 @@ class User < ActiveRecord::Base
   def to_param
     "#{id}-#{first_name}-#{last_name}".parameterize
   end
-  
+
+  def vademecums # TODO: and service is active
+    services.where(type: 'PfpcService').map &:vademecum
+  end
+
   # -------------------------------
   def can_view?(resource)
     resource.can_be_viewed_by?(self)

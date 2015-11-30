@@ -48,7 +48,7 @@ class SupplierRequest < ActiveRecord::Base
   def full_identification
     "#{document_type} #{document_number}"
   end
-  
+
   def can_be_viewed_by?(user)
     (user.is? :god) || (user.is?(:admin) && (user.supplier == self.supplier))
   end

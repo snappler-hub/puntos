@@ -45,7 +45,7 @@ class PfpcService < Service
       service_products = self.product_pfpcs.collect { |p| { product_id: p.product_id, amount: p.amount, accumulated: 0 } }
       period.period_products.create(service_products)  
       
-      self.update(last_period: period)
+      self.update(status: 'in_progress', last_period: period)
     end
   end
   

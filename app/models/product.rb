@@ -11,11 +11,11 @@
 #
 
 class Product < ActiveRecord::Base
-  
+
   # -- Scopes
   default_scope { order(:code) }
   scope :search, ->(q) { where("name LIKE :q", q: "%#{q}%") }
-    
+
   # -- Validations
   validates :name, :code, presence: true, uniqueness: true
 
@@ -36,5 +36,4 @@ class Product < ActiveRecord::Base
     
     products
   end
-  
 end

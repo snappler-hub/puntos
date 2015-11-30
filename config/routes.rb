@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :cards, only: :create
-    resources :sellings, only: :update do
+    resources :sales, only: :update do
       post :authorize, on: :collection
     end
   end
@@ -11,9 +11,11 @@ Rails.application.routes.draw do
     collection do
       get :search
     end
-    resources :services, except: [:index]
+    resources :services, except: [:index] do
+      put :activate, on: :member
+    end
     patch :assign_card, on: :member
-    resources :sales, except: [:edit, :destroy, :create, :update] do
+    resources :sales, except: [:edit, :destroy, :update] do
       resources :sale_products
     end
   end
@@ -54,7 +56,9 @@ Rails.application.routes.draw do
       end
     end
   end
-
+  
+  resources :authorizations, except: [:destroy, :update, :edit, :new]
+  
   resources :sessions, only: :create
 
   resources :password_resets, only: [:new, :create, :edit, :update]

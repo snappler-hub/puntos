@@ -1,0 +1,8 @@
+<div class="alert alert-danger alert-dismissible">
+  <h4> Servicio no Activo </h4>
+  El servicio no se encuentra activo o ha vencido. 
+</div>
+
+<%= link_to [:activate, @user, @service], method: :put, class: 'btn btn-block btn-info' do %>
+  <i class="fa fa-check"></i> Activar
+<% end %>

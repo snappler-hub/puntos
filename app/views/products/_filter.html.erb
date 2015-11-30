@@ -1,26 +1,27 @@
-  <%= form_for @filter, url: :products, method: :get do |f| %>
+<%= form_for @filter, url: :products, method: :get do |f| %>
 
-    <div class="row">
-      <div class="col-md-3">
-        <fieldset class="form-group">
-          <%= f.label :code %>
-          <%= f.text_field :code, class: 'form-control' %>
-        </fieldset>
-      </div>
-
-      <div class="col-md-3">
-        <fieldset class="form-group">
-          <%= f.label :name %>
-          <%= f.text_field :name, class: 'form-control' %>
-        </fieldset>
-      </div>
-
-      <div class="col-md-3">
-        <fieldset class="form-group">
-          <%= f.label :filter %><br />
-          <%= f.submit 'Filtrar', class: 'btn btn-primary', data: { 'disable-with' => 'Cargando...'} %>
-        </fieldset>
-      </div>
+  <div class="row">
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <%= f.label :code %>
+        <%= f.text_field :code, class: 'form-control' %>
+      </fieldset>
     </div>
 
-  <% end %>
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </fieldset>
+    </div>
+
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <%= f.label :filter %><br />
+        <%= f.submit 'Filtrar', class: 'btn btn-primary',
+            data: { 'disable-with' => 'Cargando...'} %>
+      </fieldset>
+    </div>
+  </div>
+
+<% end %>

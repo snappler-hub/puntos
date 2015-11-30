@@ -39,7 +39,7 @@ class PointsService < Service
         period.accumulated  = 0
       end
       
-      self.update(last_period: period)
+      self.update(status: 'in_progress', last_period: period)
     end
   end
   

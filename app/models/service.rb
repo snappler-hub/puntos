@@ -22,7 +22,7 @@ class Service < ActiveRecord::Base
 
   # -- Constants
   TYPES = %w(points pfpc)
-  
+
   # -- Associations
   belongs_to :user
 
@@ -45,4 +45,10 @@ class Service < ActiveRecord::Base
     self.status = :expired
     self.save
   end
+  
+  # Retorna la cantidad de días para la expiración
+  def days_to_expire
+    (self.last_period.end_date - Date.today).to_i
+  end
+  
 end
