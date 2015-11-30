@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  reward_order_id: 
+  reward_id: 
+  amount: 1
+
+two:
+  reward_order_id: 
+  reward_id: 
+  amount: 1

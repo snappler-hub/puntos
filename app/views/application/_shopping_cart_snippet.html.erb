@@ -1,0 +1,8 @@
+<li id="shopping-cart-snippet" class="<% if current_shop_cart.size.zero? %>hide<% end %>" >
+	<%= link_to shoping_cart_rewards_path do %>
+		<i class="fa fa-2x fa-shopping-cart"></i>
+		<span class="badge cart"><%= current_shop_cart.size %></span>
+	<% end %>
+</li>
+
+

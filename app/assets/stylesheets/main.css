@@ -46,8 +46,16 @@ html.turbolinks-progress-bar::before {
   top: 6px;
 }
 
+
+.text-gray{
+  color: #DDD;
+}
+
 .table.vertical-align-middle td{
   vertical-align: middle;
+}
+.table td.white-space-nowrap{
+  white-space: nowrap;
 }
 
 
@@ -57,26 +65,27 @@ html.turbolinks-progress-bar::before {
   background-repeat: no-repeat;
   background-size: 100% auto;
   background-color: #ccc;
-  cursor: pointer;
   height: 230px;
-  -webkit-transition: height 0.5s ease; /* Safari */
-  transition: height 0.5s ease;
+  -webkit-transition: height 1s ease; /* Safari */
+  transition: height 1s ease;
 }
 
-.list_rewards .item .item-image .add-cart-button{
-  float: right;
+
+.list_rewards .item .item-image .reward-info{
+  float: left;
+  padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
-  color: #cfc;
-  background-color: rgba(0, 0, 0, 0.5);
+  color: #3c8dbc;
 }
 
+
 .list_rewards .item .item-description{
-  height: 35px;
+  height: 80px;
   overflow: hidden;
-  -webkit-transition: height 0.5s ease; /* Safari */
-  transition: height 0.5s ease;
+  -webkit-transition: height 1s ease; /* Safari */
+  transition: height 1s ease;
 }
 
 .list_rewards .item .item-description h3{
@@ -115,19 +124,19 @@ html.turbolinks-progress-bar::before {
   text-align: left;
   float: left;
   width: 50%;
-  color: #00a65a;
+  color: #3c8dbc;
 }
 
 .list_rewards .item .item-description .full-description h4 .right{
   text-align: right;
   float: right;
   width: 50%;
-  color: #00a65a;  
+  color: #3c8dbc;  
 }
 
 .list_rewards .item .item-description .full-description span.description{
   display: block;
-  height: 76px;
+  height: 72px;
   overflow: auto;
   white-space: pre-line;
   width: 100%; 
@@ -137,10 +146,38 @@ html.turbolinks-progress-bar::before {
 
 
 .list_rewards .item.open .item-description{
-  height: 155px;
+  height: 190px;
 }
 
 .list_rewards .item.open .item-image{
   height: 120px;
 }
   
+
+#shopping-cart-snippet > a{
+  padding-top: 10px; 
+  padding-bottom: 10px;
+}
+#shopping-cart-snippet > a > span.badge{
+  vertical-align: super;
+}
+
+#shopping-cart-snippet > ul.dropdown-menu{
+  min-width: 310px;
+}
+
+#shopping-cart-snippet > ul.dropdown-menu > li{
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom: 1px dashed #ccc;
+  margin-bottom: 5px;
+  padding-bottom: 5px;  
+}
+
+#shopping-cart-snippet > ul.dropdown-menu > li:last-child{
+  border-bottom: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+

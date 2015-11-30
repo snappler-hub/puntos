@@ -1,0 +1,20 @@
+$('#reward_shop_cart_control_container_<%= @reward.id %>').html('<%= j render 'reward_shop_cart_control', reward: @reward, source: @source %>');
+
+<% if @source == 'cart' %>
+<% item = ShopCart::find(session, @reward.id) %>
+$('#reward_amount_container_<%= @reward.id %>').html('<%= item["amount"] %>');
+$('#reward_need_points_subtotal_container_<%= @reward.id %>').html('<%= @reward.need_points * item["amount"] %>');
+
+var total_amount, total_need_points_subtotal;
+total_amount = 0;
+$('.shop_cart_item .reward_amount_container').each(function() {
+	total_amount += parseInt($(this).html() || 0);
+});
+$('#total_amount').html(total_amount);
+total_need_points_subtotal = 0;
+$('.shop_cart_item .reward_need_points_subtotal_container').each(function() {
+	total_need_points_subtotal += parseInt($(this).html() || 0);
+});
+$('#total_need_points_subtotal').html(total_need_points_subtotal);
+
+<% end %>

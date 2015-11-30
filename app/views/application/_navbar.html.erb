@@ -18,6 +18,9 @@
       <ul class="nav navbar-nav">
        
         <% if current_user %>
+          
+          <%= render 'shopping_cart_snippet' %>
+
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">              
               <%= current_user_name %>
@@ -28,9 +31,13 @@
               <li><%= link_to 'Cerrar sesión', logout_path, method: :delete %></li>
             </ul>
           </li>
+
         <% else %>
           <%= link_to 'Iniciar sesión', login_path %>
         <% end %>
+
+
+
 
       </ul>
 

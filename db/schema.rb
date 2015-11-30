@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125125051) do
+ActiveRecord::Schema.define(version: 20151130180222) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -66,6 +66,29 @@ ActiveRecord::Schema.define(version: 20151125125051) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "reward_order_items", force: :cascade do |t|
+    t.integer  "reward_order_id", limit: 4
+    t.integer  "reward_id",       limit: 4
+    t.integer  "amount",          limit: 4
+    t.integer  "need_points",     limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "reward_order_items", ["reward_id"], name: "index_reward_order_items_on_reward_id", using: :btree
+  add_index "reward_order_items", ["reward_order_id"], name: "index_reward_order_items_on_reward_order_id", using: :btree
+
+  create_table "reward_orders", force: :cascade do |t|
+    t.integer  "supplier_id", limit: 4
+    t.integer  "user_id",     limit: 4
+    t.string   "state",       limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "reward_orders", ["supplier_id"], name: "index_reward_orders_on_supplier_id", using: :btree
+  add_index "reward_orders", ["user_id"], name: "index_reward_orders_on_user_id", using: :btree
 
   create_table "rewards", force: :cascade do |t|
     t.string   "name",          limit: 255,   null: false
@@ -209,6 +232,10 @@ ActiveRecord::Schema.define(version: 20151125125051) do
   add_foreign_key "product_discounts", "vademecums"
   add_foreign_key "product_pfpcs", "products"
   add_foreign_key "product_pfpcs", "services"
+  add_foreign_key "reward_order_items", "reward_orders"
+  add_foreign_key "reward_order_items", "rewards"
+  add_foreign_key "reward_orders", "suppliers"
+  add_foreign_key "reward_orders", "users"
   add_foreign_key "sale_products", "products"
   add_foreign_key "sale_products", "sales"
   add_foreign_key "service_periods", "services"

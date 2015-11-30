@@ -8,8 +8,8 @@ class App.RewardForm
     that = @
     $("#reward_service_types").normalSelect()
     
-		$('.item-image').on 'click', ->
-		  item = $(this).parent()
+		$('.reward-info').on 'click', ->
+		  item = $(this).parent().parent()
 		  if item.hasClass('open')
 		    item.removeClass 'open'
 		    item.find('.full-description').hide()
@@ -18,8 +18,13 @@ class App.RewardForm
 		    item.find('.full-description').fadeIn()
 		  return
   
+		$(document).on 'click', '.reward_shop_cart_control a', ->
+		  $('.reward_shop_cart_control a').attr 'disabled', 'disabled'
+		  $(this).parent().prepend '<i class="fa fa-2x text-gray fa-cog fa-spin"></i>'
+		  return
+
+
 
 $(document).on "page:change", ->
   rewardForm = new App.RewardForm()
-
 
