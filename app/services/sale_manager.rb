@@ -1,33 +1,43 @@
 class SaleManager
 
   def initialize(sale, seller)
-    @sale     = sale
     @client   = sale.client
+    @sale_products = sale.sale_products
     @seller   = seller
     @supplier = seller.supplier
   end
 
   def authorize
-    sale_products = @sale.sale_products
-    
-    sale_products.each do |sale_product|
-      discount = discount(sale_product)
-      sale_product.discount = discount
-      sale_product.cost *= (1-discount)
-    end
-
-    @sale.sale_products = sale_products
-    return @sale
+    Authorization.new(
+      client: @client,
+      seller: @seller,
+      products: products
+    )
   end
 
-  def update
-    # TODO: Impactar ventas
+  def authorize!
+    authorize.save!
+  end
+
+  def products
+    @sale_products.map do |sale_product|
+      total = sale_product.amount * sale_product.cost
+      discount = discount(sale_product)
+
+      {
+        id: sale_product.product_id,
+        amount: sale_product.amount,
+        cost: sale_product.cost,
+        discount: discount,
+        total: (total * (1-discount))
+      }
+    end
   end
 
   def discount(product)
     vademecum = @client.vademecums.detect {|vademecum| vademecum.products.includes?(product)}
     if vademecum.present? && @supplier.vademecums.includes?(vademecum)
-      vademecum.discount(product)
+      vademecum.discount(product) * 0.01
     else
       0
     end

@@ -12,14 +12,11 @@ class AuthorizationsController < ApplicationController
   
   # POST /authorizations
   def create
-    #Recibe los datos de una venta por parámetro (la venta no existe todavía), y crea una autorizacion.
+    # Recibe los datos de una venta por parámetro (la venta no existe todavía), y crea una autorizacion.
     sale = Sale.new(sale_params)
-    products = sale.sale_products.map do |p|
-      total = p.amount * p.cost
-      discount = (p.discount * total / 100)
-      { id: p.product_id, amount: p.amount, cost: p.cost, discount: p.discount, total: total - discount }
-    end
-    @authorization = Authorization.new(seller: current_user, client: sale.client, products: products)    
+    manager = SaleManager.new(sale, current_user)
+    @authorization = manager.authorize!
+    # create.js
   end
   
   private
