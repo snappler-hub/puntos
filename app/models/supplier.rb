@@ -16,6 +16,8 @@ class Supplier < ActiveRecord::Base
 
   has_many :users
   has_many :supplier_requests
+  has_many :supplier_vademecums
+  has_many :vademecums, through: :supplier_vademecums
 
   validates :name, presence: true
 

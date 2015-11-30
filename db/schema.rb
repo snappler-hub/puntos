@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151126171727) do
+ActiveRecord::Schema.define(version: 20151130175837) do
 
   create_table "authorizations", force: :cascade do |t|
     t.integer  "seller_id",  limit: 4
@@ -163,6 +163,16 @@ ActiveRecord::Schema.define(version: 20151126171727) do
   add_index "supplier_requests", ["supplier_id"], name: "index_supplier_requests_on_supplier_id", using: :btree
   add_index "supplier_requests", ["user_id"], name: "index_supplier_requests_on_user_id", using: :btree
 
+  create_table "supplier_vademecums", force: :cascade do |t|
+    t.integer  "supplier_id",  limit: 4
+    t.integer  "vademecum_id", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "supplier_vademecums", ["supplier_id"], name: "index_supplier_vademecums_on_supplier_id", using: :btree
+  add_index "supplier_vademecums", ["vademecum_id"], name: "index_supplier_vademecums_on_vademecum_id", using: :btree
+
   create_table "suppliers", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.text     "description", limit: 65535
@@ -228,5 +238,7 @@ ActiveRecord::Schema.define(version: 20151126171727) do
   add_foreign_key "services", "vademecums"
   add_foreign_key "supplier_requests", "suppliers"
   add_foreign_key "supplier_requests", "users"
+  add_foreign_key "supplier_vademecums", "suppliers"
+  add_foreign_key "supplier_vademecums", "vademecums"
   add_foreign_key "users", "supplier_requests"
 end
