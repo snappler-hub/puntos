@@ -14,9 +14,11 @@ class AuthorizationsController < ApplicationController
   def create
     # Recibe los datos de una venta por parámetro (la venta no existe todavía), y crea una autorizacion.
     sale = Sale.new(sale_params)
-    manager = SaleManager.new(sale, current_user)
+    manager = AuthorizationFromSale.new(sale, current_user)
     @authorization = manager.authorize!
-    # create.js
+    respond_to do |format|
+      format.js
+    end
   end
   
   private

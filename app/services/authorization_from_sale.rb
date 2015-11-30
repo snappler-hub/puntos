@@ -1,4 +1,4 @@
-class SaleManager
+class AuthorizationFromSale
 
   def initialize(sale, seller)
     @client   = sale.client
@@ -16,13 +16,17 @@ class SaleManager
   end
 
   def authorize!
-    authorize.save!
+    authorization = authorize
+    authorization.save!
+    return authorization
   end
+
+  private
 
   def products
     @sale_products.map do |sale_product|
       total = sale_product.amount * sale_product.cost
-      discount = discount(sale_product)
+      discount = discount(sale_product.product)
 
       {
         id: sale_product.product_id,
@@ -35,8 +39,10 @@ class SaleManager
   end
 
   def discount(product)
-    vademecum = @client.vademecums.detect {|vademecum| vademecum.products.includes?(product)}
-    if vademecum.present? && @supplier.vademecums.includes?(vademecum)
+    # TODO: no debería funcionar así.
+    # Habría que ver cuantos te acepta con ese descuento, y el resto ponerlos sin descuento.
+    vademecum = @client.vademecums.detect {|vademecum| vademecum.products.include?(product)}
+    if vademecum.present? && @supplier.vademecums.include?(vademecum)
       vademecum.discount(product) * 0.01
     else
       0

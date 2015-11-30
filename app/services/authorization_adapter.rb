@@ -1,4 +1,4 @@
-class SaleApiAdapter
+class AuthorizationAdapter
 
   def initialize(query)
     @query = query
@@ -22,7 +22,7 @@ class SaleApiAdapter
     }
   end
 
-  def sale
+  def authorization
     Sale.new(client: client, sale_products: sale_products)
   end
 
