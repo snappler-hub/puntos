@@ -33,7 +33,7 @@ class AuthorizationFromSale
         amount: sale_product.amount,
         cost: sale_product.cost,
         discount: discount,
-        total: (total * (1-discount))
+        total: (total * (1- (discount * 0.01) ) )
       }
     end
   end
@@ -43,7 +43,7 @@ class AuthorizationFromSale
     # Habría que ver cuantos te acepta con ese descuento, y el resto ponerlos sin descuento.
     vademecum = @client.vademecums.detect {|vademecum| vademecum.products.include?(product)}
     if vademecum.present? && @supplier.vademecums.include?(vademecum)
-      vademecum.discount(product) * 0.01
+      vademecum.discount(product)
     else
       0
     end
