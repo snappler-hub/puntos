@@ -16,7 +16,10 @@ App.init = ->
     if !slide
       $('.control-sidebar').removeClass 'control-sidebar-open'
     return
-  
+    
+  # Reactivo eventos de AdminLTE porque se pierden con turbolinks
+  $.AdminLTE.layout.activate()
+  $.AdminLTE.tree('.sidebar');
 
 $(document).on "page:change", ->
   App.init()

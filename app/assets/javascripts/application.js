@@ -19,16 +19,8 @@
 //= require select2_initializer
 //= require snackbar.js
 //= require cocoon
-//= require init
-//= require services
-//= require comments
-//= require sales
-//= require rewards
-
 
 //= require version
-
-
 
 //= require plugins/morris/morris.js
 //= require plugins/sparkline/jquery.sparkline.js
@@ -40,6 +32,10 @@
 //= require plugins/fastclick/fastclick.min.js
 //= require plugins/dist/js/app.js
   
+//= require jquery.turbolinks  
 
-// require jquery.turbolinks
-
+//= require init
+//= require services
+//= require comments
+//= require sales
+//= require rewards
