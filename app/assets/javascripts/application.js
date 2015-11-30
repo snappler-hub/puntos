@@ -10,40 +10,36 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require version
 //= require jquery
-//= require jquery.turbolinks
-//= require jquery-ui
+// require jquery-ui
 //= require jquery_ujs
-
-
+//= require turbolinks
 //= require bootstrap.js
-// require plugins/input-mask/jquery.inputmask.js
-// require plugins/input-mask/jquery.inputmask.date.extensions.js
-// require plugins/input-mask/jquery.inputmask.extensions.js
-// require plugins/raphael/raphael-min.js
+//= require select2.min
+//= require select2_initializer
+//= require snackbar.js
+//= require cocoon
+//= require init
+//= require services
+//= require comments
+//= require sales
+//= require rewards
+
+
+//= require version
+
+
+
 //= require plugins/morris/morris.js
 //= require plugins/sparkline/jquery.sparkline.js
 //= require plugins/jvectormap/jquery-jvectormap-1.2.2.min.js
 //= require plugins/jvectormap/jquery-jvectormap-world-mill-en.js
 //= require plugins/knob/jquery.knob.js
-// require plugins/daterangepicker/daterangepicker.js
-// require plugins/datepicker/bootstrap-datepicker.js
-// require plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js
 //= require plugins/iCheck/icheck.min.js
 //= require plugins/slimScroll/jquery.slimscroll.min.js
 //= require plugins/fastclick/fastclick.min.js
 //= require plugins/dist/js/app.js
   
-//= require select2.min
 
-//= require cocoon
-//= require snackbar.js
-//= require turbolinks
-//= require select2_initializer
-//= require init
-//= require services
-//= require comments
-//= require sales
-//= require awards
+// require jquery.turbolinks
 

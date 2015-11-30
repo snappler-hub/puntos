@@ -1,0 +1,24 @@
+<header class="content-header">
+  <h1>Premios</h1>
+</header>
+
+<!-- Main content -->
+<section class="content">
+
+
+<article class="box box-success">
+<section class="box-body">
+
+  <%= render 'list_filter' %>
+  <%= paginate @rewards %>
+
+</section>
+</article>
+
+<div class="row list_rewards">
+  <%= render partial: "list_reward", collection: @rewards, as: :reward %>
+</div>
+
+
+
+</section>

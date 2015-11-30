@@ -18,14 +18,24 @@ Rails.application.routes.draw do
     end
   end
 
+
   resources :products, except: [:show] do
     collection do
       get :search
       get :search_for_service
     end
-    
   end
-  resources :rewards
+
+  
+  resources :rewards do
+    get :list, on: :collection
+    get :add_item, on: :member
+    get :refresh_item, on: :member
+    get :delete_item, on: :member
+    get :shoping_cart, on: :collection
+    post :confirm_shoping_cart, on: :collection    
+  end
+
   resources :vademecums
   
   resources :supplier_requests do

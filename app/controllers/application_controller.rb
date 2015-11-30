@@ -2,13 +2,19 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-
+  
+  helper_method :current_shop_cart
   before_filter :require_login
 
   def admin
     # flash[:notice] = 'Probando Snackbar.'
     authorize! can_admin?
   end
+
+  def current_shop_cart
+    ShopCart::new(session)
+  end
+  
 
   private
 
@@ -50,10 +56,10 @@ class ApplicationController < ActionController::Base
 
   def current_user_path
     case current_user.role      
-      when 'god'    then suppliers_path
-      when 'admin'  then current_user.supplier || admin_path
-      when 'seller' then admin_path
-      else root_path
+    when 'god'    then suppliers_path
+    when 'admin'  then current_user.supplier || admin_path
+    when 'seller' then admin_path
+    else root_path
     end
   end
   helper_method :current_user_path
