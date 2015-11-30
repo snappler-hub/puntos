@@ -8,7 +8,7 @@ class SaleApiAdapter
   def example
     {
       ticket: '12345',
-      vendedor: 'some_seller',
+      vendedor: 'DNI34841823',
       prestador: 'prestador1',
       fecha: '2016-05-05',
       sucursal: 'nombre_sucursal',
@@ -16,14 +16,18 @@ class SaleApiAdapter
       numero_tarjeta: '1234-5678',
       productos: [
         {codigo: '5487561', cantidad: 100, costo: 50},
-        {codigo: '9876879', cantidad:  80, costo: 40},
+        {codigo: '987687945789', cantidad:  80, costo: 40},
         {codigo: '4856546', cantidad:  70, costo: 30}
       ]
     }
   end
 
+  def sale
+    Sale.new(client: client, sale_products: sale_products)
+  end
+
   def client
-    User.find_by(card_number: @query[:ticket])
+    User.find_by(card_number: @query[:numero_tarjeta])
   end
 
   def seller
@@ -32,13 +36,16 @@ class SaleApiAdapter
 
   def sale_products
     @query[:productos].map do |sale_product|
-      product = Product.find_by(code: sale_product[:codigo])
+      codigo = sale_product(:codigo)
+
+      product = if codigo.lenght == 13
+        Product.find_by(bar_code: codigo)
+      else
+        Product.find_by(code: codigo)
+      end
+
       SaleProduct.new(product: product, amount: sale_product[:cantidad], cost: sale_product[:cost])
     end
-  end
-
-  def sale
-    Sale.new(client: client, sale_products: sale_products)
   end
 
   def valid_input?
