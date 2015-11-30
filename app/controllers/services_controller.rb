@@ -1,15 +1,15 @@
 class ServicesController < ApplicationController
   
   before_action :set_user
-  before_action :set_service, only: [:show, :edit, :update, :destroy]
+  before_action :set_service, only: [:show, :edit, :update, :destroy, :activate]
   before_action :only_authorize_god!
   
-  # GET /cards/X/services/new
+  # GET /users/X/services/new
   def new
     @service = build_service
   end
   
-  # POST /cards/X/services/new
+  # POST /users/X/services/new
   def create
     @service = build_service(service_params)
     @service.user = @user
@@ -23,19 +23,19 @@ class ServicesController < ApplicationController
     end
   end
   
-  # GET /cards/2/services/1
+  # GET /users/2/services/1
   def show
   end
   
-  # GET /cards/2/services/1/edit
+  # GET /users/2/services/1/edit
   def edit
   end
   
-  # GET /cards/2/services/1/edit_products
+  # GET /users/2/services/1/edit_products
   def edit_products
   end
   
-  # PATCH/PUT /cards/2/services/1
+  # PATCH/PUT /users/2/services/1
   def update    
     respond_to do |format|
       if @service.update(service_params)
@@ -46,7 +46,7 @@ class ServicesController < ApplicationController
     end
   end
   
-  # DELETE /cards/1/services/1
+  # DELETE /users/1/services/1
   def destroy
     @service.destroy
     respond_to do |format|
@@ -54,13 +54,19 @@ class ServicesController < ApplicationController
     end
   end
   
+  # PUT /
+  def activate
+    @service.create_period
+    redirect_to [@user, @service], notice: 'El servicio ha sido activado.'
+  end
+  
   private
   
     def build_service(parameters=nil)
       if params[:type]
-        params[:type] == 'pfpc' ? ServicePfpc.new(parameters) : ServicePoints.new(parameters)
+        params[:type] == 'pfpc' ? PfpcService.new(parameters) : PointsService.new(parameters)
       else
-        params[:service][:type] == 'ServicePoints' ? ServicePoints.new(parameters) : ServicePfpc.new(parameters)
+        params[:service][:type] == 'PointsService' ? PointsService.new(parameters) : PfpcService.new(parameters)
       end
     end
   
@@ -75,7 +81,7 @@ class ServicesController < ApplicationController
     def service_params
       allowed_params = [:name, :days]
     
-      if params[:service][:type] == 'ServicePoints'
+      if params[:service][:type] == 'PointsService'
         allowed_params << :amount 
       else
         allowed_params << :vademecum_id << [product_pfpcs_attributes:[:id, :product_id, :amount, :_destroy]]
