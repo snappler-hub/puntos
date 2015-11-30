@@ -16,7 +16,9 @@ class SaleManager
   end
 
   def authorize!
-    authorize.save!
+    authorization = authorize
+    authorization.save!
+    return authorization
   end
 
   def products
@@ -35,6 +37,8 @@ class SaleManager
   end
 
   def discount(product)
+    # TODO: no debería funcionar así.
+    # Habría que ver cuantos te acepta con ese descuento, y el resto ponerlos sin descuento.
     vademecum = @client.vademecums.detect {|vademecum| vademecum.products.includes?(product)}
     if vademecum.present? && @supplier.vademecums.includes?(vademecum)
       vademecum.discount(product) * 0.01
