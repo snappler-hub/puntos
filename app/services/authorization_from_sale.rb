@@ -26,7 +26,7 @@ class AuthorizationFromSale
   def products
     @sale_products.map do |sale_product|
       total = sale_product.amount * sale_product.cost
-      discount = discount(sale_product)
+      discount = discount(sale_product.product)
 
       {
         id: sale_product.product_id,
@@ -41,8 +41,8 @@ class AuthorizationFromSale
   def discount(product)
     # TODO: no debería funcionar así.
     # Habría que ver cuantos te acepta con ese descuento, y el resto ponerlos sin descuento.
-    vademecum = @client.vademecums.detect {|vademecum| vademecum.products.includes?(product)}
-    if vademecum.present? && @supplier.vademecums.includes?(vademecum)
+    vademecum = @client.vademecums.detect {|vademecum| vademecum.products.include?(product)}
+    if vademecum.present? && @supplier.vademecums.include?(vademecum)
       vademecum.discount(product) * 0.01
     else
       0

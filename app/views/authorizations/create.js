@@ -1,0 +1,1 @@
+$('#js-authorization').replaceWith('<%= j render @authorization %>');

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       put :activate, on: :member
     end
     patch :assign_card, on: :member
-    resources :sales, except: [:edit, :destroy, :create, :update] do
+    resources :sales, except: [:edit, :destroy, :update] do
       resources :sale_products
     end
   end

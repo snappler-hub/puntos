@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
   end
 
   def vademecums # TODO: and service is active
-    services.where(type: 'PFPC').map &:vademecum
+    services.where(type: 'PfpcService').map &:vademecum
   end
 
   # -------------------------------
