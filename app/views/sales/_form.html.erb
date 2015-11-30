@@ -3,7 +3,7 @@
 <article class="box box-primary">
 <section class="box-body">
 
-<%= form_for [current_user, @sale] do |f| %>
+<%= form_for [current_user, @sale], url: authorizations_path do |f| %>
   <% @sale.errors.full_messages.each do |message| %>
     <p><%= message %></p>
   <% end %>

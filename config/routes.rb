@@ -46,7 +46,9 @@ Rails.application.routes.draw do
       end
     end
   end
-
+  
+  resources :authorizations, except: [:destroy, :update, :edit, :new]
+  
   resources :sessions, only: :create
 
   resources :password_resets, only: [:new, :create, :edit, :update]
