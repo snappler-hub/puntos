@@ -8,10 +8,11 @@ namespace :services do
     expired = renewed = 0
     expired_periods.each do |period|
       if period.can_renew?
-        period.service.create_period
+        period.renew
         renewed += 1
       else
-        period.mark_as_expired
+        period.mark_as(:expired)
+        period.service.mark_as(:expired)
         expired += 1 
       end
     end

@@ -1,7 +1,7 @@
 class ServicesController < ApplicationController
   
   before_action :set_user
-  before_action :set_service, only: [:show, :edit, :update, :destroy, :activate]
+  before_action :set_service, only: [:show, :edit, :update, :destroy, :activate, :finalize]
   before_action :only_authorize_god!
   
   # GET /users/X/services/new
@@ -54,9 +54,26 @@ class ServicesController < ApplicationController
     end
   end
   
-  # PUT /
+  # PUT /users/1/services/1/activate
   def activate
-    @service.create_period
+    ActiveRecord::Base.transaction do
+      if @service.pending?
+        @service.last_period.restart
+        @service.mark_as(:in_progress)
+      else
+        @service.last_period.renew
+      end
+      @service.mark_as(:in_progress)
+    end
+    redirect_to [@user, @service], notice: 'El servicio ha sido activado.'
+  end
+  
+  # PUT /users/1/services/1/finalize
+  def finalize
+    ActiveRecord::Base.transaction do
+      @service.last_period.mark_as(:closed)
+      @service.mark_as(:closed)
+    end
     redirect_to [@user, @service], notice: 'El servicio ha sido activado.'
   end
   

@@ -169,3 +169,10 @@ es:
 
   reward_order_states:
     confirmed: 'Confirmado'    
+
+
+  service_statuses:
+    pending: Pendiente
+    in_progress: En curso
+    expired: Vencido
+    closed: Cerrado

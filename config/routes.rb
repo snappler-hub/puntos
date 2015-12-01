@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     end
     resources :services, except: [:index] do
       put :activate, on: :member
+      put :finalize, on: :member
     end
     patch :assign_card, on: :member
     resources :sales, except: [:edit, :destroy, :update] do

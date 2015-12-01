@@ -3,6 +3,8 @@
   El servicio no se encuentra activo o ha vencido. 
 </div>
 
+<% btn_text = @service.pending? ? 'Iniciar' : 'Renovar' %>
+
 <%= link_to [:activate, @user, @service], method: :put, class: 'btn btn-block btn-info' do %>
-  <i class="fa fa-check"></i> Activar
+  <i class="fa fa-check"></i> <%= btn_text %>
 <% end %>
