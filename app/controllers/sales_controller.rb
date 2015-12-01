@@ -1,13 +1,22 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show]
+  before_action :only_authorize_admin!, except: [:sales_with_me_as_client]
   
+  def sales_with_me_as_client
+    @filter = SaleFilter.new(client: current_user)
+    @sales = Kaminari.paginate_array(@filter.call.to_a).page(params[:page])
+    render "index", layout: "public"
+  end
+    
   #GET users/1/sales/1
   def show
   end
 
   # GET users/1/sales
   def index
-    @sales = Sale.where(seller: current_user)
+    @filter = SaleFilter.new(seller: current_user)
+    @sales = Kaminari.paginate_array(@filter.call.to_a).page(params[:page])    
+    render layout: "public" if normal_user?
   end
   
   # GET users/1/sales/new

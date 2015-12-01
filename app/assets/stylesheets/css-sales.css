@@ -2,9 +2,9 @@
   margin-top: 25px;
 }
 
-#css-authorizations-table th,td {
+/*#css-authorizations-table th,td {
   text-align: center;
-}
+}*/
 
 /*Para que el close de selec2-bootstrap quede centrado*/
 .select2-search-choice-close {

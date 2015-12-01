@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
   # -- Scopes
   scope :search, ->(q) { where("card_number LIKE :q", q: "%#{q}%") }
   scope :with_role, ->(role) { where(role: role) }
+  scope :all_from_supplier, ->(supplier) { where("supplier_id = ? AND role != ?", supplier.id, 'normal_user') }
 
   # -- Associations
   belongs_to :supplier
@@ -51,7 +52,7 @@ class User < ActiveRecord::Base
   belongs_to :created_by, class_name: 'User'
   has_many :services
   has_many :pfpc_services
-  has_many :sales
+  has_many :sales, :foreign_key => :seller_id
   has_many :points_services
 
   # -- Validations

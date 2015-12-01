@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       resources :sale_products
     end
   end
+  
+  get 'my_purchases', to: "sales#sales_with_me_as_client"
 
 
   resources :products, except: [:show] do

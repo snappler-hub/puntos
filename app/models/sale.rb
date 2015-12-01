@@ -13,6 +13,8 @@ class Sale < ActiveRecord::Base
   
   # -- Scopes
   default_scope -> { order('created_at DESC') }
+  scope :all_sold_by, ->(user) { where(seller: user) }
+  scope :all_sold_to, ->(user) { where(client: user) }
   
   # -- Associations
   has_many :sale_products, dependent: :destroy
@@ -25,5 +27,15 @@ class Sale < ActiveRecord::Base
   # validates :client, presence: true
   
   # -- Methods
+  def self.all_from_supplier(supplier)
+    users = User.all_from_supplier(supplier)
+    sales = []
+    users.map do |user|
+      user.sales.map do |sale|
+        sales << sale
+      end
+    end
+    return sales 
+  end
   
 end
