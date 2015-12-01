@@ -26,21 +26,42 @@ class PfpcPeriod < ActiveRecord::Base
   # in_progress: Período actual (default)
   # accomplished: Período cumplido
   # expired: Período vencido sin cumplir 
-  enum status: { in_progress: 0, accomplished: 1, expired: 2 }
+  enum status: { in_progress: 0, accomplished: 1, expired: 2, closed: 3 }
   
-  # Marca el período y el servicio asociado como vencidos
-  def mark_as_expired
-    ActiveRecord::Base.transaction do
-      self.status = :expired
-      self.save
-    
-      self.service.mark_as_expired
-    end
+
+  # Cambia el estado del periodo
+  def mark_as(status)
+    self.status = status
+    self.save
   end
   
   # True si tiene productos pendientes
   def can_renew?
     !self.period_products.exists?(["accumulated < amount"])
+  end
+  
+  # Renuevo un período. Copio los productos del período copiando el 
+  # sobrante (acumulado - cant a cumplir) al nuevo período
+  def renew
+    new_period = self.service.create_period
+
+    # Armo la estructura para hacer la inserción de productos masiva
+    service_products = self.period_products.collect { |p| 
+      { 
+        product_id: p.product_id, 
+        amount: p.amount, 
+        accumulated: (p.accumulated < p.amount) ? 0 : (p.accumulated - p.amount) 
+      } 
+    }
+    new_period.period_products.create(service_products)  
+  end
+  
+  # Reinicio el período reseteando los días y pongo el estado En Curso
+  def restart
+    self.start_date = Date.today
+    self.end_date = Date.today + (self.service.days).days
+    self.state = :in_progress
+    self.save
   end
   
 end

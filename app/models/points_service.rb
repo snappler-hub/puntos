@@ -29,7 +29,7 @@ class PointsService < Service
     superclass.model_name
   end
   
-  # Creo un período y le asocio los productos
+  # Creo un período y lo asigno como último del servicio
   def create_period
     ActiveRecord::Base.transaction do
       period = self.periods.create do |period|
@@ -39,7 +39,7 @@ class PointsService < Service
         period.accumulated  = 0
       end
       
-      self.update(status: 'in_progress', last_period: period)
+      self.update(last_period: period)
     end
   end
   

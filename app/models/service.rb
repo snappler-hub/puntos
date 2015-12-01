@@ -31,7 +31,7 @@ class Service < ActiveRecord::Base
   
   # Statuses
   # pending: Servicio creado pero no habilitado (default)
-  # in_progress: Período actual
+  # in_progress: En curso
   # expired: Servicio vencido. No se cumplió el objetivo en el último período
   # closed: Servicio cerrado/deshabilitado
   enum status: { pending: 0, in_progress: 1, expired: 2, closed: 3 }
@@ -40,9 +40,9 @@ class Service < ActiveRecord::Base
     name
   end
 
-  # Marco el servicio como vencido
-  def mark_as_expired
-    self.status = :expired
+  # Cambia el estado del servicio
+  def mark_as(status)
+    self.status = status
     self.save
   end
   

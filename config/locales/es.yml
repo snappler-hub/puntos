@@ -158,3 +158,9 @@ es:
     workshop: 'Taller'
     product: 'Productos'
     other: 'Otros'    
+  
+  service_statuses:
+    pending: Pendiente
+    in_progress: En curso
+    expired: Vencido
+    closed: Cerrado

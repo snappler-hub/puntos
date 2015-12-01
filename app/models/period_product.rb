@@ -18,6 +18,6 @@ class PeriodProduct < ActiveRecord::Base
   belongs_to :product
 
   # -- Validations
-  validates :service_period, :product, :amount, :accumulated, presence: true
+  validates :product, :amount, :accumulated, presence: true
 
 end
