@@ -26,6 +26,7 @@ class PfpcPeriod < ActiveRecord::Base
   # in_progress: Período actual (default)
   # accomplished: Período cumplido
   # expired: Período vencido sin cumplir 
+  # closed: Período cerrado manualmente 
   enum status: { in_progress: 0, accomplished: 1, expired: 2, closed: 3 }
   
 

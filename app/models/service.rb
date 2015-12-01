@@ -33,11 +33,23 @@ class Service < ActiveRecord::Base
   # pending: Servicio creado pero no habilitado (default)
   # in_progress: En curso
   # expired: Servicio vencido. No se cumplió el objetivo en el último período
-  # closed: Servicio cerrado/deshabilitado
+  # closed: Servicio cerrado/deshabilitado manualmente
   enum status: { pending: 0, in_progress: 1, expired: 2, closed: 3 }
 
   def to_s 
     name
+  end
+  
+  # Creo un período y lo asocio como último período al servicio
+  def create_period
+    period = self.periods.create do |period|
+      period.start_date   = Date.today
+      period.end_date     = Date.today + (self.days).days
+    end
+  
+    self.update(last_period: period)
+    
+    return period
   end
 
   # Cambia el estado del servicio

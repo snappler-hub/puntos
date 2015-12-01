@@ -18,11 +18,14 @@
 class PointsService < Service
   
   # -- Associations
-  has_many :periods, class_name: "PointsPeriod", foreign_key: 'service_id'
+  has_many :periods, class_name: "PointsPeriod", foreign_key: 'service_id', dependent: :destroy
   belongs_to :last_period, class_name: "PointsPeriod", foreign_key: 'last_period_id'
   
   # -- Validations
   validates :amount, presence: true
+  
+  # -- Callbacks
+  after_create :create_period
   
   # -- Methods
   def self.model_name
