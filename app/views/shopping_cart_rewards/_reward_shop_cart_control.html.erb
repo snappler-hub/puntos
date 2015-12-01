@@ -2,7 +2,7 @@
 <% if item.nil? %>
 
 	<div class="col-xs-12 text-right">
-		<%= link_to add_item_reward_path(reward, source: source), remote: true do %>
+		<%= link_to add_item_shopping_cart_reward_path(reward, source: source), remote: true do %>
 		<i class="fa fa-2x fa-cart-plus"></i>
 		<% end %>
 	</div>
@@ -15,20 +15,20 @@
 			<% end %>
 		</div>
 		<div class="col-xs-6 text-right">
-			<%= link_to refresh_item_reward_path(reward, source: source, act: 'inc'), remote: true do %>
+			<%= link_to refresh_item_shopping_cart_reward_path(reward, source: source, act: 'inc'), remote: true do %>
 			<i class="fa fa-2x fa-plus-circle"></i>
 			<% end %>
 
 			<% if item['amount'] > 1 %>
-				<%= link_to refresh_item_reward_path(reward, source: source, act: 'dec'), remote: true do %>
+				<%= link_to refresh_item_shopping_cart_reward_path(reward, source: source, act: 'dec'), remote: true do %>
 				<i class="fa fa-2x fa-minus-circle"></i>
 				<% end %>
 			<% else %>
-				<%= link_to refresh_item_reward_path(reward, source: source, act: 'dec'), style: 'visibility: hidden;', remote: true do %>
+				<%= link_to refresh_item_shopping_cart_reward_path(reward, source: source, act: 'dec'), style: 'visibility: hidden;', remote: true do %>
 				<i class="fa fa-2x fa-minus-circle"></i>
 				<% end %>
 			<% end %>
-			<%= link_to delete_item_reward_path(reward, source: source), remote: true do %>
+			<%= link_to delete_item_shopping_cart_reward_path(reward, source: source), remote: true do %>
 			<i class="fa fa-2x fa-trash"></i>
 			<% end %>						
 		</div>

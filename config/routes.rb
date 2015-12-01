@@ -30,17 +30,22 @@ Rails.application.routes.draw do
     end
   end
 
-  
-  resources :rewards do
-    get :list, on: :collection
+  resources :rewards
+
+  resources :shopping_cart_rewards, except: [:index, :new, :edit, :create, :destroy, :update] do
     get :add_item, on: :member
     get :refresh_item, on: :member
     get :delete_item, on: :member
+    get :list, on: :collection
     get :shoping_cart, on: :collection
     post :confirm_shoping_cart, on: :collection    
   end
 
+  resources :reward_orders, only: [:index, :show, :destroy]
+
+
   resources :vademecums
+  
   
   resources :supplier_requests do
     post :add_card, on: :member

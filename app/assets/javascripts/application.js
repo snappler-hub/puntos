@@ -38,4 +38,4 @@
 //= require services
 //= require comments
 //= require sales
-//= require rewards
+//= require shopping_cart_rewards

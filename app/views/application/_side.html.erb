@@ -15,6 +15,20 @@
     <% end %>
   </li>
   
+  <li>
+    <%= link_to list_shopping_cart_rewards_path do %>
+      <i class="fa fa-gift"></i>
+      <span>Premios</span>
+    <% end %>
+  </li>
+  
+  <li>
+    <%= link_to reward_orders_path do %>
+      <i class="fa fa-cubes"></i>
+      <span>Mis pedidos</span>
+    <% end %>
+  </li>
+
 
   <li>
     <%= link_to user_sales_path(current_user) do %>
@@ -27,7 +41,7 @@
     <li>
       <%= link_to rewards_path do %>
         <i class="fa fa-gift"></i>
-        <span>Premios</span>
+        <span>Administrar Premios</span>
       <% end %>
     </li>
 

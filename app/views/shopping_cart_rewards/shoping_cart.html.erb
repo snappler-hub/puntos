@@ -13,7 +13,7 @@
 
 			<% if current_shop_cart.size != 0 %>
 
-			<%= form_for(@reward_order, url: confirm_shoping_cart_rewards_path) do |f| %>
+			<%= form_for(@reward_order, url: confirm_shoping_cart_shopping_cart_rewards_path) do |f| %>
 			<% @reward_order.errors.full_messages.each do |message| %>
 			<p><%= message %></p>
 			<% end %>
