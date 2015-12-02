@@ -6,6 +6,22 @@ class RewardOrder < ActiveRecord::Base
 
   validates :supplier_id, :user_id, presence: true
 
+  REWARD_ORDER_STATES = %w(confirmed)
+
+  
+  def total_amount
+    total = 0
+    reward_order_items.each{|x| total += x.amount}
+    total    
+  end
+
+  def total_need_points
+    total = 0
+    reward_order_items.each{|x| total += x.total_need_points}
+    total
+  end
+
+
   def set_shop_cart(shop_cart)
     shop_cart.each do |x| 
       reward = Reward.where('id = ?', x['item_id']).first

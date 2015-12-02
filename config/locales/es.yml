@@ -83,7 +83,11 @@ es:
         amount: Cantidad
         cost: Costo
         discount: Descuento
-        
+      reward_order:
+        user_id: Usuario
+        supplier_id: Proveedor
+        state: Estado
+
   activemodel:
     attributes:
       supplier_filter:
@@ -111,6 +115,10 @@ es:
         name: Nombre
         need_points: Puntos
         reward_kind: Tipo
+      reward_order_filter:
+        user_id: Usuario
+        supplier_id: Proveedor
+        state: Estado
       user_card_form:
         email: *email
         password: 'Contraseña'
@@ -147,7 +155,7 @@ es:
     dni: 'DNI'
     cuil: 'CUIL'
     passport: 'Pasaporte'    
-    
+
   service_types:
     points: Por Puntos
     pfpc: PFPC
@@ -157,8 +165,12 @@ es:
   reward_kinds:
     workshop: 'Taller'
     product: 'Productos'
-    other: 'Otros'    
-  
+    other: 'Otros'
+
+  reward_order_states:
+    confirmed: 'Confirmado'    
+
+
   service_statuses:
     pending: Pendiente
     in_progress: En curso

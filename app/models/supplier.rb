@@ -29,4 +29,8 @@ class Supplier < ActiveRecord::Base
     "#{id}-#{name}".parameterize
   end
 
+  def to_s
+    name
+  end
+
 end

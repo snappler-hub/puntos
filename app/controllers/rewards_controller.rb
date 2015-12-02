@@ -1,102 +1,6 @@
 class RewardsController < ApplicationController
   before_action :set_reward, only: [:show, :edit, :update, :destroy]
-  before_action :only_authorize_god!, except: [:list, :add_item, :refresh_item, :delete_item, :shoping_cart, :confirm_shoping_cart]  
-
-
-  def list
-    @filter = RewardFilter.new(filter_params)
-    @rewards = @filter.call.page(params[:page])
-    render layout: "public"
-  end
-
-
-
-  #-------------------------------------------------- CARRITO
-  def add_item
-    @reward = Reward.find(params[:id])    
-    current_order_item = ShopCart::add(session, @reward.id)
-    @source = params[:source]
-
-
-    respond_to do |format|
-      format.js
-    end
-  end
-  #----------------------------------------------------------------
-
-
-  def refresh_item
-    @reward = Reward.find(params[:id])    
-    @source = params[:source]
-
-    case params[:act]
-    when 'inc'
-      current_order_item = ShopCart::inc(session, @reward.id)
-    when 'dec'
-      current_order_item = ShopCart::dec(session, @reward.id)
-    end
-
-
-    respond_to do |format|
-      format.js
-    end
-  end
-  
-
-  #----------------------------------------------------------------
-
-
-  def delete_item
-    @reward = Reward.find(params[:id])    
-    ShopCart::sub(session, @reward.id)
-    @source = params[:source]
-
-
-    respond_to do |format|
-      format.js
-    end
-  end
-
-
-
-  #----------------------------------------------------------------  
-  def shoping_cart
-   
-    if(current_shop_cart.empty?)
-      flash[:notice] = 'Carrito Vacío'
-      redirect_to list_rewards_path
-    else
-      @reward_order = RewardOrder.new(user: current_user)
-      render layout: "public"
-    end
-
-  end
-
-
-  #----------------------------------------------------------------  
-  def confirm_shoping_cart
-
-    @reward_order = RewardOrder.new(reward_order_params)
-    @reward_order.set_shop_cart(current_shop_cart)
-    @reward_order.state = 'confirmed'
-    if @reward_order.save
-      ShopCart::reset(session)
-      redirect_to list_rewards_path
-    else
-      render 'shoping_cart', layout: "public"
-    end
-
-
-
-  end
-
-
-
-   
-
-
-
-
+  before_action :only_authorize_god!
 
 
 
@@ -155,10 +59,6 @@ class RewardsController < ApplicationController
 
     def set_reward
       @reward = Reward.find(params[:id])
-    end
-
-    def reward_order_params
-      params.require(:reward_order).permit(:user_id, :supplier_id)
     end
 
 

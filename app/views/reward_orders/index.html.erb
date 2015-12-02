@@ -1,0 +1,32 @@
+<header class="content-header">
+  <h1>Mis pedidos</h1>
+</header>
+
+<!-- Main content -->
+<section class="content">
+<article class="box box-primary">
+<section class="box-body">
+
+  <%= render 'filter' %>
+
+  <table class="table vertical-align-middle">
+    <thead>
+      <tr>
+        <th>Número</th>
+        <% if god? %><th>Usuario</th><% end %>
+        <th>Proveedor</th>
+        <th>Estado</th>
+        <th></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <%= render @reward_orders %>
+    </tbody>
+  </table>
+
+  <%= paginate @reward_orders %>
+
+</section>
+</article>
+</section>
