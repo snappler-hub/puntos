@@ -41,8 +41,9 @@ class ProductsControllerTest < ActionController::TestCase
   end
 
   test "should destroy product" do
+    prod = products(:independent)
     assert_difference('Product.count', -1) do
-      delete :destroy, id: @product
+      delete :destroy, id: prod
     end
 
     assert_redirected_to products_path

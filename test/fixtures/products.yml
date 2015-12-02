@@ -21,3 +21,8 @@ two:
   code: 111
   name: Tafirol
   points: 100
+  
+independent:
+  code: 3333
+  name: Sin relaciones
+  points: 0

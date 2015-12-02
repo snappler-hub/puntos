@@ -44,6 +44,16 @@ class PfpcService < Service
     period.period_products.create(service_products)  
   end
   
-  
+  # Creo un período y lo asocio como último período al servicio
+  def create_period
+    period = self.periods.create do |period|
+      period.start_date   = Date.today
+      period.end_date     = Date.today + (self.days).days
+    end
+    
+    self.update(last_period: period)
+    
+    return period
+  end
   
 end

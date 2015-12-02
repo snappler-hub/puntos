@@ -34,16 +34,16 @@ class PointsService < Service
   
   # Creo un período y lo asigno como último del servicio
   def create_period
-    ActiveRecord::Base.transaction do
-      period = self.periods.create do |period|
-        period.start_date   = Date.today
-        period.end_date     = Date.today + (self.days).days
-        period.amount       = self.amount
-        period.accumulated  = 0
-      end
-      
-      self.update(last_period: period)
+    period = self.periods.create do |period|
+      period.start_date   = Date.today
+      period.end_date     = Date.today + (self.days).days
+      period.amount       = self.amount
+      period.accumulated  = 0
     end
+    
+    self.update(last_period: period)
+    
+    return period
   end
   
 end
