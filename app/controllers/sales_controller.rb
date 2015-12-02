@@ -27,6 +27,7 @@ class SalesController < ApplicationController
   
   # POST users/1/sales
   def create
+    render text: 'ESTA VENTA HUBIERA SIDO UNA HERMOSURA!'
     #Para que choque con la API
   end
   

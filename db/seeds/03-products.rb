@@ -10,4 +10,9 @@ Product.where(code: '1234').first_or_create do |user|
   user.name = 'Tafirol'
 end
 
+Product.where(code: '12345').first_or_create do |user|
+  user.code = '12345'
+  user.name = 'Ibupirac'
+end
+
 puts 'END Seed Products'

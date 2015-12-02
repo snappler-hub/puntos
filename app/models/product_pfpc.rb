@@ -17,7 +17,7 @@ class ProductPfpc < ActiveRecord::Base
   belongs_to :service, class_name:  "PfpcService", foreign_key: "service_id"
 
   # -- Validations
-  validates :product, :service, :amount, presence: true
+  validates :product, :amount, presence: true
   validates :product, uniqueness: { scope: :service,
     message: 'ya está en uso. Verifique no tener productos repetidos' }
 
