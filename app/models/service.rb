@@ -33,13 +33,13 @@ class Service < ActiveRecord::Base
   # pending: Servicio creado pero no habilitado (default)
   # in_progress: En curso
   # expired: Servicio vencido. No se cumplió el objetivo en el último período
-  # closed: Servicio cerrado/deshabilitado
+  # closed: Servicio cerrado/deshabilitado manualmente
   enum status: { pending: 0, in_progress: 1, expired: 2, closed: 3 }
 
   def to_s 
     name
   end
-
+  
   # Cambia el estado del servicio
   def mark_as(status)
     self.status = status

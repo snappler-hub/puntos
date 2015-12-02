@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   belongs_to :supplier
   belongs_to :supplier_request
   belongs_to :created_by, class_name: 'User'
-  has_many :services
+  has_many :services, dependent: :destroy
   has_many :pfpc_services
   has_many :sales, :foreign_key => :seller_id
   has_many :points_services
