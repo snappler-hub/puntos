@@ -22,13 +22,13 @@ class PfpcPeriod < ActiveRecord::Base
   validates :start_date, presence: true
   validates :end_date, presence: true
   
-  # Statuses
+  # -- Statuses
   # in_progress: Período actual (default)
   # accomplished: Período cumplido
   # expired: Período vencido sin cumplir 
   enum status: { in_progress: 0, accomplished: 1, expired: 2, closed: 3 }
   
-
+  # -- Methods  
   # Cambia el estado del periodo
   def mark_as(status)
     self.status = status
@@ -60,7 +60,7 @@ class PfpcPeriod < ActiveRecord::Base
   def restart
     self.start_date = Date.today
     self.end_date = Date.today + (self.service.days).days
-    self.state = :in_progress
+    self.status = :in_progress
     self.save
   end
   

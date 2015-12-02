@@ -14,5 +14,7 @@ class Authorization < ActiveRecord::Base
   # validates :client, presence: true
   
   # -- Methods
-  
+  def ok?
+    status == 'OK'
+  end
 end

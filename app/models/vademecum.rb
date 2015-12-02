@@ -24,7 +24,7 @@ class Vademecum < ActiveRecord::Base
   # -- Methods
 
   def discount(product)
-    product_discounts.detect{|discount| discount.product == product}.discount
+    product_discounts.detect{ |discount| discount.product == product }.discount
   end
 
   def has?(product)

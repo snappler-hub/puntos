@@ -19,5 +19,16 @@ class PeriodProduct < ActiveRecord::Base
 
   # -- Validations
   validates :product, :amount, :accumulated, presence: true
+  
+  # -- Methods
 
+  #Cantidad que resta para cumplir con el cupo del pfpc
+  def remaining_amount
+    if accumulated >= amount
+      0
+    else
+      (amount - accumulated)
+    end
+  end
+  
 end

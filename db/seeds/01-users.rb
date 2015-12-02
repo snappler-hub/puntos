@@ -32,4 +32,15 @@ User.where(email: 'drogueria@manes.com.ar').first_or_create do |user|
   user.supplier = Supplier.where(name: 'Droguería Manes').first
 end
 
+User.where(email: 'vendedor@manes.com.ar').first_or_create do |user|
+  user.password = 'vendedor@manes.com.ar'
+  user.role = 'seller'
+  user.first_name = 'Vendedor'
+  user.last_name = 'Manes'
+  user.document_number = '29876543'
+  user.document_type = 'dni'
+  user.created_by_id = 1
+  user.supplier = Supplier.where(name: 'Droguería Manes').first
+end
+
 puts 'END Seed Users'
