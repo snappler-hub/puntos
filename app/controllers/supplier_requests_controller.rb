@@ -9,7 +9,7 @@ class SupplierRequestsController < ApplicationController
     @filter = SupplierRequestFilter.new(filter_params)
     @supplier_requests = @filter.call(@supplier).page(params[:page])
   end
-  
+
   # GET /supplier_requests/1
   # GET /supplier_requests/1.json
   def show
@@ -33,12 +33,12 @@ class SupplierRequestsController < ApplicationController
       redirect_to @supplier_request, alert: 'No pudo realizarse la acción.'
     end
   end
-  
+
   # GET /supplier_requests/new
   def new
     @supplier_request = SupplierRequest.new
   end
-  
+
   # POST /supplier_requests
   # POST /supplier_requests.json
   def create
@@ -56,14 +56,14 @@ class SupplierRequestsController < ApplicationController
       end
     end
   end
-  
+
   # GET /supplier_requests/1/edit
   def edit
   end
 
   # PATCH/PUT /supplier_requests/1
   # PATCH/PUT /supplier_requests/1.json
-  def update    
+  def update
     respond_to do |format|
       if @supplier_request.update(supplier_request_params)
         format.html { redirect_to [@supplier, @supplier_request], notice: 'La solicitud ha sido actualizada correctamente.' }
@@ -74,7 +74,7 @@ class SupplierRequestsController < ApplicationController
       end
     end
   end
-  
+
   # DELETE /supplier_requests/1
   # DELETE /supplier_requests/1.json
   def destroy
@@ -84,15 +84,15 @@ class SupplierRequestsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   private
-  
+
   def set_supplier
     if params[:supplier_id]
       @supplier = Supplier.find(params[:supplier_id])
     end
   end
-  
+
   def set_supplier_request
     if @supplier
       @supplier_request = @supplier.supplier_requests.find(params[:id])
@@ -100,19 +100,19 @@ class SupplierRequestsController < ApplicationController
       @supplier_request = SupplierRequest.find(params[:id])
     end
   end
-  
+
   def filter_params
     if params[:supplier_request_filter]
       allow_params = [:status, :name, :document_number]
       allow_params << :supplier_id if god?
-      parameters = params.require(:supplier_request_filter).permit(allow_params) 
+      parameters = params.require(:supplier_request_filter).permit(allow_params)
     end
   end
-  
+
   def supplier_request_params
     allow_params = [:first_name, :last_name, :document_type, :document_number, :phone, :email, :address, :notes]
     allow_params << :supplier_id << :status if god?
     parameters = params.require(:supplier_request).permit(allow_params)
   end
-  
+
 end
