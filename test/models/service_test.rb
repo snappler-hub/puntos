@@ -51,7 +51,9 @@ class ServiceTest < ActiveSupport::TestCase
     period.save
     assert period.can_renew?
     
-    # TODO falta la renovación
+    assert_difference('PointsPeriod.count', 1) do
+      period.renew
+    end
   end
   
   test "pfpc service renoval" do

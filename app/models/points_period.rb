@@ -45,7 +45,7 @@ class PointsPeriod < ActiveRecord::Base
   
   # Renuevo el período 
   def renew
-    # TODO Ver qué hace el renovar un período de un servicio de puntos
+    self.service.create_period
   end
   
   # Reinicio el período reseteando los días y pongo el estado En Curso
