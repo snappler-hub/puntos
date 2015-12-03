@@ -8,13 +8,15 @@ class SaleFromAuthorization
     Sale.new(
       client: @authorization.client,
       seller: @authorization.seller,
-      sale_products: sale_products
+      sale_products: sale_products,
+      points: @authorization.points
     )
   end
 
   def create
-    #TODO: aquí debe impactar en los períodos.
-    build.save!
+    obj = build
+    obj.save!
+    obj
   end
 
   private
