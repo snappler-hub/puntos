@@ -39,3 +39,4 @@
 //= require comments
 //= require sales
 //= require shopping_cart_rewards
+//= require reward_orders

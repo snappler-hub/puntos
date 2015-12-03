@@ -1,7 +1,11 @@
 <header class="content-header">
+	<%= link_to '<i class="fa fa-print"></i> Imprimir'.html_safe, voucher_pdf_reward_order_path(@reward_order),
+	class: 'btn btn-info pull-right' %>
 	<%= link_to 'Volver', reward_orders_path,
-	class: 'btn btn-default pull-right' %>
-	<h1>Pedido #<%= @reward_order.id %></h1>
+	class: 'btn btn-default pull-right', style: 'margin-right:5px;' %>
+
+
+	<h1>Pedido <b><%= @reward_order.code %></b></h1>
 </header>
 
 <section class="content">
@@ -82,7 +86,7 @@
 						<p class="form-control-static"><%= t @reward_order.state, scope: :reward_order_states %></p>
 					</fieldset>
 					
-
+					<%= image_tag @reward_order.qr_code.url %>
 
 					<div class="actions">
 						<%# f.submit 'Guardar premio', class: 'btn btn-primary', data: { 'disable-with' => 'Cargando...' } %>

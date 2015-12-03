@@ -25,6 +25,11 @@ gem 'kaminari'
 gem 'dragonfly', '~> 1.0.12'
 gem "cocoon" # Dinamyc add and remove nested resources
 
+gem 'rqrcode_png'
+gem 'prawn' # For PDFs
+gem 'prawn-table'
+
+
 group :development, :test do
   gem 'byebug'
   gem 'pry'

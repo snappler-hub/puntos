@@ -25,7 +25,7 @@ class Reward < ActiveRecord::Base
   default_scope { order(:code) }
   
   # -- Validations
-  validates :name, :code, :need_points, :reward_kind, presence: true
+  validates :name, :image, :code, :need_points, :reward_kind, presence: true
   validates :name, :code, uniqueness: true
 
   def to_s
