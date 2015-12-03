@@ -2,5 +2,5 @@
   <td><%= sale.seller %></td>
   <td><%= sale.client %></td>
   <td><%= sale.created_at %></td>
-  <td></td>
+  <td><%= link_to 'Ver', user_sale_path(current_user, sale), class: 'btn btn-xs btn-primary' %></td>
 </tr>

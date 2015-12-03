@@ -77,12 +77,16 @@ class User < ActiveRecord::Base
   end
 
   def vademecums # TODO: and service is active
-    services.where(type: 'PfpcService').map &:vademecum
+    services.where("type = 'PfpcService' AND status = 1").map &:vademecum
   end
 
   # -------------------------------
   def can_view?(resource)
     resource.can_be_viewed_by?(self)
+  end
+  
+  def pfpc_current_periods
+    pfpc_services.collect { |pfpc| pfpc.last_period }
   end
 
 end

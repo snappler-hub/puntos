@@ -26,8 +26,19 @@ class SalesController < ApplicationController
   end
   
   # POST users/1/sales
+  # Recibe el id de una autorización por parámetro, y crea una venta.
   def create
-    #Para que choque con la API
+    authorization = Authorization.find(params[:authorization])
+    # TODO Meter horas en constante
+    if authorization.created_at > 2.hours.ago 
+      manager = SaleFromAuthorization.new(authorization)
+      @sale = manager.create
+      # TODO Ver qué devuelve tras la venta
+      render "show" 
+    else
+      # TODO Definir qué se muestra cuando la autorización expiró
+      render text: 'La autorización ha expirado'
+    end
   end
   
   def destroy

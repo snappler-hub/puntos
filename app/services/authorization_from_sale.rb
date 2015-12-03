@@ -5,13 +5,25 @@ class AuthorizationFromSale
     @sale_products = sale.sale_products
     @seller   = seller
     @supplier = seller.supplier
+    @points = 0
   end
 
   def authorize
+    #TODO Ver cómo controlar si el cliente está activo
+    if @client.card_number.nil?
+      @status = 'ERROR'
+      @message = 'El cliente no posee una tarjeta asignada'
+    else
+      @status = 'OK'
+      @message = ''
+    end
     Authorization.new(
       client: @client,
       seller: @seller,
-      products: products
+      products: products,
+      status: @status,
+      message: @message,
+      points: @points
     )
   end
 
@@ -22,31 +34,76 @@ class AuthorizationFromSale
   end
 
   private
-
+  
+  #OPTIMIZE Analizar cómo mejorar este código
   def products
+    products = []
     @sale_products.map do |sale_product|
-      total = sale_product.amount * sale_product.cost
+      period_product = period_product(sale_product.product)
       discount = discount(sale_product.product)
-
-      {
-        id: sale_product.product_id,
-        amount: sale_product.amount,
-        cost: sale_product.cost,
-        discount: discount,
-        total: (total * (1- (discount * 0.01) ) )
-      }
+      accepted_amounts = get_amount_with_and_without_discount(period_product, sale_product.amount)
+      amount_with_discount = accepted_amounts[0]
+      amount_without_discount = accepted_amounts[1]
+      if amount_with_discount == sale_product.amount
+        products << create_product(sale_product, amount_with_discount, discount)
+      elsif (amount_with_discount == 0)
+        products << create_product(sale_product, amount_without_discount, 0)
+      else
+        products << create_product(sale_product, amount_with_discount, discount)
+        products << create_product(sale_product, amount_without_discount, 0)
+      end
+      #Puntos
+      @points += (sale_product.product.points.nil?) ? 0 : (sale_product.amount * sale_product.product.points)
     end
+    return products
   end
 
+  #Producto con descuento aplicado
+  def create_product(sale_product, amount, discount)
+    total = sale_product.cost * amount 
+    {
+      id: sale_product.product_id,
+      amount: amount,
+      cost: sale_product.cost,
+      discount: discount,
+      total: (total * (1- (discount * 0.01) ) )
+    }
+  end
+
+  #Porcentaje de descuento para un producto
   def discount(product)
-    # TODO: no debería funcionar así.
-    # Habría que ver cuantos te acepta con ese descuento, y el resto ponerlos sin descuento.
-    vademecum = @client.vademecums.detect {|vademecum| vademecum.products.include?(product)}
+    vademecum = @client.vademecums.detect { |vademecum| vademecum.products.include?(product) }
     if vademecum.present? && @supplier.vademecums.include?(vademecum)
       vademecum.discount(product)
     else
       0
     end
+  end
+
+  #Si el pfpc existe y está activo, devuelvo el período actual  
+  def period_product(product)
+    pfpc = @client.pfpc_services.detect { |pfpc| pfpc.products.include?(product) }
+    if pfpc.present? && pfpc.in_progress?
+      pfpc.last_period.period_products.detect { |pp| pp.product == product }
+    else
+      nil
+    end   
+  end
+  
+  #Devuelve array con dos valores: la cant. a la que corresponde aplicar dto y cant. a la que no
+  def get_amount_with_and_without_discount(period_product, amount)
+    with_discount = 0
+    without_discount = amount
+    unless period_product.nil?
+      remaining = period_product.remaining_amount #Devuelve cero si no puede comprar más
+      if (remaining >= amount)
+        with_discount = amount
+      else
+        with_discount = remaining
+        without_discount = amount - remaining
+      end
+    end
+    return [with_discount, without_discount]
   end
 
 end

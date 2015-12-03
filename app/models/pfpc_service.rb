@@ -33,6 +33,10 @@ class PfpcService < Service
   
   # -- Methods 
   
+  def in_progress?
+    status == "in_progress"
+  end
+  
   def self.model_name
     superclass.model_name
   end
