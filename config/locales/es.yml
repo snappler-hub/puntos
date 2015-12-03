@@ -78,8 +78,7 @@ es:
         seller_id: Vendedor
         client_id: Cliente
       sale_product:
-        product_id: Producto
-        sale_id: Venta
+        product: Producto
         amount: Cantidad
         cost: Costo
         discount: Descuento
