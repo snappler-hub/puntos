@@ -22,6 +22,9 @@ class Sale < ActiveRecord::Base
   belongs_to :seller, class_name: 'User', foreign_key: "seller_id"
   belongs_to :client, class_name: 'User', foreign_key: "client_id"
   
+  # -- Callbacks
+  after_save :update_periods
+  
   # -- Validations
   # validates :seller, presence: true
   # validates :client, presence: true
@@ -36,6 +39,26 @@ class Sale < ActiveRecord::Base
       end
     end
     return sales 
+  end
+  
+  
+  def update_periods
+    id_with_amounts = get_total_amounts(sale_products)
+    id_with_amounts.each_pair do |id, amount|
+      product = Product.find(id)
+      period = PeriodProduct.find_period(client, product)
+      period.add_to_accumulated(amount)
+    end
+  end
+  
+  def get_total_amounts(sale_products)
+    id_with_sales = sale_products.group_by { |sp| sp.product_id }
+    totals = {} 
+    id_with_sales.each do |id, sales_array|
+      id_total = sales_array.reduce(0) { |sum, sa| sum + sa.amount }
+      totals[id] = id_total
+    end
+    return totals
   end
   
 end

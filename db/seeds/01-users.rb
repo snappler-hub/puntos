@@ -1,6 +1,6 @@
 puts 'BEGIN Seed Users'
 
-User.where(email: 'marcelo@manes.com.ar').first_or_create do |user|
+u1 = User.where(email: 'marcelo@manes.com.ar').first_or_create do |user|
   user.password = 'marcelo@manes.com.ar'
   user.role = 'god'
   user.first_name = 'Marcelo'
@@ -10,7 +10,7 @@ User.where(email: 'marcelo@manes.com.ar').first_or_create do |user|
   user.supplier = Supplier.where(name: 'Farmacia Manes').first
 end
 
-User.where(email: 'perla@manes.com.ar').first_or_create do |user|
+u2 = User.where(email: 'perla@manes.com.ar').first_or_create do |user|
   user.password = 'perla@manes.com.ar'
   user.role = 'god'
   user.first_name = 'Perla'
@@ -21,7 +21,7 @@ User.where(email: 'perla@manes.com.ar').first_or_create do |user|
   user.supplier = Supplier.where(name: 'Farmacia Manes').first
 end
 
-User.where(email: 'drogueria@manes.com.ar').first_or_create do |user|
+u3 = User.where(email: 'drogueria@manes.com.ar').first_or_create do |user|
   user.password = 'drogueria@manes.com.ar'
   user.role = 'admin'
   user.first_name = 'Drogueria'
@@ -32,7 +32,7 @@ User.where(email: 'drogueria@manes.com.ar').first_or_create do |user|
   user.supplier = Supplier.where(name: 'Droguería Manes').first
 end
 
-User.where(email: 'vendedor@manes.com.ar').first_or_create do |user|
+u4 = User.where(email: 'vendedor@manes.com.ar').first_or_create do |user|
   user.password = 'vendedor@manes.com.ar'
   user.role = 'seller'
   user.first_name = 'Vendedor'
@@ -42,5 +42,10 @@ User.where(email: 'vendedor@manes.com.ar').first_or_create do |user|
   user.created_by_id = 1
   user.supplier = Supplier.where(name: 'Droguería Manes').first
 end
+
+CardManager.assign_card_number!(u1)
+CardManager.assign_card_number!(u2)
+CardManager.assign_card_number!(u3)
+CardManager.assign_card_number!(u4)
 
 puts 'END Seed Users'

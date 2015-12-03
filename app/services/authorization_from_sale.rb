@@ -9,7 +9,7 @@ class AuthorizationFromSale
   end
 
   def authorize
-    #VER COMO CONTROLAR ESTO
+    #TODO Ver cómo controlar si el cliente está activo
     if @client.card_number.nil?
       @status = 'ERROR'
       @message = 'El cliente no posee una tarjeta asignada'
@@ -35,6 +35,7 @@ class AuthorizationFromSale
 
   private
   
+  #OPTIMIZE Analizar cómo mejorar este código
   def products
     products = []
     @sale_products.map do |sale_product|
@@ -89,7 +90,7 @@ class AuthorizationFromSale
     end   
   end
   
-  #Devuelve un array con la cantidad a la que corresponde aplicar dto, y cantidad a la que no
+  #Devuelve array con dos valores: la cant. a la que corresponde aplicar dto y cant. a la que no
   def get_amount_with_and_without_discount(period_product, amount)
     with_discount = 0
     without_discount = amount
