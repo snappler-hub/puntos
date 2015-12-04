@@ -1,22 +1,20 @@
 class RewardOrdersController < ApplicationController
   before_action :set_reward_order, only: [:show, :destroy]
 
-
+ 
   # GET /rewards
   def index
     @filter = RewardOrderFilter.new(filter_params)
    
     @reward_orders = @filter.call(current_user).page(params[:page]) 
-#    if god?
- #   else
-  #    @reward_orders = @filter.call(current_user).page(params[:page]) 
-   # end
+
 
     render layout: "public" if normal_user?
   end
 
   # GET /rewards/1
   def show
+    render layout: "public" if normal_user?
   end
 
   def change_state
