@@ -6,11 +6,11 @@ class RewardOrdersController < ApplicationController
   def index
     @filter = RewardOrderFilter.new(filter_params)
    
-    if god?
-      @reward_orders = @filter.call.page(params[:page]) 
-    else
-      @reward_orders = @filter.call(current_user).page(params[:page]) 
-    end
+    @reward_orders = @filter.call(current_user).page(params[:page]) 
+#    if god?
+ #   else
+  #    @reward_orders = @filter.call(current_user).page(params[:page]) 
+   # end
 
     render layout: "public" if normal_user?
   end
@@ -19,6 +19,21 @@ class RewardOrdersController < ApplicationController
   def show
   end
 
+  def change_state
+    @reward_order = RewardOrder.find(params[:id])
+    state = params[:state]
+    @reward_order.change_state(state)
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def voucher_pdf
+    @reward_order = RewardOrder.find(params[:id])
+    pdf = Pdf::VoucherDocument.new(@reward_order)    
+    send_data pdf.render, filename: "voucher_#{@reward_order.code}.pdf", type: "application/pdf"
+  end
 
   # DELETE /rewards/1
   def destroy
@@ -36,7 +51,7 @@ class RewardOrdersController < ApplicationController
 
     def filter_params
       if params[:reward_order_filter]
-        params.require(:reward_order_filter).permit(:state, :supplier_id, :user_id)
+        params.require(:reward_order_filter).permit(:state, :supplier_id, :user_id, :code)
       end
     end
 end

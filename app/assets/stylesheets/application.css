@@ -26,4 +26,5 @@
  *= require main
  *= require_self
  *= require css-sales
+ *= require utilities
  */

@@ -10,6 +10,7 @@
 #  discount   :float(24)        default(0.0)
 #  created_at :datetime
 #  updated_at :datetime
+#  total      :float(24)        default(0.0)
 #
 
 class SaleProduct < ActiveRecord::Base

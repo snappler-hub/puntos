@@ -77,7 +77,7 @@ class ShoppingCartRewardsController < ApplicationController
 
     @reward_order = RewardOrder.new(reward_order_params)
     @reward_order.set_shop_cart(current_shop_cart)
-    @reward_order.state = 'confirmed'
+    @reward_order.state = 'requested'
     if @reward_order.save
       ShopCart::reset(session)
       redirect_to reward_orders_path

@@ -37,12 +37,26 @@ module ApplicationHelper
     logged_in? && current_user.role == 'admin' && current_user.supplier_id
   end
 
+  def seller?
+    logged_in? && current_user.role == 'seller' && current_user.supplier_id
+  end
+  
+  def normal_user?
+    logged_in? && current_user.role == 'normal_user'
+  end    
+
   def is_me?(user)
     logged_in? && current_user == user
   end
 
   def current_user_name
     "#{current_user.first_name} #{current_user.last_name}"
+  end
+
+
+  def reward_order_state(reward_order)
+    actions = reward_order.get_state_actions
+    actions.collect{|x| link_to t(x, scope: :reward_order_states), change_state_reward_order_path(reward_order, state: x), remote: true, class: "btn btn-xs #{(['canceled','not_delivered'].include?(x))? 'btn-danger' : 'btn-success'}" }.join().html_safe
   end
 
 end

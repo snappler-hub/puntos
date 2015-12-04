@@ -14,13 +14,19 @@ class Supplier < ActiveRecord::Base
 
   include Destroyable
 
+  # -- ASSOCIATIONS
   has_many :users
   has_many :supplier_requests
   has_many :supplier_vademecums
   has_many :vademecums, through: :supplier_vademecums
 
+  # -- VALIDATIONS
   validates :name, presence: true
+  
+  # -- SCOPES
+  scope :active, -> { where(active: true) }
 
+  # -- METHODS
   def destroyable?
     users.empty?
   end

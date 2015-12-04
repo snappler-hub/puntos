@@ -42,7 +42,10 @@ Rails.application.routes.draw do
     post :confirm_shoping_cart, on: :collection    
   end
 
-  resources :reward_orders, only: [:index, :show, :destroy]
+  resources :reward_orders, only: [:index, :show, :destroy] do
+    get :change_state, on: :member
+    get :voucher_pdf, on: :member
+  end
 
 
   resources :vademecums

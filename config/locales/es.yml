@@ -115,9 +115,14 @@ es:
         need_points: Puntos
         reward_kind: Tipo
       reward_order_filter:
-        user_id: Usuario
+        code: Voucher
+        user_id: Tarjeta
         supplier_id: Proveedor
         state: Estado
+      sale_filter:
+        client: Cliente
+        seller: Vendedor
+        supplier: Proveedor
       user_card_form:
         email: *email
         password: 'Contraseña'
@@ -167,7 +172,13 @@ es:
     other: 'Otros'
 
   reward_order_states:
-    confirmed: 'Confirmado'    
+    requested: 'Solicitado'
+    processing: 'Procesando'
+    incoming: 'En camino'
+    ready: 'Listo para retirarse'
+    delivered: 'Entregado'
+    not_delivered: 'No entregado'
+    canceled: 'Cancelado'
 
 
   service_statuses:

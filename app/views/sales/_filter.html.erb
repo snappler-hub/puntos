@@ -1,6 +1,63 @@
-<%= form_for @filter, url: [@user, :sales], method: :get do |f| %>
-<!-- PRESTADOR -->
-<!-- VENDEDOR -->
-<!-- USUARIO -->
+<%= form_for @filter, url: user_sales_path(current_user), method: :get do |f| %>
+  <div class="row">
+    <% unless normal_user? %>
+    
+      <!-- Variables para supplier y seller-->
+      <% klass = '' %>
+      <% supplier_selected_option = current_user.supplier.id %>
+      <% seller_selected_option = current_user.id %>
+      <% if god? %>
+        <% supplier_block = Supplier.active.map{ |supplier| [supplier.name, supplier.id] }%>
+        <% supplier_selected_option = nil %>
+        <% seller_block = User.all.map{ |seller| [seller.to_s, seller.id] }%>
+        <% seller_selected_option = nil %>
+      <% else %>
+        <% klass = 'display-none' %>
+        <% supplier_block = [current_user.supplier.name, current_user.supplier.id] %>
+        <% seller_block = User.all_from_supplier(current_user.supplier).map{ |seller| [seller.to_s, seller.id] }%>
+      <% end %>
+      
+      <% if @filter.supplier? %>
+        <% supplier_selected_option = @filter.supplier_id %>
+        <% seller_selected_option = @filter.seller_id %>
+      <% end %>
+      <!-- //// -->
+    
+    
+    <!-- PRESTADOR -->
+      <div class="col-md-3 <%= klass %>" >
+        <fieldset class="form-group">
+          <%= f.label :supplier_id %>
+          <%= f.select :supplier_id, options_for_select(supplier_block, supplier_selected_option), {include_blank: true}, {class: 'form-control'} %>
+        </fieldset>
+      </div>
+
+      <!-- VENDEDOR -->
+      <div class="col-md-3">
+        <fieldset class="form-group">
+          <%= f.label :seller_id %>
+          <%= f.select :seller_id, options_for_select(seller_block, seller_selected_option), {include_blank: true}, {class: 'form-control'} %>
+        </fieldset>
+      </div>
+  
+      <!-- USUARIO -->
+      <div class="col-md-3">
+        <fieldset class="form-group">
+          <%= f.label :client_id %>
+          <%= f.hidden_field :client_id, class: 'select2',
+                data: { behavior: 'searchClient', url: search_users_path, 'record-id' => @filter.client_id, 'record-text' => @filter.card_number } %>
+        </fieldset>
+      </div>
+    <% end %>
+    
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <%= f.label :filter %><br />
+        <%= f.submit 'Filtrar', class: 'btn btn-primary',
+            data: { 'disable-with' => 'Cargando...'} %>
+      </fieldset>
+    </div>
+  </div>
+    
 <!-- FECHAS -->
 <% end %>
