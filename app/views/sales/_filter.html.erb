@@ -1,4 +1,4 @@
-<%= form_for @filter, url: user_sales_path(current_user), method: :get do |f| %>
+<%= form_for @filter, url: [@supplier, current_user, :sales], method: :get do |f| %>
   <div class="row">
     <% unless normal_user? %>
     

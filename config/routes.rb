@@ -59,7 +59,11 @@ Rails.application.routes.draw do
   resources :comments, only: [:destroy]
   
   resources :suppliers do
-    resources :users
+    resources :users do
+      resources :sales, except: [:edit, :destroy, :update] do
+        resources :sale_products
+      end
+    end
     resources :supplier_requests do
       collection do
         get :document_form

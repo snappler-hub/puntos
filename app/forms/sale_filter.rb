@@ -5,16 +5,15 @@ class SaleFilter
   def call
     sales = Sale.all
     
-    # if @seller.present?
-    #   case @seller.role
-    #     when 'god'
-    #       sales = Sale.all
-    #     when 'admin'
-    #       sales = Sale.all_from_supplier(@seller.supplier)
-    #     when 'seller'
-    #       sales = Sale.all_sold_by(@seller)
-    #   end
-    # end
+    if @seller.present?
+      case @seller.role
+        when 'admin'
+          sales = sales.all_from_supplier(@seller.supplier.id)
+        when 'seller'
+          sales = sales.where("seller_id = ?", @seller.id)
+      end
+    end
+    
     sales = sales.all_from_supplier(@supplier_id) if @supplier_id.present?
     sales = sales.where("seller_id = ?", @seller_id) if @seller_id.present?
     sales = sales.where("client_id = ?", @client_id) if @client_id.present?
