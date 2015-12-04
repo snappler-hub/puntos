@@ -31,7 +31,7 @@
 
 
   <li>
-    <%= link_to user_sales_path(current_user) do %>
+    <%= link_to [@supplier, current_user, :sales] do %>
       <i class="fa fa-shopping-cart"></i>
       <span>Ventas</span>
     <% end %>
