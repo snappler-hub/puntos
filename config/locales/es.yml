@@ -119,6 +119,10 @@ es:
         user_id: Tarjeta
         supplier_id: Proveedor
         state: Estado
+      sale_filter:
+        client: Cliente
+        seller: Vendedor
+        supplier: Proveedor
       user_card_form:
         email: *email
         password: 'Contraseña'

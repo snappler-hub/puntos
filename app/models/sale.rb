@@ -7,20 +7,22 @@
 #  client_id  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  points     :integer          default(0)
 #
 
 class Sale < ActiveRecord::Base
   
   # -- Scopes
   default_scope -> { order('created_at DESC') }
-  scope :all_sold_by, ->(user) { where(seller: user) }
-  scope :all_sold_to, ->(user) { where(client: user) }
+  scope :all_from_seller, ->(user) { where(seller_id: user) }
+  scope :all_from_client, ->(user) { where(client_id: user) }
   
   # -- Associations
   has_many :sale_products, dependent: :destroy
   accepts_nested_attributes_for :sale_products, allow_destroy: true
   belongs_to :seller, class_name: 'User', foreign_key: "seller_id"
   belongs_to :client, class_name: 'User', foreign_key: "client_id"
+  has_one :supplier, through: :seller
   
   # -- Callbacks
   after_save :update_periods
@@ -30,15 +32,12 @@ class Sale < ActiveRecord::Base
   # validates :client, presence: true
   
   # -- Methods
-  def self.all_from_supplier(supplier)
-    users = User.all_from_supplier(supplier)
-    sales = []
-    users.map do |user|
-      user.sales.map do |sale|
-        sales << sale
-      end
-    end
-    return sales 
+  def self.all_from_supplier(supplier_id)
+    self.joins(:supplier).where(:suppliers => {id: supplier_id})
+  end
+  
+  def between_dates(start_date, finish_date)
+    self.where("created_at >= ? AND created_at <= ?", start_date, finish_date)
   end
   
   

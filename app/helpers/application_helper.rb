@@ -39,7 +39,11 @@ module ApplicationHelper
 
   def seller?
     logged_in? && current_user.role == 'seller' && current_user.supplier_id
-  end  
+  end
+  
+  def normal_user?
+    logged_in? && current_user.role == 'normal_user'
+  end    
 
   def is_me?(user)
     logged_in? && current_user == user

@@ -8,6 +8,7 @@
 #  points     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  barcode    :string(255)
 #
 
 require 'test_helper'
