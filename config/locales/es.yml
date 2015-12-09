@@ -120,9 +120,12 @@ es:
         supplier_id: Proveedor
         state: Estado
       sale_filter:
-        client: Cliente
-        seller: Vendedor
-        supplier: Proveedor
+        client_id: Cliente
+        seller_id: Vendedor
+        supplier_id: Proveedor
+        start_date: Fecha inicio
+        finish_date: Fecha fin
+        filter: Filtrar
       user_card_form:
         email: *email
         password: 'Contraseña'

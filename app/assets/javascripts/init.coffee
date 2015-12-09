@@ -19,6 +19,21 @@ App.init = ->
     
   # Select2
   $("select").normalSelect()
+  
+  # Datepicker
+  datepicker_icons = {
+    time: 'fa fa-clock-o',
+    date: 'fa fa-calendar',
+    up: 'fa fa-chevron-up',
+    down: 'fa fa-chevron-down',
+    previous: 'fa fa-chevron-left',
+    next: 'fa fa-chevron-right',
+    today: 'fa fa-bullseye',
+    clear: 'fa fa-trash',
+    close: 'fa fa-remove'
+  }
+  
+  $('.datepicker').datetimepicker({icons: datepicker_icons, format: 'YY-mm-dd', locale: 'es'});
 
   # Reactivo eventos de AdminLTE porque se pierden con turbolinks
   $.AdminLTE.layout.activate()

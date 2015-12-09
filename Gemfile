@@ -29,6 +29,9 @@ gem 'rqrcode_png'
 gem 'prawn' # For PDFs
 gem 'prawn-table'
 
+gem 'momentjs-rails'
+gem 'bootstrap3-datetimepicker-rails'
+
 
 group :development, :test do
   gem 'byebug'

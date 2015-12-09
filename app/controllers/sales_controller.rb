@@ -6,14 +6,14 @@ class SalesController < ApplicationController
   # GET users/1/sales
   def index
     @filter = SaleFilter.new(filter_params)
-    @sales = Kaminari.paginate_array(@filter.call.to_a).page(params[:page])
+    @sales = Kaminari.paginate_array(@filter.call(current_user).to_a).page(params[:page])
     redirect_to "sales_with_me_as_client" if normal_user?
   end
   
   # GET
   def sales_with_me_as_client
     @filter = SaleFilter.new(filter_params)
-    @sales = Kaminari.paginate_array(@filter.call.to_a).page(params[:page])
+    @sales = Kaminari.paginate_array(@filter.call(current_user).to_a).page(params[:page])
     render "index", layout: "public"
   end
     
@@ -68,9 +68,7 @@ class SalesController < ApplicationController
   end
   
   def set_supplier
-    if params[:supplier_id]
-      @supplier = Supplier.find(params[:supplier_id])
-    end
+    @supplier = current_user.supplier
   end
   
 end

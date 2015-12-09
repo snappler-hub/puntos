@@ -54,7 +54,7 @@
           </div>
         </div>
         <hr>
-        <%= button_to 'Confirmar venta', [@supplier,  authorization.client, :sales, authorization: authorization], class: 'btn btn-success', data: { 'disable-with' => 'Cargando...' }, method: :post %>
+        <%= button_to 'Confirmar venta', [supplier,  authorization.client, :sales, authorization: authorization], class: 'btn btn-success', data: { 'disable-with' => 'Cargando...' }, method: :post %>
     
       <% else %>
       

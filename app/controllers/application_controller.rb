@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
 
   def admin_permission?
     if @supplier
-      is?(:admin) && (current_user.supplier == @supplier) || is?(:god)
+      is?(:admin) && (current_user.supplier == @supplier) || is?(:seller) && (current_user.supplier == @supplier) || is?(:god)
     else
       is?(:god)
     end

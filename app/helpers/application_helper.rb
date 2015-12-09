@@ -41,6 +41,10 @@ module ApplicationHelper
     logged_in? && current_user.role == 'seller' && current_user.supplier_id
   end
   
+  def admin?
+    logged_in? && current_user.role == 'admin' && current_user.supplier_id
+  end
+  
   def normal_user?
     logged_in? && current_user.role == 'normal_user'
   end    

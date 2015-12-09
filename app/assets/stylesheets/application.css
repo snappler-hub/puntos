@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require bootstrap.css
+ *= require bootstrap-datetimepicker
  * require admin/font-awesome/font-awesome.css
  *= require font-awesome 
  *= require plugins/dist/css/AdminLTE.css

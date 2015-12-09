@@ -19,6 +19,9 @@
 //= require select2_initializer
 //= require snackbar.js
 //= require cocoon
+//= require moment
+//= require moment/es 
+//= require bootstrap-datetimepicker
 
 //= require version
 

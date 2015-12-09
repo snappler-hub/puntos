@@ -25,7 +25,7 @@ class Sale < ActiveRecord::Base
   has_one :supplier, through: :seller
   
   # -- Callbacks
-  after_save :update_periods
+  after_save :update_services
   
   # -- Validations
   # validates :seller, presence: true
@@ -36,17 +36,23 @@ class Sale < ActiveRecord::Base
     self.joins(:supplier).where(:suppliers => {id: supplier_id})
   end
   
-  def between_dates(start_date, finish_date)
-    self.where("created_at >= ? AND created_at <= ?", start_date, finish_date)
+  def self.between_dates(start_date, finish_date)
+    self.where("date(sales.created_at) BETWEEN ? AND ?", start_date, finish_date)
   end
   
+  def update_services
+    #Acá se van a ir llamando todos los callbacks como actualizar periodo, actualizar puntos, etc
+    update_periods
+  end
   
   def update_periods
     id_with_amounts = get_total_amounts(sale_products)
     id_with_amounts.each_pair do |id, amount|
       product = Product.find(id)
       period = PeriodProduct.find_period(client, product)
-      period.add_to_accumulated(amount)
+      unless period.nil?
+        period.add_to_accumulated(amount)
+      end
     end
   end
   
