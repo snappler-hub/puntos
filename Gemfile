@@ -25,6 +25,14 @@ gem 'kaminari'
 gem 'dragonfly', '~> 1.0.12'
 gem "cocoon" # Dinamyc add and remove nested resources
 
+gem 'rqrcode_png'
+gem 'prawn' # For PDFs
+gem 'prawn-table'
+
+gem 'momentjs-rails'
+gem 'bootstrap3-datetimepicker-rails'
+
+
 group :development, :test do
   gem 'byebug'
   gem 'pry'

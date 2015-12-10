@@ -25,13 +25,13 @@ class UsersController < ApplicationController
       CardManager.assign_card_number! @user
       redirect_to @user, notice: "Se asignó la tarjeta con número #{@user.card_number}"
     else
-      redirect_to @user, alert: "El usuario ya tiene tarjeta asignada"
+      redirect_to @user, alert: 'El usuario ya tiene tarjeta asignada'
     end
   end
-  
+
   # GET /users/search
   def search
-    block = lambda {|x| {name: x.card_number, id: x.id} }
+    block = lambda { |x| {name: x.card_number, id: x.id} }
     records = RecordSearcher.call(User.all, params, &block)
     render json: records.to_json, callback: params[:callback]
   end
@@ -63,7 +63,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
-  def update    
+  def update
     authorize!(admin_permission? || is_me?)
     respond_to do |format|
       if @user.update(user_params)
@@ -92,35 +92,35 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      if request.original_fullpath == '/profile'
-        @user = current_user
-      elsif @supplier
-        @user = @supplier.users.find(params[:id])
-      else
-        @user = User.find(params[:id])
-      end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    if request.original_fullpath == '/profile'
+      @user = current_user
+    elsif @supplier
+      @user = @supplier.users.find(params[:id])
+    else
+      @user = User.find(params[:id])
     end
+  end
 
-    def set_supplier
-      if params[:supplier_id]
-        @supplier = Supplier.find(params[:supplier_id])
-      end
+  def set_supplier
+    if params[:supplier_id]
+      @supplier = Supplier.find(params[:supplier_id])
     end
+  end
 
-    def is_me?
-      current_user == @user
-    end
+  def is_me?
+    current_user == @user
+  end
 
-    # Un usuario no debe poder cambiar su propio +role+ ni +supplier+.
-    def user_params
-      permitted_params = [:email, :password, :password_confirmation, :first_name, :last_name, :number, :username, :document_type, :document_number, :phone, :address, :image, :remove_image]
-      permitted_params += [:role, :supplier_id] unless is_me?
-      params.require(:user).permit(*permitted_params)
-    end
+  # Un usuario no debe poder cambiar su propio +role+ ni +supplier+.
+  def user_params
+    permitted_params = [:email, :password, :password_confirmation, :first_name, :last_name, :number, :username, :document_type, :document_number, :phone, :address, :image, :remove_image]
+    permitted_params += [:role, :supplier_id] unless is_me?
+    params.require(:user).permit(*permitted_params)
+  end
 
-    def filter_params
-      params.require(:user_filter).permit(:email, :role, :card_number, :document_number, :card_state) if params[:user_filter]
-    end
+  def filter_params
+    params.require(:user_filter).permit(:email, :role, :card_number, :document_number, :card_state) if params[:user_filter]
+  end
 end

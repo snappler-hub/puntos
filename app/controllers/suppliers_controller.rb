@@ -17,11 +17,12 @@ class SuppliersController < ApplicationController
 
   # GET /suppliers/new
   def new
-    @supplier = Supplier.new
+    @current_supplier = Supplier.new
   end
 
   # GET /suppliers/1/edit
   def edit
+    @current_supplier = Supplier.find(params[:id])
   end
 
   # POST /suppliers

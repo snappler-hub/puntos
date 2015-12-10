@@ -1,7 +1,15 @@
 <header class="content-header">
-	<%= link_to 'Volver', reward_orders_path,
-	class: 'btn btn-default pull-right' %>
-	<h1>Pedido #<%= @reward_order.id %></h1>
+
+	<% if (@reward_order.requested? && current_user == @reward_order.user) || god?  %>
+		<%= link_to '<i class="fa fa-trash"></i> Eliminar'.html_safe, @reward_order, method: :delete, data: {confirm: '¿Está seguro?'}, class: 'btn btn-danger pull-right' %>
+	<% end %>
+
+	<%= link_to '<i class="fa fa-print"></i> Imprimir'.html_safe, voucher_pdf_reward_order_path(@reward_order), class: 'btn btn-info pull-right', style: 'margin-right:5px;' %>
+
+	<%= link_to 'Volver', reward_orders_path,	class: 'btn btn-default pull-right', style: 'margin-right:5px;' %>
+
+
+	<h1>Pedido <b><%= @reward_order.code %></b></h1>
 </header>
 
 <section class="content">
@@ -49,9 +57,9 @@
 
 
 							<tr class="totales success">
-								<td colspan="3"><h3 style="margin-top: 10px;">Totales</h3></td>
-								<td class="text-center"><h3 style="margin-top: 10px;"><%= @reward_order.total_amount %></h3></td>
-								<td class="text-center"><h3 style="margin-top: 10px;"><%= @reward_order.total_need_points %></h3></td>
+								<td colspan="3"><h3 style="margin-top: 10px;"><b>Totales</b></h3></td>
+								<td class="text-center"><h3 style="margin-top: 10px;"><b><%= @reward_order.total_amount %></b></h3></td>
+								<td class="text-center"><h3 style="margin-top: 10px;"><b><%= @reward_order.total_need_points %></b></h3></td>
 							</tr>
 						</tbody>
 					</table>
@@ -82,11 +90,7 @@
 						<p class="form-control-static"><%= t @reward_order.state, scope: :reward_order_states %></p>
 					</fieldset>
 					
-
-
-					<div class="actions">
-						<%# f.submit 'Guardar premio', class: 'btn btn-primary', data: { 'disable-with' => 'Cargando...' } %>
-					</div>
+					<%= image_tag @reward_order.qr_code.url %>
 
 
 				</section>

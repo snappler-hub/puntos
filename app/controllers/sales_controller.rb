@@ -1,10 +1,19 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show]
+  before_action :set_supplier
   before_action :only_authorize_admin!, except: [:sales_with_me_as_client]
+
+  # GET users/1/sales
+  def index
+    @filter = SaleFilter.new(filter_params)
+    @sales = Kaminari.paginate_array(@filter.call(current_user).to_a).page(params[:page])
+    redirect_to "sales_with_me_as_client" if normal_user?
+  end
   
+  # GET
   def sales_with_me_as_client
-    @filter = SaleFilter.new(client: current_user)
-    @sales = Kaminari.paginate_array(@filter.call.to_a).page(params[:page])
+    @filter = SaleFilter.new(filter_params)
+    @sales = Kaminari.paginate_array(@filter.call(current_user).to_a).page(params[:page])
     render "index", layout: "public"
   end
     
@@ -12,13 +21,6 @@ class SalesController < ApplicationController
   def show
   end
 
-  # GET users/1/sales
-  def index
-    @filter = SaleFilter.new(seller: current_user)
-    @sales = Kaminari.paginate_array(@filter.call.to_a).page(params[:page])    
-    render layout: "public" if normal_user?
-  end
-  
   # GET users/1/sales/new
   def new
     @sale = Sale.new
@@ -57,6 +59,16 @@ class SalesController < ApplicationController
 
   def sale_params
     params.require(:sale).permit(:seller_id, :client_id, sale_products_attributes:[:id, :product_id, :amount, :cost, :discount, :_destroy])
+  end
+  
+  def filter_params
+    if params[:sale_filter]
+      params.require(:sale_filter).permit(:supplier_id, :seller_id, :client_id, :start_date, :finish_date)
+    end
+  end
+  
+  def set_supplier
+    @supplier = current_user.supplier
   end
   
 end

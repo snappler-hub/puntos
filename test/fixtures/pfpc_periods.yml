@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: service_periods
+# Table name: pfpc_periods
 #
 #  id         :integer          not null, primary key
 #  service_id :integer

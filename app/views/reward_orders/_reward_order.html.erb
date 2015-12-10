@@ -1,9 +1,13 @@
-<tr>
-  <td><%= reward_order.id %></td>
-  <% if god? %><td><%= reward_order.user %></td><% end %>
-  <td><%= reward_order.supplier %></td>
+<tr id="reward_order_<%= reward_order.id %>">
+  <td><%= reward_order.code %></td>
   <td><%= t reward_order.state, scope: :reward_order_states %></td>  
+  <td><%= reward_order.user.card_number %></td>
+  <td><%= reward_order.user %></td>
+  <td><%= reward_order.supplier %></td>
   <td>
     <%= link_to 'Ver', reward_order, class: 'btn btn-xs btn-info' %>
+    <%= reward_order_state(reward_order) if god? %>
   </td>
 </tr>
+
+

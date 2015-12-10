@@ -16,6 +16,7 @@ class AuthorizationsController < ApplicationController
     sale = Sale.new(sale_params)
     manager = AuthorizationFromSale.new(sale, current_user)
     @authorization = manager.authorize!
+    @supplier = current_user.supplier
     respond_to do |format|
       format.js
     end
@@ -29,6 +30,6 @@ class AuthorizationsController < ApplicationController
   
   def sale_params
     params.require(:sale).permit(:seller_id, :client_id, sale_products_attributes:[:id, :product_id, :amount, :cost, :discount, :_destroy])
-  end
+  end  
   
 end

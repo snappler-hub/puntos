@@ -3,8 +3,8 @@
 <article class="box box-primary">
 <section class="box-body">
 
-<%= form_for(@supplier) do |f| %>
-  <% @supplier.errors.full_messages.each do |message| %>
+<%= form_for(@current_supplier) do |f| %>
+  <% @current_supplier.errors.full_messages.each do |message| %>
     <p><%= message %></p>
   <% end %>
 

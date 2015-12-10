@@ -40,11 +40,11 @@ class User < ActiveRecord::Base
 
   ROLES = %w(god admin seller normal_user)
   DOCUMENT_TYPES = %w(dni cuil passport)
-  
+
   # -- Scopes
-  scope :search, ->(q) { where("card_number LIKE :q", q: "%#{q}%") }
+  scope :search, ->(q) { where('card_number LIKE :q', q: "%#{q}%") }
   scope :with_role, ->(role) { where(role: role) }
-  scope :all_from_supplier, ->(supplier) { where("supplier_id = ? AND role != ?", supplier.id, 'normal_user') }
+  scope :all_from_supplier, ->(supplier) { where('supplier_id = ? AND role != ?', supplier.id, 'normal_user') }
 
   # -- Associations
   belongs_to :supplier
@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
   validates :document_number, uniqueness: {scope: :document_type}
 
-  
+
   def to_s
     "#{first_name} #{last_name}"
   end
@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
   def can_view?(resource)
     resource.can_be_viewed_by?(self)
   end
-  
+
   def pfpc_current_periods
     pfpc_services.collect { |pfpc| pfpc.last_period }
   end

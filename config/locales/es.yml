@@ -117,12 +117,20 @@ es:
         need_points: Puntos
         reward_kind: Tipo
       reward_order_filter:
-        user_id: Usuario
+        code: Voucher
+        user_id: Tarjeta
         supplier_id: Proveedor
         state: Estado
       near_expiration_filter:
         supplier_id: Prestador
         date: Vencen antes de
+        filter: *filter
+      sale_filter:
+        client_id: Cliente
+        seller_id: Vendedor
+        supplier_id: Proveedor
+        start_date: Fecha inicio
+        finish_date: Fecha fin
         filter: *filter
       user_card_form:
         email: *email
@@ -173,7 +181,13 @@ es:
     other: 'Otros'
 
   reward_order_states:
-    confirmed: 'Confirmado'    
+    requested: 'Solicitado'
+    processing: 'Procesando'
+    incoming: 'En camino'
+    ready: 'Listo para retirarse'
+    delivered: 'Entregado'
+    not_delivered: 'No entregado'
+    canceled: 'Cancelado'
 
 
   service_statuses:

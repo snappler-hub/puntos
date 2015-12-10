@@ -46,7 +46,10 @@ Rails.application.routes.draw do
     post :confirm_shoping_cart, on: :collection    
   end
 
-  resources :reward_orders, only: [:index, :show, :destroy]
+  resources :reward_orders, only: [:index, :show, :destroy] do
+    get :change_state, on: :member
+    get :voucher_pdf, on: :member
+  end
 
 
   resources :vademecums
@@ -60,7 +63,11 @@ Rails.application.routes.draw do
   resources :comments, only: [:destroy]
   
   resources :suppliers do
-    resources :users
+    resources :users do
+      resources :sales, except: [:edit, :destroy, :update] do
+        resources :sale_products
+      end
+    end
     resources :supplier_requests do
       collection do
         get :document_form

@@ -25,13 +25,13 @@
   <li>
     <%= link_to reward_orders_path do %>
       <i class="fa fa-cubes"></i>
-      <span>Mis pedidos</span>
+      <span>Canje de Premios</span>
     <% end %>
   </li>
 
 
   <li>
-    <%= link_to user_sales_path(current_user) do %>
+    <%= link_to [@supplier, current_user, :sales] do %>
       <i class="fa fa-shopping-cart"></i>
       <span>Ventas</span>
     <% end %>
