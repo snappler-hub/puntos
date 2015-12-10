@@ -1,8 +1,10 @@
 class ServicesController < ApplicationController
   
-  before_action :set_user, except: [:near_expiration]
+  before_action :set_supplier
+  before_action :set_user
   before_action :set_service, only: [:show, :edit, :update, :destroy, :activate, :finalize]
-  before_action :only_authorize_god!
+  before_action :only_authorize_god!, except: [:near_expiration]
+  before_action :only_authorize_admin!, only: [:near_expiration]
   
   # GET /users/X/services/new
   def new
@@ -81,7 +83,7 @@ class ServicesController < ApplicationController
   # Muestra los servicios próximos a vencer
   def near_expiration
     @filter = NearExpirationFilter.new(filter_params)
-    @services = @filter.call.page(params[:page])
+    @services = @filter.call(@supplier).page(params[:page])
   end
   
   private
@@ -95,7 +97,15 @@ class ServicesController < ApplicationController
     end
   
     def set_user
-      @user = User.find(params[:user_id]) 
+      if params[:user_id]
+        @user = User.find(params[:user_id]) 
+      end
+    end
+    
+    def set_supplier
+      if params[:supplier_id]
+        @supplier = Supplier.find(params[:supplier_id]) 
+      end
     end
   
     def set_service

@@ -3,7 +3,6 @@ class NearExpirationFilter
   attr_accessor :supplier_id, :date
 
   def call(context = false)
-    # Points
     services = context ? context.services : Service.all
     services = services.in_progress
     services = services.joins(:user).where('users.supplier_id = ?', @supplier_id) if @supplier_id.present?

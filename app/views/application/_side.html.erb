@@ -106,6 +106,13 @@
         <span>Solicitudes</span>
       <% end %>
     </li>
+    
+    <li>
+      <%= link_to [:near_expiration, current_user.supplier, :services] do %>
+        <i class="fa fa-users"></i>
+        <span>Servicios próximos a vencer</span>
+      <% end %>
+    </li>
   <% end %>
 
 </ul>

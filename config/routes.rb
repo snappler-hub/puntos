@@ -74,6 +74,9 @@ Rails.application.routes.draw do
         post :load_form
       end
     end
+    resources :services do
+      get :near_expiration, on: :collection
+    end 
   end
   
   resources :authorizations, except: [:destroy, :update, :edit, :new]
