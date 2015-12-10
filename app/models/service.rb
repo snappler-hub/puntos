@@ -19,6 +19,7 @@ class Service < ActiveRecord::Base
 
   # -- Scopes
   default_scope { order(:name) }
+  scope :in_progress, -> { where(status: Service.statuses['in_progress']) }
 
   # -- Constants
   TYPES = %w(points pfpc)

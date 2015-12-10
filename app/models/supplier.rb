@@ -15,6 +15,9 @@ class Supplier < ActiveRecord::Base
   include Destroyable
 
   has_many :users
+  has_many :services, through: :users
+  has_many :point_services, through: :users
+  has_many :pfpc_services, through: :users
   has_many :supplier_requests
   has_many :supplier_vademecums
   has_many :vademecums, through: :supplier_vademecums

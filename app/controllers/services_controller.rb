@@ -1,6 +1,6 @@
 class ServicesController < ApplicationController
   
-  before_action :set_user
+  before_action :set_user, except: [:near_expiration]
   before_action :set_service, only: [:show, :edit, :update, :destroy, :activate, :finalize]
   before_action :only_authorize_god!
   
@@ -77,6 +77,13 @@ class ServicesController < ApplicationController
     redirect_to [@user, @service], notice: 'El servicio ha sido activado.'
   end
   
+  # GET /services/near_expiration
+  # Muestra los servicios próximos a vencer
+  def near_expiration
+    @filter = NearExpirationFilter.new(filter_params)
+    @services = @filter.call.page(params[:page])
+  end
+  
   private
   
     def build_service(parameters=nil)
@@ -107,4 +114,7 @@ class ServicesController < ApplicationController
       params.require(:service).permit(allowed_params)
     end
     
+    def filter_params
+      params.require(:near_expiration_filter).permit(:supplier_id, :date) if params[:near_expiration_filter]
+    end
 end

@@ -21,6 +21,10 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :services, only:[] do
+    get :near_expiration, on: :collection
+  end
+  
   get 'my_purchases', to: "sales#sales_with_me_as_client"
 
 

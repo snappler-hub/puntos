@@ -52,7 +52,7 @@ class PointsPeriod < ActiveRecord::Base
   def restart
     self.start_date = Date.today
     self.end_date = Date.today + (self.service.days).days
-    self.state = :in_progress
+    self.status = :in_progress
     self.save
   end
   

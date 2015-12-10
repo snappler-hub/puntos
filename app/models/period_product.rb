@@ -14,7 +14,6 @@
 class PeriodProduct < ActiveRecord::Base
 
   # -- Associations
-  # Se cambió 'belongs_to :service_period' por 'belongs_to :pfpc_period'
   belongs_to :pfpc_period
   belongs_to :product
   has_one :service, through: :pfpc_period
