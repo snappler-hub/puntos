@@ -37,7 +37,7 @@ class Sale < ActiveRecord::Base
   end
   
   def self.between_dates(start_date, finish_date)
-    self.where("date(sales.created_at) BETWEEN ? AND ?", start_date, finish_date)
+    self.where("date(sales.created_at) BETWEEN ? AND ?", start_date.to_date, finish_date.to_date)
   end
   
   def update_services

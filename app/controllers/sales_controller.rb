@@ -1,7 +1,7 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show]
   before_action :set_supplier
-  before_action :only_authorize_admin!, except: [:sales_with_me_as_client]
+  before_action :only_authorize_admin!, except: [:sales_with_me_as_client, :show]
 
   # GET users/1/sales
   def index
@@ -19,6 +19,9 @@ class SalesController < ApplicationController
     
   #GET users/1/sales/1
   def show
+    if normal_user?
+      render "show", layout: "public"
+    end
   end
 
   # GET users/1/sales/new

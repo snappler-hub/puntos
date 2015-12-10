@@ -33,7 +33,7 @@ App.init = ->
     close: 'fa fa-remove'
   }
   
-  $('.datepicker').datetimepicker({icons: datepicker_icons, format: 'YY-mm-dd', locale: 'es'});
+  $('.datepicker').datetimepicker({icons: datepicker_icons, format: 'DD-MM-YYYY', locale: 'es'});
 
   # Reactivo eventos de AdminLTE porque se pierden con turbolinks
   $.AdminLTE.layout.activate()
