@@ -1,6 +1,8 @@
 <tr>
   <td><%= sale.seller %></td>
   <td><%= sale.client %></td>
-  <td><%= sale.created_at %></td>
+  <td><%= sale.client.card_number %></td>
+  <td><%= sale.created_at.strftime("%d-%m-%Y %H:%M:%S") %></td>
+  <td><%= number_to_currency(sale.total) %></td>
   <td><%= link_to 'Ver', user_sale_path(current_user, sale), class: 'btn btn-xs btn-primary' %></td>
 </tr>
