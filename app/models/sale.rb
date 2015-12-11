@@ -32,12 +32,16 @@ class Sale < ActiveRecord::Base
   # validates :client, presence: true
   
   # -- Methods
+  def total
+    sale_products.reduce(0) { |sum, sale_product| sum + sale_product.total }
+  end
+    
   def self.all_from_supplier(supplier_id)
     self.joins(:supplier).where(:suppliers => {id: supplier_id})
   end
   
   def self.between_dates(start_date, finish_date)
-    self.where("date(sales.created_at) BETWEEN ? AND ?", start_date, finish_date)
+    self.where("date(sales.created_at) BETWEEN ? AND ?", start_date.to_date, finish_date.to_date)
   end
   
   def update_services

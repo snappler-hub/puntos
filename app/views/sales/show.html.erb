@@ -1,10 +1,16 @@
 <header class="content-header">
-  <%= link_to 'Volver', user_sales_path, class: 'btn btn-default pull-right' %>
+  <% if normal_user? %>
+    <%= link_to 'Volver', my_purchases_path, class: 'btn btn-default pull-right' %>
+  <% else %>
+    <%= link_to 'Volver', user_sales_path, class: 'btn btn-default pull-right' %>
+  <% end %>
   <h1>Información de la venta <strong>#<%= @sale.id %></strong></h1>
 </header>
 
 <section class="content">
-
+<article class="box box-primary">
+<section class="box-body">
+  
   <div class="row">
     <div class="col-md-6">
       <h5>Vendedor: <strong><%= @sale.seller %></strong></h5>
@@ -50,4 +56,6 @@
   </div>
   <hr>
 
+</section>
+</article>
 </section>

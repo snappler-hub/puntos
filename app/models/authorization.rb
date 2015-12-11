@@ -29,6 +29,10 @@ class Authorization < ActiveRecord::Base
   # validates :client, presence: true
   
   # -- Methods
+  def total
+    products.reduce(0) { |sum, product| sum + product[:total] }
+  end
+  
   def ok?
     status == 'OK'
   end
