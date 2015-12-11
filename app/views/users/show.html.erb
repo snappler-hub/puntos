@@ -1,6 +1,6 @@
 <header class="content-header">
   <div class="pull-right">
-    <%= link_to 'Usuarios', [@supplier, :users], class: 'btn btn-info' %>
+    <%= link_to 'Usuarios', [@supplier, :users], class: 'btn btn-info' if admin? %>
     <%= link_to 'Editar', [:edit, @supplier, @user], class: 'btn btn-success' %>
     <%= link_to 'Eliminar', [@supplier, @user], method: :delete, class: 'btn btn-danger',
          data: {confirm: '¿Está seguro?'} unless is_me?(@user) %>
@@ -84,7 +84,7 @@
 
               <li class="list-group-item">
                 <b>Fecha de creación</b>
-                <a class="pull-right"><%= @user.created_at %></a>
+                <a class="pull-right"><%= l @user.created_at, format: :short %></a>
               </li>
 
             <% end %>
@@ -141,6 +141,9 @@
             </ul>
           <% else %>
             <p class="text-muted text-center">Aún no tiene tarjeta</p>
+            <% if god? %>
+              <p class="text-center"><%= link_to 'Asignar Tarjeta', [:assign_card, @user], method: :patch %></p>
+            <% end %>
           <% end %>
             
           <!-- Create a service -->
@@ -157,9 +160,6 @@
             </div>
             
             </ul>
-          <% else %>
-            <p class="text-muted text-center">Aún no tiene tarjetas</p>
-            <p class="text-center"><%= link_to 'Asignar Tarjeta', [:assign_card, @user], method: :patch %></p>
           <% end %>
           
         </section>

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_supplier
   before_action :set_user, only: [:show, :edit, :update, :destroy, :assign_card]
-  before_action :only_authorize_admin!, except: [:edit, :update, :search]
+  before_action :only_authorize_admin!, except: [:show, :edit, :update, :search]
 
   # GET /users
   # GET /users.json
@@ -13,6 +13,10 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    authorize!(admin_permission? || is_me?)
+    if is_me? && normal_user?
+      render layout: 'public'
+    end
   end
 
   # GET /users/new

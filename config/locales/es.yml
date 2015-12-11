@@ -194,4 +194,10 @@ es:
     pending: Pendiente
     in_progress: En curso
     expired: Vencido
-    closed: Cerrado
+    closed: Cerrado Manualmente
+    
+  service_periods_statuses:
+    pending: Pendiente
+    in_progress: En curso
+    expired: Vencido
+    closed: Cerrado Manualmente  
