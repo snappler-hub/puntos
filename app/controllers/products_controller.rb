@@ -76,7 +76,8 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:name, :code, :points)
+      params.require(:product).permit(:name, :code, :points, 
+          supplier_point_products_attributes: [:id, :points, :supplier_id, :_destroy])
     end
 
     def filter_params
