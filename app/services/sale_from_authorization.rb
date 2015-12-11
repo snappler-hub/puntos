@@ -9,7 +9,8 @@ class SaleFromAuthorization
       client: @authorization.client,
       seller: @authorization.seller,
       sale_products: sale_products,
-      points: @authorization.points
+      points: @authorization.points,
+      total: @authorization.total
     )
   end
 
@@ -27,7 +28,8 @@ class SaleFromAuthorization
         product_id: product[:id],
         amount:     product[:amount],
         cost:       product[:cost],
-        discount:   product[:discount]
+        discount:   product[:discount],
+        total:      product[:total]
       )
     end
   end
