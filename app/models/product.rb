@@ -16,6 +16,10 @@ class Product < ActiveRecord::Base
   # -- Scopes
   default_scope { order(:code) }
   scope :search, ->(q) { where("name LIKE :q", q: "%#{q}%") }
+  
+  # -- Associations
+  has_many :supplier_point_products
+  accepts_nested_attributes_for :supplier_point_products, allow_destroy: true
 
   # -- Validations
   validates :name, :code, presence: true, uniqueness: true
