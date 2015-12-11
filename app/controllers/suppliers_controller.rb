@@ -74,7 +74,8 @@ class SuppliersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def supplier_params
       if god?
-        params.require(:supplier).permit(:name, :description, :active)
+        params.require(:supplier).permit(:name, :description, :active,
+            supplier_point_products_attributes: [:id, :points, :product_id, :_destroy])
       else
         params.require(:supplier).permit(:name, :description)
       end
