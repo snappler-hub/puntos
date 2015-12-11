@@ -39,7 +39,7 @@ class SalesController < ApplicationController
       manager = SaleFromAuthorization.new(authorization)
       @sale = manager.create
       # TODO Ver qué devuelve tras la venta
-      render "show" 
+      redirect_to [current_user.supplier, current_user, @sale], notice: 'La venta ha sido creada correctamente.' 
     else
       # TODO Definir qué se muestra cuando la autorización expiró
       render text: 'La autorización ha expirado'
