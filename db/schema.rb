@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214125413) do
+ActiveRecord::Schema.define(version: 20151214131453) do
 
   create_table "authorizations", force: :cascade do |t|
     t.integer  "seller_id",  limit: 4
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20151214125413) do
     t.integer  "accumulated", limit: 4
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
+    t.integer  "available",   limit: 4, default: 0
   end
 
   add_index "points_periods", ["service_id"], name: "index_points_periods_on_service_id", using: :btree
@@ -269,6 +270,7 @@ ActiveRecord::Schema.define(version: 20151214125413) do
     t.boolean  "card_printed",                                default: false
     t.boolean  "card_delivered",                              default: false
     t.integer  "supplier_request_id",             limit: 4
+    t.integer  "cache_points",                    limit: 4,   default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
