@@ -47,6 +47,7 @@ class Sale < ActiveRecord::Base
   def update_services
     #Acá se van a ir llamando todos los callbacks como actualizar periodo, actualizar puntos, etc
     update_periods
+    update_points
   end
   
   def update_periods
@@ -58,6 +59,11 @@ class Sale < ActiveRecord::Base
         period.add_to_accumulated(amount)
       end
     end
+  end
+  
+  def update_points
+    #si servicio_puntos está activo
+    #actualizar ultimo periodo
   end
   
   def get_total_amounts(sale_products)
