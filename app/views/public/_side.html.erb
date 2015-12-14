@@ -4,43 +4,53 @@
 
   <li>
     <%= link_to root_path do %>
-      <i class="fa fa-home"></i>
-      <span>Inicio</span>
+        <i class="fa fa-fw fa-home"></i>
+        <span>Inicio</span>
+    <% end %>
+  </li>
+
+  <li>
+    <%= link_to current_user do %>
+        <i class="fa fa-fw fa-user"></i>
+        <span>Mi Ficha</span>
     <% end %>
   </li>
 
   <li>
     <%= link_to terms_of_use_path do %>
-      <i class="fa fa-legal"></i>
-      <span>Términos de uso</span>
+        <i class="fa fa-fw fa-legal"></i>
+        <span>Términos de uso</span>
     <% end %>
   </li>
 
-  <li>
-    <%= link_to list_shopping_cart_rewards_path do %>
-      <i class="fa fa-gift"></i>
-      <span>Premios</span>
-    <% end %>
+
+  <li class="treeview">
+    <a href="#">
+      <i class="fa fa-fw fa-gift"></i> <span>Premios</span> <i class="fa fa-fw fa-angle-left pull-right"></i>
+    </a>
+    <ul class="treeview-menu">
+
+      <li>
+        <%= link_to list_shopping_cart_rewards_path do %>
+            <i class="fa fa-fw fa-gift"></i>
+            <span>Catalogo de Premios</span>
+        <% end %>
+      </li>
+
+      <li>
+        <%= link_to reward_orders_path do %>
+            <i class="fa fa-fw fa-cubes"></i>
+            <span>Canjes realizados</span>
+        <% end %>
+      </li>
+
+    </ul>
   </li>
 
-  <li>
-    <%= link_to reward_orders_path do %>
-      <i class="fa fa-cubes"></i>
-      <span>Canje de Premios</span>
-    <% end %>
-  </li>
-  
   <li>
     <%= link_to my_purchases_path do %>
-      <i class="fa fa-shopping-cart"></i>
-      <span>Mis compras</span>
-    <% end %>
-  </li>
-  
-  <li>
-    <%= link_to current_user do %>
-      <i class="fa fa-user"></i>
-      <span>Mi Ficha</span>
+        <i class="fa fa-fw fa-shopping-cart"></i>
+        <span>Mis compras</span>
     <% end %>
   </li>
 
