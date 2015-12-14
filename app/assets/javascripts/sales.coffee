@@ -26,4 +26,10 @@ $(document).on 'click', '#js-clearAuthorizationContnet', ->
 
 $(document).on "page:change", ->
   saleForm = new App.SaleForm()
-    
+
+# Select2 de usuario en el form de sale
+ready = ->
+    $("[data-behavior~=searchClient]").ajaxSelect()
+
+$(document).ready(ready)
+$(document).on('page:load', ready)
