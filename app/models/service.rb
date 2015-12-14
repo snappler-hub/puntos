@@ -30,31 +30,31 @@ class Service < ActiveRecord::Base
 
   # -- Validations
   validates :name, :user, :days, presence: true
-  
+
   # Statuses
   # pending: Servicio creado pero no habilitado (default)
   # in_progress: En curso
   # expired: Servicio vencido. No se cumplió el objetivo en el último período
   # closed: Servicio cerrado/deshabilitado manualmente
-  enum status: { pending: 0, in_progress: 1, expired: 2, closed: 3 }
+  enum status: {pending: 0, in_progress: 1, expired: 2, closed: 3}
 
-  def to_s 
+  def to_s
     name
   end
-  
+
   # Cambia el estado del servicio
   def mark_as(status)
     self.status = status
     self.save
   end
-  
+
   # Retorna la cantidad de días para la expiración
   def days_to_expire
     (self.last_period.end_date - Date.today).to_i
   end
-  
+
   def can_be_activated?
-    return true
+    true
   end
-  
+
 end

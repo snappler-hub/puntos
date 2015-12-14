@@ -17,6 +17,6 @@ class RewardOrderItem < ActiveRecord::Base
 
 
   def total_need_points
-  	need_points * amount
+    need_points * amount
   end
 end

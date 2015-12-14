@@ -1,13 +1,6 @@
 <ul class="sidebar-menu">
   <li class="header">Opciones</li>
 
-  <li>
-    <%= link_to root_path, data: {confirm: '¿Abandonar el area de administración?'} do %>
-        <i class="fa fa-fw fa-home"></i>
-        <span>Ir al área de usuario</span>
-    <% end %>
-  </li>
-
   <% if seller? %>
       <li>
         <%= link_to [:new, @supplier, current_user, :sale] do %>

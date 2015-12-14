@@ -14,20 +14,20 @@
 #
 
 class SaleProduct < ActiveRecord::Base
-  
+
   # -- Scopes
-  
+
   # -- Associations
   belongs_to :sale
   belongs_to :product
-  
+
   # -- Validations
   validates :product_id, presence: true
   # validates :sale_id, presence: true
   validates :amount, presence: true
   validates :cost, presence: true
   validates :discount, presence: true
-  
+
   # -- Methods
-  
+
 end

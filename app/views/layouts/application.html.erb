@@ -20,11 +20,20 @@
   </article>
 
   <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b>
-      <%= Plenario::Application::VERSION %>
-    </div>
-    <strong>Manes</strong>
+      <div class="pull-right hidden-xs">
+        <ul class="nav navbar-nav">
+          <li class="footer-li">
+            <strong> Manes |</strong>
+          </li>
+          <li>
+            <b>Version</b>
+            <%= Plenario::Application::VERSION %>
+          </li>
+        </ul>
+      </div>
+      <span>
+        <%= link_to 'Términos de uso', terms_of_use_path, class: 'footer-link' %>
+      </span>
   </footer>
 
 </div>

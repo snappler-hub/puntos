@@ -17,39 +17,39 @@
 #
 
 class PointsService < Service
-  
+
   # -- Associations
-  has_many :periods, class_name: "PointsPeriod", foreign_key: 'service_id', dependent: :destroy
-  belongs_to :last_period, class_name: "PointsPeriod", foreign_key: 'last_period_id'
-  
+  has_many :periods, class_name: 'PointsPeriod', foreign_key: 'service_id', dependent: :destroy
+  belongs_to :last_period, class_name: 'PointsPeriod', foreign_key: 'last_period_id'
+
   # -- Validations
   validates :amount, presence: true
-  
+
   # -- Callbacks
   after_create :create_period
-  
+
   # -- Methods
   def self.model_name
     superclass.model_name
   end
-  
+
   # Creo un período y lo asigno como último del servicio
   def create_period
     period = self.periods.create do |period|
-      period.start_date   = Date.today
-      period.end_date     = Date.today + (self.days).days
-      period.amount       = self.amount
-      period.accumulated  = 0
+      period.start_date = Date.today
+      period.end_date = Date.today + (self.days).days
+      period.amount = self.amount
+      period.accumulated = 0
     end
-    
+
     self.update(last_period: period)
-    
+
     return period
   end
-  
+
   # True si no existe otro servicio de puntos activo para el usuario
   def can_be_activated?
     PointsService.where.not(id: self.id).exists?(user: user, status: 'in_progress')
   end
-  
+
 end
