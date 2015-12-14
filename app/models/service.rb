@@ -52,4 +52,8 @@ class Service < ActiveRecord::Base
     (self.last_period.end_date - Date.today).to_i
   end
   
+  def can_be_activated?
+    return true
+  end
+  
 end

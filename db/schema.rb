@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211193840) do
+ActiveRecord::Schema.define(version: 20151214125413) do
 
   create_table "authorizations", force: :cascade do |t|
     t.integer  "seller_id",  limit: 4
@@ -172,16 +172,17 @@ ActiveRecord::Schema.define(version: 20151211193840) do
   add_index "sales", ["seller_id"], name: "index_sales_on_seller_id", using: :btree
 
   create_table "services", force: :cascade do |t|
-    t.string   "name",           limit: 255,              null: false
-    t.string   "type",           limit: 255,              null: false
-    t.integer  "user_id",        limit: 4
-    t.integer  "last_period_id", limit: 4
-    t.integer  "amount",         limit: 4
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-    t.integer  "days",           limit: 4,   default: 30
-    t.integer  "vademecum_id",   limit: 4
-    t.integer  "status",         limit: 4,   default: 0
+    t.string   "name",                      limit: 255,              null: false
+    t.string   "type",                      limit: 255,              null: false
+    t.integer  "user_id",                   limit: 4
+    t.integer  "last_period_id",            limit: 4
+    t.integer  "amount",                    limit: 4
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.integer  "days",                      limit: 4,   default: 30
+    t.integer  "vademecum_id",              limit: 4
+    t.integer  "status",                    limit: 4,   default: 0
+    t.integer  "days_to_points_expiration", limit: 4
   end
 
   add_index "services", ["last_period_id"], name: "index_services_on_last_period_id", using: :btree
