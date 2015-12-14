@@ -64,8 +64,14 @@ class ServicesController < ApplicationController
   def activate
     ActiveRecord::Base.transaction do
       if @service.pending?
-        @service.last_period.restart
-        @service.mark_as(:in_progress)
+        unless @service.can_be_activated?
+          flash[:error] = 'El servicio no puede ser activado.'
+          redirect_to [@user, @service]
+          return false
+        else 
+          @service.last_period.restart
+          @service.mark_as(:in_progress)
+        end
       else
         @service.last_period.renew
       end
@@ -80,7 +86,7 @@ class ServicesController < ApplicationController
       @service.last_period.mark_as(:closed)
       @service.mark_as(:closed)
     end
-    redirect_to [@user, @service], notice: 'El servicio ha sido activado.'
+    redirect_to [@user, @service], notice: 'El servicio ha sido finalizado.'
   end
   
   # GET /services/near_expiration
@@ -131,7 +137,7 @@ class ServicesController < ApplicationController
       allowed_params = [:name, :days]
     
       if params[:service][:type] == 'PointsService'
-        allowed_params << :amount 
+        allowed_params << :amount << :days_to_points_expiration
       else
         allowed_params << :vademecum_id << [product_pfpcs_attributes:[:id, :product_id, :amount, :_destroy]]
       end

@@ -9,6 +9,6 @@ ready = ->
   $("[data-behavior~=searchUser]").ajaxSelect()
     
 
-$(document).ready(ready)
-$(document).on('page:load', ready)
+$(document).on "page:change", ->
+  ready()
     

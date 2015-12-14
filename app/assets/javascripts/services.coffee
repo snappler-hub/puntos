@@ -5,6 +5,8 @@ class App.ServiceForm
     @bindEvents()
     @bindSelects()
     
+    @setDaysToExpire()
+    
   # Binding de Eventos
   bindEvents: () ->
     that = @
@@ -22,6 +24,9 @@ class App.ServiceForm
         that.vademecum = $(target).val
       else
         $(target).val(@vademecum)
+    
+    $('#js-periodCount, #js-daysPerPeriod').keyup (e) =>
+      @setDaysToExpire()
   
   # Binding evento de select2 de productos
   bindSelects: (parent) ->
@@ -32,6 +37,13 @@ class App.ServiceForm
         page: page
         limit: 10
         vademecum_id: $('#js-vademecumField').val()
+  
+  setDaysToExpire: ->
+    return false unless $('#js-periodCount')
+    daysToExpire = $('#js-periodCount').val()
+    daysPerPeriod = $('#js-daysPerPeriod').val()
+    $('#js-pointsExpirationVisible').html(daysPerPeriod*daysToExpire)
+    $('#js-pointsExpiration').val(daysPerPeriod*daysToExpire)
   
   # True si el servicio tiene productos
   hasProducts: () ->

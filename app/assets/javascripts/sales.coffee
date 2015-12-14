@@ -23,13 +23,7 @@ class App.SaleForm
 
 $(document).on 'click', '#js-clearAuthorizationContnet', ->
     $('#js-authorization').empty()
-    
-$(document).on "page:change", ->
-    saleForm = new App.SaleForm()
 
-ready = ->
-    $("[data-behavior~=searchClient]").ajaxSelect()
-    
-$(document).ready(ready)
-$(document).on('page:load', ready)
+$(document).on "page:change", ->
+  saleForm = new App.SaleForm()
     

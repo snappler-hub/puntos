@@ -43,7 +43,6 @@ class ApplicationController < ActionController::Base
     is? :god
   end
 
-
   def normal_user?
     is? :normal_user
   end

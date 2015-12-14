@@ -21,4 +21,9 @@ namespace :services do
     puts "#{expired} servicios vencidos"
   end
   
+  # Vencimiento de los puntos de un servicio de puntos
+  task points_expiration: :environment do
+    
+  end
+  
 end

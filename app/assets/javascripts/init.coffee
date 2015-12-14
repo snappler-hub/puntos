@@ -38,6 +38,7 @@ App.init = ->
   # Reactivo eventos de AdminLTE porque se pierden con turbolinks
   $.AdminLTE.layout.activate()
   $.AdminLTE.tree('.sidebar');
+  
 
-$(document).on "page:change", ->
+$(document).on "page:load", ->
   App.init()
