@@ -23,6 +23,9 @@ class Product < ActiveRecord::Base
 
   # -- Validations
   validates :name, :code, presence: true, uniqueness: true
+  
+  # -- Callbacks
+  after_create :initialize_points, if: Proc.new { |u| u.points.nil? }  
 
   def to_s
     name
@@ -41,4 +44,9 @@ class Product < ActiveRecord::Base
     
     products
   end
+  
+  def initialize_points
+    self.update(points: 0)
+  end
+    
 end

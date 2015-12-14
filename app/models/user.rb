@@ -88,5 +88,10 @@ class User < ActiveRecord::Base
   def pfpc_current_periods
     pfpc_services.collect { |pfpc| pfpc.last_period }
   end
+  
+  def update_cache_points(points)
+    self.cache_points += points
+    self.save
+  end
 
 end

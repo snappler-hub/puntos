@@ -35,7 +35,7 @@ class AuthorizationFromSale
 
   private
   
-  #OPTIMIZE Analizar cómo mejorar este código
+  #OPTIMIZE Refactorizar este código
   def products
     products = []
     @sale_products.map do |sale_product|
@@ -53,7 +53,8 @@ class AuthorizationFromSale
         products << create_product(sale_product, amount_without_discount, 0)
       end
       #Puntos
-      @points += (sale_product.product.points.nil?) ? 0 : (sale_product.amount * sale_product.product.points)
+      @points += (sale_product.amount * get_points(sale_product.product, @supplier))
+      
     end
     return products
   end
@@ -104,6 +105,12 @@ class AuthorizationFromSale
       end
     end
     return [with_discount, without_discount]
+  end
+  
+  #Devuelve un integer con los puntos particulares del supplier si es que tiene, y sino devuelve los puntos que tiene el producto.
+  def get_points(product, supplier)
+    product = supplier.supplier_point_products.detect { |spp| spp.product == product } || product
+    return product.points
   end
 
 end

@@ -61,11 +61,6 @@ class Sale < ActiveRecord::Base
     end
   end
   
-  def update_points
-    #si servicio_puntos está activo
-    #actualizar ultimo periodo
-  end
-  
   def get_total_amounts(sale_products)
     id_with_sales = sale_products.group_by { |sp| sp.product_id }
     totals = {} 
@@ -76,4 +71,14 @@ class Sale < ActiveRecord::Base
     return totals
   end
   
+  def update_points
+    #si servicio_puntos está activo
+    #actualizar ultimo periodo
+    if client.points_services.count > 0 && client.points_services.first.in_progress?
+      period = client.points_services.first.last_period
+      accumulated_points = points
+      period.update_accumulated(accumulated_points)
+    end
+  end
+
 end

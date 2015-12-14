@@ -29,6 +29,10 @@ class PointsPeriod < ActiveRecord::Base
   validates :amount, presence: true
   validates :accumulated, presence: true
   
+  # -- Callbacks
+  after_update :update_available, if: Proc.new { |u| u.accumulated_changed? }
+  after_update :update_user_cache_points, if: Proc.new { |u| u.available_changed? }
+  
   # Statuses
   # in_progress: Período actual (default)
   # accomplished: Período cumplido
@@ -60,4 +64,21 @@ class PointsPeriod < ActiveRecord::Base
     self.save
   end
   
+  #Actualizo los puntos acumulados
+  def update_accumulated(points)
+    self.accumulated += points
+    self.save
+  end
+  
+  def update_available
+    new_points = accumulated - accumulated_was
+    self.reload #Clear de los attribute_changes para que accumulated deje de aparecer como changed
+    self.available += new_points
+    self.save
+  end
+  
+  def update_user_cache_points
+    service.user.update_cache_points(available - available_was)
+  end
+    
 end
