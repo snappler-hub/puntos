@@ -31,6 +31,7 @@
 #  card_printed                    :boolean          default(FALSE)
 #  card_delivered                  :boolean          default(FALSE)
 #  supplier_request_id             :integer
+#  cache_points                    :integer          default(0)
 #
 
 class User < ActiveRecord::Base

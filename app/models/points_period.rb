@@ -11,6 +11,7 @@
 #  accumulated :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  available   :integer          default(0)
 #
 
 class PointsPeriod < ActiveRecord::Base

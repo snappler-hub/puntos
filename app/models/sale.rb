@@ -8,6 +8,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  points     :integer          default(0)
+#  total      :float(24)        default(0.0)
 #
 
 class Sale < ActiveRecord::Base

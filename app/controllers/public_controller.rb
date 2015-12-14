@@ -1,5 +1,6 @@
 class PublicController < ApplicationController
-
+  layout :define_layout
+  
   def home
     should_have_a_card_assigned!
     should_accept_terms_of_use!
@@ -50,5 +51,13 @@ class PublicController < ApplicationController
     current_user.card_number && !current_user.terms_accepted?
   end
   helper_method :should_accept_terms_of_use?
+  
+  def define_layout
+    unless normal_user?
+      'application'
+    else
+      'public'
+    end
+  end
 
 end
