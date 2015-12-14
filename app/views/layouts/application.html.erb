@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head><%= render 'head' %></head>
-  <body class="skin-blue fixed <%= controller_name %> <%= action_name %>">
-    <div class="wrapper">
+<head><%= render 'application/head' %></head>
+<body class="skin-blue fixed <%= "#{controller_name} #{action_name}" %>">
+<div class="wrapper">
 
-      <%= render 'navbar' %>
+  <%= render 'application/navbar' %>
 
-      <aside class="main-sidebar">
-        <section class="sidebar">
-          <%= render 'side' %>
-        </section>
-      </aside>
+  <aside class="main-sidebar">
+    <section class="sidebar">
+      <%= render 'application/side' %>
+    </section>
+  </aside>
 
-      <article class="content-wrapper">
-        <%= yield %>
-        <section id="snackbar-container">
-          <%= flash_messages if flash %>
-        </section>
-      </article>
+  <article class="content-wrapper">
+    <%= yield %>
+    <section id="snackbar-container">
+      <%= flash_messages if flash %>
+    </section>
+  </article>
 
-      <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-          <b>Version</b>
-          <%= Plenario::Application::VERSION %>
-        </div>
-        <strong>Manes</strong>
-      </footer>
-
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b>
+      <%= Plenario::Application::VERSION %>
     </div>
+    <strong>Manes</strong>
+  </footer>
 
-  </body>
+</div>
+
+</body>
 </html>
