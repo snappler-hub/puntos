@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211174707) do
+ActiveRecord::Schema.define(version: 20151214131453) do
 
   create_table "authorizations", force: :cascade do |t|
     t.integer  "seller_id",  limit: 4
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20151211174707) do
     t.integer  "accumulated", limit: 4
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
+    t.integer  "available",   limit: 4, default: 0
   end
 
   add_index "points_periods", ["service_id"], name: "index_points_periods_on_service_id", using: :btree
@@ -188,6 +189,17 @@ ActiveRecord::Schema.define(version: 20151211174707) do
   add_index "services", ["user_id"], name: "index_services_on_user_id", using: :btree
   add_index "services", ["vademecum_id"], name: "index_services_on_vademecum_id", using: :btree
 
+  create_table "supplier_point_products", force: :cascade do |t|
+    t.integer  "supplier_id", limit: 4
+    t.integer  "product_id",  limit: 4
+    t.integer  "points",      limit: 4, default: 0
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "supplier_point_products", ["product_id"], name: "index_supplier_point_products_on_product_id", using: :btree
+  add_index "supplier_point_products", ["supplier_id"], name: "index_supplier_point_products_on_supplier_id", using: :btree
+
   create_table "supplier_requests", force: :cascade do |t|
     t.integer  "supplier_id",     limit: 4
     t.integer  "user_id",         limit: 4
@@ -257,6 +269,7 @@ ActiveRecord::Schema.define(version: 20151211174707) do
     t.boolean  "card_printed",                                default: false
     t.boolean  "card_delivered",                              default: false
     t.integer  "supplier_request_id",             limit: 4
+    t.integer  "cache_points",                    limit: 4,   default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -288,6 +301,8 @@ ActiveRecord::Schema.define(version: 20151211174707) do
   add_foreign_key "sale_products", "sales"
   add_foreign_key "services", "users"
   add_foreign_key "services", "vademecums"
+  add_foreign_key "supplier_point_products", "products"
+  add_foreign_key "supplier_point_products", "suppliers"
   add_foreign_key "supplier_requests", "suppliers"
   add_foreign_key "supplier_requests", "users"
   add_foreign_key "supplier_vademecums", "suppliers"

@@ -13,6 +13,10 @@
 
 class PfpcPeriod < ActiveRecord::Base
   
+  # -- Scopes
+  scope :not_in_progress, -> { where.not(status: PfpcPeriod.statuses['in_progress']) } 
+  scope :recents, -> { order(created_at: :desc) }
+  
   # -- Associations
   belongs_to :service, class_name:  "Service", foreign_key: "service_id"
   has_many :period_products, dependent: :destroy

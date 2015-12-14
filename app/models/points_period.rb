@@ -15,6 +15,10 @@
 
 class PointsPeriod < ActiveRecord::Base
   
+  # -- Scopes
+  scope :not_in_progress, -> { where.not(status: PointsPeriod.statuses['in_progress']) }
+  scope :recents, -> { order(created_at: :desc) }
+  
   # -- Associations
   belongs_to :service, class_name:  "Service", foreign_key: "service_id"
   

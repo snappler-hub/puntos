@@ -1,5 +1,5 @@
 <div class="row">
-<div class="col-md-6">
+<div class="col-md-9">
 <article class="box box-primary">
 <section class="box-body">
 
@@ -23,6 +23,22 @@
       <%= f.label :active %><br />
       <%= f.check_box :active %>
     </fieldset>
+    
+    <h4> Puntos por producto </h4>
+    <div class="row">
+      <div class="col-md-7"> <%= label_tag :supplier_point_products, 'Producto' %> </div>
+      <div class="col-md-3"> <%= label_tag :supplier_point_products, 'Puntos' %> </div>
+    </div>
+    
+    <div id="js-supplier-point-products" class="supplier_point_products form-group">
+      <%= f.fields_for :supplier_point_products do |p| %>
+        <%= render 'supplier_point_product_fields', f: p %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association 'Nuevo', f, :supplier_point_products, class: 'btn btn-default' %>
+      </div>
+    </div>
+    
   <% end %>
 
   <div class="actions">

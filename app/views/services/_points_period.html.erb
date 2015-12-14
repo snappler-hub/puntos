@@ -1,10 +1,12 @@
 <ul class="list-group list-group-unbordered">
   <li class="list-group-item">
     <b> Puntos Acumulados</b>
-    <a class="pull-right"> <%= @service.last_period.accumulated %> </a>
+    <a class="pull-right"> <%= period.accumulated %> </a>
   </li>
-  <li class="list-group-item">
-    <b> Vence en </b>
-    <a class="pull-right"> <%= @service.days_to_expire %> días </a>
-  </li>
+  <% if period.in_progress? %>
+    <li class="list-group-item">
+      <b> Vence en </b>
+      <a class="pull-right"> <%= @service.days_to_expire %> días </a>
+    </li>
+  <% end %>
 </ul>

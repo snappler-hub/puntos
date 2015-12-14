@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   
   resources :services, only:[] do
     get :near_expiration, on: :collection
+    get :history, on: :member
   end
   
   get 'my_purchases', to: "sales#sales_with_me_as_client"
@@ -74,6 +75,9 @@ Rails.application.routes.draw do
         post :load_form
       end
     end
+    resources :services do
+      get :near_expiration, on: :collection
+    end 
   end
   
   resources :authorizations, except: [:destroy, :update, :edit, :new]

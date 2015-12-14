@@ -1,4 +1,4 @@
-<%= form_for @filter, url: near_expiration_services_path, method: :get do |f| %>
+<%= form_for @filter, url: [:near_expiration, current_user.supplier, :services], method: :get do |f| %>
 
   <div class="row">
     <div class="col-md-2">
