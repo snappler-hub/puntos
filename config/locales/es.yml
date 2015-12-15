@@ -200,4 +200,5 @@ es:
     pending: Pendiente
     in_progress: En curso
     expired: Vencido
-    closed: Cerrado Manualmente  
+    closed: Cerrado Manualmente
+    accomplished: Cumplido
