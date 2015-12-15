@@ -27,7 +27,7 @@ class Supplier < ActiveRecord::Base
 
   # -- VALIDATIONS
   validates :name, presence: true
-  
+
   # -- SCOPES
   scope :active, -> { where(active: true) }
 

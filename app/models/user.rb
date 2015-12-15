@@ -31,6 +31,7 @@
 #  card_printed                    :boolean          default(FALSE)
 #  card_delivered                  :boolean          default(FALSE)
 #  supplier_request_id             :integer
+#  cache_points                    :integer          default(0)
 #
 
 class User < ActiveRecord::Base
@@ -87,6 +88,11 @@ class User < ActiveRecord::Base
 
   def pfpc_current_periods
     pfpc_services.collect { |pfpc| pfpc.last_period }
+  end
+
+  def update_cache_points(points)
+    self.cache_points += points
+    self.save
   end
 
 end

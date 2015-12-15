@@ -8,6 +8,6 @@ class ServicePeriod < ActiveRecord::Base
   validates :service, :start_date, :end_date, presence: true
 
   # -- Misc
-  enum status: { in_progress: 0, finished: 1 }
+  enum status: {in_progress: 0, finished: 1}
 
 end

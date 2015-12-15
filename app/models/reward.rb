@@ -16,14 +16,14 @@
 #
 
 class Reward < ActiveRecord::Base
-  
-	dragonfly_accessor :image
+
+  dragonfly_accessor :image
   serialize :service_types, Array
   REWARD_KINDS = %w(workshop product other)
 
   # -- Scopes
   default_scope { order(:code) }
-  
+
   # -- Validations
   validates :name, :image, :code, :need_points, :reward_kind, presence: true
   validates :name, :code, uniqueness: true

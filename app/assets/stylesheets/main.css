@@ -210,4 +210,11 @@ html.turbolinks-progress-bar::before {
   padding-bottom: 0;
 }
 
+.footer-link {
+  padding:0px !important;
+}
+
+.footer-li {
+  padding-right: 5px !important;
+}
 

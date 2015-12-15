@@ -10,9 +10,9 @@ class AuthorizationFromSale
 
   def authorize
     #TODO Ver cómo controlar si el cliente está activo
-    if @client.card_number.nil?
+    unless @client.terms_accepted?
       @status = 'ERROR'
-      @message = 'El cliente no posee una tarjeta asignada'
+      @message = 'El cliente no aceptó los términos de uso.'
     else
       @status = 'OK'
       @message = ''
@@ -35,7 +35,7 @@ class AuthorizationFromSale
 
   private
   
-  #OPTIMIZE Analizar cómo mejorar este código
+  #OPTIMIZE Refactorizar este código
   def products
     products = []
     @sale_products.map do |sale_product|
@@ -53,7 +53,8 @@ class AuthorizationFromSale
         products << create_product(sale_product, amount_without_discount, 0)
       end
       #Puntos
-      @points += (sale_product.product.points.nil?) ? 0 : (sale_product.amount * sale_product.product.points)
+      @points += (sale_product.amount * get_points(sale_product.product, @supplier))
+      
     end
     return products
   end
@@ -86,6 +87,7 @@ class AuthorizationFromSale
     if pfpc.present? && pfpc.in_progress?
       pfpc.last_period.period_products.detect { |pp| pp.product == product }
     else
+      @status += "El cliente no posee ningún pfpc activo. "
       nil
     end   
   end
@@ -104,6 +106,12 @@ class AuthorizationFromSale
       end
     end
     return [with_discount, without_discount]
+  end
+  
+  #Devuelve un integer con los puntos particulares del supplier si es que tiene, y sino devuelve los puntos que tiene el producto.
+  def get_points(product, supplier)
+    product = supplier.supplier_point_products.detect { |spp| spp.product == product } || product
+    return product.points
   end
 
 end
