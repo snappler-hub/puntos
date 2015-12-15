@@ -1,6 +1,6 @@
 jQuery.fn.ajaxSelect = (options) ->
   url = $(this).data('url')
-  
+
   defaults =
     placeholder: "Realizar una búsqueda"
     formatNoMatches: 'No hay resultados'
@@ -40,7 +40,7 @@ jQuery.fn.ajaxSelect = (options) ->
 
 jQuery.fn.normalSelect = (options) ->
   url = $(this).data('url')
-  
+
   defaults =
     allow_clear: true
 
@@ -49,4 +49,3 @@ jQuery.fn.normalSelect = (options) ->
   this.select2
     placeholder: settings.placeholder
     allowClear: settings.allow_clear
-
