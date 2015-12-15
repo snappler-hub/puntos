@@ -21,7 +21,7 @@ class PeriodProduct < ActiveRecord::Base
 
   # -- Validations
   validates :product, :amount, :accumulated, presence: true
-  
+
   # -- Methods
 
   #Cantidad que resta para cumplir con el cupo del pfpc
@@ -32,14 +32,14 @@ class PeriodProduct < ActiveRecord::Base
       (amount - accumulated)
     end
   end
-  
+
   def self.find_period(user, product)
-    PeriodProduct.joins(:user).where(:users => {id: user}, product: product).first
+    PeriodProduct.joins(:user).where(users: {id: user}, product: product).first
   end
-  
+
   def add_to_accumulated(amount)
     self.accumulated += amount
     self.save!
-  end 
-  
+  end
+
 end

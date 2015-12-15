@@ -1,61 +1,64 @@
 <header class="content-header">
   <% if normal_user? %>
-    <%= link_to 'Volver', my_purchases_path, class: 'btn btn-default pull-right' %>
+      <%= link_to 'Volver', my_purchases_path, class: 'btn btn-default pull-right' %>
   <% else %>
-    <%= link_to 'Volver', user_sales_path, class: 'btn btn-default pull-right' %>
+      <%= link_to 'Volver', user_sales_path, class: 'btn btn-default pull-right' %>
   <% end %>
   <h1>Información de la venta <strong>#<%= @sale.id %></strong></h1>
 </header>
 
 <section class="content">
-<article class="box box-primary">
-<section class="box-body">
-  
-  <div class="row">
-    <div class="col-md-6">
-      <h5>Vendedor: <strong><%= @sale.seller %></strong></h5>
-    </div>
-    <div class="col-md-6">
-      <h5>Cliente: <strong><%= @sale.client %></strong></h5>
-    </div>
-  </div>
-  
-  <div class="row">
-    <div class="col-md-12">
-      <h5>Detalle de descuentos aplicados:</h5>
-      <table id="css-authorizations-table" class="table table-striped table-condensed">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th><span data-toggle="tooltip" data-placement="top" title="Cantidad">Cant.</span></th>
-            <th><span data-toggle="tooltip" data-placement="top" title="Precio de Venta Sugerido">PVS</span></th>
-            <th><span data-toggle="tooltip" data-placement="top" title="Costo Unitario">CU</span></th>
-            <th><span data-toggle="tooltip" data-placement="top" title="Descuento aplicado">Dto</span></th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% for product in @sale.sale_products do %>
-            <tr>
-              <td><%= product.product.to_s %></td>
-              <td><%= product.amount %></td>
-              <td>nil</td>
-              <td><%= number_to_currency(product.cost) %></td>
-              <td><%= number_to_percentage(product.discount, precision: 0) %></td>
-              <td><%= number_to_currency(product.total) %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <h5>Puntos acumulados en la venta: <strong><%= @sale.points %></strong></h5>
-    </div>
-  </div>
-  <hr>
+  <article class="box box-primary">
+    <section class="box-body">
 
-</section>
-</article>
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Vendedor: <strong><%= @sale.seller %></strong></h5>
+        </div>
+        <div class="col-md-6">
+          <h5>Cliente: <strong><%= @sale.client %></strong></h5>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h5>Detalle de descuentos aplicados:</h5>
+          <table id="css-authorizations-table" class="table table-striped table-condensed">
+            <thead>
+            <tr>
+              <th>Nombre</th>
+              <th><span data-toggle="tooltip" data-placement="top" title="Cantidad">Cant.</span></th>
+              <th><span data-toggle="tooltip" data-placement="top" title="Precio de Venta Sugerido">PVS</span></th>
+              <th><span data-toggle="tooltip" data-placement="top" title="Costo Unitario">CU</span></th>
+              <th><span data-toggle="tooltip" data-placement="top" title="Descuento aplicado">Dto</span></th>
+              <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @sale.sale_products.each do |product| %>
+                <tr>
+                  <td><%= product.product.to_s %></td>
+                  <td><%= product.amount %></td>
+                  <td>nil</td>
+                  <td><%= number_to_currency(product.cost) %></td>
+                  <td><%= number_to_percentage(product.discount, precision: 0) %></td>
+                  <td><%= number_to_currency(product.total) %></td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h5>Puntos acumulados en la venta: <strong><%= @sale.points %></strong></h5>
+        </div>
+      </div>
+      <hr>
+
+    </section>
+  </article>
+
+  <%= link_to 'Nueva venta', [:new, @supplier, current_user, :sale], class: 'btn btn-success btn-block' %>
+
 </section>
