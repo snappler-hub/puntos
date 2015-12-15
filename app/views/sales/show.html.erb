@@ -35,7 +35,7 @@
             </tr>
             </thead>
             <tbody>
-            <% for product in @sale.sale_products do %>
+            <% @sale.sale_products.each do |product| %>
                 <tr>
                   <td><%= product.product.to_s %></td>
                   <td><%= product.amount %></td>
