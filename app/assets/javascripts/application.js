@@ -15,7 +15,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
-//= require plugins/select2/select2.full
+//= require plugins/select2/select2.min
 //= require select2_initializer
 //= require plugins/snackbars/snackbar
 //= require cocoon
