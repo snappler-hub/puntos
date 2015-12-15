@@ -12,9 +12,23 @@
 #
 
 class RewardOrderItem < ActiveRecord::Base
+
+  include ActsAsStockEntry
+
+
   belongs_to :reward_order
   belongs_to :reward
 
+
+  def change_stock
+		params = {owner: self, amount: amount, codename: 'canjeo_premio', date: DateTime.now}
+		reward.stock_hard_down(params) if reward.present?
+  end
+
+  def rollback_change_stock
+  	params = {owner: self, amount: amount, codename: 'cancelado_premio', date: DateTime.now}
+		reward.stock_hard_up(params) if reward.present?
+  end
 
   def total_need_points
   	need_points * amount

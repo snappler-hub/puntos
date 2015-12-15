@@ -44,3 +44,4 @@
 //= require shopping_cart_rewards
 //= require reward_orders
 //= require suppliers
+//= require rewards

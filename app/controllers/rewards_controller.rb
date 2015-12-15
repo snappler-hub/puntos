@@ -1,7 +1,50 @@
 class RewardsController < ApplicationController
-  before_action :set_reward, only: [:show, :edit, :update, :destroy]
+  before_action :set_reward, only: [:show, :edit, :update, :destroy, :down_stock, :up_stock, :down_stock_update, :up_stock_update]
   before_action :only_authorize_god!
 
+
+
+  def down_stock
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def up_stock
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
+  def down_stock_update
+    down_stock = params[:down_stock].to_i
+    observation = params[:observation]
+
+    unless(down_stock.zero?)
+      @new_stock_entry = @reward.stock_hard_down({amount: down_stock, owner: @reward, codename: 'arqueo_negativo', observation: observation})
+    end
+  
+    respond_to do |format|
+      flash[:success] = t(:success)
+      format.js { render :stock_update }
+    end
+  end
+
+
+  def up_stock_update
+    up_stock = params[:up_stock].to_i
+    observation = params[:observation]
+    
+    unless(up_stock.zero?)
+      @new_stock_entry = @reward.stock_hard_up({amount: up_stock, owner: @reward, codename: 'arqueo_positivo', observation: observation})
+    end
+
+    respond_to do |format|
+      flash[:success] = t(:success)
+      format.js { render :stock_update }
+    end
+  end
 
 
   # GET /rewards

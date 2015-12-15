@@ -36,6 +36,10 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'rewards/:id/down_stock', to: 'rewards#down_stock', as: :reward_down_stock
+  get 'rewards/:id/up_stock', to: 'rewards#up_stock', as: :reward_up_stock
+  post 'rewards/down_stock_update', to: 'rewards#down_stock_update', as: :reward_down_stock_update
+  post 'rewards/up_stock_update', to: 'rewards#up_stock_update', as: :reward_up_stock_update
   resources :rewards
 
   resources :shopping_cart_rewards, except: [:index, :new, :edit, :create, :destroy, :update] do

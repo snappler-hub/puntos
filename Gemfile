@@ -32,6 +32,8 @@ gem 'prawn-table'
 gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails'
 
+gem 'stock', git: 'git@git.sistematis.com.ar:snappler/gems/stock'
+
 
 group :development, :test do
   gem 'byebug'

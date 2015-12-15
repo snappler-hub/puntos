@@ -16,6 +16,9 @@
 #
 
 class Reward < ActiveRecord::Base
+
+  include ActsAsStock
+  include ActsAsStockEntry
   
 	dragonfly_accessor :image
   serialize :service_types, Array
@@ -30,6 +33,14 @@ class Reward < ActiveRecord::Base
 
   def to_s
     name
+  end
+
+  def stock_entries_arqueo_negativo
+    stock_entries.where(codename: 'arqueo_negativo')
+  end
+
+  def stock_entries_arqueo_positivo
+    stock_entries.where(codename: 'arqueo_positivo')
   end
 
 end
