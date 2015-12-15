@@ -67,6 +67,12 @@ class PointsPeriod < ActiveRecord::Base
     self.status = :in_progress
     self.save
   end
+  
+  # Pongo los puntos disponibles en cero indicando que expiraron
+  def expire_points
+    self.available = 0
+    self.save
+  end
 
   #Actualizo los puntos acumulados
   def update_accumulated(points)
