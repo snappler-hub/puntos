@@ -2,20 +2,10 @@
   <li class="header">Opciones</li>
 
   <% if seller? %>
-      <li>
-        <%= link_to [:new, @supplier, current_user, :sale] do %>
-            <i class="fa fa-fw fa-plus text-green"></i>
-            <span>Nueva venta</span>
-        <% end %>
-      </li>
+      <%= side_link 'Nueva venta', [:new, @supplier, current_user, :sale], 'plus text-green'   %>
   <% end %>
 
-  <li>
-    <%= link_to admin_path do %>
-        <i class="fa fa-fw fa-cog"></i>
-        <span>Panel</span>
-    <% end %>
-  </li>
+  <%= side_link 'Panel', admin_path, 'cog'   %>
 
 
   <li class="treeview">
@@ -24,28 +14,12 @@
     </a>
     <ul class="treeview-menu">
 
-      <% if god? %>
-          <li>
-            <%= link_to rewards_path do %>
-                <i class="fa fa-fw fa-gift"></i>
-                <span>Admin. Catalogo de Premios</span>
-            <% end %>
-          </li>
-      <% end %>
+      <%= side_link 'Admin. Catalogo de Premios', rewards_path, 'gift' if god?  %>
+      
+      <%= side_link 'Catálogo de Premios', list_shopping_cart_rewards_path, 'gift' %>
+      
+      <%= side_link 'Canjes realizados', reward_orders_path, 'cubes' %>
 
-      <li>
-        <%= link_to list_shopping_cart_rewards_path do %>
-            <i class="fa fa-fw fa-gift"></i>
-            <span>Catálogo de Premios</span>
-        <% end %>
-      </li>
-
-      <li>
-        <%= link_to reward_orders_path do %>
-            <i class="fa fa-fw fa-cubes"></i>
-            <span>Canjes realizados</span>
-        <% end %>
-      </li>
     </ul>
   </li>
 
@@ -55,29 +29,18 @@
       <i class="fa fa-fw fa-shopping-cart"></i> <span>Ventas</span> <i class="fa fa-fw fa-angle-left pull-right"></i>
     </a>
     <ul class="treeview-menu">
-      <li>
-        <%= link_to [@supplier, current_user, :sales] do %>
-            <i class="fa fa-fw fa-search"></i>
-            <span>Todas las Ventas</span>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to [:new, @supplier, current_user, :sale] do %>
-            <i class="fa fa-fw fa-plus text-green"></i>
-            <span>Nueva</span>
-        <% end %>
-      </li>
+      <%= side_link 'Todas las Ventas', [@supplier, current_user, :sales], 'search' %>
+      
+      <%= side_link 'Nueva', [:new, @supplier, current_user, :sale], 'plus text-green' %>
+      
     </ul>
   </li>
 
 
   <% if god? %>
-      <li>
-        <%= link_to suppliers_path do %>
-            <i class="fa fa-fw fa-building"></i>
-            <span>Prestadores</span>
-        <% end %>
-      </li>
+      
+      <%= side_link 'Prestadores', suppliers_path, 'plus text-building' %>
+      
 
       <li class="treeview">
         <a href="#">
@@ -89,12 +52,7 @@
         </ul>
       </li>
   <% elsif supplier? %>
-      <li>
-        <%= link_to current_user.supplier do %>
-            <i class="fa fa-fw fa-square"></i>
-            <span>Prestador</span>
-        <% end %>
-      </li>
+      <%= side_link 'Prestador', current_user.supplier, 'square' %>
   <% end %>
 
   <% if god? || supplier? %>
@@ -105,47 +63,17 @@
         </a>
         <ul class="treeview-menu">
           <% if god? %>
-              <li>
-                <%= link_to users_path do %>
-                    <i class="fa fa-fw fa-users"></i>
-                    <span>Todos los usuarios</span>
-                <% end %>
-              </li>
-
-              <li>
-                <%= link_to supplier_requests_path do %>
-                    <i class="fa fa-fw fa-file-text-o"></i>
-                    <span>Todas las solicitudes</span>
-                <% end %>
-              </li>
-
-              <li>
-                <%= link_to near_expiration_services_path do %>
-                    <i class="fa fa-fw fa-users"></i>
-                    <span>Servicios próximos a vencer</span>
-                <% end %>
-              </li>
+              <%= side_link 'Todos los usuarios', users_path, 'users' %>
+              
+              <%= side_link 'Todas las solicitudes', supplier_requests_path, 'file-text-o' %>
+              
+              <%= side_link 'Servicios próximos a vencer', near_expiration_services_path, 'users' %>
           <% elsif supplier? %>
-              <li>
-                <%= link_to [current_user.supplier, :users] do %>
-                    <i class="fa fa-fw fa-users"></i>
-                    <span>Usuarios</span>
-                <% end %>
-              </li>
-
-              <li>
-                <%= link_to [current_user.supplier, :supplier_requests] do %>
-                    <i class="fa fa-fw fa-file-text-o"></i>
-                    <span>Solicitudes</span>
-                <% end %>
-              </li>
-
-              <li>
-                <%= link_to [:near_expiration, current_user.supplier, :services] do %>
-                    <i class="fa fa-fw fa-users"></i>
-                    <span>Servicios próximos a vencer</span>
-                <% end %>
-              </li>
+              <%= side_link 'Usuarios', [current_user.supplier, :users], 'users' %>
+              
+              <%= side_link 'Solicitudes', [current_user.supplier, :supplier_requests], 'file-text-o' %>
+              
+              <%= side_link 'Servicios próximos a vencer', [:near_expiration, current_user.supplier, :services], 'users' %>
           <% end %>
         </ul>
       </li>

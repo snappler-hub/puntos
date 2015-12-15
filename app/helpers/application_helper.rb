@@ -24,6 +24,19 @@ module ApplicationHelper
     html_options[:class] = ['fa', "fa-#{name}", html_options[:class]].compact
     content_tag(:i, nil, html_options)
   end
+  
+  # Link del menú lateral
+  def side_link(link_text, link_path, icon_class='', klass='', html_options={}, extra='')
+    link_class = html_options[:class]
+    html_options[:class] = link_class
+    klass += current_page?(link_path) ? 'active' : url_for(link_path)
+    content_tag(:li, class: klass) do
+      (link_to link_path, html_options do
+        "<i class='fa fa-fw fa-#{icon_class}'></i> <span> #{link_text} </span>".html_safe
+      end) +
+      extra.html_safe
+    end
+  end
 
   def permitted_roles
     god? ? User::ROLES : User::ROLES - ['god']

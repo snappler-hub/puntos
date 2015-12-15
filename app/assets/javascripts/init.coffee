@@ -26,7 +26,7 @@ App.initModals = (parent) ->
     return    
     
 App.init = ->
-# Turbolinks progress bar
+  # Turbolinks progress bar
   Turbolinks.enableProgressBar()
 
   # Snackbar
@@ -66,6 +66,7 @@ App.init = ->
   $.AdminLTE.layout.activate()
   $.AdminLTE.tree('.sidebar');
 
+  $('.sidebar li.active').closest('.treeview').addClass('active')
 
 $(document).on "page:load", ->
   App.init()
