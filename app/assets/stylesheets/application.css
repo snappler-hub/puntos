@@ -10,22 +10,21 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require bootstrap.css
+ *= require bootstrap
  *= require bootstrap-datetimepicker
  * require admin/font-awesome/font-awesome.css
  *= require font-awesome 
- *= require plugins/dist/css/AdminLTE.css
- *= require plugins/dist/css/skins/_all-skins.css
- *= require plugins/dist/css/skins/_all-skins.css
- *= require plugins/iCheck/all.css
- *= require plugins/morris/morris.css
- *= require plugins/jvectormap/jquery-jvectormap-1.2.2.css
- *= require plugins/datepicker/datepicker3.css
- *= require snackbar
- *= require select2
+ *= require plugins/dist/css/AdminLTE
+ *= require plugins/dist/css/skins/_all-skins
+ *= require plugins/iCheck/all
+ *= require plugins/morris/morris
+ *= require plugins/jvectormap/jquery-jvectormap-1.2.2
+ *= require plugins/datepicker/datepicker3
+ *= require plugins/snackbars/snackbar
+ *= require plugins/select2/select2
  *= require select2-bootstrap
- *= require main
- *= require_self
  *= require css-sales
  *= require utilities
+ *= require main
+ *= require_self
  */
