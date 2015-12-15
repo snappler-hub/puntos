@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_supplier
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :assign_card]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :assign_card, :edit_points, :update_points]
   before_action :only_authorize_admin!, except: [:show, :edit, :update, :search]
+  before_action :only_authorize_god!, only: [:edit_points, :update_points]
 
   # GET /users
   # GET /users.json
@@ -96,15 +97,16 @@ class UsersController < ApplicationController
   end
   
   # GET /users/1/change_points
-  # PUT /users/1/change_points
-  def change_points
-    if request.put?
-      respond_to do |f|
-        f.js
-      end
-    else
-      
-    end
+  def edit_points
+    render layout: nil
+  end
+  
+  # GET /users/1/change_points
+  def update_points
+    @user.cache_points += params[:points_value].to_f
+    @user.save!
+    
+    redirect_to [@supplier, @user], notice: 'Los puntos del usuario han sido modificados correctamente.' 
   end
 
   private

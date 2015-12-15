@@ -20,7 +20,7 @@ App.initModals = (parent) ->
     .done (data)->
       modal = $(that.getAttribute('data-target'))
       modal.addClass(that.getAttribute('data-targetClass'))
-      modal.html(data)
+      modal.find('.modal-content').html(data)
       modal.modal("show");
     
     return    

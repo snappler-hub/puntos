@@ -75,31 +75,31 @@
   </div>
 
 
+  <% unless @reward.get_stock.nil? %>
+    <div class="col-md-6">
 
-  <div class="col-md-6">
-
-    <article class="box box-primary">
-      <section class="box-body">
-        <div class="row" style="border-bottom: 2px solid #eee; padding-bottom: 10px;">
-          <div class="col-xs-6">
-            <b>Stock Actual:</b> <span id="real_stock_container"><%= @reward.real_stock.to_i %></span>
+      <article class="box box-primary">
+        <section class="box-body">
+          <div class="row" style="border-bottom: 2px solid #eee; padding-bottom: 10px;">
+            <div class="col-xs-6">
+              <b>Stock Actual:</b> <span id="real_stock_container"><%= @reward.real_stock.to_i %></span>
+            </div>
+            <div class="col-xs-6 text-right">
+              <b style="margin-right: 8px;">Arqueo Stock</b>
+              <a href="javascript:;" class="btn btn-default btn-xs js-down_stock" data-id="<%= @reward.id %>"><i class="text-danger fa fa-minus fa-fw" ></i></a>
+              <a href="javascript:;" class="btn btn-default btn-xs js-up_stock" data-id="<%= @reward.id %>"><i class="text-primary fa fa-plus fa-fw" ></i></a>
+            </div>
           </div>
-          <div class="col-xs-6 text-right">
-            <b style="margin-right: 8px;">Arqueo Stock</b>
-            <a href="javascript:;" class="btn btn-default btn-xs js-down_stock" data-id="<%= @reward.id %>"><i class="text-danger fa fa-minus fa-fw" ></i></a>
-            <a href="javascript:;" class="btn btn-default btn-xs js-up_stock" data-id="<%= @reward.id %>"><i class="text-primary fa fa-plus fa-fw" ></i></a>
-          </div>
-        </div>
 
         
-        <ul id="stock_entries" class="timeline" style="padding-bottom: 15px; padding-top: 15px; margin-bottom: 15px; margin-top: 15px;">
-          <%= render partial: "stock_entry", collection: @reward.get_stock.stock_entries.reverse, as: :stock_entry %>
-          <li><i class="fa fa-clock-o bg-gray"></i></li>
-        </ul>
-      </section>
-    </article>
+          <ul id="stock_entries" class="timeline" style="padding-bottom: 15px; padding-top: 15px; margin-bottom: 15px; margin-top: 15px;">
+            <%= render partial: "stock_entry", collection: @reward.get_stock.stock_entries.reverse, as: :stock_entry %>
+            <li><i class="fa fa-clock-o bg-gray"></i></li>
+          </ul>
+        </section>
+      </article>
 
 
-  </div>
-
+    </div>
+  <% end %>
 </div>
