@@ -1,12 +1,39 @@
 window.App ||= {}
 
+App.initSnackbar = ->
+  if $('.snackbar-message').length > 0
+    $('.snackbar-message').snackbar 'show'
+    
+# Inicializa los modals con ajax     
+App.initModals = (parent) ->
+  if parent
+    links = parent.find('[data-behavior~=ajax-modal]')
+  else
+    links = $('[data-behavior~=ajax-modal]')
+
+  links.on 'click', (e)->
+    that = this
+    e.preventDefault()
+    e.stopPropagation()
+    $.ajax
+      url: this.href
+    .done (data)->
+      modal = $(that.getAttribute('data-target'))
+      modal.addClass(that.getAttribute('data-targetClass'))
+      modal.html(data)
+      modal.modal("show");
+    
+    return    
+    
 App.init = ->
   # Turbolinks progress bar
   Turbolinks.enableProgressBar()
   
   # Snackbar
-  if $('.snackbar-message').length > 0
-    $('.snackbar-message').snackbar 'show'
+  App.initSnackbar()
+  
+  # Ajax Modals
+  App.initModals()
   
   # Sidebar
   $('[data-controlsidebar]').on 'click', ->
@@ -42,3 +69,7 @@ App.init = ->
 
 $(document).on "page:load", ->
   App.init()
+  
+$(document).on "page:change", ->
+  App.initSnackbar()
+  App.initModals()

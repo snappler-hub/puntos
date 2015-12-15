@@ -94,6 +94,18 @@ class UsersController < ApplicationController
       end
     end
   end
+  
+  # GET /users/1/change_points
+  # PUT /users/1/change_points
+  def change_points
+    if request.put?
+      respond_to do |f|
+        f.js
+      end
+    else
+      
+    end
+  end
 
   private
   # Use callbacks to share common setup or constraints between actions.

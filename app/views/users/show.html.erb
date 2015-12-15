@@ -43,6 +43,16 @@
                 <%= @user.supplier.name %>
               </a>
             </li>
+            
+            <li class="list-group-item">
+              <b>Puntos</b>
+              <span class="pull-right">
+                <%= link_to edit_points_user_path(@user), data: { behavior: 'ajax-modal', target: 'modal_one' } do %>
+                  <i class="fa fa-fw fa-pencil"></i>
+                <% end %>
+                <%= @user.cache_points %>
+              </span>
+            </li>
 
           </ul>
         </section>
