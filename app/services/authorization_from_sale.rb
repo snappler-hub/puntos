@@ -10,9 +10,9 @@ class AuthorizationFromSale
 
   def authorize
     #TODO Ver cómo controlar si el cliente está activo
-    if @client.card_number.nil?
+    unless @client.terms_accepted?
       @status = 'ERROR'
-      @message = 'El cliente no posee una tarjeta asignada'
+      @message = 'El cliente no aceptó los términos de uso.'
     else
       @status = 'OK'
       @message = ''
@@ -87,6 +87,7 @@ class AuthorizationFromSale
     if pfpc.present? && pfpc.in_progress?
       pfpc.last_period.period_products.detect { |pp| pp.product == product }
     else
+      @status += "El cliente no posee ningún pfpc activo. "
       nil
     end   
   end
