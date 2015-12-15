@@ -64,7 +64,6 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
   validates :document_number, uniqueness: {scope: :document_type}
 
-
   def to_s
     "#{first_name} #{last_name}"
   end
@@ -79,6 +78,21 @@ class User < ActiveRecord::Base
 
   def vademecums # TODO: and service is active
     services.where("type = 'PfpcService' AND status = 1").map &:vademecum
+  end
+  
+  def accept_terms_of_use
+    User.transaction do
+      CardManager.accept_terms_of_use!(self)
+      self.activate_pending_services
+    end
+  end
+
+  def activate_pending_services
+    pending_services.map { |serv| serv.update(status: 1) }
+  end
+  
+  def pending_services
+    services.select { |serv| serv.pending? }
   end
 
   # -------------------------------

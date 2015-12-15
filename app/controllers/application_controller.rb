@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_shop_cart
   before_filter :require_login
 
-
   def admin
     # flash[:notice] = 'Probando Snackbar.'
     authorize! can_admin?
@@ -73,4 +72,5 @@ class ApplicationController < ActionController::Base
   def is?(role)
     logged_in? && current_user.is?(role)
   end
+  
 end
