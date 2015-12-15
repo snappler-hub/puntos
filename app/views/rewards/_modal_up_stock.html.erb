@@ -1,0 +1,46 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<h3 class="modal-title">
+
+		<i class="fa fa-fw fa-gift"></i> <%= @reward %> <small>Incremento de Stock</small>
+
+	</h3>
+</div>
+
+<%= form_tag reward_up_stock_update_path, {remote: true, html: {class: 'up_stock_form'}} do |f| %>
+<div class="modal-body">
+	
+	<%= hidden_field_tag :id, @reward.id  %>
+
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label class="control-label">Incremento de Stock</label>
+				<%= number_field_tag :up_stock, 0, step: 0.01, class: 'form-control' %>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<label class="control-label">Stock Total</label>
+			<div class="input-group ">
+				<p class="form-control-static"><%= @reward.real_stock.to_i %></p>
+			</div>
+		</div>
+
+		<div class="col-md-12">
+			<label class="control-label">Observación</label>
+			<%= text_area_tag :observation, '', class: 'form-control' %>
+		</div>
+	</div>
+
+</div>
+
+<div class="modal-footer">
+	<div class="actions">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		<%= button_tag('Guardar', type: 'submit', class: "btn btn-success btn-ok", data: {'disable-with' => 'Guardando'}) %>
+	</div>
+</div>
+
+<% end %>
+

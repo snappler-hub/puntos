@@ -195,9 +195,17 @@ es:
     in_progress: En curso
     expired: Vencido
     closed: Cerrado Manualmente
-    
+
   service_periods_statuses:
     pending: Pendiente
     in_progress: En curso
     expired: Vencido
     closed: Cerrado Manualmente  
+    accomplished: Cumplido
+
+  stock_entry_codenames:
+    arqueo_negativo: 'Arqueo Negativo'
+    arqueo_positivo: 'Arqueo Positivo'
+    canjeo_premio: 'Canjeo Premio'
+    cancelado_premio: 'Cancelado Premio'
+

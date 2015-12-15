@@ -60,11 +60,17 @@ class PointsPeriod < ActiveRecord::Base
   # Reinicio el período reseteando los días y pongo el estado En Curso
   # Se verifica que el usuario no tenga otro servicio de puntos activo
   def restart
-    return false unless self.service.can_be_restarted?
+    return false unless self.service.can_be_activated?
 
     self.start_date = Date.today
     self.end_date = Date.today + (self.service.days).days
     self.status = :in_progress
+    self.save
+  end
+  
+  # Pongo los puntos disponibles en cero indicando que expiraron
+  def expire_points
+    self.available = 0
     self.save
   end
 

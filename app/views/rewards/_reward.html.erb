@@ -3,6 +3,7 @@
   <td><%= reward.code %></td>
   <td><%= reward.name %></td>
   <td><%= reward.need_points %></td>
+  <td><%= reward.real_stock.to_i %></td>
   <td><%= t reward.reward_kind, scope: :reward_kinds %></td>  
   <td><%= reward.service_types.map{|x| t(x, scope: :service_types) }.join('<br/>').html_safe %></td>  
   <td>

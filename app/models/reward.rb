@@ -17,7 +17,11 @@
 
 class Reward < ActiveRecord::Base
 
-  dragonfly_accessor :image
+  include ActsAsStock
+  include ActsAsStockEntry
+  
+	dragonfly_accessor :image
+
   serialize :service_types, Array
   REWARD_KINDS = %w(workshop product other)
 
@@ -30,6 +34,14 @@ class Reward < ActiveRecord::Base
 
   def to_s
     name
+  end
+
+  def stock_entries_arqueo_negativo
+    stock_entries.where(codename: 'arqueo_negativo')
+  end
+
+  def stock_entries_arqueo_positivo
+    stock_entries.where(codename: 'arqueo_positivo')
   end
 
 end

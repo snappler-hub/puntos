@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214131453) do
+ActiveRecord::Schema.define(version: 20151215152143) do
 
   create_table "authorizations", force: :cascade do |t|
     t.integer  "seller_id",  limit: 4
@@ -189,6 +189,36 @@ ActiveRecord::Schema.define(version: 20151214131453) do
   add_index "services", ["last_period_id"], name: "index_services_on_last_period_id", using: :btree
   add_index "services", ["user_id"], name: "index_services_on_user_id", using: :btree
   add_index "services", ["vademecum_id"], name: "index_services_on_vademecum_id", using: :btree
+
+  create_table "stock_entries", force: :cascade do |t|
+    t.string   "codename",      limit: 255
+    t.integer  "owner_id",      limit: 4
+    t.string   "owner_type",    limit: 255
+    t.integer  "stock_id",      limit: 4
+    t.integer  "amount_in_int", limit: 4,     default: 0
+    t.date     "entry_date"
+    t.text     "observation",   limit: 65535
+    t.boolean  "special",                     default: false
+    t.boolean  "applied",                     default: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+  end
+
+  add_index "stock_entries", ["owner_type", "owner_id"], name: "index_stock_entries_on_owner_type_and_owner_id", using: :btree
+  add_index "stock_entries", ["stock_id"], name: "index_stock_entries_on_stock_id", using: :btree
+
+  create_table "stocks", force: :cascade do |t|
+    t.integer  "real_stock_in_int",      limit: 4,   default: 0
+    t.integer  "warehouse_stock_in_int", limit: 4,   default: 0
+    t.integer  "stockable_id",           limit: 4
+    t.string   "stockable_type",         limit: 255
+    t.integer  "store_id",               limit: 4
+    t.string   "store_type",             limit: 255
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+  end
+
+  add_index "stocks", ["stockable_type", "stockable_id"], name: "index_stocks_on_stockable_type_and_stockable_id", using: :btree
 
   create_table "supplier_point_products", force: :cascade do |t|
     t.integer  "supplier_id", limit: 4

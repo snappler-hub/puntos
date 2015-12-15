@@ -16,6 +16,7 @@
 class RewardOrder < ActiveRecord::Base
 
 
+
   dragonfly_accessor :qr_code
 
   belongs_to :supplier
@@ -60,6 +61,7 @@ class RewardOrder < ActiveRecord::Base
     self
   end
 
+
   def get_state_actions
     case state
       when 'requested'
@@ -68,28 +70,35 @@ class RewardOrder < ActiveRecord::Base
         %w(ready not_delivered)
       when 'ready'
         %w(delivered not_delivered)
+      when 'canceled'
+        %w(requested)        
       else
         []
       #when 'delivered'
-      #when 'canceled'
       #when 'not_delivered'
     end
   end
 
-  def change_state(state)
-    case state
-      when 'incoming'
-        update(state: 'incoming')
-      when 'ready'
-        update(state: 'ready')
-      when 'delivered'
-        update(state: 'delivered')
-      when 'canceled'
-        update(state: 'canceled')
-      when 'not_delivered'
-        update(state: 'not_delivered')
-    end
+
+
+def change_state(state)
+  case state
+  when 'requested'
+    update(state: 'requested')
+    reward_order_items.each(&:change_stock)
+  when 'incoming'
+    update(state: 'incoming')
+  when 'ready'
+    update(state: 'ready')      
+  when 'delivered'
+    update(state: 'delivered')      
+  when 'canceled'
+    update(state: 'canceled')
+    reward_order_items.each(&:rollback_change_stock)  
+  when 'not_delivered'
+    update(state: 'not_delivered')      
   end
+end
 
   #Saber q estado esta
   %w(requested incoming ready delivered canceled not_delivered).each do |name|
