@@ -26,9 +26,9 @@ App.initModals = (parent) ->
     return    
     
 App.init = ->
-  # Turbolinks progress bar
+# Turbolinks progress bar
   Turbolinks.enableProgressBar()
-  
+
   # Snackbar
   App.initSnackbar()
   
@@ -43,10 +43,10 @@ App.init = ->
     if !slide
       $('.control-sidebar').removeClass 'control-sidebar-open'
     return
-    
+
   # Select2
   $("select").normalSelect()
-  
+
   # Datepicker
   datepicker_icons = {
     time: 'fa fa-clock-o',
@@ -59,13 +59,13 @@ App.init = ->
     clear: 'fa fa-trash',
     close: 'fa fa-remove'
   }
-  
+
   $('.datepicker').datetimepicker({icons: datepicker_icons, format: 'DD-MM-YYYY', locale: 'es'});
 
   # Reactivo eventos de AdminLTE porque se pierden con turbolinks
   $.AdminLTE.layout.activate()
   $.AdminLTE.tree('.sidebar');
-  
+
 
 $(document).on "page:load", ->
   App.init()
@@ -73,3 +73,4 @@ $(document).on "page:load", ->
 $(document).on "page:change", ->
   App.initSnackbar()
   App.initModals()
+  $("select").normalSelect()
