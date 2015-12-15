@@ -1,32 +1,12 @@
 window.App ||= {}
 
 App.init = ->
-  # Turbolinks progress bar
+# Turbolinks progress bar
   Turbolinks.enableProgressBar()
 
   # Snackbar
   if $('.snackbar-message').length > 0
     $('.snackbar-message').snackbar 'show'
-
-
-  #  flash_snackbar_render = (flashMessages) ->
-  #    $.each flashMessages, (key, value) ->
-  #      style = ''
-  #      switch key
-  #        when 'success'
-  #          style = 'callout callout-success'
-  #        when 'danger'
-  #          style = 'callout callout-danger'
-  #        else
-  #          style = 'callout'
-  #          break
-  #      $.snackbar
-  #        content: value
-  #        style: style
-  #        timeout: 10000
-  #      return
-  #    return
-
 
   # Sidebar
   $('[data-controlsidebar]').on 'click', ->
@@ -63,6 +43,6 @@ App.init = ->
 $(document).on "page:load", ->
   App.init()
 
-#$(document).on 'flash:send', (e, flashMessages) ->
-#  flash_snackbar_render flashMessages
-#  return
+$(document).on "page:change", ->
+  $("select").normalSelect()
+
