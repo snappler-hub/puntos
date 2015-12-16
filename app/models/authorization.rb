@@ -33,7 +33,7 @@ class Authorization < ActiveRecord::Base
     products.reduce(0) { |sum, product| sum + product[:total] }
   end
 
-  def ok?
-    status == 'OK'
+  def without_error?
+    status == Const::STATUS_OK || status == Const::STATUS_WARNING
   end
 end

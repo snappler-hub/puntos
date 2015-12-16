@@ -1,5 +1,6 @@
 class PublicController < ApplicationController
   layout :define_layout
+  skip_before_filter :should_accept_terms_of_use!
   
   def home
     should_have_a_card_assigned!
@@ -33,11 +34,7 @@ class PublicController < ApplicationController
 
   private
 
-  def should_accept_terms_of_use!
-    if should_accept_terms_of_use?
-      redirect_to terms_of_use_path
-    end
-  end
+
 
   def should_have_a_card_assigned!
     redirect_to no_cards_assigned_path if no_cards_assigned?
@@ -46,11 +43,6 @@ class PublicController < ApplicationController
   def no_cards_assigned?
     !current_user.card_number
   end
-
-  def should_accept_terms_of_use?
-    current_user.card_number && !current_user.terms_accepted?
-  end
-  helper_method :should_accept_terms_of_use?
   
   def define_layout
     unless normal_user?

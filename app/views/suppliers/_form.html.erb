@@ -1,9 +1,9 @@
 <div class="row">
-<div class="col-md-9">
+<div class="col-md-10">
 <article class="box box-primary">
 <section class="box-body">
 
-<%= form_for(@current_supplier) do |f| %>
+<%= form_for @current_supplier do |f| %>
   <% @current_supplier.errors.full_messages.each do |message| %>
     <p><%= message %></p>
   <% end %>
@@ -19,10 +19,71 @@
   </fieldset>
   
   <% if god? %>
-    <fieldset class="form-group">
-      <%= f.label :active %><br />
-      <%= f.check_box :active %>
-    </fieldset>
+  <div class="row">
+    <div class="col-md-4">
+      <fieldset class="form-group">
+        <%= f.label :active %><br />
+        <%= f.check_box :active %>
+      </fieldset>
+    </div>
+    <div class="col-md-4">
+      <fieldset class="form-group">
+        <%= f.label :points_to_client %><br />
+        <%= f.check_box :points_to_client %>
+      </fieldset>
+    </div>
+    <div class="col-md-4">
+      <fieldset class="form-group">
+        <%= f.label :points_to_seller %><br />
+        <%= f.check_box :points_to_seller %>
+      </fieldset>
+    </div>
+  </div>
+    
+    <div class="row">
+      <div class="col-md-5">
+        <fieldset class="form-group">
+          <%= f.label :city %>
+          <%= f.text_field :city, class: 'form-control' %>
+        </fieldset>
+      </div>
+      <div class="col-md-7">
+        <fieldset class="form-group">
+          <%= f.label :address %>
+          <%= f.text_field :address, class: 'form-control' %>
+        </fieldset>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <fieldset class="form-group">
+          <%= f.label :latitude %>
+          <%= f.text_field :latitude, class: 'form-control' %>
+        </fieldset>
+      </div>
+      <div class="col-md-6">
+        <fieldset class="form-group">
+          <%= f.label :longitude %>
+          <%= f.text_field :longitude, class: 'form-control' %>
+        </fieldset>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-5">
+        <fieldset class="form-group">
+          <%= f.label :telephone %>
+          <%= f.text_field :telephone, class: 'form-control' %>
+        </fieldset>
+      </div>
+      <div class="col-md-7">
+        <fieldset class="form-group">
+          <%= f.label :email %>
+          <%= f.text_field :email, class: 'form-control' %>
+        </fieldset>
+      </div>
+    </div>
     
     <h4> Puntos por producto </h4>
     <div class="row">

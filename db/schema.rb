@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215152143) do
+ActiveRecord::Schema.define(version: 20151216131527) do
 
   create_table "authorizations", force: :cascade do |t|
     t.integer  "seller_id",  limit: 4
@@ -264,11 +264,20 @@ ActiveRecord::Schema.define(version: 20151215152143) do
   add_index "supplier_vademecums", ["vademecum_id"], name: "index_supplier_vademecums_on_vademecum_id", using: :btree
 
   create_table "suppliers", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.text     "description", limit: 65535
+    t.string   "name",             limit: 255
+    t.text     "description",      limit: 65535
     t.boolean  "active"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "city",             limit: 255
+    t.string   "address",          limit: 255
+    t.string   "latitude",         limit: 255
+    t.string   "longitude",        limit: 255
+    t.string   "telephone",        limit: 255
+    t.string   "email",            limit: 255
+    t.boolean  "points_to_client"
+    t.boolean  "points_to_seller"
+    t.text     "contact_info",     limit: 65535
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: stocks
+#
+#  id                     :integer          not null, primary key
+#  real_stock_in_int      :integer          default(0)
+#  warehouse_stock_in_int :integer          default(0)
+#  stockable_id           :integer
+#  stockable_type         :string(255)
+#  store_id               :integer
+#  store_type             :string(255)
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
+
 	class Stock::Stock < ActiveRecord::Base
 
 	  #--------------------------------------------- RELATION

@@ -30,6 +30,10 @@ class Service < ActiveRecord::Base
 
   # -- Validations
   validates :name, :user, :days, presence: true
+  
+  # -- Callbacks
+  after_create :reject_terms_of_use
+  
 
   # Statuses
   # pending: Servicio creado pero no habilitado (default)
@@ -55,6 +59,10 @@ class Service < ActiveRecord::Base
 
   def can_be_activated?
     true
+  end
+  
+  def reject_terms_of_use
+    user.update(terms_accepted: false)
   end
 
 end

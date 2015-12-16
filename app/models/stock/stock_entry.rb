@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: stock_entries
+#
+#  id            :integer          not null, primary key
+#  codename      :string(255)
+#  owner_id      :integer
+#  owner_type    :string(255)
+#  stock_id      :integer
+#  amount_in_int :integer          default(0)
+#  entry_date    :date
+#  observation   :text(65535)
+#  special       :boolean          default(FALSE)
+#  applied       :boolean          default(FALSE)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 	class Stock::StockEntry < ActiveRecord::Base
 		
   	#--------------------------------------------- RELATION

@@ -2,12 +2,21 @@
 #
 # Table name: suppliers
 #
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  description :text(65535)
-#  active      :boolean
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id               :integer          not null, primary key
+#  name             :string(255)
+#  description      :text(65535)
+#  active           :boolean
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  city             :string(255)
+#  address          :string(255)
+#  latitude         :string(255)
+#  longitude        :string(255)
+#  telephone        :string(255)
+#  email            :string(255)
+#  points_to_client :boolean
+#  points_to_seller :boolean
+#  contact_info     :text(65535)
 #
 
 class Supplier < ActiveRecord::Base
@@ -42,6 +51,14 @@ class Supplier < ActiveRecord::Base
 
   def to_s
     name
+  end
+  
+  def clients_get_points?
+    points_to_client
+  end
+  
+  def sellers_get_points?
+    points_to_seller
   end
 
 end

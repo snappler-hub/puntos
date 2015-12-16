@@ -107,5 +107,9 @@ class User < ActiveRecord::Base
     self.cache_points += points
     self.save
   end
+  
+  def has_points_service?
+    points_services.count > 0 && points_services.first.in_progress?
+  end
 
 end

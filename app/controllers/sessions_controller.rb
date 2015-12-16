@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
 
   skip_before_action :require_login, only: [:login_form, :create]
+  skip_before_action :should_accept_terms_of_use!
+  skip_before_action :supplier_is_active!
 
   def login_form
     @user = User.new

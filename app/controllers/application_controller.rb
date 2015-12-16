@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_shop_cart
   before_filter :require_login
+  before_filter :should_accept_terms_of_use!
+  before_filter :supplier_is_active!
 
   def admin
     # flash[:notice] = 'Probando Snackbar.'
@@ -72,5 +74,29 @@ class ApplicationController < ActionController::Base
   def is?(role)
     logged_in? && current_user.is?(role)
   end
+  
+  def should_accept_terms_of_use!
+    if should_accept_terms_of_use?
+      redirect_to terms_of_use_path
+    end
+  end
+  
+  def should_accept_terms_of_use?
+    logged_in? && current_user.card_number && !current_user.terms_accepted?
+  end
+  helper_method :should_accept_terms_of_use?
+  
+  def supplier_is_active!
+    if is?(:admin) || is?(:seller)
+      unless supplier_is_active?
+        redirect_to login_path
+      end
+    end
+  end
+  
+  def supplier_is_active?
+     current_user.supplier.active?
+  end
+  helper_method :supplier_is_active_for_administration?
   
 end

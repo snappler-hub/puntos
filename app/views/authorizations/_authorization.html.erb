@@ -8,7 +8,7 @@
         </div>
       </div>
       
-      <% if authorization.ok? %>
+      <% if authorization.without_error? %>
 
         <div class="row">
           <div class="col-md-6">
@@ -53,24 +53,20 @@
             <h5>Puntos acumulados en la venta: <strong><%= authorization.points%></strong></h5>
           </div>
         </div>
-        <hr>
         <%= button_to 'Confirmar venta', [supplier,  authorization.client, :sales, authorization: authorization], class: 'btn btn-success', data: { 'disable-with' => 'Cargando...' }, method: :post %>
-    
-      <% else %>
-      
-        <div class="row">
-          <div class="col-md-12">
-            <h5><%= authorization.status %></h5>
-          </div>
-        </div>
-        
-        <div class="row">
-          <div class="col-md-12">
-            <h5><%= authorization.message %></h5>
-          </div>
-        </div>
-        
+        <hr>
       <% end %>
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Estado: <%= authorization.status %></h4>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12">
+          <h5><%= authorization.message %></h5>
+        </div>
+      </div>
       
     </section>
   </article>

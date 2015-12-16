@@ -19,13 +19,33 @@
       <p><%= @supplier.description %></p>
 
       <hr>
-
-      <strong><i class="fa fa-book margin-r-5"></i> Estado</strong>
-      <% if @supplier.active %>
-        <p class="text-success"><%= icon_ok %> Activo</p>
-      <% else %>
-        <p class="text-muted"><%= icon_not_ok %> Inactivo</p>
-      <% end %>
+      
+      <div class="row">
+        <div class="col-md-4">
+          <strong><i class="fa fa-arrow-circle-right margin-r-5"></i> Estado</strong>
+          <% if @supplier.active %>
+            <p class="text-success"><%= icon_ok %> Activo</p>
+          <% else %>
+            <p class="text-muted"><%= icon_not_ok %> Inactivo</p>
+          <% end %>
+        </div>
+        <div class="col-md-4">
+          <strong><i class="fa fa-arrow-circle-right margin-r-5"></i> Puntos para clientes</strong>
+          <% if @supplier.clients_get_points? %>
+            <p class="text-success"><%= icon_ok %> Activo</p>
+          <% else %>
+            <p class="text-muted"><%= icon_not_ok %> Inactivo</p>
+          <% end %>
+        </div>
+        <div class="col-md-4">
+          <strong><i class="fa fa-arrow-circle-right margin-r-5"></i> Puntos para vendedores</strong>
+          <% if @supplier.sellers_get_points? %>
+            <p class="text-success"><%= icon_ok %> Activo</p>
+          <% else %>
+            <p class="text-muted"><%= icon_not_ok %> Inactivo</p>
+          <% end %>
+        </div>
+      </div>
 
       <hr>
 

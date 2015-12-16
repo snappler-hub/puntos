@@ -18,6 +18,14 @@ es:
         name: 'Nombre'
         description: *description
         active: 'Activo'
+        city: 'Localidad'
+        address: 'Dirección'
+        latitude: 'Latitud'
+        longitude: 'Longitud'
+        telephone: 'Teléfono'
+        email: 'Email'
+        points_to_client: 'Puntos a clientes'
+        points_to_seller: 'Puntos a vendedores'
       user:
         email: *email
         password: 'Contraseña'

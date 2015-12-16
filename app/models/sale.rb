@@ -71,11 +71,11 @@ class Sale < ActiveRecord::Base
     end
     return totals
   end
-
+  
   def update_points
     #si servicio_puntos está activo
     #actualizar ultimo periodo
-    if client.points_services.count > 0 && client.points_services.first.in_progress?
+    if client.has_points_service?
       period = client.points_services.first.last_period
       accumulated_points = points
       period.update_accumulated(accumulated_points)

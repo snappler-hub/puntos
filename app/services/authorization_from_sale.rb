@@ -9,18 +9,11 @@ class AuthorizationFromSale
   end
 
   def authorize
-    #TODO Ver cómo controlar si el cliente está activo
-    unless @client.terms_accepted?
-      @status = 'ERROR'
-      @message = 'El cliente no aceptó los términos de uso.'
-    else
-      @status = 'OK'
-      @message = ''
-    end
+    check_errors
     Authorization.new(
       client: @client,
       seller: @seller,
-      products: products,
+      products: get_products,
       status: @status,
       message: @message,
       points: @points
@@ -35,10 +28,35 @@ class AuthorizationFromSale
 
   private
   
-  #OPTIMIZE Refactorizar este código
+  def check_errors
+    if @supplier.active?
+      unless @client.terms_accepted?
+        @status = Const::STATUS_ERROR
+        @message = 'El cliente debe aceptar los términos de uso para poder operar en el sistema. '
+      else
+        @status = Const::STATUS_OK
+        @message = ''
+      end
+    else
+      @status = Const::STATUS_ERROR
+      @message = 'El vendedor no tiene permisos para operar ya que su prestador no está activo. '
+    end
+  end
+
+  def get_products
+    if @status == Const::STATUS_OK
+      products
+    else
+      return nil
+    end
+  end
+
+  #OPTIMIZE Refactorizar este código  
   def products
     products = []
     @sale_products.map do |sale_product|
+      
+      #Productos con descuentos
       period_product = period_product(sale_product.product)
       discount = discount(sale_product.product)
       accepted_amounts = get_amount_with_and_without_discount(period_product, sale_product.amount)
@@ -53,10 +71,18 @@ class AuthorizationFromSale
         products << create_product(sale_product, amount_without_discount, 0)
       end
       #Puntos
-      @points += (sale_product.amount * get_points(sale_product.product, @supplier))
-      
+      calculate_points(sale_product)
     end
     return products
+  end
+  
+  def calculate_points(sale_product)
+    if @client.has_points_service? && @supplier.clients_get_points?
+      @points += (sale_product.amount * get_points(sale_product.product, @supplier))
+    else
+      @status = Const::STATUS_WARNING
+      @message = 'El cliente no posee un servicio de puntos activo o su prestador no otorga puntos. '
+    end
   end
 
   #Producto con descuento aplicado
@@ -77,7 +103,9 @@ class AuthorizationFromSale
     if vademecum.present? && @supplier.vademecums.include?(vademecum)
       vademecum.discount(product)
     else
-      0
+      @status = Const::STATUS_WARNING
+      @message += 'No se encontró un vademecum, por lo que no se aplicarán descuentos. '
+      return 0
     end
   end
 
@@ -87,8 +115,9 @@ class AuthorizationFromSale
     if pfpc.present? && pfpc.in_progress?
       pfpc.last_period.period_products.detect { |pp| pp.product == product }
     else
-      @status += "El cliente no posee ningún pfpc activo. "
-      nil
+      @status = Const::STATUS_WARNING
+      @message = 'El cliente no posee ningún pfpc o período activo. '
+      return nil
     end   
   end
   
@@ -112,6 +141,6 @@ class AuthorizationFromSale
   def get_points(product, supplier)
     product = supplier.supplier_point_products.detect { |spp| spp.product == product } || product
     return product.points
-  end
+  end    
 
 end
