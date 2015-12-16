@@ -1,6 +1,12 @@
 <header class="content-header">
-  <%= link_to 'Volver', :back, class: 'btn btn-default pull-right' %>
-  <h1>Información de servicio</h1>
+  <%= link_to 'Volver', @user, class: 'btn btn-default pull-right' %>
+  <h1>
+    Información de servicio
+    <% unless normal_user? %>
+      <small> <%= @user %></small>
+    <% end %>
+  </h1>
+  
 </header>
 
 <% klass = (@service.in_progress?) ? 'success' : 'danger' %>
