@@ -47,8 +47,8 @@
           <i class="fa fa-fw fa-bullseye"></i> <span>Productos</span> <i class="fa fa-fw fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li> <%= link_to 'Listado de Productos', products_path %> </li>
-          <li> <%= link_to 'Vademecums', vademecums_path %> </li>
+          <%= side_link 'Listado de Productos', products_path %>
+          <%= side_link 'Vademecums', vademecums_path %>
         </ul>
       </li>
   <% elsif supplier? %>

@@ -95,7 +95,6 @@ class User < ActiveRecord::Base
     services.select { |serv| serv.pending? }
   end
 
-  # -------------------------------
   def can_view?(resource)
     resource.can_be_viewed_by?(self)
   end
