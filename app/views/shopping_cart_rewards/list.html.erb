@@ -5,20 +5,38 @@
 <!-- Main content -->
 <section class="content">
 
+  <div class="row">
+    <div class="col-md-9">
 
-<article class="box box-success">
-<section class="box-body">
+      <article class="box box-success">
+        <section class="box-body">
+          <%= render 'list_filter' %>
+          <%= paginate @rewards %>
+        </section>
+      </article>
 
-  <%= render 'list_filter' %>
-  <%= paginate @rewards %>
+    </div>
+    <div class="col-md-3">
+      <article class="box box-success">
+        <section class="box-body">
+          <p>
+          <b>Número de tarjeta</b>
+          <a class="pull-right"><%= format_card_number current_user.card_number %></a>
+          </p>
+          <p>
+          <b>Puntos disponibles</b>
+          <a class="pull-right">
+            <%= current_user.cache_points %>
+          </a>
+          </p>
+        </section>
+      </article>
+    </div>
 
-</section>
-</article>
+  </div>
 
-<div class="row list_rewards">
-  <%= render partial: "list_reward", collection: @rewards, as: :reward %>
-</div>
-
-
+  <div class="row list_rewards">
+    <%= render partial: 'list_reward', collection: @rewards, as: :reward %>
+  </div>
 
 </section>

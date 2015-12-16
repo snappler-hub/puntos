@@ -1,95 +1,83 @@
 <header class="content-header">
-	<h1>Premios Seleccionados</h1>
+  <h1>Premios Seleccionados</h1>
 </header>
 
 <section class="content">
+  <article class="box box-primary">
+    <section class="box-body">
 
-	<article class="box box-primary">
-		<section class="box-body">
+      <% if current_shop_cart.size != 0 %>
 
+          <%= form_for(@reward_order, url: confirm_shoping_cart_shopping_cart_rewards_path) do |f| %>
+              <% @reward_order.errors.full_messages.each do |message| %>
+                  <p><%= message %></p>
+              <% end %>
 
+              <%= f.hidden_field :user_id %>
 
+              <div class="row">
+                <fieldset class="form-group col-md-5">
+                  <%= f.label :supplier_id %>
+                  <%= f.collection_select :supplier_id, Supplier.all, :id, :name, {}, {class: 'form-control'} %>
+                </fieldset>
+              </div>
 
+              <hr>
 
-			<% if current_shop_cart.size != 0 %>
+              <table class="table table-striped vertical-align-middle" id="shop_cart_item_table">
+                <thead>
+                <tr>
+                  <th colspan="2">Premio</th>
+                  <th class="text-center">Puntos</th>
+                  <th class="text-center">Cantidad</th>
+                  <th class="text-center">Subtotal</th>
+                  <th class="text-center">Puntos disponibles</th>
+                  <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody id="products">
+                <% total_amount = 0 %>
+                <% total_need_points_subtotal = 0 %>
 
-			<%= form_for(@reward_order, url: confirm_shoping_cart_shopping_cart_rewards_path) do |f| %>
-			<% @reward_order.errors.full_messages.each do |message| %>
-			<p><%= message %></p>
-			<% end %>
+                <% current_shop_cart.each do |item| %>
+                    <% reward = Reward.find(item['item_id']) %>
+                    <% need_points_subtotal = reward.need_points * item['amount'] %>
+                    <tr class="tr-link shop_cart_item">
+                      <td><%= image_tag reward.image.thumb('100x200').url, class: 'img-thumbnail' %></td>
+                      <td class="white-space-nowrap"><%= reward.name %></td>
+                      <td class="text-center"><%= reward.need_points %></td>
+                      <td class="text-center reward_amount_container" id="reward_amount_container_<%= reward.id %>"><%= item['amount'] %></td>
+                      <td class="text-center reward_need_points_subtotal_container" id="reward_need_points_subtotal_container_<%= reward.id %>"><%= need_points_subtotal %></td>
+                      <td></td>
+                      <td class="reward_shop_cart_control" id="reward_shop_cart_control_container_<%= reward.id %>">
+                        <%= render 'reward_shop_cart_control', reward: reward, source: 'cart' %>
+                      </td>
+                    </tr>
+                    <% total_amount += item['amount'] %>
+                    <% total_need_points_subtotal += need_points_subtotal %>
+                <% end %>
 
-			<%= f.hidden_field :user_id %>
+                <tr class="totales success">
+                  <td colspan="3"><h3 style="margin-top: 10px;">Totales</h3></td>
+                  <td class="text-center"><h3 style="margin-top: 10px;" id="total_amount"><%= total_amount %></h3></td>
+                  <td class="text-center">
+                    <h3 style="margin-top: 10px;" id="total_need_points_subtotal"><%= total_need_points_subtotal %></h3>
+                  </td>
+                  <td class="text-center">
+                    <h3 style="margin-top: 10px;" id="current_user_points" data-amount="<%= current_user.cache_points %>"><%= current_user.cache_points - total_need_points_subtotal %></h3>
+                  </td>
+                  <td class="text-right">
+                    <%= f.submit 'Confirmar', class: 'btn btn-lg btn-primary', data: {'disable-with' => 'Confirmando...'} %>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+          <% end %>
 
+      <% elsif current_shop_cart.size == 0 %>
+          <h3>Sin productos Agregados</h3>
+      <% end %>
 
-			<div class="row">
-			  <fieldset class="form-group col-md-5">
-			    <%= f.label :supplier_id %>
-					<%= f.collection_select :supplier_id, Supplier.all, :id, :name, {}, {class: 'form-control'} %>
-			  </fieldset>
-			</div>
-
-			<hr>
-
-			<table class="table table-striped vertical-align-middle" id="shop_cart_item_table">
-				<thead>
-					<tr>
-						<th colspan="2">Premio</th>
-						<th class="text-center">Puntos</th>
-						<th class="text-center">Cantidad</th>
-						<th class="text-center">Subtotal</th>
-						<th>&nbsp;</th>
-					</tr>
-				</thead>
-				<tbody id="products">
-					<% total_amount = 0 %>
-					<% total_need_points_subtotal = 0 %>
-
-					<% current_shop_cart.each do |item| %>
-					<% reward = Reward.find(item['item_id']) %>
-					<% need_points_subtotal = reward.need_points * item['amount'] %>
-					<tr class="tr-link shop_cart_item">
-						<td><%= image_tag reward.image.thumb('100x200').url, class: 'img-thumbnail' %></td>
-						<td class="white-space-nowrap"><%= reward.name %></td>
-						<td class="text-center"><%= reward.need_points %></td>
-						<td class="text-center reward_amount_container" id="reward_amount_container_<%= reward.id %>"><%= item['amount'] %></td>
-						<td class="text-center reward_need_points_subtotal_container" id="reward_need_points_subtotal_container_<%= reward.id %>"><%= need_points_subtotal %></td>
-						<td class="reward_shop_cart_control" id="reward_shop_cart_control_container_<%= reward.id %>">
-							<%= render 'reward_shop_cart_control', reward: reward, source: 'cart' %>
-						</td>
-					</tr>
-					<% total_amount += item['amount']  %>
-					<% total_need_points_subtotal += need_points_subtotal  %>
-					<% end %>
-
-
-
-					<tr class="totales success">
-						<td colspan="3"><h3 style="margin-top: 10px;">Totales</h3></td>
-						<td class="text-center"><h3 style="margin-top: 10px;" id="total_amount"><%= total_amount %></h3></td>
-						<td class="text-center"><h3 style="margin-top: 10px;" id="total_need_points_subtotal"><%= total_need_points_subtotal %></h3></td>
-						<td class="text-right">
-							<%= f.submit 'Confirmar', class: 'btn btn-lg btn-primary', data: { 'disable-with' => 'Confirmando...' } %>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-
-
-
-			<% end %>
-
-
-
-
-			<% elsif current_shop_cart.size == 0 %>
-
-			<h3>Sin productos Agregados</h3>
-
-			<% end %>
-
-
-
-		</section>
-	</article>
+    </section>
+  </article>
 </section>
-
