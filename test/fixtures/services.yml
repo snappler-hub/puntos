@@ -19,7 +19,7 @@
 points:
   name: Points
   type: PointsService
-  user: users(:final_user)
+  user: final_user
   amount: 1000
   
 pfpc:

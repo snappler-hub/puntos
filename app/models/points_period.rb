@@ -74,7 +74,7 @@ class PointsPeriod < ActiveRecord::Base
     self.save
   end
 
-  #Actualizo los puntos acumulados
+  # Actualizo los puntos acumulados
   def update_accumulated(points)
     self.accumulated += points
     self.save
