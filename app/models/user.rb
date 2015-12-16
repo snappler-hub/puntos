@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
   belongs_to :created_by, class_name: 'User'
   has_many :services, dependent: :destroy
   has_many :pfpc_services
-  has_many :sales, :foreign_key => :seller_id
+  has_many :sales, foreign_key: :seller_id
   has_many :points_services
 
   # -- Validations
@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
   def vademecums # TODO: and service is active
     services.where("type = 'PfpcService' AND status = 1").map &:vademecum
   end
-  
+
   def accept_terms_of_use
     User.transaction do
       CardManager.accept_terms_of_use!(self)
@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
   def activate_pending_services
     pending_services.map { |serv| serv.update(status: 1) }
   end
-  
+
   def pending_services
     services.select { |serv| serv.pending? }
   end
