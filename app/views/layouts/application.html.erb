@@ -6,11 +6,8 @@
 
   <%= render 'application/navbar' %>
 
-  <aside class="main-sidebar">
-    <section class="sidebar">
-      <%= render 'application/side' %>
-    </section>
-  </aside>
+  <%= render 'application/aside' %>
+
 
   <article class="content-wrapper">
     <%= yield %>
@@ -20,17 +17,17 @@
   </article>
 
   <footer class="main-footer">
-      <div class="pull-right hidden-xs">
-        <ul class="nav navbar-nav">
-          <li class="footer-li">
-            <strong> Manes |</strong>
-          </li>
-          <li>
-            <b>Version</b>
-            <%= Plenario::Application::VERSION %>
-          </li>
-        </ul>
-      </div>
+    <div class="pull-right hidden-xs">
+      <ul class="nav navbar-nav">
+        <li class="footer-li">
+          <strong> Manes |</strong>
+        </li>
+        <li>
+          <b>Version</b>
+          <%= Plenario::Application::VERSION %>
+        </li>
+      </ul>
+    </div>
       <span>
         <%= link_to 'Términos de uso', terms_of_use_path, class: 'footer-link' %>
       </span>
@@ -46,7 +43,7 @@
     </div>
   </div>
 </div>
-  
+
 <%= yield(:modals) %>
 
 </body>

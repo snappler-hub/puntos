@@ -1,0 +1,29 @@
+<% alerts = Alert.created_by(current_user.id).confirmed(false).until_date(DateTime.now+2.days) %>
+<% alerts_count = alerts.count() %>
+
+<!-- Notifications Menu -->
+<li id="navbar_alerts" class="dropdown notifications-menu">
+  <!-- Menu toggle button -->
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    <i class="fa fa-bell-o"></i>
+    <span class="label label-warning"><%= alerts_count %></span>
+  </a>
+  <ul class="dropdown-menu">
+
+    <li class="header">
+      Tenes <%= alerts_count %> notificaciones
+    </li>
+
+    <li>
+      <!-- Inner Menu: contains the notifications -->
+      <ul class="menu">
+
+        <% alerts.count_by_type.each do |type, amount| %>
+            <%= render partial: "backend/alerts/alert_from_#{type.downcase}_grouped", locals: {amount: amount} %>
+        <% end %>
+
+      </ul>
+    </li>
+    <li class="footer"><%= link_to 'Ver todas', [:backend, :alerts] %></li>
+  </ul>
+</li>

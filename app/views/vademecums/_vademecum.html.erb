@@ -1,6 +1,6 @@
 <tr>
   <td><%= vademecum.name %></td>
-  <td>
+  <td class="pull-right">
     <%= link_to 'Editar', edit_vademecum_path(vademecum), class: 'btn btn-xs btn-success' %>
     <%= link_to 'Eliminar', vademecum, method: :delete, data: {confirm: '¿Está seguro?'}, class: 'btn btn-xs btn-danger' %>
   </td>

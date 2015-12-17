@@ -44,7 +44,7 @@ class PointsService < Service
 
     self.update(last_period: period)
 
-    return period
+    period
   end
 
   # True si no existe otro servicio de puntos activo para el usuario

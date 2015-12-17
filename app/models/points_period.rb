@@ -55,6 +55,8 @@ class PointsPeriod < ActiveRecord::Base
   # Renuevo el período 
   def renew
     self.service.create_period
+    self.status = :accomplished
+    self.save
   end
 
   # Reinicio el período reseteando los días y pongo el estado En Curso

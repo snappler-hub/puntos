@@ -3,7 +3,7 @@
   <td><%= product.name %></td>
   <td><small><%= product.barcode %></small></td>
   <td><%= product.points %></td>
-  <td>
+  <td class="pull-right">
     <%= link_to 'Editar', edit_product_path(product), class: 'btn btn-xs btn-success' %>
     <%= link_to 'Eliminar', product, method: :delete,
         data: {confirm: '¿Está seguro?'}, class: 'btn btn-xs btn-danger' %>

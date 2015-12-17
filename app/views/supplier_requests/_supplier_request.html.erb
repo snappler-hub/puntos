@@ -4,8 +4,8 @@
   <td><%= content_tag :span, t("supplier_request.status.#{supplier_request.status}"), class: ['label', supplier_request.status] %></td>
   <td><%= supplier_request.document_number %></td>
   <td><%= supplier_request.email %></td>
-  
-  <td>
+
+  <td class="pull-right">
     <%= link_to 'Ver', [@supplier, supplier_request], class: 'btn btn-xs btn-primary' %>
     <%= link_to 'Editar', [:edit, @supplier, supplier_request], class: 'btn btn-xs btn-success' %>
     <%= link_to 'Eliminar', supplier_request, method: :delete, data: {confirm: '¿Está seguro?'}, class: 'btn btn-xs btn-danger' %>

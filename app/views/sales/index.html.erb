@@ -1,37 +1,37 @@
 <header class="content-header">
   <% unless current_user.is?('normal_user') %>
-    <%= link_to 'Nueva Venta', [:new, @supplier, current_user, :sale],
-      class: 'btn btn-primary pull-right' %>
+      <%= link_to 'Nueva Venta', [:new, @supplier, current_user, :sale],
+                  class: 'btn btn-primary pull-right' %>
   <% end %>
   <h1>Ventas</h1>
 </header>
 
 <!-- Main content -->
 <section class="content">
-<article class="box box-primary">
-<section class="box-body">
+  <article class="box box-primary">
+    <section class="box-body">
 
-  <%= render 'filter' %>
-  
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Vendedor</th>
-        <th>Cliente</th>
-        <th>Tarjeta</th>
-        <th>Fecha y hora</th>
-        <th>Total</th>
-        <th></th>
-      </tr>
-    </thead>
-  
-    <tbody>
-      <%= render @sales %>
-    </tbody>
-  </table>
-  
-  <%= paginate @sales %>
+      <%= render 'filter' %>
 
-</section>
-</article>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Vendedor</th>
+          <th>Cliente</th>
+          <th>Tarjeta</th>
+          <th>Fecha y hora</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <%= render @sales %>
+        </tbody>
+      </table>
+
+      <%= paginate @sales %>
+
+    </section>
+  </article>
 </section>

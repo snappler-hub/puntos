@@ -25,7 +25,7 @@ namespace :services do
   task points_expiration: :environment do
     expired_periods = PointsPeriod.joins(:service).where('points_periods.end_date < NOW() - INTERVAL services.days_to_points_expiration DAY AND points_periods.available > 0')
     expired_periods.map { |period| period.expire_points }
-    
+
     puts "#{expired_periods.size} períodos vencidos"
   end
 

@@ -3,10 +3,10 @@
   <h1>
     Información de servicio
     <% unless normal_user? %>
-      <small> <%= @user %></small>
+        <small> <%= @user %></small>
     <% end %>
   </h1>
-  
+
 </header>
 
 <% klass = (@service.in_progress?) ? 'success' : 'danger' %>
@@ -27,7 +27,7 @@
               <p class="text-muted text-center">
                 <%= t "service_statuses.#{@service.status}" %>
               </p>
-              
+
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
                   <strong>Puntos a cumplir</strong>
@@ -50,6 +50,10 @@
                 <%= t "service_statuses.#{@service.status}" %>
               </p>
               <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <strong>Vademecum</strong>
+                  <a class="pull-right"> <%= "#{@service.vademecum}" %> </a>
+                </li>
                 <li class="list-group-item">
                   <strong>Vence cada</strong>
                   <a class="pull-right"> <%= "#{@service.days} días" %> </a>
