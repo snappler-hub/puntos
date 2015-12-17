@@ -23,7 +23,7 @@ class Supplier < ActiveRecord::Base
 
   include Destroyable
 
-  # -- ASSOCIATIONS
+  # -- Associations
   has_many :users
   has_many :services, through: :users
   has_many :point_services, through: :users
@@ -34,13 +34,25 @@ class Supplier < ActiveRecord::Base
   has_many :supplier_point_products
   accepts_nested_attributes_for :supplier_point_products, allow_destroy: true
 
-  # -- VALIDATIONS
+  # -- Validations
   validates :name, presence: true
 
-  # -- SCOPES
+  # -- Callbacks
+  after_validation :reverse_geocode
+  
+  # -- Scopes
   scope :active, -> { where(active: true) }
+  
+  
+  # -- Misc
+  reverse_geocoded_by :latitude, :longitude do |obj,results|
+    if geo = results.first
+      obj.city = "#{geo.city}, #{geo.state}"
+    end
+  end
 
-  # -- METHODS
+  # -- Methods
+  
   def destroyable?
     users.empty?
   end

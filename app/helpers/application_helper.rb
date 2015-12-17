@@ -69,7 +69,23 @@ module ApplicationHelper
   def current_user_name
     "#{current_user.first_name} #{current_user.last_name}"
   end
+  
+  # Mapa editable
+  def build_map(id='map', options={})
+    options[:width] ||= '100%' 
+    options[:height] ||= '275px' 
+    options[:position] = (options[:latitude].blank?) ? 'current' : 'defined'
+    options[:latitude] = (options[:latitude].blank?) ? '' : options[:latitude]
+    options[:longitude] = (options[:longitude].blank?) ? '' : options[:longitude]
+    raw "<div id='#{id}' style='width: #{options[:width]}; height: #{options[:height]};' 
+        class='js-map' data-position='#{options[:position]}' data-latitude='#{options[:latitude]}'
+           data-longitude='#{options[:longitude]}'></div>"
+  end
 
+  # Imagen de un mapa con un marcador puesto
+  def map_image(lat, long, width=500, height=400)
+    "http://maps.google.com/maps/api/staticmap?zoom=16&size=#{width}x#{height}&markers=#{lat},#{long}&sensor=false"
+  end
 
   def reward_order_state(reward_order)
     actions = reward_order.get_state_actions

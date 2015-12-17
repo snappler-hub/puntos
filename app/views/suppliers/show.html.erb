@@ -65,5 +65,22 @@
   </article>
 
 </div>
+
+<% unless @supplier.address.nil?  %>
+  <div class="col-md-5">
+    <article class="box box-primary">
+      <header class="box-header with-border">
+        <h3 class="box-title"> Ubicación </h3>
+      </header>
+      <!-- /.box-header -->
+      <section class="box-body">
+        <p> <%= @supplier.address %> </p>
+        <p class="text-center">
+          <%= image_tag map_image(@supplier.latitude, @supplier.longitude, 350, 200) %>
+        </p>
+      </section>
+    </article>
+  </div>
+<% end %>
 </div>
 </section>

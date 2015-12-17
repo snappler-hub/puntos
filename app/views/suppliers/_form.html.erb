@@ -40,35 +40,20 @@
     </div>
   </div>
     
-    <div class="row">
-      <div class="col-md-5">
-        <fieldset class="form-group">
-          <%= f.label :city %>
-          <%= f.text_field :city, class: 'form-control' %>
-        </fieldset>
-      </div>
-      <div class="col-md-7">
-        <fieldset class="form-group">
-          <%= f.label :address %>
-          <%= f.text_field :address, class: 'form-control' %>
-        </fieldset>
-      </div>
+  <div class="row">
+    <div class="col-md-12">
+      <fieldset class="form-group">
+        <label> Ubicación </label>
+        <%=  f.text_field :address, placeholder: 'Ingrese la dirección', id: 'address', class: 'form-control'  %>
+        <br>
+        <%=  f.hidden_field :longitude, as: :hidden, id: 'longitude' %>
+        <%=  f.hidden_field :latitude, as: :hidden, id: 'latitude' %>
+        <%= build_map 'map', { width: '100%', height: '273px', latitude: @current_supplier.latitude, longitude: @current_supplier.longitude } %>
+        <small> * Ingrese su dirección o haga click sobre el mapa </small>
+      </fieldset>
     </div>
-    
-    <div class="row">
-      <div class="col-md-6">
-        <fieldset class="form-group">
-          <%= f.label :latitude %>
-          <%= f.text_field :latitude, class: 'form-control' %>
-        </fieldset>
-      </div>
-      <div class="col-md-6">
-        <fieldset class="form-group">
-          <%= f.label :longitude %>
-          <%= f.text_field :longitude, class: 'form-control' %>
-        </fieldset>
-      </div>
-    </div>
+  </div>
+
     
     <div class="row">
       <div class="col-md-5">

@@ -39,6 +39,7 @@
 
 //= require init
 
+//= require gmaps
 //= require services
 //= require comments
 //= require sales
