@@ -17,7 +17,7 @@ class Pdf::VoucherDocument < Pdf::GeneralDocument
       move_down 35
       indent(10) do
         text "Pedido <b>#{reward_order.code}</b>", size: 20, inline_format: true
-        text "Proveedor <b>#{reward_order.supplier}</b>", size: 12, inline_format: true
+        text "Prestador <b>#{reward_order.supplier}</b>", size: 12, inline_format: true
       end
     end
     bounding_box([449, y_position], width: 90, height: 92) do

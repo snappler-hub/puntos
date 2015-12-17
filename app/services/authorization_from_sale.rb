@@ -83,7 +83,7 @@ class AuthorizationFromSale
       @points += (sale_product.amount * get_points(sale_product.product, @supplier))
     else
       @status = Const::STATUS_WARNING
-      @message += 'El cliente no posee un servicio de puntos activo o su prestador no otorga puntos. '
+      @message += 'El cliente no posee un servicio de puntos activo o el prestador no otorga puntos. '
     end
   end
 
