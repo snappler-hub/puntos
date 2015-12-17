@@ -93,7 +93,7 @@ es:
         discount: Descuento
       reward_order:
         user_id: Usuario
-        supplier_id: Proveedor
+        supplier_id: Prestador
         state: Estado
 
   activemodel:
@@ -127,7 +127,7 @@ es:
       reward_order_filter:
         code: Voucher
         user_id: Tarjeta
-        supplier_id: Proveedor
+        supplier_id: Prestador
         state: Estado
       near_expiration_filter:
         supplier_id: Prestador
@@ -136,7 +136,7 @@ es:
       sale_filter:
         client_id: Cliente
         seller_id: Vendedor
-        supplier_id: Proveedor
+        supplier_id: Prestador
         start_date: Fecha inicio
         finish_date: Fecha fin
         filter: *filter
