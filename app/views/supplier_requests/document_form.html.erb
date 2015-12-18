@@ -1,42 +1,42 @@
 <header class="content-header">
   <%= link_to 'Volver', [@supplier, :supplier_requests],
-      class: 'btn btn-default pull-right' %>
+              class: 'btn btn-default pull-right' %>
   <h1>Buscar si existe usuario en el sistema</h1>
 </header>
 
 <section class="content">
 
-<div class="row">
-<div class="col-md-6">
-<article class="box box-primary">
-<section class="box-body">
-
-<%= form_tag [:load_form, @supplier, :supplier_requests] do %>
   <div class="row">
-    <div class="col-md-4">
-      <fieldset class="form-group">
-        <%= label_tag :document_type, 'Tipo de documento' %>
-        <%= select_tag "people",
-        options_for_select(User::DOCUMENT_TYPES.map{|type| [t("document_types.#{type}"), type]}),
-        include_blank: false, class: 'form-control' %>
-      </fieldset>    
-    </div>
+    <div class="col-md-6">
+      <article class="box box-primary">
+        <section class="box-body">
 
-    <div class="col-md-8">
-      <fieldset class="form-group">
-        <%= label_tag :document_number, 'Número de documento' %>
-        <%= text_field_tag :document_number, nil, class: 'form-control' %>
-      </fieldset>
+          <%= form_tag [:load_form, @supplier, :supplier_requests] do %>
+              <div class="row">
+                <div class="col-md-4">
+                  <fieldset class="form-group">
+                    <%= label_tag :document_type, 'Tipo de documento' %>
+                    <%= select_tag 'document_type',
+                                   options_for_select(User::DOCUMENT_TYPES.map { |type| [t("document_types.#{type}"), type] }),
+                                   include_blank: false, class: 'form-control' %>
+                  </fieldset>
+                </div>
+
+                <div class="col-md-8">
+                  <fieldset class="form-group">
+                    <%= label_tag :document_number, 'Número de documento' %>
+                    <%= text_field_tag :document_number, nil, class: 'form-control' %>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="actions">
+                <%= submit_tag 'Siguiente', class: 'btn btn-lg btn-primary' %>
+              </div>
+          <% end %>
+
+        </section>
+      </article>
     </div>
   </div>
-  <div class="actions">
-    <%= submit_tag 'Siguiente', class: 'btn btn-lg btn-primary' %>
-  </div>
-<% end %>
-
-</section>
-</article>
-</div>
-</div>
 
 </section>
