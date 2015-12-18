@@ -32,7 +32,9 @@ gem 'prawn-table'
 gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails'
 
+# Geolocation
 gem 'geocoder'
+gem 'geokit-rails' # Provides location-based goodness for your Rails app
 
 gem 'stock', git: 'git@git.sistematis.com.ar:snappler/gems/stock'
 

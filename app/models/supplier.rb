@@ -42,6 +42,7 @@ class Supplier < ActiveRecord::Base
   
   # -- Scopes
   scope :active, -> { where(active: true) }
+  scope :with_location, -> { where('latitude is not null and longitude is not null') }
   
   
   # -- Misc
@@ -50,6 +51,9 @@ class Supplier < ActiveRecord::Base
       obj.city = "#{geo.city}, #{geo.state}"
     end
   end
+  acts_as_mappable default_units: :kms,
+                   lat_column_name: :latitude,
+                   lng_column_name: :longitude
 
   # -- Methods
   

@@ -64,6 +64,16 @@ class SuppliersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  # GET /suppliers/list_for_map
+  def list_for_map
+    @suppliers = Supplier.with_location.in_bounds([params[:sw], params[:ne]])
+    @center_point = Geocoder::Calculations.geographic_center(@suppliers)
+    
+    respond_to do |format|
+      format.js
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
