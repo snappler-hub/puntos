@@ -33,6 +33,7 @@ class Supplier < ActiveRecord::Base
   has_many :vademecums, through: :supplier_vademecums
   has_many :supplier_point_products
   accepts_nested_attributes_for :supplier_point_products, allow_destroy: true
+  accepts_nested_attributes_for :vademecums, allow_destroy: true
 
   # -- Validations
   validates :name, presence: true

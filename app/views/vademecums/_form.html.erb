@@ -13,6 +13,13 @@
     <%= f.text_field :name, class: 'form-control', required: true %>
   </fieldset>
   
+  <div class="row">
+    <div class="col-md-5">
+      <h4> Prestadores </h4>
+      <%= f.select :supplier_ids, Supplier.all.map{|s| [s.name, s.id]}, {}, {multiple: :multiple, class: 'form-control select2'} %>
+    </div>
+  </div>
+  
   <div class="product_discounts form-group">
     <h4> Descuentos </h4>
     <%= f.fields_for :product_discounts do |p| %>
