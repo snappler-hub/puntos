@@ -52,7 +52,6 @@ class AuthorizationFromSale
     end
   end
 
-  #OPTIMIZE Refactorizar este código  
   def products
     products = []
     @sale_products.map do |sale_product|
@@ -60,6 +59,7 @@ class AuthorizationFromSale
       #Productos con descuentos
       period_product = period_product(sale_product.product)
       discount = discount(sale_product.product)
+      
       accepted_amounts = get_amount_with_and_without_discount(period_product, sale_product.amount)
       amount_with_discount = accepted_amounts[0]
       amount_without_discount = accepted_amounts[1]
@@ -71,6 +71,7 @@ class AuthorizationFromSale
         products << create_product(sale_product, amount_with_discount, discount)
         products << create_product(sale_product, amount_without_discount, 0)
       end
+      
       #Puntos
       calculate_points(sale_product)
     end
@@ -128,7 +129,7 @@ class AuthorizationFromSale
     with_discount = 0
     without_discount = amount
     unless period_product.nil?
-      remaining = period_product.remaining_amount #Devuelve cero si no puede comprar más
+      remaining = get_remaining_amount(period_product)      
       if remaining >= amount
         with_discount = amount
       else
@@ -138,6 +139,15 @@ class AuthorizationFromSale
     end
 
     [with_discount, without_discount]
+  end
+  
+  def get_remaining_amount(period_product)
+    #Si en el pfpc está marcada la opción de descontar siempre, la cantidad con descuento es igual a lo que quiere comprar
+    if period_product.service.always_discount?
+      amount
+    else
+      period_product.remaining_amount #Devuelve cero si no puede comprar más
+    end
   end
 
   #Devuelve un integer con los puntos particulares del supplier si es que tiene, y sino devuelve los puntos que tiene el producto.

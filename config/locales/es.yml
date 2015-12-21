@@ -71,6 +71,7 @@ es:
         name: Nombre
         amount: Puntos
         days: Días
+        always_discount: Descontar siempre
       vademecum:
         name: Nombre
       product_discount:
