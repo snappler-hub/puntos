@@ -77,8 +77,26 @@
             <% end %>
           </ul>
         </div>
-        
       </div>
+      
+      
+      <% unless @supplier.supplier_point_products.empty? %>
+        <hr>
+      
+        <div class="row">
+          <div class="col-md-12">
+            <strong>
+              Puntos por Producto
+            </strong>
+
+            <ul class="text-muted list-unstyled">
+              <% @supplier.supplier_point_products.each do |spp| %>
+                <li><%= spp.product %>: <%= spp.points %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
     </section>
   </article>
 
