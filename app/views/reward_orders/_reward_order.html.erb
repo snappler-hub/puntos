@@ -7,7 +7,12 @@
   <td><%= reward_order.supplier %></td>
   <td class="pull-right">
     <%= link_to 'Ver', reward_order, class: 'btn btn-xs btn-info' %>
-    <%= reward_order_state(reward_order) if god? %>
+    <% case true %>
+    <% when god? %>
+      <%= reward_order_state(reward_order) %>
+    <% when admin? && ['incoming','ready','delivered','canceled','not_delivered'].include?(reward_order.state) %>
+      <%= reward_order_state(reward_order) %>
+    <% end %>
   </td>
 </tr>
 

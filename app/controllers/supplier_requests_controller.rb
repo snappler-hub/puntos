@@ -22,6 +22,7 @@ class SupplierRequestsController < ApplicationController
   def load_form
     @user = User.find_or_initialize_by(document_number: params[:document_number], document_type: params[:document_type])
     @supplier_request = SupplierRequest.new @user.attributes.slice('first_name', 'last_name', 'document_type', 'document_number', 'phone', 'email', 'address', 'supplier_id')
+
     render 'new'
   end
 
