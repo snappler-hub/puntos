@@ -58,6 +58,10 @@
                   <strong>Vence cada</strong>
                   <a class="pull-right"> <%= "#{@service.days} días" %> </a>
                 </li>
+                <li class="list-group-item">
+                  <strong>Descuenta siempre</strong>
+                  <a class="pull-right"> <%= t(@service.always_discount) %> </a>
+                </li>
               </ul>
               <p class="text-muted text-center"> Cantidades a cumplir </p>
 
