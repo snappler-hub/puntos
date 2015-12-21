@@ -60,7 +60,8 @@ class ShoppingCartRewardsController < ApplicationController
 
   #----------------------------------------------------------------  
   def shoping_cart
-   
+    @user_supplier = current_user.supplier
+    
     if(current_shop_cart.empty?)
       flash[:notice] = 'Carrito Vacío'
       redirect_to list_shopping_cart_rewards_path
