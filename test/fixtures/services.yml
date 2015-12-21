@@ -25,5 +25,5 @@ points:
 pfpc:
   name: PFPC
   type: PfpcService
-  user: users(:final_user)
+  user: final_user
   vademecum: vademecums(:one)

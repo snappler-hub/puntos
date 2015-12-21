@@ -16,7 +16,10 @@ class Vademecum < ActiveRecord::Base
   # -- Associations
   has_many :product_discounts, dependent: :destroy
   has_many :products, through: :product_discounts
+  has_many :supplier_vademecums
+  has_many :suppliers, through: :supplier_vademecums
   accepts_nested_attributes_for :product_discounts, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :suppliers
 
   # -- Validations
   validates :name, presence: true
