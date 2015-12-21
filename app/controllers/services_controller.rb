@@ -139,7 +139,7 @@ class ServicesController < ApplicationController
     if params[:service][:type] == 'PointsService'
       allowed_params << :amount << :days_to_points_expiration
     else
-      allowed_params << :vademecum_id << [product_pfpcs_attributes: [:id, :product_id, :amount, :_destroy]]
+      allowed_params << :always_discount << :vademecum_id << [product_pfpcs_attributes: [:id, :product_id, :amount, :_destroy]]
     end
 
     params.require(:service).permit(allowed_params)
