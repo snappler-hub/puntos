@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :cards, only: :create
     resources :sales, only: :update do
       post :authorize, on: :collection
+      post :confirm, on: :collection
     end
   end
   
@@ -30,7 +31,7 @@ Rails.application.routes.draw do
     get :history, on: :member
   end
   
-  get 'my_purchases', to: "sales#sales_with_me_as_client"
+  get 'my_purchases', to: 'sales#sales_with_me_as_client'
 
 
   resources :products, except: [:show] do

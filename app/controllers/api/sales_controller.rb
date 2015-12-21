@@ -1,11 +1,11 @@
-class Api::SaleController < Api::MainController
+class Api::SalesController < Api::MainController
 
   def authorize
-    adapter = AuthorizationiAdapter.new(query)
+    adapter = AuthorizationAdapter.new(query)
     if adapter.valid_input?
       manager = AuthorizationFromSale.new(adapter.sale, adapter.seller)
       authorization = manager.authorize!
-      render json: {status: :ok}, status: :ok
+      render json: {status: :ok, authorization: authorization}, status: :ok
     else
       render json: adapter.errors, status: 400
     end
