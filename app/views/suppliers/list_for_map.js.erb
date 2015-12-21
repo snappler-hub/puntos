@@ -1,0 +1,6 @@
+<% unless @suppliers.empty? %>
+  <% services_json =  @suppliers.map { |s| 
+      ["<h5>#{s.name}</h5>#{s.address}<br><a href='javascript:App.rewardMap.selectSupplier(#{s.id}, \"#{s.name}\")' class='btn btn-primary'> Seleccionar </a>", s.latitude, s.longitude] 
+  } %>
+  App.Map.placeMarkers(<%= raw services_json.to_json %>);
+<% end %>

@@ -72,6 +72,7 @@ Rails.application.routes.draw do
   resources :comments, only: [:destroy]
   
   resources :suppliers do
+    get :list_for_map, on: :collection
     resources :users do
       resources :sales, except: [:edit, :destroy, :update] do
         resources :sale_products

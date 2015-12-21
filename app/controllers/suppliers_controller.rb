@@ -64,6 +64,16 @@ class SuppliersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  # GET /suppliers/list_for_map
+  def list_for_map
+    @suppliers = Supplier.with_location.in_bounds([params[:sw], params[:ne]])
+    @center_point = Geocoder::Calculations.geographic_center(@suppliers)
+    
+    respond_to do |format|
+      format.js
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -75,7 +85,8 @@ class SuppliersController < ApplicationController
     def supplier_params
       if god?
         params.require(:supplier).permit(:name, :description, :active, :address, :latitude, :longitude, :telephone, :email, :points_to_client, :points_to_seller, :contact_info,
-            supplier_point_products_attributes: [:id, :points, :product_id, :_destroy])
+            supplier_point_products_attributes: [:id, :points, :product_id, :_destroy],
+            vademecum_ids: [])
       else
         params.require(:supplier).permit(:name, :description)
       end

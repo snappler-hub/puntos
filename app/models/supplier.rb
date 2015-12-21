@@ -33,6 +33,7 @@ class Supplier < ActiveRecord::Base
   has_many :vademecums, through: :supplier_vademecums
   has_many :supplier_point_products
   accepts_nested_attributes_for :supplier_point_products, allow_destroy: true
+  accepts_nested_attributes_for :vademecums, allow_destroy: true
 
   # -- Validations
   validates :name, presence: true
@@ -42,6 +43,7 @@ class Supplier < ActiveRecord::Base
   
   # -- Scopes
   scope :active, -> { where(active: true) }
+  scope :with_location, -> { where('latitude is not null and longitude is not null') }
   
   
   # -- Misc
@@ -50,6 +52,9 @@ class Supplier < ActiveRecord::Base
       obj.city = "#{geo.city}, #{geo.state}"
     end
   end
+  acts_as_mappable default_units: :kms,
+                   lat_column_name: :latitude,
+                   lng_column_name: :longitude
 
   # -- Methods
   

@@ -14,12 +14,20 @@
               <% end %>
 
               <%= f.hidden_field :user_id %>
-
+              
               <div class="row">
-                <fieldset class="form-group col-md-5">
-                  <%= f.label :supplier_id %>
-                  <%= f.collection_select :supplier_id, Supplier.all, :id, :name, {}, {class: 'form-control'} %>
+                <fieldset class="form-group col-md-12">
+                  <p> Seleccione un prestador desde el mapa </p>
+                  <div id='js-suppliersMap' style='width: 100%; height: 350px;' data-position='current'></div>
+                  <%= hidden_field_tag :latitude, @user_supplier.latitude, id: 'js-supplierLat' %>
+                  <%= hidden_field_tag :longitude, @user_supplier.longitude, id: 'js-supplierLong' %>
                 </fieldset>
+              </div>
+              
+              <div id="js-selectedSupplier" class="form-group">
+                <%= label_tag 'Prestador Seleccionado' %><br>
+                <span id="js-supplierName"><%= @user_supplier %></span>
+                <%= f.hidden_field :supplier_id, id: 'js-supplierId', value: @user_supplier.id %>
               </div>
 
               <hr>

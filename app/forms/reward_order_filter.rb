@@ -4,7 +4,6 @@ class RewardOrderFilter
 
   def call(user=nil)
     reward_orders = RewardOrder.all
-
     if user.present?
       if user.role == 'admin' || user.role == 'seller'
         reward_orders = reward_orders.where(supplier_id: user.supplier_id)
