@@ -23,7 +23,7 @@
         <div class="col-md-3">
           <fieldset class="form-group">
             <%= f.label :need_points %>
-            <%= f.text_field :need_points, class: 'form-control' %>
+            <%= f.text_field :need_points, class: 'form-control', placeholder: 'Hasta' %>
           </fieldset>
         </div>
 
@@ -44,7 +44,7 @@
 
     <div class="col-md-2">
       <fieldset class="form-group">
-        <%= f.submit 'Filtrar', class: 'btn btn-primary', style: "margin-top: 24px;", data: { 'disable-with' => 'Cargando...'} %>
+        <%= f.submit 'Filtrar', class: 'btn btn-primary', style: 'margin-top: 24px;', data: {'disable-with' => 'Cargando...'} %>
       </fieldset>
     </div>
   </div>

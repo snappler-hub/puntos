@@ -8,7 +8,7 @@ App.Map =
   marker: undefined
   map_editable: true
   selected: undefined
-  
+
   placeMarkers: (markers)->
     for m in markers
       latLng = new (google.maps.LatLng)(m[1], m[2])
@@ -16,22 +16,30 @@ App.Map =
 
   initMap: (map_id, marker_latitude, marker_longitude) ->
     App.Map.buildMap(map_id, marker_latitude, marker_longitude)
-     
-  buildMap: (map_id, marker_latitude, marker_longitude, create_marker=true) ->     
+
+  buildMap: (map_id, marker_latitude, marker_longitude, create_marker=true) ->
     latitude = marker_latitude or -34.604
     longitude = marker_longitude or -58.382
     bounds = new (google.maps.LatLngBounds)
     latlng = new (google.maps.LatLng)(latitude, longitude)
-    myOptions = 
+    myOptions =
+      scrollwheel: false
       zoom: 15
       center: latlng
       mapTypeId: google.maps.MapTypeId.ROADMAP
     App.Map.map = new (google.maps.Map)(document.getElementById(map_id), myOptions)
-  
+
     # Si se seteó marker_latitude y marker_longitude se muestra un marcador
     if create_marker && marker_latitude and marker_longitude
       App.Map.placeMarker new (google.maps.LatLng)(marker_latitude, marker_longitude)
-    
+
+    google.maps.event.addListener App.Map.map, 'mouseout', (event) ->
+      @setOptions scrollwheel: false
+      return
+    google.maps.event.addListener App.Map.map, 'click', (event) ->
+      @setOptions scrollwheel: true
+      return
+
     if App.Map.map_editable
       # Click en el mapa
       google.maps.event.addListener App.Map.map, 'click', (event) ->
@@ -44,7 +52,7 @@ App.Map =
         if event
           App.Map.placeMarker event.latLng
         return
-      
+
       # Escribe una dirección
       $('#address').keyup ->
         geocoder.geocode { address: $('#address').val() }, (locResult) ->
@@ -59,10 +67,10 @@ App.Map =
             App.Map.map.setCenter latLng
           return
         return
-      
+
     if $('#js-suppliersMap').length > 0
       App.Map.getSuppliersInBounds()
-        
+
     return App.Map.map
 
   # Obtengo una dirección formateada a partir de latitud y longitud
@@ -85,7 +93,7 @@ App.Map =
         draggable: true)
     App.Map.populateInputs location
     return
-  
+
   # Pone un marcador estático en el mapa
   # este marcador no se puede mover
   placeStaticMarker: (location, info, premium=false) ->
@@ -100,7 +108,7 @@ App.Map =
       info.open App.Map.map, staticMarker
       App.Map.selected = info
       return
-  
+
     return
 
   # Setea los inputs de latitud y longitud
@@ -116,7 +124,7 @@ App.Map =
   initMapInCurrentPosition: ->
     App.Map.buildMap('map')
     if navigator.geolocation
-      options = 
+      options =
         enableHighAccuracy: true
         timeout: 5000
         maximumAge: 0
@@ -124,7 +132,7 @@ App.Map =
 
   current_position_success: (position)->
     App.Map.map.setCenter new (google.maps.LatLng)(position.coords.latitude, position.coords.longitude)
-  
+
   current_position_error: (error)->
     switch error.code
       when error.PERMISSION_DENIED
@@ -136,10 +144,10 @@ App.Map =
       when error.UNKNOWN_ERROR
         alert 'Error desconocido al obtener la posición actual.'
     false
-    
+
   closePopup: ->
     App.Map.selected.close()
-  
+
   # Mapa de suppliers
   getSuppliersInBounds: ->
     google.maps.event.addListener App.Map.map, 'idle', ->
@@ -159,8 +167,8 @@ App.Map =
         $.ajax
          url: "/suppliers/list_for_map"
          data: data
-  
-  
+
+
 $(document).on "page:change", ->
   $('.js-map').each ->
     if $(@).data('position') == 'current'
