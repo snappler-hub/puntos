@@ -1,0 +1,13 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Servicios por Vencer") do |sheet|
+  
+  header = %w(Usuario Correo Tipo Servicio Vencimiento)
+  header << 'Prestador' unless @supplier
+  sheet.add_row header
+  
+  @services.each do |service|
+    data = [service.user, service.user.email, service.type, service.name, service.last_period.end_date]
+    data << service.user.supplier unless @supplier
+    sheet.add_row data
+  end
+end
