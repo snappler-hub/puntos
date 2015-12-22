@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   def bad_request (exception)    
     @message = exception.message
     respond_to do |f|
-      flash[:error] = @message
+      flash.now[:error] = @message
 
       f.json { render 'common/error', layout: false, status: 400 }
       f.js { render 'common/error', layout: false, status: 400 }

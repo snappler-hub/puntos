@@ -2,3 +2,7 @@ $('#shopping-cart-snippet').replaceWith('<%= j render 'shopping_cart_snippet' %>
 $('#reward_shop_cart_control_container_<%= @reward.id %>').html('<%= j render 'reward_shop_cart_control', reward: @reward, source: @source %>');
 
 App.ShoppingCartReward.refresh_panel_info(<%= @reward.need_points %>);
+
+$(".reward_shop_cart_control a").bind("ajax:complete", function() {
+  $('.reward_shop_cart_control .fa-spin').remove();
+});

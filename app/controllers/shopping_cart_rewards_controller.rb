@@ -12,9 +12,7 @@ class ShoppingCartRewardsController < ApplicationController
   def add_item
     @reward = Reward.find(params[:id])
 
-    if (ShopCart::need_points(session) + @reward.need_points) > current_user.cache_points
-      raise(RequestExceptions::BadRequestError.new('No se dispone de puntos para efectuar la operación'))
-    end
+    authorize_redeem!
 
     ShopCart::add(session, @reward.id, @reward.need_points)
     @source = params[:source]
@@ -28,11 +26,14 @@ class ShoppingCartRewardsController < ApplicationController
 
   def refresh_item
     @reward = Reward.find(params[:id])
+
     @source = params[:source]
     @operation = params[:act]
 
     case @operation
       when 'inc'
+        authorize_redeem!
+
         ShopCart::inc(session, @reward.id)
       when 'dec'
         ShopCart::dec(session, @reward.id)
@@ -99,6 +100,12 @@ class ShoppingCartRewardsController < ApplicationController
   def filter_params
     if params[:reward_filter]
       params.require(:reward_filter).permit(:name, :code, :need_points, :reward_kind)
+    end
+  end
+
+  def authorize_redeem!
+    if (ShopCart::need_points(session) + @reward.need_points) > current_user.cache_points
+      raise(RequestExceptions::BadRequestError.new('No se dispone de puntos para efectuar la operación'))
     end
   end
 
