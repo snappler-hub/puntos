@@ -32,6 +32,10 @@ class Authorization < ActiveRecord::Base
   def total
     products.reduce(0) { |sum, product| sum + product[:total] }
   end
+  
+  def self.between_dates(start_date, finish_date)
+    self.where('date(authorizations.created_at) BETWEEN ? AND ?', start_date.to_date, finish_date.to_date)
+  end
 
   def without_error?
     status == Const::STATUS_OK || status == Const::STATUS_WARNING

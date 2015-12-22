@@ -7,7 +7,8 @@ class AuthorizationsController < ApplicationController
 
   # GET /authorizations
   def index
-    @authorizations = Authorization.all
+    @filter = AuthorizationFilter.new(filter_params)
+    @authorizations = @filter.call.page(params[:page])
   end
   
   # POST /authorizations
@@ -31,5 +32,9 @@ class AuthorizationsController < ApplicationController
   def sale_params
     params.require(:sale).permit(:seller_id, :client_id, sale_products_attributes:[:id, :product_id, :amount, :cost, :discount, :_destroy])
   end  
+  
+  def filter_params
+    params.require(:authorization_filter).permit(:id, :status, :client_id, :seller_id, :supplier_id) if params[:authorization_filter]
+  end
   
 end

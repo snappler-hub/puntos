@@ -156,6 +156,12 @@ es:
         phone: *phone
         address: 'Dirección'
         card_number: 'Número de tarjeta'
+      authorization_filter:
+        supplier_id: Prestador
+        client_id: Cliente
+        seller_id: Vendedor
+        start_date: Fecha desde
+        finish_date: Fecha hasta
 
 
   roles:
