@@ -25,14 +25,14 @@ class ApplicationController < ActionController::Base
   def bad_request (exception)    
     @message = exception.message
     respond_to do |f|
+      flash[:error] = @message
+
       f.json { render 'common/error', layout: false, status: 400 }
       f.js { render 'common/error', layout: false, status: 400 }
       f.html do
-        flash[:error] = @message
         redirect_to root_url
       end
     end
-    return
   end
 
   def forbidden (exception)   

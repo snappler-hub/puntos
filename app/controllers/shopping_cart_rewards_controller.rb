@@ -12,7 +12,11 @@ class ShoppingCartRewardsController < ApplicationController
   def add_item
     @reward = Reward.find(params[:id])
 
-    current_order_item = ShopCart::add(session, @reward.id, @reward.need_points)
+    if (ShopCart::need_points(session) + @reward.need_points) > current_user.cache_points
+      raise(RequestExceptions::BadRequestError.new('No se dispone de puntos para efectuar la operación'))
+    end
+
+    ShopCart::add(session, @reward.id, @reward.need_points)
     @source = params[:source]
 
     respond_to do |format|
@@ -29,9 +33,9 @@ class ShoppingCartRewardsController < ApplicationController
 
     case @operation
       when 'inc'
-        current_order_item = ShopCart::inc(session, @reward.id)
+        ShopCart::inc(session, @reward.id)
       when 'dec'
-        current_order_item = ShopCart::dec(session, @reward.id)
+        ShopCart::dec(session, @reward.id)
     end
 
     respond_to do |format|
@@ -40,7 +44,6 @@ class ShoppingCartRewardsController < ApplicationController
   end
 
   #----------------------------------------------------------------
-
 
   def delete_item
     @reward = Reward.find(params[:id])
@@ -48,17 +51,17 @@ class ShoppingCartRewardsController < ApplicationController
     ShopCart::sub(session, @reward.id)
     @source = params[:source]
 
-
     respond_to do |format|
       format.js
     end
   end
 
   #----------------------------------------------------------------
+
   def shoping_cart
     @user_supplier = current_user.supplier
 
-    if (current_shop_cart.empty?)
+    if current_shop_cart.empty?
       flash[:notice] = 'Carrito Vacío'
       redirect_to list_shopping_cart_rewards_path
     else
@@ -67,11 +70,13 @@ class ShoppingCartRewardsController < ApplicationController
     end
   end
 
-  #----------------------------------------------------------------  
+  #----------------------------------------------------------------
+
   def confirm_shoping_cart
 
     @reward_order = RewardOrder.new(reward_order_params)
     @reward_order.set_shop_cart(current_shop_cart)
+
     if @reward_order.save
       @reward_order.change_state('requested')
       ShopCart::reset(session)
