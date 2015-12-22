@@ -23,24 +23,37 @@ class App.ShoppingCartRewardForm
     $(this).parent().prepend '<i class="fa fa-2x text-gray fa-cog fa-spin"></i>'
     return
 
-App.ShoppingCartReward = calculate_totals: ->
-  total_amount = 0
-  total_need_points_subtotal = 0
-  current_user_points = parseInt($('#current_user_points').data('amount'))
-  subtotal = 0
-  $('.shop_cart_item .reward_amount_container').each ->
-    total_amount += parseInt($(this).html() or 0)
+App.ShoppingCartReward = 
+  calculate_totals: ->
+    total_amount = 0
+    total_need_points_subtotal = 0
+    current_user_points = parseInt($('#current_user_points').data('amount'))
+    subtotal = 0
+    $('.shop_cart_item .reward_amount_container').each ->
+      total_amount += parseInt($(this).html() or 0)
+      return
+    $('#total_amount').html total_amount
+    $('.shop_cart_item .reward_need_points_subtotal_container').each ->
+      total_need_points_subtotal += parseInt($(this).html() or 0)
+      return
+    subtotal = current_user_points - total_need_points_subtotal
+    $('#total_need_points_subtotal').html total_need_points_subtotal
+    $('#current_user_points').html subtotal
+    if total_amount == 0
+      return window.location.href = '/shopping_cart_rewards/list'
     return
-  $('#total_amount').html total_amount
-  $('.shop_cart_item .reward_need_points_subtotal_container').each ->
-    total_need_points_subtotal += parseInt($(this).html() or 0)
+    
+  # Actualizo el panel que muestra los puntos usados y restantes
+  refresh_panel_info: (points)->
+    used = parseInt $('#js-usedPoints').html()
+    remaining = parseInt $('#js-remainingPoints').html() 
+    
+    used = used + points
+    remaining -= points
+    $('#js-usedPoints').html(used)
+    $('#js-remainingPoints').html(remaining)
     return
-  subtotal = current_user_points - total_need_points_subtotal
-  $('#total_need_points_subtotal').html total_need_points_subtotal
-  $('#current_user_points').html subtotal
-  if total_amount == 0
-    return window.location.href = '/shopping_cart_rewards/list'
-  return
+    
 
 $(document).on "page:change", ->
   shoppingCartRewardForm = new App.ShoppingCartRewardForm()

@@ -25,8 +25,9 @@ class ShoppingCartRewardsController < ApplicationController
   def refresh_item
     @reward = Reward.find(params[:id])
     @source = params[:source]
+    @operation = params[:act]
 
-    case params[:act]
+    case @operation
       when 'inc'
         current_order_item = ShopCart::inc(session, @reward.id)
       when 'dec'
@@ -43,6 +44,7 @@ class ShoppingCartRewardsController < ApplicationController
 
   def delete_item
     @reward = Reward.find(params[:id])
+    @item = ShopCart::find(session, @reward.id)
     ShopCart::sub(session, @reward.id)
     @source = params[:source]
 
