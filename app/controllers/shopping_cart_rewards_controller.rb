@@ -8,11 +8,12 @@ class ShoppingCartRewardsController < ApplicationController
   end
 
   #-------------------------------------------------- CARRITO
+
   def add_item
     @reward = Reward.find(params[:id])
-    current_order_item = ShopCart::add(session, @reward.id)
-    @source = params[:source]
 
+    current_order_item = ShopCart::add(session, @reward.id, @reward.need_points)
+    @source = params[:source]
 
     respond_to do |format|
       format.js
@@ -36,7 +37,6 @@ class ShoppingCartRewardsController < ApplicationController
       format.js
     end
   end
-
 
   #----------------------------------------------------------------
 
