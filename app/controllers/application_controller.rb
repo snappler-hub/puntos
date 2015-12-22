@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
   before_filter :require_login
   before_filter :should_accept_terms_of_use!
   before_filter :supplier_is_active!
+  
+  rescue_from RequestExceptions::BadRequestError, with: :bad_request
+  rescue_from RequestExceptions::ForbiddenError, with: :forbidden
+  rescue_from RequestExceptions::UnauthorizedError, with:  :unauthorized
 
   def admin
     # flash[:notice] = 'Probando Snackbar.'
@@ -15,6 +19,46 @@ class ApplicationController < ActionController::Base
 
   def current_shop_cart
     ShopCart::new(session)
+  end
+  
+  # REQUEST ERRORS
+  def bad_request (exception)    
+    @message = exception.message
+    respond_to do |f|
+      f.json { render 'common/error', layout: false, status: 400 }
+      f.js { render 'common/error', layout: false, status: 400 }
+      f.html do
+        flash[:error] = @message
+        redirect_to root_url
+      end
+    end
+    return
+  end
+
+  def forbidden (exception)   
+    @message = exception.message
+    respond_to do |f|
+      f.json { render 'common/error', layout: false, status: 401 }
+      f.js { head 401 }
+      f.html do
+        flash[:error] = @message         
+        redirect_to root_url
+      end
+    end
+    return  
+  end
+
+  def unauthorized (exception)   
+    @message = exception.message
+    respond_to do |f|
+      f.json { render 'common/error', layout: false, status: 403 }
+      f.js { render 'common/error', layout: false, status: 403 }
+      f.html do
+        flash[:error] = @message
+        redirect_to root_url
+      end
+    end
+    return   
   end
   
 
