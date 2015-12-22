@@ -72,7 +72,7 @@ seller:
 
 final_user:
   email: 'usuario@normal.com.ar'
-  role: 'seller'
+  role: 'normal_user'
   first_name: 'Usuario'
   last_name: 'Común'
   card_number: '1234123412341234'
@@ -80,3 +80,4 @@ final_user:
   document_type: 'dni'
   created_by_id: final_user
   supplier: drogueria_manes
+  terms_accepted: true #Ojo que arranca en true!

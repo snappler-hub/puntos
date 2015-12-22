@@ -1,0 +1,11 @@
+authorization_one:
+  seller: god
+  client: final_user
+  products: []
+  points: 0
+  
+authorization_two:
+  seller: seller
+  client: final_user
+  products: []
+  points: 0

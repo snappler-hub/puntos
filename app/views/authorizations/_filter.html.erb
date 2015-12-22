@@ -1,0 +1,75 @@
+<%= form_for @filter, url: authorizations_path, method: :get do |f| %>
+  <div class="row">
+    
+    <!-- Variables para supplier y seller-->
+
+      <% supplier_block = Supplier.active.map{ |supplier| [supplier.name, supplier.id] }%>
+      <% supplier_selected_option = ( @filter.supplier? ? @filter.supplier_id : nil ) %>
+
+      <% seller_block = User.sellers.map{ |seller| [seller.to_s, seller.id] }%>
+      <% seller_selected_option = ( @filter.seller? ? @filter.seller_id : nil ) %>
+
+    <!-- //// -->
+    
+    
+    <!-- PRESTADOR -->
+    <div class="col-md-2" >
+      <fieldset class="form-group">
+        <%= f.label :supplier_id %>
+        <%= f.select :supplier_id, options_for_select(supplier_block, supplier_selected_option), {include_blank: true}, {class: 'form-control'} %>
+      </fieldset>
+    </div>
+
+    <!-- VENDEDOR -->
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        <%= f.label :seller_id %>
+        <%= f.select :seller_id, options_for_select(seller_block, seller_selected_option), {include_blank: true}, {class: 'form-control'} %>
+      </fieldset>
+    </div>
+
+    <!-- USUARIO -->
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        <%= f.label :client_id %>
+        <%= f.hidden_field :client_id, class: 'select2',
+              data: { behavior: 'searchClient', url: search_users_path, 'record-id' => @filter.client_id, 'record-text' => @filter.card_number } %>
+      </fieldset>
+    </div>
+    
+    <!-- FECHAS -->
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        <%= f.label :start_date %>
+        <div class='input-group date datepicker'>
+          <%= f.text_field :start_date, class: 'form-control', value: @filter.start_date %>
+          <span class="input-group-addon">
+            <span class="fa fa-calendar"></span>
+          </span>
+        </div>
+      </fieldset>
+    </div>
+    
+    <div class='col-md-2'>
+      <fieldset class="form-group">
+        <%= f.label :finish_date %>
+        <div class='input-group date datepicker'>
+          <%= f.text_field :finish_date, class: 'form-control', value: @filter.finish_date %>
+          <span class="input-group-addon">
+            <span class="fa fa-calendar"></span>
+          </span>
+        </div>
+      </fieldset>
+    </div>
+    
+    <div class="col-md-1">
+      <fieldset class="form-group">
+        <%= f.label ' ' %><br />
+        <%= f.submit 'Filtrar', class: 'btn btn-primary',
+            data: { 'disable-with' => 'Cargando...'} %>
+      </fieldset>
+    </div>
+  </div>
+    
+<!-- FECHAS -->
+<% end %>
