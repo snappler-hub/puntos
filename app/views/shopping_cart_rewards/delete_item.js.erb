@@ -1,9 +1,14 @@
 <% if @source == 'list' %>
-$('#reward_shop_cart_control_container_<%= @reward.id %>').html('<%= j render 'reward_shop_cart_control', reward: @reward, source: @source %>');
+  $('#reward_shop_cart_control_container_<%= @reward.id %>').html('<%= j render 'reward_shop_cart_control', reward: @reward, source: @source %>');
+
+  App.ShoppingCartReward.refresh_panel_info(<%= @reward.need_points * @item['amount'] * -1 %>);
+
 <% elsif @source == 'cart' %>
-$('#reward_shop_cart_control_container_<%= @reward.id %>').parent().fadeOut(function() { 
-	$(this).remove();
-	App.ShoppingCartReward.calculate_totals();
-});
+  $('#reward_shop_cart_control_container_<%= @reward.id %>').parent().fadeOut(function() { 
+  	$(this).remove();
+  	App.ShoppingCartReward.calculate_totals();
+  });
 <% end %>
+
 $('#shopping-cart-snippet').replaceWith('<%= j render 'shopping_cart_snippet' %>');
+

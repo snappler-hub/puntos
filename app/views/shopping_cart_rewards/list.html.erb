@@ -22,7 +22,11 @@
           <b>Número de tarjeta</b><br>
           <a><%= format_card_number current_user.card_number %></a><br>
           <b>Puntos disponibles</b><br>
-          <a><%= current_user.cache_points %></a>
+          <a><%= current_user.cache_points %></a><br>
+          <b>Puntos usados</b><br>
+          <a id="js-usedPoints"><%= ShopCart::need_points(session) %></a><br>
+          <b>Puntos restantes</b><br>
+          <a id="js-remainingPoints"><%= current_user.cache_points - ShopCart::need_points(session) %></a>
         </section>
       </article>
     </div>

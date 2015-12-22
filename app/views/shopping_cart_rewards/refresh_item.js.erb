@@ -1,8 +1,20 @@
 $('#reward_shop_cart_control_container_<%= @reward.id %>').html('<%= j render 'reward_shop_cart_control', reward: @reward, source: @source %>');
 
 <% if @source == 'cart' %>
-<% item = ShopCart::find(session, @reward.id) %>
-$('#reward_amount_container_<%= @reward.id %>').html('<%= item["amount"] %>');
-$('#reward_need_points_subtotal_container_<%= @reward.id %>').html('<%= @reward.need_points * item["amount"] %>');
-App.ShoppingCartReward.calculate_totals();
+  <% item = ShopCart::find(session, @reward.id) %>
+  $('#reward_amount_container_<%= @reward.id %>').html('<%= item['amount'] %>');
+  $('#reward_need_points_subtotal_container_<%= @reward.id %>').html('<%= @reward.need_points * item['amount'] %>');
+
+  App.ShoppingCartReward.calculate_totals();
+<% else %>
+  <% if @operation == 'inc' %>
+    App.ShoppingCartReward.refresh_panel_info(<%= @reward.need_points %>);
+  <% else %>
+    App.ShoppingCartReward.refresh_panel_info(<%= @reward.need_points * -1 %>);
+  <% end %>
 <% end %>
+
+
+$(".reward_shop_cart_control a").bind("ajax:complete", function() {
+  $('.reward_shop_cart_control .fa-spin').remove();
+});
