@@ -1,34 +1,34 @@
 <div class="row">
   <div class="col-md-7">
     <article class="box box-primary">
-    <section class="box-body">
+      <section class="box-body">
 
-    <%= form_for [@supplier, current_user, @sale], url: authorizations_path, remote: true do |f| %>
-      <% @sale.errors.full_messages.each do |message| %>
-        <p><%= message %></p>
-      <% end %>
+        <%= form_for [@supplier, current_user, @sale], url: authorizations_path, remote: true do |f| %>
+            <% @sale.errors.full_messages.each do |message| %>
+                <p><%= message %></p>
+            <% end %>
 
-      <h4>Cliente</h4>
-      <fieldset class="form-group">
-        <%= f.hidden_field :client_id, class: 'select2',
-              data: { behavior: 'searchClient', url: search_users_path } %>
-      </fieldset>
-  
-      <div id="js-productSales" class="product_sales form-group" >
-        <%= f.fields_for :sale_products do |p| %>
-          <%= render 'sale_product_fields', f: p %>
+            <h4>Cliente</h4>
+            <fieldset class="form-group">
+              <%= f.hidden_field :client_id, class: 'select2',
+                                 data: {behavior: 'searchClient', url: search_users_path} %>
+            </fieldset>
+
+            <div id="js-productSales" class="product_sales form-group">
+              <%= f.fields_for :sale_products do |p| %>
+                  <%= render 'sale_product_fields', f: p %>
+              <% end %>
+              <div class="links">
+                <%= link_to_add_association 'Agregar Producto', f, :sale_products, class: 'btn btn-default' %>
+              </div>
+            </div>
+
+            <div class="actions">
+              <%= f.submit 'Autorizar', class: 'btn btn-primary', id: 'js-clearAuthorizationContent', data: {'disable-with' => 'Cargando...'} %>
+            </div>
         <% end %>
-        <div class="links">
-          <%= link_to_add_association 'Agregar Producto', f, :sale_products, class: 'btn btn-default' %>
-        </div>
-      </div>
 
-      <div class="actions">
-        <%= f.submit 'Autorizar', class: 'btn btn-primary', id: 'js-clearAuthorizationContent', data: { 'disable-with' => 'Cargando...' } %>
-      </div>
-    <% end %>
-
-    </section>
+      </section>
     </article>
   </div>
   <div id="js-authorization">

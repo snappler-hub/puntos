@@ -19,16 +19,10 @@
     <div class="col-md-3">
       <article class="box box-success">
         <section class="box-body">
-          <p>
-          <b>Número de tarjeta</b>
-          <a class="pull-right"><%= format_card_number current_user.card_number %></a>
-          </p>
-          <p>
-          <b>Puntos disponibles</b>
-          <a class="pull-right">
-            <%= current_user.cache_points %>
-          </a>
-          </p>
+          <b>Número de tarjeta</b><br>
+          <a><%= format_card_number current_user.card_number %></a><br>
+          <b>Puntos disponibles</b><br>
+          <a><%= current_user.cache_points %></a>
         </section>
       </article>
     </div>

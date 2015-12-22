@@ -1,111 +1,111 @@
 <div class="row">
-<div class="col-md-10">
-<article class="box box-primary">
-<section class="box-body">
+  <div class="col-md-10">
+    <article class="box box-primary">
+      <section class="box-body">
 
-<%= form_for @current_supplier do |f| %>
-  <% @current_supplier.errors.full_messages.each do |message| %>
-    <p><%= message %></p>
-  <% end %>
+        <%= form_for @current_supplier do |f| %>
+            <% @current_supplier.errors.full_messages.each do |message| %>
+                <p><%= message %></p>
+            <% end %>
 
-  <fieldset class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control', required: true %>
-  </fieldset>
+            <fieldset class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: 'form-control', required: true %>
+            </fieldset>
 
-  <fieldset class="form-group">
-    <%= f.label :description %>
-    <%= f.text_area :description, class: 'form-control' %>
-  </fieldset>
-  
-  <% if god? %>
-  <div class="row">
-    <div class="col-md-4">
-      <fieldset class="form-group">
-        <%= f.label :active %><br />
-        <%= f.check_box :active %>
-      </fieldset>
-    </div>
-    <div class="col-md-4">
-      <fieldset class="form-group">
-        <%= f.label :points_to_client %><br />
-        <%= f.check_box :points_to_client %>
-      </fieldset>
-    </div>
-    <div class="col-md-4">
-      <fieldset class="form-group">
-        <%= f.label :points_to_seller %><br />
-        <%= f.check_box :points_to_seller %>
-      </fieldset>
-    </div>
+            <fieldset class="form-group">
+              <%= f.label :description %>
+              <%= f.text_area :description, class: 'form-control' %>
+            </fieldset>
+
+            <% if god? %>
+                <div class="row">
+                  <div class="col-md-4">
+                    <fieldset class="form-group">
+                      <%= f.label :active %><br/>
+                      <%= f.check_box :active %>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-4">
+                    <fieldset class="form-group">
+                      <%= f.label :points_to_client %><br/>
+                      <%= f.check_box :points_to_client %>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-4">
+                    <fieldset class="form-group">
+                      <%= f.label :points_to_seller %><br/>
+                      <%= f.check_box :points_to_seller %>
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <fieldset class="form-group">
+                      <label> Ubicación </label>
+                      <%= f.text_field :address, placeholder: 'Ingrese la dirección', id: 'address', class: 'form-control' %>
+                      <br>
+                      <%= f.hidden_field :longitude, as: :hidden, id: 'longitude' %>
+                      <%= f.hidden_field :latitude, as: :hidden, id: 'latitude' %>
+                      <%= build_map 'map', {width: '100%', height: '273px', latitude: @current_supplier.latitude, longitude: @current_supplier.longitude} %>
+                      <small> * Ingrese su dirección o haga click sobre el mapa</small>
+                    </fieldset>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-5">
+                    <fieldset class="form-group">
+                      <%= f.label :telephone %>
+                      <%= f.text_field :telephone, class: 'form-control' %>
+                    </fieldset>
+                  </div>
+                  <div class="col-md-7">
+                    <fieldset class="form-group">
+                      <%= f.label :email %>
+                      <%= f.text_field :email, class: 'form-control' %>
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <%= f.label :vademecum_ids, 'Vademecums' %>
+                    <%= f.select :vademecum_ids, Vademecum.all.map { |v| [v.name, v.id] },
+                                 {}, {multiple: :multiple, class: 'form-control select2'} %>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-12"><h4> Puntos por producto </h4></div>
+                  <div class="col-md-7"> <%= label_tag :supplier_point_products, 'Producto' %> </div>
+                  <div class="col-md-3"> <%= label_tag :supplier_point_products, 'Puntos' %> </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div id="js-supplier-point-products" class="supplier_point_products form-group">
+                      <%= f.fields_for :supplier_point_products do |p| %>
+                          <%= render 'supplier_point_product_fields', f: p %>
+                      <% end %>
+                      <div class="links">
+                        <%= link_to_add_association 'Nuevo', f, :supplier_point_products, class: 'btn btn-default' %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            <% end %>
+
+            <div class="actions">
+              <%= f.submit 'Guardar prestador', class: 'btn btn-primary', data: {'disable-with' => 'Cargando...'} %>
+            </div>
+        <% end %>
+
+      </section>
+    </article>
   </div>
-    
-  <div class="row">
-    <div class="col-md-12">
-      <fieldset class="form-group">
-        <label> Ubicación </label>
-        <%=  f.text_field :address, placeholder: 'Ingrese la dirección', id: 'address', class: 'form-control'  %>
-        <br>
-        <%=  f.hidden_field :longitude, as: :hidden, id: 'longitude' %>
-        <%=  f.hidden_field :latitude, as: :hidden, id: 'latitude' %>
-        <%= build_map 'map', { width: '100%', height: '273px', latitude: @current_supplier.latitude, longitude: @current_supplier.longitude } %>
-        <small> * Ingrese su dirección o haga click sobre el mapa </small>
-      </fieldset>
-    </div>
-  </div>
-
-    
-    <div class="row">
-      <div class="col-md-5">
-        <fieldset class="form-group">
-          <%= f.label :telephone %>
-          <%= f.text_field :telephone, class: 'form-control' %>
-        </fieldset>
-      </div>
-      <div class="col-md-7">
-        <fieldset class="form-group">
-          <%= f.label :email %>
-          <%= f.text_field :email, class: 'form-control' %>
-        </fieldset>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="col-md-12">
-        <%= f.label :vademecum_ids, 'Vademecums' %>
-        <%= f.select :vademecum_ids, Vademecum.all.map{|v| [v.name, v.id]},
-                {}, {multiple: :multiple, class: 'form-control select2'} %>
-      </div>
-    </div>
-    
-    
-    <div class="row">
-      <div class="col-md-12"><h4> Puntos por producto </h4></div>
-      <div class="col-md-7"> <%= label_tag :supplier_point_products, 'Producto' %> </div>
-      <div class="col-md-3"> <%= label_tag :supplier_point_products, 'Puntos' %> </div>
-    </div>
-    
-    <div class="row">
-      <div class="col-md-12">
-        <div id="js-supplier-point-products" class="supplier_point_products form-group">
-          <%= f.fields_for :supplier_point_products do |p| %>
-            <%= render 'supplier_point_product_fields', f: p %>
-          <% end %>
-          <div class="links">
-            <%= link_to_add_association 'Nuevo', f, :supplier_point_products, class: 'btn btn-default' %>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit 'Guardar prestador', class: 'btn btn-primary', data: { 'disable-with' => 'Cargando...' } %>
-  </div>
-<% end %>
-
-</section>
-</article>
-</div>
 </div>

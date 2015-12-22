@@ -1,5 +1,5 @@
 module Plenario
   class Application
-    VERSION = '0.1'
+    VERSION = '0.6'
   end
 end
