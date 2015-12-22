@@ -129,7 +129,7 @@ class AuthorizationFromSale
     with_discount = 0
     without_discount = amount
     unless period_product.nil?
-      remaining = get_remaining_amount(period_product)      
+      remaining = get_remaining_amount(period_product, amount)      
       if remaining >= amount
         with_discount = amount
       else
@@ -141,7 +141,7 @@ class AuthorizationFromSale
     [with_discount, without_discount]
   end
   
-  def get_remaining_amount(period_product)
+  def get_remaining_amount(period_product, amount)
     #Si en el pfpc está marcada la opción de descontar siempre, la cantidad con descuento es igual a lo que quiere comprar
     if period_product.service.always_discount?
       amount

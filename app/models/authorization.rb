@@ -25,8 +25,8 @@ class Authorization < ActiveRecord::Base
   belongs_to :client, class_name: 'User', foreign_key: 'client_id'
 
   # -- Validations
-  # validates :seller, presence: true
-  # validates :client, presence: true
+  validates :seller, presence: true
+  validates :client, presence: true
 
   # -- Methods
   def total

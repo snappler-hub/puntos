@@ -29,8 +29,8 @@ class Sale < ActiveRecord::Base
   after_save :update_services
 
   # -- Validations
-  # validates :seller, presence: true
-  # validates :client, presence: true
+  validates :seller, presence: true
+  validates :client, presence: true
 
   # -- Methods
   def total
