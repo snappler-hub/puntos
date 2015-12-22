@@ -59,8 +59,6 @@ class PfpcPeriod < ActiveRecord::Base
       }
     }
     new_period.period_products.create(service_products)
-    self.status = :accomplished
-    self.save
   end
 
   # Reinicio el período reseteando los días y pongo el estado En Curso

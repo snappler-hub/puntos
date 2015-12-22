@@ -86,6 +86,7 @@ def change_state(state)
   when 'requested'
     update(state: 'requested')
     reward_order_items.each(&:change_stock)
+    self.user.decrease_points(self.total_need_points)
   when 'incoming'
     update(state: 'incoming')
   when 'ready'

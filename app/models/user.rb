@@ -56,6 +56,7 @@ class User < ActiveRecord::Base
   has_many :pfpc_services
   has_many :sales, foreign_key: :seller_id
   has_many :points_services
+  has_many :points_periods, through: :points_services, source: :periods
 
   # -- Validations
   validates :first_name, :last_name, :supplier, :document_type, :document_number, presence: true
@@ -109,12 +110,30 @@ class User < ActiveRecord::Base
     self.save
   end
 
-  def redeem_points
-
-  end
-
   def has_points_service?
     points_services.count > 0 && points_services.first.in_progress?
+  end
+  
+  def active_points_service
+    self.points_services.in_progress.first
+  end
+  
+  # Resta los puntos del usuario. Va sacando los disponibles
+  # desde el período más viejo al más nuevo.
+  def decrease_points(points)
+    return false unless self.cache_points >= points # Alcanzan los puntos?
+    
+    periods = self.points_periods.where('points_periods.available > 0').order('points_periods.end_date')
+    periods.each do |period|
+      if period.available >= points
+        period.update_attribute(:available, period.available-points)
+        points = 0
+        break
+      else
+        points -= period.available
+        period.update_attribute(:available, 0)
+      end
+    end
   end
 
 end

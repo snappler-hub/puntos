@@ -37,7 +37,21 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  
+  test "decrease user and services points" do
+    service = services(:points)
+    service.run_callbacks(:create)
+    period = service.last_period
+    
+    assert_not period.can_renew?
+    
+    period.accumulated = period.amount
+    period.save
+    assert period.can_renew?
+    
+    assert_difference('PointsPeriod.count', 1) do
+      period.renew
+    end
+  end
+  
 end
