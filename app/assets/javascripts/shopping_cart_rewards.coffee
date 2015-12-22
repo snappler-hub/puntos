@@ -7,6 +7,9 @@ class App.ShoppingCartRewardForm
   bindEvents: () ->
     that = @
     $("#reward_service_types").normalSelect()
+    
+    $(".reward_shop_cart_control a").bind "ajax:complete", ->
+      $('.reward_shop_cart_control .fa-spin').remove()
 
   $(document).on 'click', '.reward-info', ->
     item = $(this).parent().parent()
@@ -22,6 +25,10 @@ class App.ShoppingCartRewardForm
     $('.reward_shop_cart_control a').attr 'disabled', 'disabled'
     $(this).parent().prepend '<i class="fa fa-2x text-gray fa-cog fa-spin"></i>'
     return
+    
+  
+                     
+  
 
 App.ShoppingCartReward = 
   calculate_totals: ->
