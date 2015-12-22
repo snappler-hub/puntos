@@ -1,0 +1,7 @@
+$("#<%= dom_id(@commentable, 'comments-list') %>").append("<%= escape_javascript(render @comments).html_safe %>");
+
+<% unless @comments.last_page? %>
+  $("#<%= dom_id(@commentable, 'comments') %> .comments-pagination ").replaceWith("<%= j link_to_next_page @comments, 'Siguiente', class: 'btn btn-default comments-pagination', remote: true %>");
+<% else %>
+  $("#<%= dom_id(@commentable, 'comments') %> .comments-pagination").remove();
+<% end %>

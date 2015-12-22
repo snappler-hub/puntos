@@ -1,0 +1,3 @@
+$("#<%= dom_id(@commentable, 'remove-comments') %>").remove();
+$("#<%= dom_id(@commentable, 'comments-form') %>").trigger("reset");
+$("#<%= dom_id(@commentable, 'comments') %>").prepend("<%= escape_javascript(render @comment).html_safe %>");

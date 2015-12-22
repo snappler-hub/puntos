@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: product_pfpcs
+#
+#  id         :integer          not null, primary key
+#  product_id :integer
+#  service_id :integer
+#  amount     :integer          not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one: 
+  product: one
+  service: pfpc
+  amount: 10
+
+two: 
+  product: two
+  service: pfpc
+  amount: 20

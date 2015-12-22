@@ -1,31 +1,50 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head><%= render 'head' %></head>
-  <body class="skin-blue fixed">
-    <div class="wrapper">
+<head><%= render 'application/head' %></head>
+<body class="skin-blue fixed <%= "#{controller_name} #{action_name}" %>">
+<div class="wrapper">
 
-      <%= render 'navbar' %>
+  <%= render 'application/navbar' %>
 
-      <%= render 'side' %>
+  <%= render 'application/aside' %>
 
-      <div class="content-wrapper">
-        <section id="content-flash">
-          <%= flash_messages if flash %>
-        </section>
-        <%= yield %>
-      </div>
 
-      <footer class="main-footer">
-        <div class="pull-right hidden-xs">
+  <article class="content-wrapper">
+    <%= yield %>
+    <section id="snackbar-container">
+      <%= flash_messages if flash %>
+    </section>
+  </article>
+
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <ul class="nav navbar-nav">
+        <li class="footer-li">
+          <strong> Manes |</strong>
+        </li>
+        <li>
           <b>Version</b>
-          0.1
-        </div>
-        <strong>Manes</strong>
-      </footer>
+          <%= Plenario::Application::VERSION %>
+        </li>
+      </ul>
+    </div>
+      <span>
+        <%= link_to 'Términos de uso', terms_of_use_path, class: 'footer-link' %>
+      </span>
+  </footer>
 
-     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal_one" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
 
     </div>
+  </div>
+</div>
 
-  </body>
+<%= yield(:modals) %>
+
+</body>
 </html>

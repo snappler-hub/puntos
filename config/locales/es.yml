@@ -1,4 +1,14 @@
 es:
+  dictionary:
+    name: &first_name 'Nombre'
+    last_name: &last_name 'Apellido'
+    description: &description 'Descripción'
+    email: &email 'Correo Electrónico'
+    status: &status 'Estado'
+    phone: &phone 'Teléfono(s)'
+    address: &address 'Domicilio'
+    filter: &filter 'Filtrar'
+
   activerecord:
     models:
       User: 'Usuario'
@@ -6,20 +16,205 @@ es:
     attributes:
       supplier:
         name: 'Nombre'
-        description: 'Descripción'
+        description: *description
         active: 'Activo'
+        city: 'Localidad'
+        address: 'Dirección'
+        latitude: 'Latitud'
+        longitude: 'Longitud'
+        telephone: 'Teléfono'
+        email: 'Email'
+        points_to_client: 'Puntos a clientes'
+        points_to_seller: 'Puntos a vendedores'
       user:
-        email: 'Correo electrónico'
+        email: *email
         password: 'Contraseña'
         password_confirmation: 'Confirmación de contraseña'
         role: 'Permisos'
-        supplier: 'Prestador'
-        first_name: 'Nombre'
-        last_name: 'Apellido'
+        first_name: *first_name
+        last_name: *last_name
         created_by: 'Creado por' # TODO: No se usa
+        document_type: 'Tipo de Documento'
+        document_number: 'Nro. de Documento'
+        number: 'Número'
+        username: 'Nombre de usuario'
+        supplier: 'Prestador'
+        supplier_id: 'Prestador'
+        created_by: 'Creado por' # TODO: No se usa
+        phone: *phone
+        address: *address
+        image: 'Foto de perfil'
+      supplier_request:
+        first_name: *first_name
+        last_name: *last_name
+        document_type: Tipo de Documento
+        document_number: Nro de Documento
+        phone: *phone
+        email: *email
+        address: *address
+        notes: Notas
+        status: Estado
+        supplier_id: Prestador
+      product:
+        code: Código
+        name: Nombre
+        points: Puntos
+      reward:
+        code: Código
+        name: Nombre
+        need_points: Puntos
+        image: 'Imagen'
+        reward_kind: 'Tipo'
+        description: 'Descripción'
+        service_types: 'Servicios Aplicados'
+      service:
+        name: Nombre
+        amount: Puntos
+        days: Días
+        always_discount: Descontar siempre
+      vademecum:
+        name: Nombre
+      product_discount:
+        product_id: Producto
+        discount: Descuento
+      product_pfpc:
+        product_id: Producto
+        amount: Cantidad    
+      product_pfpcs:
+        product: Producto asociado  
+      product_discounts:
+        product: Producto
+      sale:
+        seller_id: Vendedor
+        client_id: Cliente
+      sale_product:
+        product: Producto
+        amount: Cantidad
+        cost: Costo
+        discount: Descuento
+      reward_order:
+        user_id: Usuario
+        supplier_id: Prestador
+        state: Estado
+
+  activemodel:
+    attributes:
+      supplier_filter:
+        name: 'Nombre'
+        state: *status
+        filter: 'Filtrar'
+      user_filter:
+        email: *email
+        role: 'Permisos'
+        card_number: 'Número de tarjeta'
+        document_number: 'Número de documento'
+        card_state: 'Estado de tarjeta'
+        filter: 'Filtrar'
+      supplier_request_filter:
+        status: *status
+        name: Solicitante
+        document_number: Nro de Documento
+        supplier_id: Prestador
+        filter: Filtrar
+      product_filter:
+        code: Código
+        name: Nombre
+        filter: *filter
+      reward_filter:
+        code: Código
+        name: Nombre
+        need_points: Puntos
+        reward_kind: Tipo
+      reward_order_filter:
+        code: Voucher
+        user_id: Tarjeta
+        supplier_id: Prestador
+        state: Estado
+      near_expiration_filter:
+        supplier_id: Prestador
+        date: Vencen antes de
+        filter: *filter
+      sale_filter:
+        client_id: Cliente
+        seller_id: Vendedor
+        supplier_id: Prestador
+        start_date: Fecha inicio
+        finish_date: Fecha fin
+        filter: *filter
+      user_card_form:
+        email: *email
+        password: 'Contraseña'
+        password_confirmation: 'Confirmación de contraseña'
+        role: 'Permisos'
+        first_name: *first_name
+        last_name: *last_name
+        document_type: 'Tipo de Documento'
+        document_number: 'Nro. de Documento'
+        number: 'Número'
+        username: 'Nombre de usuario'
+        supplier_id: 'Prestador'
+        phone: *phone
+        address: 'Dirección'
+        card_number: 'Número de tarjeta'
+
 
   roles:
     god: 'Dios'
     admin: 'Administrador'
     seller: 'Vendedor'
     normal_user: 'Usuario final'
+
+  supplier_request:
+    status:
+      requested: Solicitada
+      rejected: Rechazada
+      in_progress: En curso
+      emitted: Emitida
+      pre_delivered: En entrega
+      delivered: Entregada
+
+  document_types:
+    dni: 'DNI'
+    cuil: 'CUIL'
+    passport: 'Pasaporte'    
+
+  service_types:
+    points: Por Puntos
+    pfpc: PFPC
+    PfpcService: PFPC
+    PointsService: Por Puntos
+
+  reward_kinds:
+    workshop: 'Taller'
+    product: 'Productos'
+    other: 'Otros'
+
+  reward_order_states:
+    requested: 'Solicitado'
+    processing: 'Procesando'
+    incoming: 'En camino'
+    ready: 'Listo para retirarse'
+    delivered: 'Entregado'
+    not_delivered: 'No entregado'
+    canceled: 'Cancelado'
+
+
+  service_statuses:
+    pending: Pendiente
+    in_progress: En curso
+    expired: Vencido
+    closed: Cerrado Manualmente
+
+  service_periods_statuses:
+    pending: Pendiente
+    in_progress: En curso
+    expired: Vencido
+    closed: Cerrado Manualmente  
+    accomplished: Cumplido
+
+  stock_entry_codenames:
+    arqueo_negativo: 'Arqueo Negativo'
+    arqueo_positivo: 'Arqueo Positivo'
+    canjeo_premio: 'Canjeo Premio'
+    cancelado_premio: 'Cancelado Premio'
+

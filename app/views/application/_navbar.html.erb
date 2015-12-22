@@ -1,39 +1,31 @@
 <header class="main-header">
 
-  <%= link_to "Manes", root_path, class: 'logo navbar-brand' %>
+  <!-- Logo -->
+  <%= link_to root_path, class: 'logo' do %>
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>M</b></span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Manes</b></span>
+  <% end %>
 
   <!-- Header Navbar: style can be found in header.less -->
-  <nav class="navbar navbar-static-top">
+  <nav class="navbar navbar-static-top" role="navigation">
 
     <!-- Sidebar toggle button-->
-    <a href="#" class="sidebar-toggle" data-toggle="offcanvas">
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
       <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
     </a>
-    
+
     <div class="navbar-custom-menu">
-
       <ul class="nav navbar-nav">
-       
-        <% if current_user %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">              
-              <%= current_user_name %>
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-              <li><%= link_to 'Cambiar contraseña', profile_path %></li>
-              <li><%= link_to 'Cerrar sesión', logout_path, method: :delete %></li>
-            </ul>
-          </li>
-        <% else %>
-          <%= link_to 'Iniciar sesión', login_path %>
-        <% end %>
+        <%#= render 'application/navbar_mailbox' %>
 
+        <%#= render 'application/navbar_alerts' %>
+
+        <%#= render 'application/navbar_task' %>
+
+        <%= render 'application/navbar_user_profile' %>
       </ul>
-
     </div>
   </nav>
 </header>

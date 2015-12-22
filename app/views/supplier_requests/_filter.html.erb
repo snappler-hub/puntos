@@ -1,0 +1,38 @@
+<%= form_for @filter, url: [@supplier, :supplier_requests], method: :get do |f| %>
+
+  <div class="row">
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        <%= f.label :status %>
+        <%= f.select :status, SupplierRequest.statuses.keys.map { |s| [I18n.t("supplier_request.status.#{s}"),s] },
+          {include_blank: true}, {class: 'form-control'} %>
+      </fieldset>
+    </div>
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, {class: 'form-control'} %>
+      </fieldset>
+    </div>
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        <%= f.label :supplier_id %>
+        <%= f.collection_select :supplier_id, Supplier.all,
+            :id, :name, {include_blank: true}, {class: 'form-control'} %>
+      </fieldset>
+    </div>
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        <%= f.label :document_number %>
+        <%= f.text_field :document_number, {class: 'form-control'} %>
+      </fieldset>
+    </div>
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <%= f.label :filter, '' %><br />
+        <%= f.submit 'Filtrar', class: 'btn btn-primary', 'data-disable-with' => 'Filtrando...' %>
+      </fieldset>
+    </div>
+  </div>
+
+<% end %>

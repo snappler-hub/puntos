@@ -10,19 +10,24 @@
 
   <% if logged_in? %>
     Usted inició sesión como <strong><%= current_user_name %></strong>
-    <br /><br /><br />
-    <%= link_to 'Continuar usando la aplicación', current_user_path, class: 'btn btn-block btn-lg btn-success' %>
+    <br /><br />
+    <% if current_user.supplier.active? %>
+      <br />
+      <%= link_to 'Continuar usando la aplicación', current_user_path, class: 'btn btn-block btn-lg btn-success' %>
+    <% else %>
+      <h5>Usted no posee permisos para operar en el sistema ya que su prestador está inactivo</h5>
+    <% end %>
     <%= link_to 'Cerrar sesión', logout_path, method: :delete, class: 'btn btn-block btn-lg btn-danger' %>
   <% else %>
     <%= form_tag sessions_path do %>
       <div class="form-group has-feedback">
         <%= label_tag :email %><br />
-        <%= text_field_tag :email, nil, class: 'form-control' %>
+        <%= email_field_tag :email, nil, class: 'form-control', required: true %>
       </div>
   
       <div class="form-group has-feedback">
         <%= label_tag :password %><br />
-        <%= password_field_tag :password, nil, class: 'form-control' %>
+        <%= password_field_tag :password, nil, class: 'form-control', required: true %>
       </div>
   
       <div class="actions">

@@ -1,0 +1,33 @@
+# == Schema Information
+#
+# Table name: points_periods
+#
+#  id          :integer          not null, primary key
+#  service_id  :integer
+#  start_date  :date
+#  end_date    :date
+#  status      :integer          default(0)
+#  amount      :integer          default(0)
+#  accumulated :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  available   :integer          default(0)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  service_id: 
+  start_date: 2015-11-25
+  end_date: 2015-11-25
+  status: 0
+  amount: 
+  accumulated:
+
+two:
+  service_id: 
+  start_date: 2015-11-25
+  end_date: 2015-11-25
+  status: 0
+  amount: 
+  accumulated:

@@ -1,0 +1,85 @@
+<ul class="sidebar-menu">
+  <li class="header">Opciones</li>
+
+  <% if seller? %>
+      <%= side_link 'Nueva venta', [:new, @supplier, current_user, :sale], 'plus text-green' %>
+  <% end %>
+
+  <%= side_link 'Panel', admin_path, 'cog' %>
+
+
+  <li class="treeview">
+    <a href="#">
+      <i class="fa fa-fw fa-gift"></i> <span>Premios y puntos</span>
+      <i class="fa fa-fw fa-angle-left pull-right"></i>
+    </a>
+    <ul class="treeview-menu">
+
+      <%= side_link 'Admin. Catalogo de Premios', rewards_path, 'gift' if god? %>
+
+      <%= side_link 'Catálogo de Premios', list_shopping_cart_rewards_path, 'gift' %>
+
+      <%= side_link 'Canjes realizados', reward_orders_path, 'cubes' %>
+
+    </ul>
+  </li>
+
+
+  <li class="treeview">
+    <a href="#">
+      <i class="fa fa-fw fa-shopping-cart"></i> <span>Ventas</span>
+      <i class="fa fa-fw fa-angle-left pull-right"></i>
+    </a>
+    <ul class="treeview-menu">
+      <%= side_link 'Todas las Ventas', [@supplier, current_user, :sales], 'search' %>
+
+      <%= side_link 'Nueva', [:new, @supplier, current_user, :sale], 'plus text-green' %>
+
+    </ul>
+  </li>
+
+
+  <% if god? %>
+
+      <%= side_link 'Prestadores', suppliers_path, 'plus text-building' %>
+
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-fw fa-bullseye"></i> <span>Productos</span>
+          <i class="fa fa-fw fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <%= side_link 'Listado de Productos', products_path %>
+          <%= side_link 'Vademecums', vademecums_path %>
+        </ul>
+      </li>
+  <% elsif supplier? %>
+      <%= side_link 'Prestador', current_user.supplier, 'square' %>
+  <% end %>
+
+  <% if god? || supplier? %>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-fw fa-users"></i> <span>Usuarios y Servicios</span>
+          <i class="fa fa-fw fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <% if god? %>
+              <%= side_link 'Todos los usuarios', users_path, 'users' %>
+
+              <%= side_link 'Todas las solicitudes', supplier_requests_path, 'file-text-o' %>
+
+              <%= side_link 'Servicios próximos a vencer', near_expiration_services_path, 'users' %>
+          <% elsif supplier? %>
+              <%= side_link 'Usuarios', [current_user.supplier, :users], 'users' %>
+
+              <%= side_link 'Solicitudes', [current_user.supplier, :supplier_requests], 'file-text-o' %>
+
+              <%= side_link 'Servicios próximos a vencer', [:near_expiration, current_user.supplier, :services], 'users' %>
+          <% end %>
+        </ul>
+      </li>
+  <% end %>
+
+</ul>

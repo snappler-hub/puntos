@@ -1,0 +1,105 @@
+<div class="row">
+  <div class="col-md-6">
+    <article class="box box-primary">
+      <section class="box-body">
+
+        <%= form_for(@reward) do |f| %>
+        <% @reward.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+        <% end %>
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <fieldset class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: 'form-control', required: true %>
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <fieldset class="form-group">
+              <%= f.label :code %>
+              <%= f.text_field :code, class: 'form-control', required: true %>
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <fieldset class="form-group">
+              <%= f.label :need_points %>
+              <%= f.number_field :need_points, class: 'form-control', required: true %>
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <fieldset class="form-group">
+              <%= f.label :reward_kind %>
+              <%= f.select :reward_kind,
+              Reward::REWARD_KINDS.map{|kind| [t("reward_kinds.#{kind}"), kind]},
+              {}, {class: 'form-control'} %>
+            </fieldset>
+          </div>
+        </div>
+
+        <fieldset class="form-group">
+          <%= f.label :service_types %>
+          <%= f.select :service_types,
+          Service::TYPES.map{|type| [t("service_types.#{type}"), type]},
+          {}, {multiple: :multiple, class: 'form-control select2'} %>
+        </fieldset>
+        
+
+        <fieldset class="form-group">
+          <%= f.label :description %>
+          <%= f.text_area :description, class: 'form-control' %>
+        </fieldset>
+
+
+        <fieldset class="form-group">
+          <%= f.label :image %>
+          <%= image_tag @reward.image.thumb('100x200').url, class: :thumbnail if @reward.image %>
+          <% if @reward.image %>
+          <%= f.check_box :remove_image %> <%= f.label :remove_image, 'Remover foto' %>
+          <% end %>
+          <%= f.file_field :image %>
+          <p class="help-block">
+            <%= @reward.image ? 'Click para cambiar la foto' : 'Seleccione una fotografía' %>
+          </p>
+        </fieldset>
+
+
+        <div class="actions">
+          <%= f.submit 'Guardar premio', class: 'btn btn-primary', data: { 'disable-with' => 'Cargando...' } %>
+        </div>
+        <% end %>
+
+      </section>
+    </article>
+  </div>
+
+
+  <% unless @reward.get_stock.nil? %>
+    <div class="col-md-6">
+
+      <article class="box box-primary">
+        <section class="box-body">
+          <div class="row" style="border-bottom: 2px solid #eee; padding-bottom: 10px;">
+            <div class="col-xs-6">
+              <b>Stock Actual:</b> <span id="real_stock_container"><%= @reward.real_stock.to_i %></span>
+            </div>
+            <div class="col-xs-6 text-right">
+              <b style="margin-right: 8px;">Arqueo Stock</b>
+              <a href="javascript:;" class="btn btn-default btn-xs js-down_stock" data-id="<%= @reward.id %>"><i class="text-danger fa fa-minus fa-fw" ></i></a>
+              <a href="javascript:;" class="btn btn-default btn-xs js-up_stock" data-id="<%= @reward.id %>"><i class="text-primary fa fa-plus fa-fw" ></i></a>
+            </div>
+          </div>
+
+        
+          <ul id="stock_entries" class="timeline" style="padding-bottom: 15px; padding-top: 15px; margin-bottom: 15px; margin-top: 15px;">
+            <%= render partial: "stock_entry", collection: @reward.get_stock.stock_entries.reverse, as: :stock_entry %>
+            <li><i class="fa fa-clock-o bg-gray"></i></li>
+          </ul>
+        </section>
+      </article>
+
+
+    </div>
+  <% end %>
+</div>

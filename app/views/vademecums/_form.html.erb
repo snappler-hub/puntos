@@ -1,0 +1,43 @@
+<div class="row">
+<div class="col-md-8">
+<article class="box box-primary">
+<section class="box-body">
+
+<%= form_for(@vademecum) do |f| %>
+  <% @vademecum.errors.full_messages.each do |message| %>
+    <p class="text-danger"><%= message %></p>
+  <% end %>
+
+  <fieldset class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control', required: true %>
+  </fieldset>
+  
+  <div class="row">
+    <div class="col-md-5">
+      <h4> Prestadores </h4>
+      <%= f.select :supplier_ids, Supplier.all.map{|s| [s.name, s.id]}, {}, {multiple: :multiple, class: 'form-control select2'} %>
+    </div>
+  </div>
+  
+  <div class="product_discounts form-group">
+    <h4> Descuentos </h4>
+    <%= f.fields_for :product_discounts do |p| %>
+      <%= render 'product_discount_fields', f: p %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association 'Nuevo Producto', f,
+          :product_discounts, class: 'btn btn-default' %>
+    </div>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit 'Guardar Vademecum', class: 'btn btn-primary',
+        data: {'disable-with' => 'Cargando...'} %>
+  </div>
+<% end %>
+
+</section>
+</article>
+</div>
+</div>

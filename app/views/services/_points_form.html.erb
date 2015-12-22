@@ -1,0 +1,27 @@
+<div class="row">
+  <fieldset class="form-group col-md-3">
+    <%= f.label :amount %>
+    <%= f.number_field :amount, class: 'form-control', required: true %>
+  </fieldset>
+
+  <fieldset class="form-group col-md-3">
+    <%= label_tag 'Períodos en vencer' %>
+    <%= number_field_tag :period_count, '1', id: 'js-periodCount', class: 'form-control', required: true %>
+  </fieldset>
+
+  <fieldset class="form-group col-md-3">
+    <%= label_tag 'Días en vencer' %>
+    <p id="js-pointsExpirationVisible" class="form-control-static">1</p>
+    <%= hidden_field_tag :days_to_points_expiration, '', id: 'js-pointsExpiration', required: true %>
+  </fieldset>
+
+</div>
+
+<%= content_for(:form_help) do %>
+    <div class="callout callout-warning">
+      <h4>Notas</h4>
+      <p>
+        Se podrán crear varios servicios de puntos para un usuario pero sólo se podrá tener un único servicio activo.
+      </p>
+    </div>
+<% end %>

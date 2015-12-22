@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-md-9">
+    <article class="box box-primary">
+      <section class="box-body">
+
+        <%= form_for(@product) do |f| %>
+            <% @product.errors.full_messages.each do |message| %>
+                <p><%= message %></p>
+            <% end %>
+
+            <fieldset class="form-group">
+              <%= f.label :code %>
+              <%= f.text_field :code, class: 'form-control', required: true %>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: 'form-control', required: true %>
+            </fieldset>
+
+            <div class="row">
+              <fieldset class="form-group col-md-4">
+                <%= f.label :points %>
+                <%= f.number_field :points, class: 'form-control', required: true %>
+              </fieldset>
+            </div>
+
+            <div class="row">
+              <div class="col-md-7"> <%= label_tag :supplier_point_products, 'Prestador' %> </div>
+              <div class="col-md-3"> <%= label_tag :supplier_point_products, 'Puntos' %> </div>
+            </div>
+
+            <div class="supplier_point_products form-group">
+              <%= f.fields_for :supplier_point_products do |p| %>
+                  <%= render 'supplier_point_product_fields', f: p %>
+              <% end %>
+              <div class="links">
+                <%= link_to_add_association 'Nuevo', f, :supplier_point_products, class: 'btn btn-default' %>
+              </div>
+            </div>
+
+            <div class="actions">
+              <%= f.submit 'Guardar producto', class: 'btn btn-primary', data: {'disable-with' => 'Cargando...'} %>
+            </div>
+        <% end %>
+
+      </section>
+    </article>
+  </div>
+  <div class="col-md-3">
+
+    <div class="callout callout-warning">
+      <h4>Notas</h4>
+
+      <p>Recuerde que los <b>Puntos</b> especificados funcionan a nivel global y que luego puede crear puntos
+        específicos para un prestador determinado.</p>
+    </div>
+
+  </div>
+</div>

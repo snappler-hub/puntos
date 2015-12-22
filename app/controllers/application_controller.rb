@@ -2,14 +2,21 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-
+  
+  helper_method :current_shop_cart
   before_filter :require_login
+  before_filter :should_accept_terms_of_use!
+  before_filter :supplier_is_active!
 
   def admin
+    # flash[:notice] = 'Probando Snackbar.'
+    authorize! can_admin?
   end
 
-  def index
+  def current_shop_cart
+    ShopCart::new(session)
   end
+  
 
   private
 
@@ -33,26 +40,63 @@ class ApplicationController < ActionController::Base
     redirect_to login_path
   end
 
-  def is?(role)
-    logged_in? && current_user.is?(role)
+  def god?
+    is? :god
+  end
+
+  def normal_user?
+    is? :normal_user
   end
 
   def admin_permission?
     if @supplier
-      is?(:admin) && (current_user.supplier == @supplier) || is?(:god)
+      is?(:admin) && (current_user.supplier == @supplier) || is?(:seller) && (current_user.supplier == @supplier) || is?(:god)
     else
       is?(:god)
     end
   end
 
   def current_user_path
-    case current_user.role
-      when 'god'    then suppliers_path
-      when 'admin'  then current_user.supplier || root_path
-      when 'seller' then root_path
-      else root_path
+    case current_user.role      
+    when 'god'    then suppliers_path
+    when 'admin'  then current_user.supplier || admin_path
+    when 'seller' then admin_path
+    else root_path
     end
   end
   helper_method :current_user_path
 
+  def can_admin?
+    is?(:god) || is?(:admin) || is?(:seller)
+  end
+  helper_method :can_admin?
+
+  def is?(role)
+    logged_in? && current_user.is?(role)
+  end
+  
+  def should_accept_terms_of_use!
+    if should_accept_terms_of_use?
+      redirect_to terms_of_use_path
+    end
+  end
+  
+  def should_accept_terms_of_use?
+    logged_in? && current_user.card_number && !current_user.terms_accepted?
+  end
+  helper_method :should_accept_terms_of_use?
+  
+  def supplier_is_active!
+    if is?(:admin) || is?(:seller)
+      unless supplier_is_active?
+        redirect_to login_path
+      end
+    end
+  end
+  
+  def supplier_is_active?
+     current_user.supplier.active?
+  end
+  helper_method :supplier_is_active_for_administration?
+  
 end

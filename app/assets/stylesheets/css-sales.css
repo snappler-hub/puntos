@@ -1,0 +1,12 @@
+.css-sales-btnDelete {
+  margin-top: 25px;
+}
+
+/*Para que el close de selec2-bootstrap quede centrado*/
+.select2-search-choice-close {
+  top: 50% !important;
+}
+
+.datepicker {
+  padding-top: 0px;
+}

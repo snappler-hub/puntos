@@ -1,0 +1,35 @@
+<li>
+<% case stock_entry.codename %>
+<% when 'arqueo_negativo' %>
+  <i class="fa fa-minus bg-red"></i>
+<% when 'arqueo_positivo' %>
+  <i class="fa fa-plus bg-blue"></i>
+<% when 'canjeo_premio' %>
+  <i class="fa fa-gift bg-green"></i>
+<% when 'cancelado_premio' %>
+  <i class="fa fa-gift bg-yellow"></i>      
+<% end %>
+
+
+  <div class="timeline-item">
+
+    <span class="time"><i class="fa fa-calendar-o"></i> <%= stock_entry.created_at.strftime("%d/%m/%Y %T") %></span>
+
+    <h3 class="timeline-header text-left">
+    	<%= t stock_entry.codename, scope: 'stock_entry_codenames' %>
+    	<span class="badge"><%= stock_entry.amount.to_i %></span>
+    </h3>
+
+    <div class="timeline-body">
+
+    <% if ['canjeo_premio', 'cancelado_premio'].include?(stock_entry.codename) %>
+    	<% reward_order = stock_entry.owner.reward_order %>
+      <%= link_to "Voucher #{reward_order.code}", reward_order, class: '', target: '_blank' %>
+    <% else %>
+      <%= stock_entry.observation %>
+    <% end %>
+
+    </div>
+  </div>
+</li>
+

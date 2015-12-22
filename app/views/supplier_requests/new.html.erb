@@ -1,0 +1,9 @@
+<header class="content-header">
+  <%= link_to 'Volver', [@supplier, :supplier_requests],
+      class: 'btn btn-default pull-right' %>
+  <h1>Nueva Solicitud</h1>
+</header>
+
+<section id="request-form" class="content">
+  <%= render 'form' %>
+</section>

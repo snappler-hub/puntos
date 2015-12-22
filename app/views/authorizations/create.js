@@ -1,0 +1,1 @@
+$('#js-authorization').replaceWith('<%= j render partial: "authorization", locals: { authorization: @authorization, supplier: @supplier } %>');

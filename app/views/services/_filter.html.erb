@@ -1,0 +1,25 @@
+<%= form_for @filter, url: [:near_expiration, current_user.supplier, :services], method: :get do |f| %>
+
+  <div class="row">
+    <div class="col-md-4">
+      <fieldset class="form-group">
+        <%= f.label :supplier_id %>
+        <%= f.collection_select :supplier_id, Supplier.all,
+            :id, :name, {include_blank: true}, {class: 'form-control'} %>
+      </fieldset>
+    </div>
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <%= f.label :date %>
+        <%= f.text_field :date, { type: :date, class: 'form-control' } %>
+      </fieldset>
+    </div>
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        <%= f.label :filter %><br />
+        <%= f.submit 'Filtrar', class: 'btn btn-primary', data: { 'disable-with' => 'Filtrando' } %>
+      </fieldset>
+    </div>
+  </div>
+
+<% end %>

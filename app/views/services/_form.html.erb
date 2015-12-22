@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-9">
+    <article class="box box-primary">
+      <section class="box-body">
+
+      <%= form_for [@user, @service] do |f| %>
+        <% @service.errors.full_messages.each do |message| %>
+          <p class="text-danger"><%= message %></p>
+        <% end %>
+  
+        <%= f.hidden_field :type %>
+
+        <div class="row">
+          <fieldset class="form-group col-md-10">
+            <%= f.label :name %>
+            <%= f.text_field :name, class: 'form-control', required: true %>
+          </fieldset>
+    
+          <fieldset class="form-group col-md-2">
+            <%= f.label :days %>
+            <%= f.number_field :days, id: 'js-daysPerPeriod', class: 'form-control', required: true %>
+          </fieldset>
+        </div>
+
+        <% if @service.is_a?(PfpcService) %>
+          <%= render 'pfpc_form', f: f %>
+        <% else %>
+          <%= render 'points_form', f: f %>
+        <% end %>
+
+        <div class="actions">
+          <%= f.submit 'Guardar servicio', class: 'btn btn-primary', data: { 'disable-with' => 'Cargando...' } %>
+        </div>
+      <% end %>
+
+      </section>
+    </article>
+  </div>
+  
+  <% if content_for?(:form_help) %>
+    <div class="col-md-3">
+      <%= yield :form_help %>
+    </div>
+  <% end %>
+  
+</div>

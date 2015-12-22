@@ -1,0 +1,89 @@
+<header class="content-header">
+
+  <% if (@reward_order.requested? && current_user == @reward_order.user) || god? %>
+      <%= link_to '<i class="fa fa-trash"></i> Eliminar'.html_safe, @reward_order, method: :delete, data: {confirm: '¿Está seguro?'}, class: 'btn btn-danger pull-right' %>
+  <% end %>
+
+  <%= link_to '<i class="fa fa-print"></i> Imprimir'.html_safe, voucher_pdf_reward_order_path(@reward_order), class: 'btn btn-info pull-right', style: 'margin-right:5px;' %>
+
+  <%= link_to 'Volver', reward_orders_path, class: 'btn btn-default pull-right', style: 'margin-right:5px;' %>
+
+
+  <h1>Pedido <b><%= @reward_order.code %></b></h1>
+</header>
+
+<section class="content">
+
+  <%= form_for(@reward_order) do |f| %>
+      <% @reward_order.errors.full_messages.each do |message| %>
+          <p><%= message %></p>
+      <% end %>
+
+      <div class="row">
+        <div class="col-md-8">
+
+          <article class="box box-primary">
+            <section class="box-body">
+
+              <table class="table table-striped vertical-align-middle">
+                <thead>
+                <tr>
+                  <th colspan="2">Premio</th>
+                  <th class="text-center">Puntos</th>
+                  <th class="text-center">Cantidad</th>
+                  <th class="text-center">Subtotal</th>
+                </tr>
+                </thead>
+                <tbody id="products">
+
+                <% @reward_order.reward_order_items.each do |item| %>
+                    <% reward = item.reward %>
+                    <tr class="tr-link shop_cart_item">
+                      <td><%= image_tag reward.image.thumb('100x200').url, class: 'img-thumbnail' %></td>
+                      <td class="white-space-nowrap"><%= reward.name %></td>
+                      <td class="text-center"><%= item.need_points %></td>
+                      <td class="text-center"><%= item.amount %></td>
+                      <td class="text-center"><%= item.total_need_points %></td>
+                    </tr>
+                <% end %>
+
+                <tr class="totales success">
+                  <td colspan="3"><h3 style="margin-top: 10px;"><b>Totales</b></h3></td>
+                  <td class="text-center"><h3 style="margin-top: 10px;"><b><%= @reward_order.total_amount %></b></h3>
+                  </td>
+                  <td class="text-center">
+                    <h3 style="margin-top: 10px;"><b><%= @reward_order.total_need_points %></b></h3></td>
+                </tr>
+                </tbody>
+              </table>
+            </section>
+          </article>
+        </div>
+
+        <div class="col-md-4">
+          <article class="box box-primary">
+            <section class="box-body">
+
+              <fieldset class="form-group">
+                <%= f.label :supplier_id %>
+                <p class="form-control-static"><%= @reward_order.supplier %></p>
+              </fieldset>
+
+              <fieldset class="form-group">
+                <%= f.label :user_id %>
+                <p class="form-control-static"><%= @reward_order.user %></p>
+              </fieldset>
+
+              <fieldset class="form-group">
+                <%= f.label :state %>
+                <p class="form-control-static"><%= t @reward_order.state, scope: :reward_order_states %></p>
+              </fieldset>
+
+              <%= image_tag @reward_order.qr_code.url %>
+
+            </section>
+          </article>
+        </div>
+      </div>
+  <% end %>
+</section>

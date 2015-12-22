@@ -1,0 +1,36 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<h3 class="modal-title"> <small> Edición de Puntos </small> </h3>
+</div>
+
+<%= form_tag update_points_user_path(@user), method: :put do |f| %>
+  
+  <div class="modal-body">
+
+	  <%= hidden_field_tag :id, @user.id  %>
+
+    <p>
+      Ingrese el valor a incrementar o decrementar sobre los puntos del usuario. Para aplicar
+      un decremento ingrese un valor negativo.
+    </p>
+
+  	<div class="row">
+  		<div class="col-md-6">
+  			<div class="form-group">
+  				<label class="control-label">Incremento / Decremento de Puntos</label>
+  				<%= number_field_tag :points_value, 0, class: 'form-control', required: true %>
+  			</div>
+  		</div>
+  	</div>
+
+  </div>
+
+  <div class="modal-footer">
+  	<div class="actions">
+  		<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+  		<%= button_tag('Guardar', type: 'submit', class: "btn btn-success btn-ok", data: {'disable-with' => 'Guardando'}) %>
+  	</div>
+  </div>
+
+<% end %>
+

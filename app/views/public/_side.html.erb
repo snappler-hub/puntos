@@ -1,0 +1,29 @@
+<ul class="sidebar-menu">
+
+  <li class="header">Opciones</li>
+  
+  <%= side_link 'Inicio', root_path, 'home' %>
+  
+  <%= side_link 'Mi Ficha', current_user, 'user' %>
+  
+  <%= side_link 'Términos de uso', terms_of_use_path, 'legal' %>
+
+
+  <li class="treeview">
+    <a href="#">
+      <i class="fa fa-fw fa-gift"></i> <span>Premios</span> <i class="fa fa-fw fa-angle-left pull-right"></i>
+    </a>
+    <ul class="treeview-menu">
+
+      <%= side_link 'Catálogo de Premios', list_shopping_cart_rewards_path, 'gift' %>
+
+      <%= side_link 'Canjes realizados', reward_orders_path, 'cubes' %>
+
+    </ul>
+  </li>
+
+
+  <%= side_link 'Mis compras', my_purchases_path, 'shopping-cart' %>
+  
+
+</ul>

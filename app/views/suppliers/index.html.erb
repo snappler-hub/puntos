@@ -6,13 +6,17 @@
 
 <!-- Main content -->
 <section class="content">
+<article class="box box-primary">
+<section class="box-body">
+
+  <%= render 'filter' %>
 
   <table class="table">
     <thead>
       <tr>
         <th>Nombre</th>
         <th>Activo</th>
-        <th colspan="3"></th>
+        <th></th>
       </tr>
     </thead>
   
@@ -21,4 +25,8 @@
     </tbody>
   </table>
 
+  <%= paginate @suppliers %>
+
+</section>
+</article>
 </section>

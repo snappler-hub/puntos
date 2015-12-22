@@ -6,7 +6,8 @@ class SuppliersController < ApplicationController
   # GET /suppliers
   # GET /suppliers.json
   def index
-    @suppliers = Supplier.all
+    @filter = SupplierFilter.new(filter_params)
+    @suppliers = @filter.call.page(params[:page])
   end
 
   # GET /suppliers/1
@@ -16,11 +17,12 @@ class SuppliersController < ApplicationController
 
   # GET /suppliers/new
   def new
-    @supplier = Supplier.new
+    @current_supplier = Supplier.new
   end
 
   # GET /suppliers/1/edit
   def edit
+    @current_supplier = Supplier.find(params[:id])
   end
 
   # POST /suppliers
@@ -62,6 +64,16 @@ class SuppliersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  # GET /suppliers/list_for_map
+  def list_for_map
+    @suppliers = Supplier.with_location.in_bounds([params[:sw], params[:ne]])
+    @center_point = Geocoder::Calculations.geographic_center(@suppliers)
+    
+    respond_to do |format|
+      format.js
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -72,9 +84,15 @@ class SuppliersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def supplier_params
       if god?
-        params.require(:supplier).permit(:name, :description, :active)
+        params.require(:supplier).permit(:name, :description, :active, :address, :latitude, :longitude, :telephone, :email, :points_to_client, :points_to_seller, :contact_info,
+            supplier_point_products_attributes: [:id, :points, :product_id, :_destroy],
+            vademecum_ids: [])
       else
         params.require(:supplier).permit(:name, :description)
       end
+    end
+
+    def filter_params
+      params.require(:supplier_filter).permit(:name, :state) if params[:supplier_filter]
     end
 end

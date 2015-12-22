@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: products
+#
+#  id         :integer          not null, primary key
+#  code       :string(255)      not null
+#  name       :string(255)      not null
+#  points     :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  barcode    :string(255)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: 3123213
+  name: Bayaspirina C
+  points: 10
+  
+two:
+  code: 111
+  name: Tafirol
+  points: 100
+  
+independent:
+  code: 3333
+  name: Sin relaciones
+  points: 0

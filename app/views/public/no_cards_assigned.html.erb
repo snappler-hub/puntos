@@ -1,0 +1,19 @@
+<header class="content-header">
+  <h1>Aún no se le asignó una tarjeta</h1>
+</header>
+
+<section class="content">
+  <h4>
+    Bienvenido <strong><%= current_user_name %></strong>.<br /><br />
+    Aún no se le asignó una tarjeta.
+    Por favor vuelva a intentar en unos minutos
+    o comuníquese con uno de nuestros operadores si el problema persiste.
+  </h4>
+
+
+  <%= link_to 'Ir a área de administración', current_user_path,
+      class: 'btn btn-block btn-lg btn-primary' if can_admin? %>
+
+  <%= link_to 'Cerrar Sesión', logout_path,
+      class: 'btn btn-block btn-lg btn-danger', method: :delete %>
+</section>

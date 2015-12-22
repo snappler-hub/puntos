@@ -2,18 +2,16 @@
 <html lang="es">
   <head><%= render 'head' %></head>
   <body class="hold-transition login-page">
-    <div class="login-box">
+    <article class="login-box">
 
-      <div class="login-box-body">
-        <section id="content-flash">
+      <section class="login-box-body">
+        <%= yield %>
+        <section id="snackbar-container">
           <%= flash_messages if flash %>
         </section>
-        <%= yield %>
-      </div>
+      </section>
 
-     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-
-    </div>
+    </article>
 
   </body>
 </html>

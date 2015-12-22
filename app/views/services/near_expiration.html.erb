@@ -1,0 +1,46 @@
+<header class="content-header">
+  <% if @supplier %>
+      <h1>Servicios por vencer de <%= @supplier.name %></h1>
+  <% else %>
+      <h1>Servicios por vencer</h1>
+  <% end %>
+</header>
+
+<!-- Main content -->
+<section class="content">
+  <article class="box box-primary">
+    <section class="box-body">
+
+      <%= render 'filter' %>
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Correo electrónico</th>
+          <th>Tipo Servicio</th>
+          <th>Servicio</th>
+          <th>Vencimiento</th>
+          <% unless @supplier %>
+              <th>Prestador</th>
+          <% end %>
+          <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <%= render partial: 'service', collection: @services, as: 'service' %>
+        </tbody>
+      </table>
+
+      <%= paginate @services %>
+
+    </section>
+  </article>
+</section>
+
+<% if @services.empty? && params[:near_expiration_filter] %>
+    <p class="text-center text-muted lead">
+      No se encontraron resultados
+    </p>
+<% end %>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><%= render 'application/head' %></head>
+<body class="skin-green fixed <%= "#{controller_name} #{action_name}" %>">
+<div class="wrapper">
+
+  <%= render 'application/navbar' %>
+
+  <aside class="main-sidebar">
+    <section class="sidebar">
+      <%= render 'public/side' %>
+    </section>
+  </aside>
+
+  <div class="content-wrapper">
+    <%= yield %>
+    <section id="snackbar-container">
+      <%= flash_messages if flash %>
+    </section>
+  </div>
+
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b>
+      <%= Plenario::Application::VERSION %>
+    </div>
+    <strong>Manes</strong>
+  </footer>
+
+</div>
+
+</body>
+</html>
