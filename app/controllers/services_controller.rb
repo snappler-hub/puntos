@@ -94,6 +94,11 @@ class ServicesController < ApplicationController
   def near_expiration
     @filter = NearExpirationFilter.new(filter_params)
     @services = @filter.call(@supplier).page(params[:page])
+    
+    respond_to do |format|
+      format.xlsx
+      format.html
+    end
   end
 
   # GET /services/X/history
