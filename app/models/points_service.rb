@@ -50,7 +50,7 @@ class PointsService < Service
 
   # True si no existe otro servicio de puntos activo para el usuario
   def can_be_activated?
-    !PointsService.where.not(id: self.id).exists?(user: user, status: 'in_progress')
+    !PointsService.where.not(id: self.id).exists?(user: user, status: Service.statuses['in_progress'])
   end
 
 end

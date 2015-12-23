@@ -2,59 +2,70 @@
 
   <div class="row">
 
-    <div class="col-md-10">
-
-      <div class="row">
-
-        <div class="col-md-3">
-          <fieldset class="form-group">
-            <%= f.label :code %>
-            <%= f.text_field :code, class: 'form-control' %>
-          </fieldset>
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <%= f.label :code %>
+        <%= f.text_field :code, class: 'form-control' %>
+      </fieldset>
+    </div>
+    
+    <!-- FECHAS -->
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <%= f.label :from %>
+        <div class='input-group date datepicker'>
+          <%= f.date_field :from, class: 'form-control', value: @filter.from %>
+          <span class="input-group-addon">
+            <span class="fa fa-calendar"></span>
+          </span>
         </div>
-
-        <% if god? %>
-        <div class="col-md-3">
-          <fieldset class="form-group">
-            <%= f.label :supplier_id %>
-            <%= f.collection_select :supplier_id, Supplier.all, :id, :to_s, {include_blank: 'Todos'}, {class: 'form-control'} %>
-          </fieldset>
-        </div>
-        <div class="col-md-3">
-          <fieldset class="form-group">
-            <%= f.label :user_id %>
-
-
-
-            <%= f.hidden_field :user_id, class: 'select2', data: { behavior: 'searchUser', url: search_users_path(), 'record-id' => @filter.user_id, 'record-text' => @filter.user_name} %>
-          </fieldset>
-        </div>
-        <% end %>
-
-        <% if supplier? || seller? %>
-       
-        <% end %>
-
-        <div class="col-md-3">
-          <fieldset class="form-group">
-            <%= f.label :state %>
-            <%= f.select :state,
-            RewardOrder::REWARD_ORDER_STATES.map{|state| [t("reward_order_states.#{state}"), state]},
-            {include_blank: 'Todos'}, {class: 'form-control'} %>
-          </fieldset>
-        </div>
-
-      </div>
-
+      </fieldset>
     </div>
 
+    <div class='col-md-3'>
+      <fieldset class="form-group">
+        <%= f.label :to %>
+        <div class='input-group date datepicker'>
+          <%= f.date_field :to, class: 'form-control', value: @filter.to %>
+          <span class="input-group-addon">
+            <span class="fa fa-calendar"></span>
+          </span>
+        </div>
+      </fieldset>
+    </div>
 
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <%= f.label :state %>
+        <%= f.select :state,
+        RewardOrder::REWARD_ORDER_STATES.map{|state| [t("reward_order_states.#{state}"), state]},
+        {include_blank: 'Todos'}, {class: 'form-control'} %>
+      </fieldset>
+    </div>
 
-    <div class="col-md-2">
+  </div>
+
+  <div class="row">
+    <% if god? %>
+      <div class="col-md-3">
+        <fieldset class="form-group">
+          <%= f.label :supplier_id %>
+          <%= f.collection_select :supplier_id, Supplier.all, :id, :to_s, {include_blank: 'Todos'}, {class: 'form-control'} %>
+        </fieldset>
+      </div>
+      <div class="col-md-3">
+        <fieldset class="form-group">
+          <%= f.label :user_id %>
+          <%= f.hidden_field :user_id, class: 'select2', data: { behavior: 'searchUser', url: search_users_path(), 'record-id' => @filter.user_id, 'record-text' => @filter.user_name} %>
+        </fieldset>
+      </div>
+    <% end %>
+  </div>
+
+  <center>
       <fieldset class="form-group">
         <%= f.submit 'Filtrar', class: 'btn btn-primary', style: "margin-top: 24px;", data: { 'disable-with' => 'Cargando...'} %>
       </fieldset>
-    </div>
-  </div>
+  </center>
 
   <% end %>

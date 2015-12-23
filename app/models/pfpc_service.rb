@@ -47,7 +47,7 @@ class PfpcService < Service
   # Crea un período y le asigna los productos del servicio
   def create_period_and_products
     period = self.create_period
-    service_products = self.product_pfpcs.collect { |p| {product_id: p.product_id, amount: p.amount, accumulated: 0} }
+    service_products = self.product_pfpcs.collect { |p| {product: p.product, amount: p.amount, accumulated: 0} }
     period.period_products.create(service_products)
   end
 

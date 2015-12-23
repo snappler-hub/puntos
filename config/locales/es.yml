@@ -1,4 +1,5 @@
 es:
+  success: 'Accion realizada con exito'
   dictionary:
     name: &first_name 'Nombre'
     last_name: &last_name 'Apellido'
@@ -130,6 +131,8 @@ es:
         user_id: Tarjeta
         supplier_id: Prestador
         state: Estado
+        from: Desde
+        to: Hasta
       near_expiration_filter:
         supplier_id: Prestador
         date: Vencen antes de
