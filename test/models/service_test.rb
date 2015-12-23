@@ -36,7 +36,7 @@ class ServiceTest < ActiveSupport::TestCase
     service = services(:pfpc)
     service.run_callbacks(:create)
     assert_not_nil service.last_period
-    assert_equal 2, service.last_period.period_products.count
+    assert_equal service.product_pfpcs.count, service.last_period.period_products.count
     assert_equal 'pending', service.status, service.last_period.status
     assert_equal service.last_period.start_date, Date.today
     assert_equal service.last_period.end_date, Date.today + service.days.days
