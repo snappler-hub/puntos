@@ -9,6 +9,8 @@ App.flash_snackbar_render = (flashMessages) ->
         style = 'callout callout-success'
       when 'danger'
         style = 'callout callout-danger'
+      when 'error'
+        style = 'callout callout-danger'
       else
         style = 'callout'
         break

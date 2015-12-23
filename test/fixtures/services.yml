@@ -27,4 +27,4 @@ pfpc:
   name: PFPC
   type: PfpcService
   user: final_user
-  vademecum: vademecums(:one)
+  vademecum: one

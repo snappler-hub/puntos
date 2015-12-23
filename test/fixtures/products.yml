@@ -14,19 +14,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  id: 1
   code: 3123213
   name: Bayaspirina C
   points: 10
   
 two:
-  id: 2
   code: 111
   name: Tafirol
   points: 100
   
 independent:
-  id: 3
   code: 3333
   name: Sin relaciones
   points: 0

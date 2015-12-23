@@ -46,6 +46,17 @@ class VademecumsController < ApplicationController
 
   # DELETE /vademecums/1
   def destroy
+    respond_to do |format|
+      if @vademecum.destroy
+        format.html { redirect_to vademecums_path, notice: 'El vademecum ha sido actualizado correctamente.' }
+      else
+        format.html { render :edit }
+      end
+    end
+
+
+
+
     @vademecum.destroy
     respond_to do |format|
       format.html { redirect_to vademecums_url, notice: 'El vademecum ha sido eliminado correctamente.' }

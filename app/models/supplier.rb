@@ -40,24 +40,25 @@ class Supplier < ActiveRecord::Base
 
   # -- Callbacks
   after_validation :reverse_geocode
-  
+
   # -- Scopes
   scope :active, -> { where(active: true) }
   scope :with_location, -> { where('latitude is not null and longitude is not null') }
-  
-  
+
+
   # -- Misc
-  reverse_geocoded_by :latitude, :longitude do |obj,results|
+  reverse_geocoded_by :latitude, :longitude do |obj, results|
     if geo = results.first
       obj.city = "#{geo.city}, #{geo.state}"
     end
   end
+
   acts_as_mappable default_units: :kms,
                    lat_column_name: :latitude,
                    lng_column_name: :longitude
 
   # -- Methods
-  
+
   def destroyable?
     users.empty?
   end
@@ -69,11 +70,11 @@ class Supplier < ActiveRecord::Base
   def to_s
     name
   end
-  
+
   def clients_get_points?
     points_to_client
   end
-  
+
   def sellers_get_points?
     points_to_seller
   end

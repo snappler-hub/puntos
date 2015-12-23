@@ -6,6 +6,7 @@ class VademecumsControllerTest < ActionController::TestCase
   
   setup do
     @vademecum = vademecums(:one)
+    @independent = vademecums(:independent)
     @product1 = products(:one)
     @product2 = products(:two)
     
@@ -47,7 +48,7 @@ class VademecumsControllerTest < ActionController::TestCase
 
   test "should destroy vademecum" do
     assert_difference('Vademecum.count', -1) do
-      delete :destroy, id: @vademecum
+      delete :destroy, id: @independent
     end
 
     assert_redirected_to vademecums_path
