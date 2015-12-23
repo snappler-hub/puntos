@@ -20,7 +20,11 @@ class RewardOrdersController < ApplicationController
   def change_state
     @reward_order = RewardOrder.find(params[:id])
     state = params[:state]
-    @reward_order.change_state(state)
+
+    ActiveRecord::Base.transaction do
+      @reward_order.change_state(state)
+      @reward_order.send_mail
+    end
 
     respond_to do |format|
       format.js

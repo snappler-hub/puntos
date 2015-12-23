@@ -32,6 +32,7 @@ class PfpcService < Service
 
   # -- Callbacks
   after_create :create_period_and_products
+  after_create :send_mail #Los términos y condiciones tienen que volver a aceptarse cada vez q le crean un pfpc, así que le envío mail
 
   # -- Methods 
 
@@ -60,6 +61,12 @@ class PfpcService < Service
     self.update(last_period: period)
 
     period
+  end
+  
+  def send_mail
+    title = "Debe aceptar los términos y condiciones"
+    message = "Para ello, haga clic en el siguiente botón e ingrese con su usuario y contraseña. "
+    UserMailer.new_mail(self.user, title, message)
   end
 
 end

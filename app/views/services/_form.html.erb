@@ -21,7 +21,7 @@
             <%= f.number_field :days, id: 'js-daysPerPeriod', class: 'form-control', required: true %>
           </fieldset>
         </div>
-
+        
         <% if @service.is_a?(PfpcService) %>
           <%= render 'pfpc_form', f: f %>
         <% else %>

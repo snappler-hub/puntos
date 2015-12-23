@@ -79,7 +79,12 @@ class ShoppingCartRewardsController < ApplicationController
     @reward_order.set_shop_cart(current_shop_cart)
 
     if @reward_order.save
+            
       @reward_order.change_state('requested')
+      
+      #Envío un mail avisando que el canje se hizo
+      @reward_order.send_mail
+      
       ShopCart::reset(session)
       redirect_to reward_orders_path
     else
