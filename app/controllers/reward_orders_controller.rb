@@ -49,7 +49,7 @@ class RewardOrdersController < ApplicationController
 
     def filter_params
       if params[:reward_order_filter]
-        params.require(:reward_order_filter).permit(:state, :supplier_id, :user_id, :code)
+        params.require(:reward_order_filter).permit(:state, :supplier_id, :user_id, :code, :from, :to)
       end
     end
 end
