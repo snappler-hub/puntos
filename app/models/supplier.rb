@@ -29,9 +29,9 @@ class Supplier < ActiveRecord::Base
   has_many :point_services, through: :users
   has_many :pfpc_services, through: :users
   has_many :supplier_requests
-  has_many :supplier_vademecums
+  has_many :supplier_vademecums, dependent: :destroy
   has_many :vademecums, through: :supplier_vademecums
-  has_many :supplier_point_products
+  has_many :supplier_point_products, dependent: :destroy
   accepts_nested_attributes_for :supplier_point_products, allow_destroy: true
   accepts_nested_attributes_for :vademecums, allow_destroy: true
 
@@ -60,7 +60,7 @@ class Supplier < ActiveRecord::Base
   # -- Methods
 
   def destroyable?
-    users.empty?
+    users.empty? && supplier_requests.empty?
   end
 
   def to_param

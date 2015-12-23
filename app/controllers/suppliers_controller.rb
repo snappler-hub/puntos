@@ -58,7 +58,7 @@ class SuppliersController < ApplicationController
   # DELETE /suppliers/1
   # DELETE /suppliers/1.json
   def destroy
-    @supplier.destroy ? flash[:success] = 'El Prestador ha sido eliminado correctamente.' : 'No se pudo eliminar el Prestador seleccionado.'
+    @supplier.destroy ? flash[:success] = 'El Prestador ha sido eliminado correctamente.' : flash[:error] = 'No se pudo eliminar el Prestador seleccionado.'
     respond_to do |format|
       format.html { redirect_to suppliers_url }
       format.json { head :no_content }
