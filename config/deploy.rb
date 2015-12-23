@@ -53,13 +53,6 @@ task setup: :environment do
   queue! %[touch "#{deploy_to}/#{shared_path}/config/database.yml"]
   queue! %[touch "#{deploy_to}/#{shared_path}/config/secrets.yml"]
   queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/config/database.yml' and 'secrets.yml'."]
-
-  # queue %[
-  #   repo_host=`echo $repo | sed -e 's/.*@//g' -e 's/:.*//g'` &&
-  #   repo_port=`echo $repo | grep -o ':[0-9]*' | sed -e 's/://g'` &&
-  #   if [ -z "${repo_port}" ]; then repo_port=22; fi &&
-  #   ssh-keyscan -p $repo_port -H $repo_host >> ~/.ssh/known_hosts
-  # ]
 end
 
 desc 'Deploys the current version to the server.'
