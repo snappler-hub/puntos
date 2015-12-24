@@ -34,7 +34,7 @@ class AuthorizationsController < ApplicationController
   end  
   
   def filter_params
-    params.require(:authorization_filter).permit(:id, :status, :client_id, :seller_id, :supplier_id) if params[:authorization_filter]
+    params.require(:authorization_filter).permit(:id, :status, :client_id, :seller_id, :supplier_id, :start_date, :finish_date) if params[:authorization_filter]
   end
   
 end

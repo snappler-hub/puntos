@@ -8,7 +8,7 @@ class AuthorizationFilter
     authorizations = authorizations.where(status: @status) if @status.present?
     authorizations = authorizations.where(client_id: @client_id ) if @client_id.present?
     authorizations = authorizations.where(seller_id: @seller_id ) if @seller_id.present?
-    authorizations = authorizations.between_dates(@start_date, @finish_date) if @start_date.present?    
+    authorizations = authorizations.between_dates(@start_date, @finish_date) if @start_date.present?
     authorizations
   end
   
