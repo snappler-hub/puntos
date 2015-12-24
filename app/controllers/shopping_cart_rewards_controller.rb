@@ -86,7 +86,7 @@ class ShoppingCartRewardsController < ApplicationController
       @reward_order.send_mail
       
       ShopCart::reset(session)
-      redirect_to reward_orders_path
+      redirect_to reward_order_path(@reward_order)
     else
       if normal_user?
         render 'shoping_cart', layout: 'public'
