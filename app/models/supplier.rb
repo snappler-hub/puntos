@@ -29,9 +29,9 @@ class Supplier < ActiveRecord::Base
   has_many :point_services, through: :users
   has_many :pfpc_services, through: :users
   has_many :supplier_requests
-  has_many :supplier_vademecums
+  has_many :supplier_vademecums, dependent: :destroy
   has_many :vademecums, through: :supplier_vademecums
-  has_many :supplier_point_products
+  has_many :supplier_point_products, dependent: :destroy
   accepts_nested_attributes_for :supplier_point_products, allow_destroy: true
   accepts_nested_attributes_for :vademecums, allow_destroy: true
 
@@ -40,26 +40,27 @@ class Supplier < ActiveRecord::Base
 
   # -- Callbacks
   after_validation :reverse_geocode
-  
+
   # -- Scopes
   scope :active, -> { where(active: true) }
   scope :with_location, -> { where('latitude is not null and longitude is not null') }
-  
-  
+
+
   # -- Misc
-  reverse_geocoded_by :latitude, :longitude do |obj,results|
+  reverse_geocoded_by :latitude, :longitude do |obj, results|
     if geo = results.first
       obj.city = "#{geo.city}, #{geo.state}"
     end
   end
+
   acts_as_mappable default_units: :kms,
                    lat_column_name: :latitude,
                    lng_column_name: :longitude
 
   # -- Methods
-  
+
   def destroyable?
-    users.empty?
+    users.empty? && supplier_requests.empty?
   end
 
   def to_param
@@ -69,11 +70,11 @@ class Supplier < ActiveRecord::Base
   def to_s
     name
   end
-  
+
   def clients_get_points?
     points_to_client
   end
-  
+
   def sellers_get_points?
     points_to_seller
   end

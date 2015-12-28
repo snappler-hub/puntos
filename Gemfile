@@ -1,12 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.4'
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.20'
 # gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-gem 'execjs'
 gem 'therubyracer', platforms: :ruby
 
 gem 'font-awesome-rails'
@@ -24,23 +22,21 @@ gem 'hashids'
 gem 'mandrill-api'
 gem 'kaminari'
 gem 'dragonfly', '~> 1.0.12'
-gem "cocoon" # Dinamyc add and remove nested resources
+gem 'cocoon'
 
 gem 'rqrcode_png'
-gem 'prawn' # For PDFs
+gem 'prawn'
 gem 'prawn-table'
 
 gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails'
 
-gem 'axlsx_rails' # Gema para archivos excel
+gem 'axlsx_rails'
 
-# Geolocation
 gem 'geocoder'
-gem 'geokit-rails' # Provides location-based goodness for your Rails app
+gem 'geokit-rails'
 
 gem 'stock', git: 'git@git.sistematis.com.ar:snappler/gems/stock'
-
 
 group :development, :test do
   gem 'byebug'
@@ -55,5 +51,5 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'annotate'
-  gem 'hirb' # Give table format to irb console results
+  gem 'hirb'
 end
