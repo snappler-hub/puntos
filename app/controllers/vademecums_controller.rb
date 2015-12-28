@@ -46,9 +46,13 @@ class VademecumsController < ApplicationController
 
   # DELETE /vademecums/1
   def destroy
-    @vademecum.destroy
-    respond_to do |format|
-      format.html { redirect_to vademecums_url, notice: 'El vademecum ha sido eliminado correctamente.' }
+    if @vademecum.destroy
+      respond_to do |format|
+        format.html { redirect_to vademecums_url, notice: 'El vademecum ha sido eliminado correctamente.' }
+      end
+    else
+      flash[:error] = 'No es posible eliminar un vademecum asociado a un servicio'
+      redirect_to vademecums_url
     end
   end
 

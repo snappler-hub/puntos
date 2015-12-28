@@ -20,11 +20,19 @@ class Vademecum < ActiveRecord::Base
   has_many :suppliers, through: :supplier_vademecums
   accepts_nested_attributes_for :product_discounts, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :suppliers
+  has_many :services
 
   # -- Validations
   validates :name, presence: true
+  
+  # -- Misc
+  include Destroyable
 
   # -- Methods
+  
+  def destroyable?
+    services.empty?
+  end
 
   def discount(product)
     product_discounts.detect { |discount| discount.product == product }.discount
