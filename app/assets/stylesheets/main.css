@@ -74,7 +74,9 @@ html.turbolinks-progress-bar::before {
 .select2-container .select2-choice abbr {
   top: 6px;
 }
-
+.select2-extra-text {
+  color: #888;
+}
 
 
 .text-gray{

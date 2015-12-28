@@ -47,3 +47,4 @@
 //= require reward_orders
 //= require suppliers
 //= require rewards
+//= require vademecums
