@@ -39,19 +39,13 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   
   test "decrease user and services points" do
-    service = services(:points)
-    service.run_callbacks(:create)
-    period = service.last_period
-    
-    assert_not period.can_renew?
-    
-    period.accumulated = period.amount
-    period.save
-    assert period.can_renew?
-    
-    assert_difference('PointsPeriod.count', 1) do
-      period.renew
-    end
+    user = users(:final_user)
+    service = services(:pfpc)
+    # TODO
+    # Ponerle 70 puntos al usuario
+    # Cargar 3 períodos con 0, 20 y 50 en available
+    # Intentar canjear 100 puntos, debería fallar
+    # Canjear 70: Resultado => P1 -> 0, P2 -> 0, P3 -> 10
   end
   
 end

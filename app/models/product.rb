@@ -15,7 +15,7 @@ class Product < ActiveRecord::Base
 
   # -- Scopes
   default_scope { order(:code) }
-  scope :search, ->(q) { where('name LIKE :q', q: "%#{q}%") }
+  scope :search, ->(q) { where('name LIKE :q OR code like :c', q: "%#{q}%", c: "#{q}%") }
 
   # -- Associations
   has_many :supplier_point_products

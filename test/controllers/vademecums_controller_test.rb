@@ -53,4 +53,12 @@ class VademecumsControllerTest < ActionController::TestCase
 
     assert_redirected_to vademecums_path
   end
+  
+  test "should not destroy vademecum if it has products" do
+    assert_difference('Vademecum.count', 0) do
+      delete :destroy, id: @vademecum
+    end
+
+    assert_redirected_to vademecums_path
+  end
 end

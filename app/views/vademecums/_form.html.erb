@@ -20,7 +20,7 @@
     </div>
   </div>
   
-  <div class="product_discounts form-group">
+  <div id="js-vademecum-product-discounts" class="product_discounts form-group">
     <h4> Descuentos </h4>
     <%= f.fields_for :product_discounts do |p| %>
       <%= render 'product_discount_fields', f: p %>

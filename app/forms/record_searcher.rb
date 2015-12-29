@@ -25,7 +25,7 @@ class RecordSearcher
         if block_given?
           block.call(record)
         else
-          { name: record.name, id: record.id }
+          { name: record.name, id: record.id, extra: record.code }
         end
       end
     }

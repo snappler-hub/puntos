@@ -5,7 +5,17 @@ jQuery.fn.ajaxSelect = (options) ->
     placeholder: "Realizar una búsqueda"
     formatNoMatches: 'No hay resultados'
     formatter: (record) ->
-      record.name
+      record.full_text || record.name
+    result_formatter: (record, container, query, escapeMarkup) ->
+      markup = []
+      text = record.full_text || record.name
+      Select2.util.markMatch(text, query.term, markup, escapeMarkup)
+      markup = markup.join("")
+      markup = "<div class='select2-main-text'> #{markup} </div>"
+      if record.extra
+        markup += "<small class='select2-extra-text'> #{record.extra} </small>" 
+      
+      markup
     allow_clear: true
     selectData: (term, page)->
       query: term
@@ -34,7 +44,7 @@ jQuery.fn.ajaxSelect = (options) ->
 
         results: data.records
         more: more
-    formatResult: settings.formatter
+    formatResult: settings.result_formatter
     formatSelection: settings.formatter
 
 

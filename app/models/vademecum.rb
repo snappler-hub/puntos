@@ -26,6 +26,9 @@ class Vademecum < ActiveRecord::Base
 
   # -- Validations
   validates :name, presence: true
+  
+  # -- Misc
+  include Destroyable
 
   # -- Methods
 
