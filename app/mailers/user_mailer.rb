@@ -18,7 +18,7 @@ class UserMailer < ActionMailer::Base
     url ||= Const::URL
     action = "Ir al sitio"
     message = {
-      to: [{email: "gonzagaldamez@gmail.com", name: user_name}],
+      to: [{email: "gonzagaldamez@snappler.com", name: user_name}],
       subject: "[Sistema Manes] #{subject}",
       global_merge_vars: [
         {name: "USER_NAME", content: user_name },
@@ -28,8 +28,8 @@ class UserMailer < ActionMailer::Base
         {name: "URL", content: url }
       ]
     }
-    
-    mandrill_client.messages.send_template template_name, template_content, message
+    # TODO Enable send emails
+    # mandrill_client.messages.send_template template_name, template_content, message
   end
 end
 
