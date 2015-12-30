@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: pharmacologic_forms
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'test_helper'
 
 class PharmacologicFormTest < ActiveSupport::TestCase

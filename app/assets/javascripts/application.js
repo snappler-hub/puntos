@@ -48,3 +48,4 @@
 //= require suppliers
 //= require rewards
 //= require vademecums
+//= require products
