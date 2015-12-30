@@ -34,12 +34,11 @@ class AddColumnsToProduct < ActiveRecord::Migration
     add_column :products, :deleted, :boolean, default: 0
     add_column :products, :units, :integer, default: 1
     add_column :products, :size, :integer # Enumerativo
-    add_column :products, :sifar, :boolean
     add_column :products, :potency, :string
     add_column :products, :troquel_number, :string
     add_column :products, :relative_presentation_size, :integer
     add_index :products, :relative_presentation_size
-    add_reference :products, :pharmacological_action, index: true, foreign_key: true
+    add_reference :products, :pharmacologic_action, index: true, foreign_key: true
     add_reference :products, :drug, index: true, foreign_key: true
     add_reference :products, :pharmacologic_form, index: true, foreign_key: true
     add_reference :products, :potency_unit, index: true, foreign_key: true

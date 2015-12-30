@@ -19,7 +19,6 @@
 #  deleted                    :boolean          default(FALSE)
 #  units                      :integer          default(1)
 #  size                       :integer
-#  sifar                      :boolean
 #  potency                    :string(255)
 #  troquel_number             :string(255)
 #  relative_presentation_size :integer

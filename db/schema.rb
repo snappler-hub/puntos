@@ -80,13 +80,13 @@ ActiveRecord::Schema.define(version: 20151229194731) do
 
   add_index "pfpc_periods", ["service_id"], name: "index_pfpc_periods_on_service_id", using: :btree
 
-  create_table "pharmacologic_forms", force: :cascade do |t|
+  create_table "pharmacologic_actions", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
-  create_table "pharmacologic_scopes", force: :cascade do |t|
+  create_table "pharmacologic_forms", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
@@ -150,31 +150,29 @@ ActiveRecord::Schema.define(version: 20151229194731) do
     t.string   "presentation_form",          limit: 255
     t.float    "price",                      limit: 24
     t.date     "expiration_date"
-    t.integer  "controlled_product_mark",    limit: 4
     t.boolean  "imported"
     t.integer  "sell_type",                  limit: 4
-    t.integer  "registration_numer",         limit: 4
+    t.integer  "registration_number",        limit: 4
     t.boolean  "deleted",                                default: false
     t.integer  "units",                      limit: 4,   default: 1
     t.integer  "size",                       limit: 4
-    t.boolean  "sifar"
     t.string   "potency",                    limit: 255
     t.string   "troquel_number",             limit: 255
     t.integer  "relative_presentation_size", limit: 4
-    t.integer  "administration_route_id",    limit: 4
+    t.integer  "pharmacologic_action_id",    limit: 4
     t.integer  "drug_id",                    limit: 4
     t.integer  "pharmacologic_form_id",      limit: 4
     t.integer  "potency_unit_id",            limit: 4
     t.integer  "unit_type_id",               limit: 4
-    t.integer  "pharmacologic_scope_id",     limit: 4
+    t.integer  "administration_route_id",    limit: 4
     t.integer  "laboratory_id",              limit: 4
   end
 
   add_index "products", ["administration_route_id"], name: "index_products_on_administration_route_id", using: :btree
   add_index "products", ["drug_id"], name: "index_products_on_drug_id", using: :btree
   add_index "products", ["laboratory_id"], name: "index_products_on_laboratory_id", using: :btree
+  add_index "products", ["pharmacologic_action_id"], name: "index_products_on_pharmacologic_action_id", using: :btree
   add_index "products", ["pharmacologic_form_id"], name: "index_products_on_pharmacologic_form_id", using: :btree
-  add_index "products", ["pharmacologic_scope_id"], name: "index_products_on_pharmacologic_scope_id", using: :btree
   add_index "products", ["potency_unit_id"], name: "index_products_on_potency_unit_id", using: :btree
   add_index "products", ["relative_presentation_size"], name: "index_products_on_relative_presentation_size", using: :btree
   add_index "products", ["unit_type_id"], name: "index_products_on_unit_type_id", using: :btree
@@ -415,8 +413,8 @@ ActiveRecord::Schema.define(version: 20151229194731) do
   add_foreign_key "products", "administration_routes"
   add_foreign_key "products", "drugs"
   add_foreign_key "products", "laboratories"
+  add_foreign_key "products", "pharmacologic_actions"
   add_foreign_key "products", "pharmacologic_forms"
-  add_foreign_key "products", "pharmacologic_scopes"
   add_foreign_key "products", "potency_units"
   add_foreign_key "products", "unit_types"
   add_foreign_key "reward_order_items", "reward_orders"

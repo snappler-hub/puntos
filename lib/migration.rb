@@ -1,8 +1,8 @@
 class Migration
 
   def self.acciofar
-    ManesPresent::PharmacologicalAction.find_each do |each|
-      PharmacologicalAction.create(
+    ManesPresent::PharmacologicAction.find_each do |each|
+      PharmacologicAction.create(
           id: each.id,
           name: each.description
       ); nil
@@ -22,25 +22,26 @@ class Migration
     ManesPresent::Product.find_each do |each|
       Product.create(
           id: each.nro_registro,
-          name: each.nombre,
+          code: each.nro_registro,
+          name: each.name,
           presentation_form: each.presentation_form,
           price: each.precio,
           expiration_date: each.fecha.to_date,
           imported: each.importado,
           sell_type: each.tipo_venta,
-          # deleted: each.baja,
-          # units: each.unidades,
-          # size: each.tamanio,
-          # sifar: each.SIFAR,
-          # troquel_number: each.troquel,
-          laboratory: EntityGroup.where(name: each.laboratory).first_or_create
+          deleted: each.baja,
+          units: each.unidades,
+          size: each.tamanio,
+          troquel_number: each.troquel,
+          barcode: each.cod_barra,
+          laboratory: Laboratory.where(name: each.laboratory).first_or_create
       ); nil
 
       # ManesPresent::Extra
       # Product.find(id: num_reg)
       # potency: potencia
       # relative_presentation_size_id (class_name: PresentationSize): cod_tam_rel_pres
-      # pharmacological_action_id: cod_acc_farma
+      # pharmacologic_action_id: cod_acc_farma
       # drug_id: cod_droga
       # pharmacologic_form_id: cod_forma_farma
       # potency_unit_id: cod_uni_potencia

@@ -1,5 +1,5 @@
 module ManesPresent
-  class PharmacologicalAction < ActiveRecord::Base
+  class PharmacologicAction < ActiveRecord::Base
     establish_connection :manes_present
     self.table_name = :ALFABETA_Acciofar
 

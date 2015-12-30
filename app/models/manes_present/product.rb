@@ -15,6 +15,10 @@ module ManesPresent
       end
     end
 
+    def name
+      sanitize_string nombre
+    end
+
     def laboratory
       sanitize_string laboratorio
     end

@@ -19,7 +19,6 @@
 #  deleted                    :boolean          default(FALSE)
 #  units                      :integer          default(1)
 #  size                       :integer
-#  sifar                      :boolean
 #  potency                    :string(255)
 #  troquel_number             :string(255)
 #  relative_presentation_size :integer
@@ -51,7 +50,8 @@ class Product < ActiveRecord::Base
   belongs_to :laboratory
 
   # -- Validations
-  validates :name, :code, presence: true, uniqueness: true
+  validates :name, presence: true
+  # validates :code, :barcode, uniqueness: true
 
   # -- Callbacks
   after_create :initialize_points, if: Proc.new { |u| u.points.nil? }
