@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: drugs
+# Table name: pharmacologic_scopes
 #
 #  id         :integer          not null, primary key
 #  name       :string(255)
@@ -8,10 +8,5 @@
 #  updated_at :datetime         not null
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  name: MyString
-
-two:
-  name: MyString
+class PharmacologicScope < ActiveRecord::Base
+end

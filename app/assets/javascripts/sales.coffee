@@ -15,10 +15,13 @@ class App.SaleForm
   bindSelects: (parent) ->
     elements = if (parent) then parent.find("[data-behavior~=searchProduct]") else $("[data-behavior~=searchProduct]")
     elements.ajaxSelect
-      selectData: (term, page) ->
-        query: term
-        page: page
-        limit: 10    
+      format_name: (record) ->
+        "#{record.name} (#{Utilities.formatMoney(record.price)})"
+      format_extra: (record) ->
+        "<small class='select2-extra-text'> \
+          #{record.laboratory} <br> \
+          #{record.barcode} | #{record.troquel_number}\
+        </small>"
     
 
 $(document).on 'click', '#js-clearAuthorizationContnet', ->
