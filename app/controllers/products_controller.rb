@@ -10,8 +10,16 @@ class ProductsController < ApplicationController
   
   # GET /products/search
   def search
-    block = lambda { |record| { name: record.name, id: record.id, extra: record.code } }
-    records = RecordSearcher.call(Product.all, params, &block)
+    block = lambda { |record| { 
+        id: record.id, 
+        name: record.name,
+        price: record.price, 
+        laboratory: record.laboratory.to_s,
+        barcode: record.barcode || '-',
+        troquel_number: record.troquel_number || '-',
+        extra: record.code
+    } }
+    records = RecordSearcher.call(Product.all.includes(:laboratory), params, &block)
     render json: records.to_json, callback: params[:callback]
   end
 

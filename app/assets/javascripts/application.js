@@ -40,6 +40,7 @@
 //= require init
 
 //= require gmaps
+//= require utilities
 //= require services
 //= require comments
 //= require sales
