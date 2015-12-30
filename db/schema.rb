@@ -166,7 +166,6 @@ ActiveRecord::Schema.define(version: 20151229194731) do
     t.integer  "pharmacologic_form_id",      limit: 4
     t.integer  "potency_unit_id",            limit: 4
     t.integer  "unit_type_id",               limit: 4
-    t.integer  "parmacologic_scope_id",      limit: 4
     t.integer  "pharmacologic_scope_id",     limit: 4
     t.integer  "laboratory_id",              limit: 4
   end
@@ -174,7 +173,6 @@ ActiveRecord::Schema.define(version: 20151229194731) do
   add_index "products", ["administration_route_id"], name: "index_products_on_administration_route_id", using: :btree
   add_index "products", ["drug_id"], name: "index_products_on_drug_id", using: :btree
   add_index "products", ["laboratory_id"], name: "index_products_on_laboratory_id", using: :btree
-  add_index "products", ["parmacologic_scope_id"], name: "index_products_on_parmacologic_scope_id", using: :btree
   add_index "products", ["pharmacologic_form_id"], name: "index_products_on_pharmacologic_form_id", using: :btree
   add_index "products", ["pharmacologic_scope_id"], name: "index_products_on_pharmacologic_scope_id", using: :btree
   add_index "products", ["potency_unit_id"], name: "index_products_on_potency_unit_id", using: :btree
