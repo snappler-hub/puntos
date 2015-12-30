@@ -4,7 +4,7 @@ class Migration
     ManesPresent::PharmacologicalScope.find_each do |each|
       PharmacologicScope.create(
           id: each.id,
-          description: each.description
+          name: each.description
       ); nil
     end
   end
@@ -13,7 +13,7 @@ class Migration
     ManesPresent::Drug.find_each do |each|
       Drug.create(
           id: each.id,
-          description: each.description
+          name: each.description
       ); nil
     end
   end
