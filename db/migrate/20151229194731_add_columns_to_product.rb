@@ -28,10 +28,9 @@ class AddColumnsToProduct < ActiveRecord::Migration
     add_column :products, :presentation_form, :string
     add_column :products, :price, :float
     add_column :products, :expiration_date, :date
-    add_column :products, :controlled_product_mark, :integer # Enumerativo
     add_column :products, :imported, :boolean
     add_column :products, :sell_type, :integer # Enumerativo
-    add_column :products, :registration_numer, :integer
+    add_column :products, :registration_number, :integer
     add_column :products, :deleted, :boolean, default: 0
     add_column :products, :units, :integer, default: 1
     add_column :products, :size, :integer # Enumerativo
@@ -40,12 +39,12 @@ class AddColumnsToProduct < ActiveRecord::Migration
     add_column :products, :troquel_number, :string
     add_column :products, :relative_presentation_size, :integer
     add_index :products, :relative_presentation_size
-    add_reference :products, :administration_route, index: true, foreign_key: true
+    add_reference :products, :pharmacological_action, index: true, foreign_key: true
     add_reference :products, :drug, index: true, foreign_key: true
     add_reference :products, :pharmacologic_form, index: true, foreign_key: true
     add_reference :products, :potency_unit, index: true, foreign_key: true
     add_reference :products, :unit_type, index: true, foreign_key: true
-    add_reference :products, :pharmacologic_scope, index: true, foreign_key: true
+    add_reference :products, :administration_route, index: true, foreign_key: true
     add_reference :products, :laboratory, index: true, foreign_key: true
   end
 end
