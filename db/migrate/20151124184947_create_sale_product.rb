@@ -6,6 +6,7 @@ class CreateSaleProduct < ActiveRecord::Migration
       t.integer :amount, default: '0'
       t.float :cost, default: '0'
       t.float :discount, default: '0'
+      t.float :total, default: 0
       
       t.timestamps
     end

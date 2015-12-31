@@ -4,6 +4,9 @@ class CreateAuthorization < ActiveRecord::Migration
       t.integer :seller_id
       t.integer :client_id
       t.text :products
+      t.string :status
+      t.text :message
+      t.integer :points, default: 0
       
       t.timestamps null: false
     end

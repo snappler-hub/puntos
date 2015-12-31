@@ -4,6 +4,7 @@ class CreateProducts < ActiveRecord::Migration
       t.string :code, null: false
       t.string :name, null: false
       t.integer :points
+      t.string :barcode
 
       t.timestamps null: false
     end

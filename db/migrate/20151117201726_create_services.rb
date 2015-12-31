@@ -7,6 +7,12 @@ class CreateServices < ActiveRecord::Migration
       t.integer :last_period_id
       t.integer :amount
 
+      t.integer :status, default: 0 # Enumerative
+      t.integer :days, default: 30
+      t.integer :days_to_points_expiration
+
+      t.boolean :always_discount, default: false
+
       t.timestamps null: false
     end
     add_index :services, :last_period_id

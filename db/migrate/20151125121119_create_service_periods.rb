@@ -17,6 +17,8 @@ class CreateServicePeriods < ActiveRecord::Migration
       t.integer :amount, default: 0
       t.integer :accumulated
 
+      t.integer :available, default: 0
+
       t.timestamps null: false
     end
   end
