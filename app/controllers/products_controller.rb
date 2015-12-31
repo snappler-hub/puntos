@@ -10,7 +10,16 @@ class ProductsController < ApplicationController
   
   # GET /products/search
   def search
-    records = RecordSearcher.call(Product.all, params)
+    block = lambda { |record| { 
+        id: record.id, 
+        name: record.name,
+        price: record.price, 
+        laboratory: record.laboratory.to_s,
+        barcode: record.barcode || '-',
+        troquel_number: record.troquel_number || '-',
+        extra: record.code
+    } }
+    records = RecordSearcher.call(Product.all.includes(:laboratory), params, &block)
     render json: records.to_json, callback: params[:callback]
   end
 
@@ -82,7 +91,7 @@ class ProductsController < ApplicationController
 
     def filter_params
       if params[:product_filter]
-        params.require(:product_filter).permit(:code, :name)
+        params.require(:product_filter).permit(:name, :laboratory_id, :drug_id)
       end
     end
   

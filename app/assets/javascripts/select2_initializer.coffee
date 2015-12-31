@@ -8,14 +8,19 @@ jQuery.fn.ajaxSelect = (options) ->
       record.full_text || record.name
     result_formatter: (record, container, query, escapeMarkup) ->
       markup = []
-      text = record.full_text || record.name
+      text = settings.format_name(record)
       Select2.util.markMatch(text, query.term, markup, escapeMarkup)
       markup = markup.join("")
       markup = "<div class='select2-main-text'> #{markup} </div>"
       if record.extra
-        markup += "<small class='select2-extra-text'> #{record.extra} </small>" 
+        markup += settings.format_extra(record)
+        
+      return markup
+    format_name: (record) ->
+      record.full_text || record.name
+    format_extra: (record) ->
+      return "<small class='select2-extra-text'> #{record.extra} </small>" 
       
-      markup
     allow_clear: true
     selectData: (term, page)->
       query: term

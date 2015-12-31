@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: authorizations
+#
+#  id         :integer          not null, primary key
+#  seller_id  :integer
+#  client_id  :integer
+#  products   :text(65535)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  status     :string(255)
+#  message    :text(65535)
+#  points     :integer          default(0)
+#
+
 authorization_one:
   seller: god
   client: final_user
