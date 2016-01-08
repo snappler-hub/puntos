@@ -70,7 +70,16 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
   validates :document_number, uniqueness: {scope: :document_type}
 
+  def self.visible_sellers_for(user)
+    return [] if user.is? :normal_user
+    user.is?(:god) ? User.sellers : User.all_from_supplier(user.supplier)
+  end
+
   def to_s
+    fullname
+  end
+  
+  def fullname
     "#{first_name} #{last_name}"
   end
 

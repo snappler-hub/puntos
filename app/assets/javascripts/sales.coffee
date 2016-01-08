@@ -24,11 +24,22 @@ class App.SaleForm
         </small>"
     
 
+App.salesListEvents = ->
+  $('#js-salesFilter').find("[data-behavior~=filter]").click ->
+    $('#js-salesFormFormat').val('html')
+    
+  $('#js-salesFilter').find("[data-behavior~=export]").click ->
+    $('#js-salesFormFormat').val('xlsx')
+
+
 $(document).on 'click', '#js-clearAuthorizationContnet', ->
     $('#js-authorization').empty()
 
 $(document).on "page:change", ->
   saleForm = new App.SaleForm()
+  if $(".sales.index").length > 0 
+    App.salesListEvents()
+  
 
 # Select2 de usuario en el form de sale
 ready = ->

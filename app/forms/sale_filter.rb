@@ -1,6 +1,6 @@
 class SaleFilter
   include ActiveModel::Model
-  attr_accessor :supplier_id, :seller_id, :client_id, :start_date, :finish_date
+  attr_accessor :supplier_id, :seller_id, :client_id, :start_date, :finish_date, :laboratory_id, :drug_id, :laboratory_name, :drug_name
 
   def call(current_user = nil)
     
@@ -22,7 +22,18 @@ class SaleFilter
     sales = sales.where("seller_id = ?", @seller_id) if @seller_id.present?
     sales = sales.where("client_id = ?", @client_id) if @client_id.present?
     
-    sales
+    if @laboratory_id.present?
+      sales = sales.joins(:sale_products)
+      sales = sales.joins("INNER JOIN products ON (products.id = sale_products.product_id)").where('laboratory_id = ?', @laboratory_id) 
+      @laboratory_name = Laboratory.find(@laboratory_id).try(:name)
+    end
+    if @drug_id.present?
+      sales = sales.joins(:sale_products)
+      sales = sales.joins("INNER JOIN products ON (products.id = sale_products.product_id)").where('drug_id = ?', @drug_id) 
+      @drug_name = Drug.find(@drug_id).try(:name)
+    end
+    
+    sales.uniq
 
   end
   

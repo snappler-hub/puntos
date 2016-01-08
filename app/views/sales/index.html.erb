@@ -17,7 +17,9 @@
         <thead>
         <tr>
           <th>Vendedor</th>
-          <th>Prestador</th>
+          <% unless @supplier  %>
+            <th>Prestador</th>
+          <% end %>
           <th>Cliente</th>
           <th>Tarjeta</th>
           <th>Fecha y hora</th>

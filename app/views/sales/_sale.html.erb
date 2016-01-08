@@ -1,6 +1,8 @@
 <tr>
   <td><%= sale.seller %></td>
-  <td><%= sale.seller.supplier %></td>
+  <% unless @supplier  %>
+    <td><%= sale.seller.supplier %></td>
+  <% end %>
   <td><%= sale.client %></td>
   <td><%= sale.client.card_number %></td>
   <td><%= sale.created_at.strftime('%d-%m-%Y %H:%M:%S') %></td>
