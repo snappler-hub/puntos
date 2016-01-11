@@ -68,5 +68,10 @@ class PfpcPeriod < ActiveRecord::Base
     self.status = :in_progress
     self.save
   end
+  
+  #Retorna un array de objetos en vez de active record associaton
+  def array_of_period_products
+    period_products.to_a
+  end
 
 end

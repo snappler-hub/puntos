@@ -5,6 +5,15 @@ class PublicController < ApplicationController
   def home
     should_have_a_card_assigned!
     should_accept_terms_of_use!
+
+    #Todos los productos de los pfpcs activos
+    periods = PfpcService.where(user: current_user).in_progress.collect { |pfpc| pfpc.last_period }
+    @period_products = []
+    periods.map do |p|
+      p.period_products.map do |pp|
+        @period_products << pp
+      end
+    end
   end
 
   def no_cards_assigned
