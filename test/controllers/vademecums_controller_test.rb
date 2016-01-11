@@ -27,11 +27,11 @@ class VademecumsControllerTest < ActionController::TestCase
   end
 
   test "should create vademecum" do
-    # TODO Products discount association
-    assert_difference('Vademecum.count') do
-      post :create, vademecum: { name: @vademecum.name }
+    discounts = [{product_id: @product1.id, discount: 10},{product_id: @product2.id, discount: 20}]
+    assert_differences([['Vademecum.count', 1], ['ProductDiscount.count', 2]]) do
+      post :create, vademecum: { name: @vademecum.name,
+             product_discounts_attributes: discounts}
     end
-
     assert_redirected_to vademecums_path
   end
 
@@ -41,7 +41,6 @@ class VademecumsControllerTest < ActionController::TestCase
   end
 
   test "should update vademecum" do
-    # TODO Products discount association
     patch :update, id: @vademecum, vademecum: { name: @vademecum.name }
     assert_redirected_to vademecums_path
   end
