@@ -22,6 +22,9 @@ class App.SaleForm
           #{record.laboratory} <br> \
           #{record.barcode} | #{record.troquel_number}\
         </small>"
+    elements.on 'change', (e)->
+      input = $(e.target).closest('.nested-fields').find('.js-cost')
+      input.val(e.added.price)
     
 
 App.salesListEvents = ->
