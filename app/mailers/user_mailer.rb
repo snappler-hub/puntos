@@ -18,7 +18,7 @@ class UserMailer < ActionMailer::Base
     url ||= Const::URL
     action = "Ir al sitio"
     message = {
-      to: [{email: "gonzagaldamez@snappler.com", name: user_name}],
+      to: [{email: "test@test.com", name: user_name}],
       subject: "[Sistema Manes] #{subject}",
       global_merge_vars: [
         {name: "USER_NAME", content: user_name },

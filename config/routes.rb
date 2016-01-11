@@ -26,12 +26,20 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :laboratories, only:[] do
+    get :search, on: :collection
+  end
+  
+  resources :drugs, only:[] do
+    get :search, on: :collection
+  end
+  
   resources :services, only:[] do
     get :near_expiration, on: :collection
     get :history, on: :member
   end
   
-  get 'my_purchases', to: 'sales#sales_with_me_as_client'
+  get 'my_purchases', to: 'sales#index'
 
 
   resources :products, except: [:show] do

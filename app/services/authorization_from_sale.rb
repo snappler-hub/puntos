@@ -54,6 +54,7 @@ class AuthorizationFromSale
 
   def products
     products = []
+    
     @sale_products.map do |sale_product|
 
       # Productos con descuentos
@@ -75,7 +76,6 @@ class AuthorizationFromSale
       #Puntos
       calculate_points(sale_product)
     end
-
     products
   end
 
@@ -87,6 +87,7 @@ class AuthorizationFromSale
     else
       warning_msg = 'El cliente no posee ningún pfpc o período activo.'
       unless @message[Const::STATUS_WARNING].include? warning_msg
+        @status = Const::STATUS_WARNING
         @message[Const::STATUS_WARNING] << warning_msg
       end
       nil
@@ -101,6 +102,7 @@ class AuthorizationFromSale
     else
       warning_msg = 'No se encontró un vademecum, por lo que no se aplicarán descuentos.'
       unless @message[Const::STATUS_WARNING].include? warning_msg
+        @status = Const::STATUS_WARNING
         @message[Const::STATUS_WARNING] << warning_msg
       end
       0

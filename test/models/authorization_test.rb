@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: authorizations
+#
+#  id         :integer          not null, primary key
+#  seller_id  :integer
+#  client_id  :integer
+#  products   :text(65535)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  status     :string(255)
+#  message    :text(65535)
+#  points     :integer          default(0)
+#
+
 require 'test_helper'
 require 'pp'
 
@@ -25,7 +40,6 @@ class AuthorizationTest < ActiveSupport::TestCase
     @sale = Sale.new(sale_params)
     manager = AuthorizationFromSale.new(@sale, @sale.seller)
     @authorization = manager.authorize!
-    
   end
   
   test "authorization status is ERROR if client hasn't accepted terms of use" do
@@ -46,11 +60,13 @@ class AuthorizationTest < ActiveSupport::TestCase
   end
   
   test "should have one item in products" do
-    assert_equal 1, @authorization.products.count
+    # Se pide un producto con cantidad 12. De ese producto se aceptan 10 con descuento
+    # y 2 sin descuento. Por eso quedan 2 productos
+    assert_equal 2, @authorization.products.count
   end
   
   test "should have two items in products" do
-    #TODO No encuentra el prducto en el pfpc_service
+    # TODO: No encuentra el prducto en el pfpc_service
     pp @authorization.client.pfpc_services.detect { |pfpc| pfpc.products.include?(@product) }
   end
   

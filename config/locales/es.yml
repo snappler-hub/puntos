@@ -118,8 +118,9 @@ es:
         supplier_id: Prestador
         filter: Filtrar
       product_filter:
-        code: Código
         name: Nombre
+        laboratory_id: Laboratorio
+        drug_id: Monodroga
         filter: *filter
       reward_filter:
         code: Código
@@ -144,6 +145,8 @@ es:
         start_date: Fecha inicio
         finish_date: Fecha fin
         filter: *filter
+        laboratory_id: Laboratorio
+        drug_id: Monodroga
       user_card_form:
         email: *email
         password: 'Contraseña'
