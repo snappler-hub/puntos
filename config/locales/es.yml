@@ -145,6 +145,8 @@ es:
         start_date: Fecha inicio
         finish_date: Fecha fin
         filter: *filter
+        laboratory_id: Laboratorio
+        drug_id: Monodroga
       user_card_form:
         email: *email
         password: 'Contraseña'

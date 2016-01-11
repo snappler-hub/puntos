@@ -1,0 +1,13 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Ventas") do |sheet|
+  
+  header = %w(Vendedor Cliente Tarjeta Fecha Total)
+  header << 'Prestador' unless @supplier
+  sheet.add_row header
+  
+  @sales.each do |sale|
+    data = [sale.seller, sale.client, sale.client.card_number, sale.created_at.strftime('%d-%m-%Y %H:%M:%S'), number_to_currency(sale.total)]
+    data << sale.seller.supplier unless @supplier
+    sheet.add_row data
+  end
+end

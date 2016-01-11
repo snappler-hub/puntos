@@ -1,20 +1,19 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show]
   before_action :set_supplier
-  before_action :only_authorize_admin!, except: [:sales_with_me_as_client, :show]
+  before_action :only_authorize_admin!, except: [:index, :show]
 
   # GET users/1/sales
   def index
     @filter = SaleFilter.new(filter_params)
-    @sales = Kaminari.paginate_array(@filter.call(current_user).to_a).page(params[:page])
-    redirect_to "sales_with_me_as_client" if normal_user?
-  end
-  
-  # GET
-  def sales_with_me_as_client
-    @filter = SaleFilter.new(filter_params)
-    @sales = Kaminari.paginate_array(@filter.call(current_user).to_a).page(params[:page])
-    render "index", layout: "public"
+    @sales = @filter.call(current_user).page(params[:page])
+
+    respond_to do |format|
+      format.html {
+        render layout: 'public' if normal_user?
+      }
+      format.xlsx
+    end
   end
     
   #GET users/1/sales/1
@@ -66,7 +65,7 @@ class SalesController < ApplicationController
   
   def filter_params
     if params[:sale_filter]
-      params.require(:sale_filter).permit(:supplier_id, :seller_id, :client_id, :start_date, :finish_date)
+      params.require(:sale_filter).permit(:supplier_id, :seller_id, :client_id, :start_date, :finish_date, :laboratory_id, :drug_id)
     end
   end
   
