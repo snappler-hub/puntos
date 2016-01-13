@@ -56,12 +56,15 @@ class UsersController < ApplicationController
     @user.supplier = @supplier if @supplier
     @user.created_by = current_user if current_user
     respond_to do |format|
-      if @user.save
-        format.html { redirect_to [@supplier, @user], notice: 'El usuario ha sido creado correctamente.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+      ActiveRecord::Base.transaction do
+        if @user.save
+          CardManager.assign_card_number! @user if is?(:god)
+          format.html { redirect_to [@supplier, @user], notice: 'El usuario ha sido creado correctamente.' }
+          format.json { render :show, status: :created, location: @user }
+        else
+          format.html { render :new }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
