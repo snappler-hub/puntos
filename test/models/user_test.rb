@@ -39,15 +39,9 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   
-  test "decrease user and services points" do
-    user = users(:final_user)
-    service = services(:pfpc)
+  setup do
     
-    # TODO
-    # Ponerle 70 puntos al usuario
-    # Cargar 3 períodos con 0, 20 y 50 en available
-    # Intentar canjear 100 puntos, debería fallar
-    # Canjear 70: Resultado => P1 -> 0, P2 -> 0, P3 -> 10
   end
-  
+
+    
 end

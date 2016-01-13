@@ -1,0 +1,11 @@
+one:
+  sale:       one
+  product:    two    
+  amount:     10
+  cost:       50
+  
+two:
+  sale:       one
+  product:    two
+  amount:     5
+  cost:       50

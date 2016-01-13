@@ -133,7 +133,7 @@ class UsersController < ApplicationController
 
   # Un usuario no debe poder cambiar su propio +role+ ni +supplier+.
   def user_params
-    permitted_params = [:email, :password, :password_confirmation, :first_name, :last_name, :number, :username, :document_type, :document_number, :phone, :address, :image, :remove_image]
+    permitted_params = [:email, :password, :password_confirmation, :first_name, :last_name, :username, :document_type, :document_number, :phone, :address, :image, :remove_image]
     permitted_params += [:role, :supplier_id] unless is_me?
     params.require(:user).permit(*permitted_params)
   end

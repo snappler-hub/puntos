@@ -6,7 +6,7 @@ class SalesControllerTest < ActionController::TestCase
   
   setup do
     @user = users(:god)
-    
+    @sale = sales(:one)
     login_user(user = @user, route=login_url)
   end
 
@@ -21,4 +21,5 @@ class SalesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  # TODO Test para crear una venta
 end

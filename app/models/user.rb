@@ -148,6 +148,9 @@ class User < ActiveRecord::Base
         period.update_attribute(:available, 0)
       end
     end
+    
+    self.update_attribute(:cache_points, self.reload.cache_points-points) unless points == 0
+    
   end
   
   def send_mail
