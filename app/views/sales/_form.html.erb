@@ -10,7 +10,7 @@
 
             <h4>Cliente</h4>
             <fieldset class="form-group">
-              <%= f.hidden_field :client_id, class: 'select2',
+              <%= f.hidden_field :client_id, class: 'select2', auto_focus: true,
                                  data: {behavior: 'searchClient', url: search_users_path} %>
             </fieldset>
 

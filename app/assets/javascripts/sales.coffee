@@ -3,6 +3,7 @@ class App.SaleForm
   constructor: () ->
     @bindEvents()
     @bindSelects()
+    $("[data-behavior='searchClient']").select2('focus')
     
   # Binding de Eventos
   bindEvents: () ->
@@ -25,7 +26,16 @@ class App.SaleForm
     elements.on 'change', (e)->
       input = $(e.target).closest('.nested-fields').find('.js-cost')
       input.val(e.added.price)
+      
     
+    $("[data-behavior='searchClient']").on 'change', =>
+      @onClientSelect()
+  
+  onClientSelect: ->
+    # Si no hay productos todavía simulo el click en Agregar Producto
+    return false unless $('.nested-fields').length == 0
+    $('.add_fields').trigger 'click'
+      
 
 App.salesListEvents = ->
   $('#js-salesFilter').find("[data-behavior~=filter]").click ->
