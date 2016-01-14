@@ -45,18 +45,20 @@ class AuthorizationTest < ActiveSupport::TestCase
   test "authorization status is ERROR if client hasn't accepted terms of use" do
     @sale.client.terms_accepted = false
     manager = AuthorizationFromSale.new(@sale, @sale.seller)
-    error_authorization = manager.authorize!
-    assert_equal Const::STATUS_ERROR, error_authorization.status
+    authorization = manager.authorize!
+    assert_includes authorization.message[Const::STATUS_ERROR], 'El cliente debe aceptar los términos de uso para poder operar en el sistema.'
   end
   
   test "should throw a warning if client do not have an active pfpc_service" do
-    @user.pfpc_services = []
-    assert_equal 0, @authorization.client.pfpc_services.count
-    assert_equal Const::STATUS_WARNING, @authorization.status
+    @sale.client = users(:final_user2)
+    manager = AuthorizationFromSale.new(@sale, @sale.seller)
+    authorization = manager.authorize!
+    assert_equal 0, authorization.client.pfpc_services.count
+    assert_includes authorization.message[Const::STATUS_WARNING], 'El cliente no posee ningún pfpc o período activo.'
   end
   
   test "shouldn't have status equal error if client have an active pfpc_service" do
-    refute_equal Const::STATUS_ERROR, @authorization.status
+    assert_equal Const::STATUS_OK, @authorization.status
   end
   
   test "should have one item in products" do
@@ -67,7 +69,7 @@ class AuthorizationTest < ActiveSupport::TestCase
   
   test "should have two items in products" do
     # TODO: No encuentra el prducto en el pfpc_service
-    pp @authorization.client.pfpc_services.detect { |pfpc| pfpc.products.include?(@product) }
+    # pp @authorization.client.pfpc_services.detect { |pfpc| pfpc.products.include?(@product) }
   end
   
 end

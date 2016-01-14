@@ -85,6 +85,7 @@ class AuthorizationFromSale
     if pfpc.present? && pfpc.in_progress?
       pfpc.last_period.period_products.detect { |pp| pp.product == product }
     else
+      
       warning_msg = 'El cliente no posee ningún pfpc o período activo.'
       unless @message[Const::STATUS_WARNING].include? warning_msg
         @status = Const::STATUS_WARNING

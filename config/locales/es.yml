@@ -170,7 +170,6 @@ es:
         start_date: Fecha desde
         finish_date: Fecha hasta
 
-
   roles:
     god: Dios
     admin: Administrador
@@ -210,7 +209,6 @@ es:
     delivered: Entregado
     not_delivered: No entregado
     canceled: Cancelado
-
 
   service_statuses:
     pending: Pendiente

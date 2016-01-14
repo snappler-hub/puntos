@@ -26,15 +26,13 @@ class SalesController < ApplicationController
   # GET users/1/sales/new
   def new
     @sale = Sale.new
-    @products = Product.all
   end
   
   # POST users/1/sales
   # Recibe el id de una autorización por parámetro, y crea una venta.
   def create
     authorization = Authorization.find(params[:authorization])
-    # TODO Meter horas en constante
-    if authorization.created_at > 2.hours.ago 
+    if authorization.created_at > Const::AUTHORIZATION_EXPIRATION_LIMIT.minutes.ago 
       manager = SaleFromAuthorization.new(authorization)
       @sale = manager.create
       # TODO Ver qué devuelve tras la venta

@@ -13,11 +13,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one: 
-  product: one
-  service: pfpc
-  amount: 10
+  product:  one
+  service:  pfpc
+  amount:   10
 
 two: 
-  product: two
-  service: pfpc
-  amount: 20
+  product:  two
+  service:  pfpc
+  amount:   20

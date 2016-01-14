@@ -23,7 +23,6 @@ class SaleProduct < ActiveRecord::Base
 
   # -- Validations
   validates :product_id, presence: true
-  # validates :sale_id, presence: true
   validates :amount, presence: true
   validates :cost, presence: true
   validates :discount, presence: true

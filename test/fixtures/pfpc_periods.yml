@@ -14,13 +14,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  service_id: 
-  start_date: 2015-11-25
-  end_date: 2015-11-25
-  status: 1
+  service:    pfpc
+  start_date: 2015-11-01
+  end_date:   2015-11-30
+  status:     1
 
 two:
-  service_id: 
-  start_date: 2015-11-25
-  end_date: 2015-11-25
-  status: 1
+  service:    pfpc
+  start_date: 2015-12-01
+  end_date:   2015-12-31
+  status:     1
+  
+two:
+  service:    pfpc
+  start_date: 2016-01-15
+  end_date:   2016-01-31
+  status:     1

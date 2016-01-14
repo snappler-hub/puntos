@@ -13,9 +13,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  product_id: 
-  discount: 1.5
+  product:    one
+  discount:   1.5
+  vademecum:  one
 
 two:
-  product_id: 
-  discount: 1.5
+  product:    two
+  discount:   0.5
+  vademecum:  one

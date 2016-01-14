@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-8">
     <article class="box box-primary">
       <section class="box-body">
 
@@ -8,6 +8,7 @@
                 <p><%= message %></p>
             <% end %>
 
+            <h3> Datos personales </h3>
             <div class="row">
               <div class="col-md-6">
                 <fieldset class="form-group">
@@ -42,15 +43,9 @@
               </div>
             </div>
 
+            <h3> Credenciales </h3>
             <div class="row">
-              <div class="col-md-2">
-                <fieldset class="form-group">
-                  <%= f.label :number %>
-                  <%= f.text_field :number, class: 'form-control' %>
-                </fieldset>
-              </div>
-
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <fieldset class="form-group">
                   <%= f.label :username %>
                   <%= f.text_field :username, class: 'form-control' %>
@@ -81,6 +76,7 @@
               </div>
             </div>
 
+            <h3> Datos adicionales </h3>
             <div class="row">
               <div class="col-md-4">
                 <fieldset class="form-group">
@@ -141,3 +137,4 @@
     </article>
   </div>
 </div>
+
