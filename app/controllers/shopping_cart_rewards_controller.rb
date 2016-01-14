@@ -1,7 +1,7 @@
 class ShoppingCartRewardsController < ApplicationController
 
   def list
-    @filter = RewardFilter.new(filter_params)
+    @filter = RewardFilter.new(filter_params.merge(only_availables: true))
     @rewards = @filter.call.page(params[:page])
 
     render layout: 'public' if normal_user?
@@ -105,6 +105,8 @@ class ShoppingCartRewardsController < ApplicationController
   def filter_params
     if params[:reward_filter]
       params.require(:reward_filter).permit(:name, :code, :need_points, :reward_kind)
+    else
+      {}
     end
   end
 

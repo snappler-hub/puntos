@@ -28,7 +28,6 @@
             <tr>
               <th>Nombre</th>
               <th><span data-toggle="tooltip" data-placement="top" title="Cantidad">Cant.</span></th>
-              <th><span data-toggle="tooltip" data-placement="top" title="Precio de Venta Sugerido">PVS</span></th>
               <th><span data-toggle="tooltip" data-placement="top" title="Costo Unitario">CU</span></th>
               <th><span data-toggle="tooltip" data-placement="top" title="Descuento aplicado">Dto</span></th>
               <th>Total</th>
@@ -39,7 +38,6 @@
                 <tr>
                   <td><%= product.product.to_s %></td>
                   <td><%= product.amount %></td>
-                  <td>nil</td>
                   <td><%= number_to_currency(product.cost) %></td>
                   <td><%= number_to_percentage(product.discount, precision: 0) %></td>
                   <td><%= number_to_currency(product.total) %></td>
@@ -59,6 +57,8 @@
     </section>
   </article>
 
-  <%= link_to 'Nueva venta', [:new, @supplier, current_user, :sale], class: 'btn btn-success btn-block' %>
+  <% unless normal_user? %>
+      <%= link_to 'Nueva venta', [:new, @supplier, current_user, :sale], class: 'btn btn-success btn-block' %>
+  <% end %>
 
 </section>

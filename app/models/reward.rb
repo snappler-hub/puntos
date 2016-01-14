@@ -19,8 +19,8 @@ class Reward < ActiveRecord::Base
 
   include ActsAsStock
   include ActsAsStockEntry
-  
-	dragonfly_accessor :image
+
+  dragonfly_accessor :image
 
   serialize :service_types, Array
   REWARD_KINDS = %w(workshop product other)

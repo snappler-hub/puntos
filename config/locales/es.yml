@@ -1,5 +1,5 @@
 es:
-  success: 'Accion realizada con exito'
+  success: Accion realizada con exito
   dictionary:
     name: &first_name 'Nombre'
     last_name: &last_name 'Apellido'
@@ -12,39 +12,39 @@ es:
 
   activerecord:
     models:
-      User: 'Usuario'
-      Supplier: 'Prestador'
+      User: Usuario
+      Supplier: Prestador
     attributes:
       supplier:
-        name: 'Nombre'
+        name: Nombre
         description: *description
-        active: 'Activo'
-        city: 'Localidad'
-        address: 'Dirección'
-        latitude: 'Latitud'
-        longitude: 'Longitud'
-        telephone: 'Teléfono'
-        email: 'Email'
-        points_to_client: 'Puntos a clientes'
-        points_to_seller: 'Puntos a vendedores'
+        active: Activo
+        city: Localidad
+        address: Dirección
+        latitude: Latitud
+        longitude: Longitud
+        telephone: Teléfono
+        email: Email
+        points_to_client: Puntos a clientes
+        points_to_seller: Puntos a vendedores
       user:
         email: *email
-        password: 'Contraseña'
-        password_confirmation: 'Confirmación de contraseña'
-        role: 'Permisos'
+        password: Contraseña
+        password_confirmation: Confirmación de contraseña
+        role: Permisos
         first_name: *first_name
         last_name: *last_name
         created_by: 'Creado por' # TODO: No se usa
-        document_type: 'Tipo de Documento'
-        document_number: 'Nro. de Documento'
-        number: 'Número'
-        username: 'Nombre de usuario'
-        supplier: 'Prestador'
-        supplier_id: 'Prestador'
+        document_type: Tipo de Documento
+        document_number: Nro. de Documento
+        number: Número
+        username: Nombre de usuario
+        supplier: Prestador
+        supplier_id: Prestador
         created_by: 'Creado por' # TODO: No se usa
         phone: *phone
         address: *address
-        image: 'Foto de perfil'
+        image: Foto de perfil
       supplier_request:
         first_name: *first_name
         last_name: *last_name
@@ -60,14 +60,15 @@ es:
         code: Código
         name: Nombre
         points: Puntos
+        presentation_form: Presentación
       reward:
         code: Código
         name: Nombre
         need_points: Puntos
-        image: 'Imagen'
-        reward_kind: 'Tipo'
-        description: 'Descripción'
-        service_types: 'Servicios Aplicados'
+        image: Imagen
+        reward_kind: Tipo
+        description: Descripción
+        service_types: Servicios Aplicados
       service:
         name: Nombre
         amount: Puntos
@@ -101,16 +102,16 @@ es:
   activemodel:
     attributes:
       supplier_filter:
-        name: 'Nombre'
+        name: Nombre
         state: *status
-        filter: 'Filtrar'
+        filter: Filtrar
       user_filter:
         email: *email
-        role: 'Permisos'
-        card_number: 'Número de tarjeta'
-        document_number: 'Número de documento'
-        card_state: 'Estado de tarjeta'
-        filter: 'Filtrar'
+        role: Permisos
+        card_number: Número de tarjeta
+        document_number: Número de documento
+        card_state: Estado de tarjeta
+        filter: Filtrar
       supplier_request_filter:
         status: *status
         name: Solicitante
@@ -149,19 +150,19 @@ es:
         drug_id: Monodroga
       user_card_form:
         email: *email
-        password: 'Contraseña'
-        password_confirmation: 'Confirmación de contraseña'
-        role: 'Permisos'
+        password: Contraseña
+        password_confirmation: Confirmación de contraseña
+        role: Permisos
         first_name: *first_name
         last_name: *last_name
-        document_type: 'Tipo de Documento'
-        document_number: 'Nro. de Documento'
-        number: 'Número'
-        username: 'Nombre de usuario'
-        supplier_id: 'Prestador'
+        document_type: Tipo de Documento
+        document_number: Nro. de Documento
+        number: Número
+        username: Nombre de usuario
+        supplier_id: Prestador
         phone: *phone
-        address: 'Dirección'
-        card_number: 'Número de tarjeta'
+        address: Dirección
+        card_number: Número de tarjeta
       authorization_filter:
         supplier_id: Prestador
         client_id: Cliente
@@ -171,10 +172,10 @@ es:
 
 
   roles:
-    god: 'Dios'
-    admin: 'Administrador'
-    seller: 'Vendedor'
-    normal_user: 'Usuario final'
+    god: Dios
+    admin: Administrador
+    seller: Vendedor
+    normal_user: Usuario final
 
   supplier_request:
     status:
@@ -186,9 +187,9 @@ es:
       delivered: Entregada
 
   document_types:
-    dni: 'DNI'
-    cuil: 'CUIL'
-    passport: 'Pasaporte'    
+    dni: DNI
+    cuil: CUIL
+    passport: Pasaporte
 
   service_types:
     points: Por Puntos
@@ -197,18 +198,18 @@ es:
     PointsService: Por Puntos
 
   reward_kinds:
-    workshop: 'Taller'
-    product: 'Productos'
-    other: 'Otros'
+    workshop: Taller
+    product: Productos
+    other: Otros
 
   reward_order_states:
-    requested: 'Solicitado'
-    processing: 'Procesando'
-    incoming: 'En camino'
-    ready: 'Listo para retirarse'
-    delivered: 'Entregado'
-    not_delivered: 'No entregado'
-    canceled: 'Cancelado'
+    requested: Solicitado
+    processing: Procesando
+    incoming: En camino
+    ready: Listo para retirarse
+    delivered: Entregado
+    not_delivered: No entregado
+    canceled: Cancelado
 
 
   service_statuses:
@@ -225,8 +226,8 @@ es:
     accomplished: Cumplido
 
   stock_entry_codenames:
-    arqueo_negativo: 'Arqueo Negativo'
-    arqueo_positivo: 'Arqueo Positivo'
-    canjeo_premio: 'Canjeo Premio'
-    cancelado_premio: 'Cancelado Premio'
+    arqueo_negativo: Arqueo Negativo
+    arqueo_positivo: Arqueo Positivo
+    canjeo_premio: Canjeo Premio
+    cancelado_premio: Cancelado Premio
 
