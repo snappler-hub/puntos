@@ -1,6 +1,6 @@
 class SupplierRequestsController < ApplicationController
   before_action :set_supplier
-  before_action :set_supplier_request, only: [:show, :edit, :update, :destroy, :add_card]
+  before_action :set_supplier_request, only: [:show, :edit, :update, :destroy, :add_card, :emit]
   before_action :only_authorize_admin!, except: [:show, :edit, :update, :destroy]
 
   # GET /supplier_requests
@@ -22,6 +22,7 @@ class SupplierRequestsController < ApplicationController
   def load_form
     @user = User.find_or_initialize_by(document_number: params[:document_number], document_type: params[:document_type])
     @supplier_request = SupplierRequest.new @user.attributes.slice('first_name', 'last_name', 'document_type', 'document_number', 'phone', 'email', 'address', 'supplier_id')
+    @supplier_request.user = @user unless @user.id.nil?
 
     render 'new'
   end
@@ -33,6 +34,11 @@ class SupplierRequestsController < ApplicationController
     else
       redirect_to @supplier_request, alert: 'No pudo realizarse la acción.'
     end
+  end
+  
+  def emit
+    @supplier_request.emitted!
+    redirect_to @supplier_request, notice: 'Acción realizada con éxito'
   end
 
   # GET /supplier_requests/new
@@ -46,6 +52,9 @@ class SupplierRequestsController < ApplicationController
     @supplier_request = SupplierRequest.new(supplier_request_params)
     @supplier_request.supplier = @supplier if @supplier
     @supplier_request.created_by = current_user if current_user
+    @supplier_request.user = User.find_by(document_number: params[:supplier_request][:document_number], 
+                                          document_type: params[:supplier_request][:document_type])
+    
 
     respond_to do |format|
       if @supplier_request.save
@@ -111,7 +120,7 @@ class SupplierRequestsController < ApplicationController
   end
 
   def supplier_request_params
-    allow_params = [:first_name, :last_name, :document_type, :document_number, :phone, :email, :address, :notes]
+    allow_params = [:first_name, :last_name, :document_type, :document_number, :phone, :email, :address, :notes, :user_id]
     allow_params << :supplier_id << :status if god?
     parameters = params.require(:supplier_request).permit(allow_params)
   end

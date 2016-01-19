@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151229194731) do
+ActiveRecord::Schema.define(version: 20160114194702) do
 
   create_table "administration_routes", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -387,14 +387,12 @@ ActiveRecord::Schema.define(version: 20151229194731) do
     t.datetime "reset_password_email_sent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "supplier_request_id",             limit: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
   add_index "users", ["supplier_id"], name: "index_users_on_supplier_id", using: :btree
-  add_index "users", ["supplier_request_id"], name: "index_users_on_supplier_request_id", using: :btree
 
   create_table "vademecums", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -432,5 +430,4 @@ ActiveRecord::Schema.define(version: 20151229194731) do
   add_foreign_key "supplier_requests", "users"
   add_foreign_key "supplier_vademecums", "suppliers"
   add_foreign_key "supplier_vademecums", "vademecums"
-  add_foreign_key "users", "supplier_requests"
 end

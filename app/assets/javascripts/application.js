@@ -50,3 +50,4 @@
 //= require rewards
 //= require vademecums
 //= require products
+//= require supplier_requests

@@ -55,7 +55,6 @@ class User < ActiveRecord::Base
 
   # -- Associations
   belongs_to :supplier
-  belongs_to :supplier_request
   belongs_to :created_by, class_name: 'User'
   has_many :services, dependent: :destroy
   has_many :pfpc_services

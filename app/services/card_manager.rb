@@ -9,10 +9,11 @@ class CardManager
     user.username = request.full_client_name.parameterize
     user.role = 'normal_user'
     user.password = user.password_confirmation = user.email
-    user.supplier_request = request
     if user.save
       assign_card_number!(user)
       request.emitted! if request.requested?
+      request.user = user
+      request.save
     end
     return user
   end

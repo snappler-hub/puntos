@@ -119,19 +119,10 @@
                 <a class="pull-right"><%= format_card_number @user.card_number %></a>
               </li>
 
-              <% if @user.supplier_request %>
-                <li class="list-group-item">
-                  <b>Solicitada por</b>
-                  <%= link_to @user.supplier_request.created_by,
-                      @user.supplier_request, class: 'pull-right',
-                      title: 'Click para ver solicitud original' %>
-                </li>
-              <% end %>
-
               <li class="list-group-item">
                 <b>Estado</b>
                 <a class="pull-right">
-                  <%= @user.terms_accepted? ? 'Activa' : 'Aún no ha aceptado los terminos de uso' %>
+                  <%= @user.terms_accepted? ? 'Activa' : 'Aún no ha aceptado los términos de uso' %>
                 </a>
               </li>
               
