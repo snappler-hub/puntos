@@ -99,7 +99,7 @@
                     <fieldset class="form-group">
                       <%= f.label :role %>
                       <%= f.select :role,
-                                   permitted_roles.map { |role| [t("roles.#{role}"), role] },
+                                   form_permitted_roles.map { |role| [t("roles.#{role}"), role] },
                                    {}, {class: 'form-control', include_blank: false} %>
                     </fieldset>
                   </div>

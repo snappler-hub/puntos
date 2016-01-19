@@ -39,8 +39,12 @@ module ApplicationHelper
     end
   end
 
-  def permitted_roles
+  def filter_permitted_roles
     god? ? User::ROLES : User::ROLES - ['god']
+  end
+
+  def form_permitted_roles
+    god? ? User::ROLES : User::ROLES - ['god', 'normal_user']
   end
 
   def god?

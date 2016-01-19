@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @filter = UserFilter.new(filter_params)
-    @users = @filter.call(@supplier).page(params[:page])
+    @users = @filter.call(current_user, @supplier).page(params[:page])
   end
 
   # GET /users/1

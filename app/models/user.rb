@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   scope :search, ->(q) { where('card_number LIKE :q', q: "%#{q}%") }
   scope :with_role, ->(role) { where(role: role) }
   scope :all_from_supplier, ->(supplier) { where('supplier_id = ? AND role != ?', supplier.id, 'normal_user') }
-  scope :sellers, -> { where.not(role: "normal_user") }
+  scope :sellers, -> { where.not(role: 'normal_user') }
 
   # -- Associations
   belongs_to :supplier
