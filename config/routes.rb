@@ -74,7 +74,10 @@ Rails.application.routes.draw do
   
   
   resources :supplier_requests do
-    post :add_card, on: :member
+    member do
+      post :add_card
+      post :emit
+    end
     resources :comments, only: [:create, :index]
   end
 
