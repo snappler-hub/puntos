@@ -1,30 +1,32 @@
 <div id="js-nearExpirationFilter">
-<%= form_for @filter, url: [:near_expiration, @supplier, :services], method: :get do |f| %>
+  <%= form_for @filter, url: [:near_expiration, @supplier, :services], method: :get do |f| %>
 
-  <%= hidden_field_tag :format, '', id: 'js-nearExpirationFormat' %>
-  
-  <div class="row">
-    <div class="col-md-4">
-      <fieldset class="form-group">
-        <%= f.label :supplier_id %>
-        <%= f.collection_select :supplier_id, Supplier.all,
-            :id, :name, {include_blank: true}, {class: 'form-control'} %>
-      </fieldset>
-    </div>
-    <div class="col-md-3">
-      <fieldset class="form-group">
-        <%= f.label :date %>
-        <%= f.text_field :date, { type: :date, class: 'form-control' } %>
-      </fieldset>
-    </div>
-    <div class="col-md-4">
-      <fieldset class="form-group">
-        <%= f.label :filter %><br />
-        <%= f.submit 'Filtrar', class: 'btn btn-primary', data: { behavior: 'filter', 'disable-with' => 'Filtrando' } %>
-        <%= f.submit 'Exportar', class: 'btn btn-info', data: { behavior: 'export' } %>
-      </fieldset>
-    </div>
-  </div>
+      <%= hidden_field_tag :format, '', id: 'js-nearExpirationFormat' %>
 
-<% end %>
+      <div class="row">
+        <% if god? %>
+            <div class="col-md-4">
+              <fieldset class="form-group">
+                <%= f.label :supplier_id %>
+                <%= f.collection_select :supplier_id, Supplier.all,
+                                        :id, :name, {include_blank: true}, {class: 'form-control'} %>
+              </fieldset>
+            </div>
+        <% end %>
+        <div class="col-md-3">
+          <fieldset class="form-group">
+            <%= f.label :date %>
+            <%= f.text_field :date, {type: :date, class: 'form-control'} %>
+          </fieldset>
+        </div>
+        <div class="col-md-4">
+          <fieldset class="form-group">
+            <%= f.label :filter %><br/>
+            <%= f.submit 'Filtrar', class: 'btn btn-primary', data: {behavior: 'filter', 'disable-with' => 'Filtrando'} %>
+            <%= f.submit 'Exportar', class: 'btn btn-info', data: {behavior: 'export'} %>
+          </fieldset>
+        </div>
+      </div>
+
+  <% end %>
 </div>

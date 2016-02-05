@@ -58,24 +58,14 @@
           </strong>
 
           <ul class="text-muted list-unstyled">
-            <% @supplier.users.first(10).each do |user| %>
-              <li><%= user.first_name %> <%= user.last_name %></li>
+            <% @supplier.users.where(role: %w(seller admin)).order(:role, :last_name).first(10).each do |user| %>
+              <li><%= "#{user.last_name}, #{user.first_name}" %> (<%= t("roles.#{user.role}")%>)</li>
             <% end %>
           </ul>
           <%= link_to 'Administrar usuarios', [@supplier, :users] %>
         </div>
         
         <div class="col-md-6">
-          <strong>
-            Vademecums
-            (<%= @supplier.vademecums.count %>)
-          </strong>
-
-          <ul class="text-muted list-unstyled">
-            <% @supplier.vademecums.each do |vademecum| %>
-              <li><%= vademecum.name %> </li>
-            <% end %>
-          </ul>
         </div>
       </div>
       

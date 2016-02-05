@@ -54,7 +54,6 @@ class SupplierRequestsController < ApplicationController
     @supplier_request.created_by = current_user if current_user
     @supplier_request.user = User.find_by(document_number: params[:supplier_request][:document_number], 
                                           document_type: params[:supplier_request][:document_type])
-    
 
     respond_to do |format|
       if @supplier_request.save
@@ -115,14 +114,14 @@ class SupplierRequestsController < ApplicationController
     if params[:supplier_request_filter]
       allow_params = [:status, :name, :document_number]
       allow_params << :supplier_id if god?
-      parameters = params.require(:supplier_request_filter).permit(allow_params)
+      params.require(:supplier_request_filter).permit(allow_params)
     end
   end
 
   def supplier_request_params
     allow_params = [:first_name, :last_name, :document_type, :document_number, :phone, :email, :address, :notes, :user_id]
     allow_params << :supplier_id << :status if god?
-    parameters = params.require(:supplier_request).permit(allow_params)
+    params.require(:supplier_request).permit(allow_params)
   end
 
 end

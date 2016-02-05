@@ -1,5 +1,5 @@
 <header class="content-header">
-  <h1>Bienvenido a Manes</h1>
+  <h1>Bienvenido</h1>
 </header>
 
 <!-- Main content -->
@@ -7,7 +7,12 @@
 
   <div class="row">
     <div class="col-md-12">
-      <p>Vinyl gastropub neutra, organic scenester sriracha umami blog occupy put a bird on it. Offal sustainable four loko, tacos farm-to-table portland taxidermy. <strong>Banjo schlitz vinyl</strong>, small batch helvetica polaroid aesthetic try-hard VHS master cleanse. 3 wolf moon before they sold out cray, chambray kombucha dreamcatcher hella flannel. Gentrify cornhole hammock, beard four loko ennui cardigan yuccie crucifix iPhone austin plaid. Locavore mumblecore pour-over, bushwick put a bird on it gentrify organic ugh tofu. Dreamcatcher intelligentsia heirloom listicle chambray cred.</p>
+      <p>Vinyl gastropub neutra, organic scenester sriracha umami blog occupy put a bird on it. Offal sustainable four
+        loko, tacos farm-to-table portland taxidermy. <strong>Banjo schlitz vinyl</strong>, small batch helvetica
+        polaroid aesthetic try-hard VHS master cleanse. 3 wolf moon before they sold out cray, chambray kombucha
+        dreamcatcher hella flannel. Gentrify cornhole hammock, beard four loko ennui cardigan yuccie crucifix iPhone
+        austin plaid. Locavore mumblecore pour-over, bushwick put a bird on it gentrify organic ugh tofu. Dreamcatcher
+        intelligentsia heirloom listicle chambray cred.</p>
     </div>
   </div>
   <div class="row">
@@ -46,8 +51,8 @@
           <i class="fa fa-cubes"></i>
         </span>
         <div class="info-box-content">
-          <span class="info-box-text">Cantante</span>
-          <span class="info-box-number">David Bowie</span>
+          <span class="info-box-text">Otra información</span>
+          <span class="info-box-number"></span>
         </div>
       </div>
     </div>
@@ -60,17 +65,17 @@
           </h3>
 
           <% for pp in @period_products %>
-            <li class="list-group-item">
-              <b> <%= pp.product %> </b>
-              <div class="pull-right">
-                <%= pp.accumulated %> de <a> <%= pp.amount %> </a>
-              </div>
-            </li>
+              <li class="list-group-item">
+                <b> <%= pp.product %> </b>
+                <div class="pull-right">
+                  <%= pp.accumulated %> de <a> <%= pp.amount %> </a>
+                </div>
+              </li>
           <% end %>
 
         </section>
       </article>
     </div>
   </div>
-  
+
 </section>

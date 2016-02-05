@@ -1,105 +1,111 @@
 <div id="js-salesFilter">
- 
-  <% if normal_user? %>
-    <% url = my_purchases_path %>
-  <% else %>
-    <% url = [@supplier, current_user, :sales] %>
-  <% end %>
-  <%= form_for @filter, url: url, method: :get do |f| %>
-  
-    <%= hidden_field_tag :format, '', id: 'js-salesFormFormat' %>
-  
-    <div class="row">
-    
-      <% if god? %>
-        <!-- PRESTADOR -->
-        <div class="col-md-3" >
-          <fieldset class="form-group">
-            <%= f.label :supplier_id %>
-            <%= f.collection_select :supplier_id, Supplier.active,
-                :id, :name, {include_blank: true}, {class: 'form-control'} %>
-          </fieldset>
-        </div>
-      <% end %>
 
-      <% if admin? || god? %>
-        <!-- VENDEDOR -->
-        <div class="col-md-3">
-          <fieldset class="form-group">
-            <%= f.label :seller_id %>
-            <%= f.collection_select :seller_id, User.visible_sellers_for(current_user), 
-                :id, :fullname, {include_blank: true}, {class: 'form-control'} %>
-          </fieldset>
-        </div>
-      
-      <% end %>
-    
-      <% unless normal_user? %>
-        <!-- USUARIO -->
+  <% url = normal_user? ? my_purchases_path : [@supplier, current_user, :sales] %>
+
+  <%= form_for @filter, url: url, method: :get do |f| %>
+
+      <%= hidden_field_tag :format, '', id: 'js-salesFormFormat' %>
+
+      <div class="row">
+
+        <% if god? %>
+            <!-- PRESTADOR -->
+            <div class="col-md-3">
+              <fieldset class="form-group">
+                <%= f.label :supplier_id %>
+                <%= f.collection_select :supplier_id, Supplier.active,
+                                        :id, :name, {include_blank: true}, {class: 'form-control'} %>
+              </fieldset>
+            </div>
+        <% end %>
+
+        <% if admin? || god? %>
+            <!-- VENDEDOR -->
+            <div class="col-md-3">
+              <fieldset class="form-group">
+                <%= f.label :seller_id %>
+                <%= f.collection_select :seller_id, User.visible_sellers_for(current_user),
+                                        :id, :fullname, {include_blank: true}, {class: 'form-control'} %>
+              </fieldset>
+            </div>
+
+        <% end %>
+
+        <% unless normal_user? %>
+            <!-- USUARIO -->
+            <div class="col-md-2">
+              <fieldset class="form-group">
+                <%= f.label :client_id %>
+                <%= f.hidden_field :client_id, class: 'select2',
+                                   data: {behavior: 'searchClient',
+                                          url: search_users_path,
+                                          'record-id' => @filter.client_id,
+                                          'record-text' => @filter.card_number} %>
+              </fieldset>
+            </div>
+        <% end %>
+
+        <!-- FECHAS -->
         <div class="col-md-2">
           <fieldset class="form-group">
-            <%= f.label :client_id %>
-            <%= f.hidden_field :client_id, class: 'select2',
-                  data: { behavior: 'searchClient', url: search_users_path, 'record-id' => @filter.client_id, 'record-text' => @filter.card_number } %>
-          </fieldset>
-        </div>
-      <% end %>
-    
-      <!-- FECHAS -->
-      <div class="col-md-2">
-        <fieldset class="form-group">
-          <%= f.label :start_date %>
-          <div class='input-group date datepicker'>
-            <%= f.text_field :start_date, class: 'form-control', value: @filter.start_date %>
-            <span class="input-group-addon">
+            <%= f.label :start_date %>
+            <div class='input-group date datepicker'>
+              <%= f.text_field :start_date, class: 'form-control', value: @filter.start_date %>
+              <span class="input-group-addon">
               <span class="fa fa-calendar"></span>
             </span>
-          </div>
-        </fieldset>
-      </div>
-    
-      <div class='col-md-2'>
-        <fieldset class="form-group">
-          <%= f.label :finish_date %>
-          <div class='input-group date datepicker'>
-            <%= f.text_field :finish_date, class: 'form-control', value: @filter.finish_date %>
-            <span class="input-group-addon">
+            </div>
+          </fieldset>
+        </div>
+
+        <div class='col-md-2'>
+          <fieldset class="form-group">
+            <%= f.label :finish_date %>
+            <div class='input-group date datepicker'>
+              <%= f.text_field :finish_date, class: 'form-control', value: @filter.finish_date %>
+              <span class="input-group-addon">
               <span class="fa fa-calendar"></span>
             </span>
-          </div>
-        </fieldset>
-      </div>
-    </div>
-  
-    <div class="row">
-    
-      <% unless normal_user? %>
-        <div class="col-md-3">
-          <fieldset class="form-group">
-            <%= f.label :laboratory_id %>
-            <%= f.hidden_field :laboratory_id, class: 'select2',
-                  data: { behavior: 'searchLaboratory', url: search_laboratories_path, 'record-id' => @filter.laboratory_id, 'record-text' => @filter.laboratory_name } %>
+            </div>
           </fieldset>
         </div>
-    
+      </div>
+
+      <div class="row">
+
+        <% unless normal_user? %>
+            <div class="col-md-3">
+              <fieldset class="form-group">
+                <%= f.label :laboratory_id %>
+                <%= f.hidden_field :laboratory_id, class: 'select2',
+                                   data: {behavior: 'searchLaboratory',
+                                          url: search_laboratories_path,
+                                          'record-id' => @filter.laboratory_id,
+                                          'record-text' => @filter.laboratory_name} %>
+              </fieldset>
+            </div>
+
+            <div class="col-md-3">
+              <fieldset class="form-group">
+                <%= f.label :drug_id %>
+                <%= f.hidden_field :drug_id, class: 'select2',
+                                   data: {behavior: 'searchDrug',
+                                          url: search_drugs_path,
+                                          'record-id' => @filter.drug_id,
+                                          'record-text' => @filter.drug_name} %>
+              </fieldset>
+            </div>
+        <% end %>
+
         <div class="col-md-3">
           <fieldset class="form-group">
-            <%= f.label :drug_id %>
-            <%= f.hidden_field :drug_id, class: 'select2',
-                  data: { behavior: 'searchDrug', url: search_drugs_path, 'record-id' => @filter.drug_id, 'record-text' => @filter.drug_name } %>
+            <%= f.label :filter, '' %><br/>
+            <%= f.submit 'Filtrar', class: 'btn btn-primary', data: {behavior: 'filter'} %>
+            <%= f.submit 'Exportar', class: 'btn btn-info', data: {behavior: 'export'} %>
           </fieldset>
         </div>
-      <% end %>
-    
-      <div class="col-md-3">
-        <fieldset class="form-group">
-          <%= f.label :filter, '' %><br />
-          <%= f.submit 'Filtrar', class: 'btn btn-primary', data: { behavior: 'filter' } %>
-          <%= f.submit 'Exportar', class: 'btn btn-info', data: { behavior: 'export' } %>
-        </fieldset>
       </div>
-    </div>
-    
+
   <% end %>
-  
+
 </div>

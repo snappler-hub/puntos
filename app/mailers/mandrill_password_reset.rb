@@ -17,13 +17,13 @@ class MandrillPasswordReset
 
   def message
     {
-      from_email: 'develop@snappler.com',
-      to: [{email: @email, name: @name}],
-      subject: 'Reiniciar contraseña',
-      global_merge_vars: [
-        {name: 'USER_NAME', content: @name},
-        {name: 'URL', content: @url}
-      ]
+        from_email: 'develop@snappler.com',
+        to: [{email: @email, name: @name}],
+        subject: 'Reiniciar contraseña',
+        global_merge_vars: [
+            {name: 'USER_NAME', content: @name},
+            {name: 'URL', content: @url}
+        ]
     }
   end
 

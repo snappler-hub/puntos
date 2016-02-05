@@ -35,10 +35,11 @@
                 </thead>
                 <tbody>
                 <% for product in authorization.products do %>
+                    <% p = Product.find(product[:id]) %>
                     <tr>
                       <td><%= Product.find(product[:id]).to_s %></td>
                       <td><%= product[:amount] %></td>
-                      <td>nil</td>
+                      <td><%= number_to_currency(p.price) %></td>
                       <td><%= number_to_currency(product[:cost]) %></td>
                       <td><%= number_to_percentage(product[:discount], precision: 0) %></td>
                       <td><%= number_to_currency(product[:total]) %></td>
@@ -50,6 +51,7 @@
           </div>
           <div class="row">
             <div class="col-md-12">
+              <h5>Total: <strong><%= number_to_currency(authorization.total) %></strong></h5>
               <h5>Puntos acumulados en la venta: <strong><%= authorization.points %></strong></h5>
             </div>
           </div>

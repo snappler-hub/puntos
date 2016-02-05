@@ -15,11 +15,11 @@ class SalesController < ApplicationController
       format.xlsx
     end
   end
-    
+
   #GET users/1/sales/1
   def show
     if normal_user?
-      render "show", layout: "public"
+      render 'show', layout: 'public'
     end
   end
 
@@ -27,30 +27,30 @@ class SalesController < ApplicationController
   def new
     @sale = Sale.new
   end
-  
+
   # POST users/1/sales
   # Recibe el id de una autorización por parámetro, y crea una venta.
   def create
     authorization = Authorization.find(params[:authorization])
-    if authorization.created_at > Const::AUTHORIZATION_EXPIRATION_LIMIT.minutes.ago 
+    if authorization.created_at > Const::AUTHORIZATION_EXPIRATION_LIMIT.minutes.ago
       manager = SaleFromAuthorization.new(authorization)
       @sale = manager.create
       # TODO Ver qué devuelve tras la venta
-      redirect_to [current_user.supplier, current_user, @sale], notice: 'La venta ha sido creada correctamente.' 
+      redirect_to [current_user.supplier, current_user, @sale], notice: 'La venta ha sido creada correctamente.'
     else
       # TODO Definir qué se muestra cuando la autorización expiró
       render text: 'La autorización ha expirado'
     end
   end
-  
+
   def destroy
     #Charlar si es necesario
   end
-  
+
   def edit
     #Charlar si es necesario
   end
-  
+
   private
 
   def set_sale
@@ -58,17 +58,17 @@ class SalesController < ApplicationController
   end
 
   def sale_params
-    params.require(:sale).permit(:seller_id, :client_id, sale_products_attributes:[:id, :product_id, :amount, :cost, :discount, :_destroy])
+    params.require(:sale).permit(:seller_id, :client_id, sale_products_attributes: [:id, :product_id, :amount, :cost, :discount, :_destroy])
   end
-  
+
   def filter_params
     if params[:sale_filter]
       params.require(:sale_filter).permit(:supplier_id, :seller_id, :client_id, :start_date, :finish_date, :laboratory_id, :drug_id)
     end
   end
-  
+
   def set_supplier
     @supplier = current_user.supplier
   end
-  
+
 end
