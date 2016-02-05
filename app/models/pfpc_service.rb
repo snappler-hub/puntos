@@ -40,6 +40,10 @@ class PfpcService < Service
     status == 'in_progress'
   end
 
+  def available?
+    status == 'in_progress' || status == 'pending'
+  end
+
   def self.model_name
     superclass.model_name
   end

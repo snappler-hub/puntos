@@ -54,7 +54,7 @@ class AuthorizationFromSale
 
   def products
     products = []
-    
+
     @sale_products.map do |sale_product|
 
       # Productos con descuentos
@@ -82,10 +82,10 @@ class AuthorizationFromSale
   # Si el pfpc existe y está activo, devuelvo el período actual
   def period_product(product)
     pfpc = @client.pfpc_services.detect { |pfpc| pfpc.products.include?(product) }
-    if pfpc.present? && pfpc.in_progress?
+    if pfpc.present? && pfpc.available?
       pfpc.last_period.period_products.detect { |pp| pp.product == product }
     else
-      
+
       warning_msg = 'El cliente no posee ningún pfpc o período activo.'
       unless @message[Const::STATUS_WARNING].include? warning_msg
         @status = Const::STATUS_WARNING

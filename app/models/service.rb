@@ -22,6 +22,7 @@ class Service < ActiveRecord::Base
   # -- Scopes
   default_scope { order(:name) }
   scope :in_progress, -> { where(status: Service.statuses['in_progress']) }
+  scope :pending, -> { where(status: Service.statuses['pending']) }
 
   # -- Constants
   TYPES = %w(points pfpc)
@@ -31,9 +32,6 @@ class Service < ActiveRecord::Base
 
   # -- Validations
   validates :name, :user, :days, presence: true
-  
-  # -- Callbacks
-  after_create :reject_terms_of_use  
 
   # Statuses
   # pending: Servicio creado pero no habilitado (default)
@@ -52,17 +50,8 @@ class Service < ActiveRecord::Base
     self.save
   end
 
-  # Retorna la cantidad de días para la expiración
-  def days_to_expire
-    (self.last_period.end_date - Date.today).to_i
-  end
-
   def can_be_activated?
     true
   end
-  
-  def reject_terms_of_use
-    user.update(terms_accepted: false)
-  end
-  
+
 end

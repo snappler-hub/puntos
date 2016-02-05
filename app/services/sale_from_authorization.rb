@@ -5,12 +5,13 @@ class SaleFromAuthorization
   end
 
   def build
+    @authorization.client.activate_pending_services
     Sale.new(
-      client: @authorization.client,
-      seller: @authorization.seller,
-      sale_products: sale_products,
-      points: @authorization.points,
-      total: @authorization.total
+        client: @authorization.client,
+        seller: @authorization.seller,
+        sale_products: sale_products,
+        points: @authorization.points,
+        total: @authorization.total
     )
   end
 
@@ -25,11 +26,11 @@ class SaleFromAuthorization
   def sale_products
     @authorization.products.map do |product|
       SaleProduct.new(
-        product_id: product[:id],
-        amount:     product[:amount],
-        cost:       product[:cost],
-        discount:   product[:discount],
-        total:      product[:total]
+          product_id: product[:id],
+          amount: product[:amount],
+          cost: product[:cost],
+          discount: product[:discount],
+          total: product[:total]
       )
     end
   end

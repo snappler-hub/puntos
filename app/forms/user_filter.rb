@@ -2,7 +2,7 @@ class UserFilter
   include ActiveModel::Model
   attr_accessor :email, :role, :card_number, :document_number, :card_state
 
-  def call(current_user, context = false)
+  def call(context = false)
     users = context ? context.users : User.all.includes(:supplier)
     users = users.where('email LIKE ?', "%#{@email}%") if @email.present?
     users = users.where('document_number LIKE ?', "%#{@document_number}%") if @document_number.present?

@@ -27,11 +27,17 @@ class PointsService < Service
   validates :amount, presence: true
 
   # -- Callbacks
+  before_save :activate_service
   after_create :create_period
 
   # -- Methods
   def self.model_name
     superclass.model_name
+  end
+
+  # Los servicios de puntos se activan automaticamente al momento de crearlos
+  def activate_service
+    self.status = :in_progress
   end
 
   # Creo un período y lo asigno como último del servicio
