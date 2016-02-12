@@ -61,7 +61,7 @@ class Product < ActiveRecord::Base
   end
 
   def self.products_for_service(params_vademecum, user)
-    pfpc_services = user.pfpc_services
+    pfpc_services = user.pfpc_services.available
     products_in_services = pfpc_services.joins(:product_pfpcs)
     product_ids = products_in_services.pluck(:product_id)
 

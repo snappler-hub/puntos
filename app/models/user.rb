@@ -92,8 +92,7 @@ class User < ActiveRecord::Base
   end
 
   def vademecums # TODO: and service is active
-    pfpc = pfpc_services.where(status: [Service.statuses['pending'], Service.statuses['in_progress']])
-    pfpc.map &:vademecum
+    pfpc_services.available.map &:vademecum
   end
 
   def accept_terms_of_use

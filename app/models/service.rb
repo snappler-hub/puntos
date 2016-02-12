@@ -23,6 +23,7 @@ class Service < ActiveRecord::Base
   default_scope { order(:name) }
   scope :in_progress, -> { where(status: Service.statuses['in_progress']) }
   scope :pending, -> { where(status: Service.statuses['pending']) }
+  scope :available, -> { where(status: [Service.statuses['pending'], Service.statuses['in_progress']]) }
 
   # -- Constants
   TYPES = %w(points pfpc)
