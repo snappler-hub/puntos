@@ -43,6 +43,8 @@ class User < ActiveRecord::Base
   ROLES = %w(god admin seller normal_user)
   DOCUMENT_TYPES = %w(dni cuil passport)
   
+  include Destroyable
+  
   # -- Callbacks
   #Al crear un usuario, le mando mail de bienvenida para que acepte términos y condiciones
   after_create :send_mail, if: Proc.new { |u| !u.terms_accepted? }
@@ -156,6 +158,10 @@ class User < ActiveRecord::Base
     title = "Bienvenido al sistema Manes"
     message = "Para poder operar, es necesario que acepte los términos y condiciones. Para ello, haga clic en el siguiente botón e ingrese con su usuario y contraseña. "
     UserMailer.new_mail(self, title, message)
+  end
+  
+  def destroyable?
+    services.empty? && sales.empty? && points_periods.empty?
   end
 
 end

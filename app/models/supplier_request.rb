@@ -21,6 +21,8 @@
 #
 
 class SupplierRequest < ActiveRecord::Base
+  
+  include Destroyable
 
   # -- Scopes
   default_scope { order(created_at: :desc) }
@@ -51,5 +53,9 @@ class SupplierRequest < ActiveRecord::Base
 
   def can_be_viewed_by?(user)
     (user.is? :god) || (user.is?(:admin) && (user.supplier == self.supplier))
+  end
+  
+  def destroyable?
+    false
   end
 end

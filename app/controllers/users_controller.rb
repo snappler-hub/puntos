@@ -91,10 +91,15 @@ class UsersController < ApplicationController
     if is_me?
       redirect_to [@supplier, :users], alert: 'No puede eliminarse a si mismo.'
     else
-      @user.destroy
       respond_to do |format|
-        format.html { redirect_to [@supplier, :users], notice: 'El usuario ha sido eliminado correctamente.' }
-        format.json { head :no_content }
+        if @user.destroy
+          format.html { redirect_to [@supplier, :users], notice: 'El usuario ha sido eliminado correctamente. ' }
+          format.json { head :no_content }
+        else
+          error = 'El usuario no ha podido eliminarse. Puede que tenga servicios, ventas o puntos asociados. '
+          format.html { redirect_to [@supplier, :users], notice: error }
+          format.json { render json: [error] } 
+        end
       end
     end
   end

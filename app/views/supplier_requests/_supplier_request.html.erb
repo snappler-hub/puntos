@@ -8,6 +8,6 @@
   <td class="pull-right">
     <%= link_to 'Ver', [@supplier, supplier_request], class: 'btn btn-xs btn-primary' %>
     <%= link_to 'Editar', [:edit, @supplier, supplier_request], class: 'btn btn-xs btn-success' %>
-    <%= link_to 'Eliminar', supplier_request, method: :delete, data: {confirm: '¿Está seguro?'}, class: 'btn btn-xs btn-danger' %>
+    <%= link_to 'Eliminar', [@supplier, supplier_request], method: :delete, data: {confirm: '¿Está seguro?'}, class: 'btn btn-xs btn-danger' %>
   </td>
 </tr>

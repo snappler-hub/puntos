@@ -87,10 +87,15 @@ class SupplierRequestsController < ApplicationController
   # DELETE /supplier_requests/1
   # DELETE /supplier_requests/1.json
   def destroy
-    @supplier_request.destroy
     respond_to do |format|
-      format.html { redirect_to [@supplier, :supplier_requests], notice: 'La solicitud ha sido eliminada correctamente.' }
-      format.json { head :no_content }
+      if @supplier_request.destroy
+        format.html { redirect_to [@supplier, :supplier_requests], notice: 'La solicitud ha sido eliminada correctamente.' }
+        format.json { head :no_content }
+      else
+        error = 'La solicitud no ha podido eliminarse.'
+        format.html { redirect_to [@supplier, :supplier_requests], notice: error  }
+        format.json { render json: [error] }
+      end
     end
   end
 
