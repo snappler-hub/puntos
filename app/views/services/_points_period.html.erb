@@ -6,7 +6,7 @@
   <% if period.in_progress? %>
     <li class="list-group-item">
       <b> Vence en </b>
-      <a class="pull-right"> <%= @service.days_to_expire %> días </a>
+      <a class="pull-right"> <%= distance_of_time_in_words(DateTime.now, period.end_date) %> </a>
     </li>
   <% end %>
 </ul>

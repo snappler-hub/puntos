@@ -1,7 +1,7 @@
 class PublicController < ApplicationController
   layout :define_layout
   skip_before_filter :should_accept_terms_of_use!
-  
+
   def home
     should_have_a_card_assigned!
     should_accept_terms_of_use!
@@ -18,7 +18,7 @@ class PublicController < ApplicationController
 
   def no_cards_assigned
     if no_cards_assigned?
-      render layout: "sessions"
+      render layout: 'sessions'
     else
       redirect_to current_user_path, alert: 'No pudo realizar la acción.'
     end
@@ -27,7 +27,7 @@ class PublicController < ApplicationController
   def terms_of_use
     should_have_a_card_assigned!
     if should_accept_terms_of_use?
-      render layout: "sessions"
+      render layout: 'sessions'
     end
   end
 
@@ -43,8 +43,6 @@ class PublicController < ApplicationController
 
   private
 
-
-
   def should_have_a_card_assigned!
     redirect_to no_cards_assigned_path if no_cards_assigned?
   end
@@ -52,7 +50,7 @@ class PublicController < ApplicationController
   def no_cards_assigned?
     !current_user.card_number
   end
-  
+
   def define_layout
     unless normal_user?
       'application'

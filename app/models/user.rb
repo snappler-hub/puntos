@@ -44,9 +44,9 @@ class User < ActiveRecord::Base
   DOCUMENT_TYPES = %w(dni cuil passport)
   
   include Destroyable
-  
+
   # -- Callbacks
-  #Al crear un usuario, le mando mail de bienvenida para que acepte términos y condiciones
+  # Al crear un usuario, le mando mail de bienvenida para que acepte términos y condiciones
   after_create :send_mail, if: Proc.new { |u| !u.terms_accepted? }
 
   # -- Scopes
@@ -80,13 +80,13 @@ class User < ActiveRecord::Base
   def to_s
     fullname
   end
-  
+
   def fullname
     "#{first_name} #{last_name}"
   end
 
   def is?(a_role)
-    role == a_role.to_s
+    a_role.to_s == role
   end
 
   def to_param
@@ -94,22 +94,17 @@ class User < ActiveRecord::Base
   end
 
   def vademecums # TODO: and service is active
-    services.where("type = 'PfpcService' AND status = 1").map &:vademecum
+    pfpc_services.available.map &:vademecum
   end
 
   def accept_terms_of_use
     User.transaction do
       CardManager.accept_terms_of_use!(self)
-      self.activate_pending_services
     end
   end
 
   def activate_pending_services
-    pending_services.map { |serv| serv.update(status: 1) }
-  end
-
-  def pending_services
-    services.select { |serv| serv.pending? }
+    pfpc_services.pending.map { |serv| serv.update(status: Service.statuses['in_progress']) }
   end
 
   def can_view?(resource)
@@ -128,16 +123,16 @@ class User < ActiveRecord::Base
   def has_points_service?
     points_services.count > 0 && points_services.first.in_progress?
   end
-  
+
   def active_points_service
     self.points_services.in_progress.first
   end
-  
+
   # Resta los puntos del usuario. Va sacando los disponibles
   # desde el período más viejo al más nuevo.
   def decrease_points(points)
     return false unless self.cache_points >= points # Alcanzan los puntos?
-    
+
     periods = self.points_periods.where('points_periods.available > 0').order('points_periods.end_date')
     periods.each do |period|
       if period.available >= points
@@ -149,14 +144,13 @@ class User < ActiveRecord::Base
         period.update_attribute(:available, 0)
       end
     end
-    
+
     self.update_attribute(:cache_points, self.reload.cache_points-points) unless points == 0
-    
   end
-  
+
   def send_mail
-    title = "Bienvenido al sistema Manes"
-    message = "Para poder operar, es necesario que acepte los términos y condiciones. Para ello, haga clic en el siguiente botón e ingrese con su usuario y contraseña. "
+    title = 'Bienvenido al sistema Manes'
+    message = 'Para poder operar, es necesario que acepte los términos y condiciones. Para ello, haga clic en el siguiente botón e ingrese con su usuario y contraseña. '
     UserMailer.new_mail(self, title, message)
   end
   
