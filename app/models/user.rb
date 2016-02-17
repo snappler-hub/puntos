@@ -127,6 +127,10 @@ class User < ActiveRecord::Base
   def active_points_service
     self.points_services.in_progress.first
   end
+  
+  def has_supplier?(supplier)
+    pfpc_services.in_progress.detect { |pfpc| pfpc.suppliers.include?(supplier) }
+  end
 
   # Resta los puntos del usuario. Va sacando los disponibles
   # desde el período más viejo al más nuevo.

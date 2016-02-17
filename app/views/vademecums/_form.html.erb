@@ -14,11 +14,13 @@
   </fieldset>
   
   <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-12">
       <h4> Prestadores </h4>
       <%= f.select :supplier_ids, Supplier.all.map{|s| [s.name, s.id]}, {}, {multiple: :multiple, class: 'form-control select2'} %>
     </div>
   </div>
+  
+  <br>  
   
   <div id="js-vademecum-product-discounts" class="product_discounts form-group">
     <h4> Descuentos </h4>

@@ -1,5 +1,5 @@
 class VademecumsController < ApplicationController
-  before_action :set_vademecum, only: [:show, :edit, :update, :destroy]
+  before_action :set_vademecum, only: [:show, :edit, :update, :destroy, :get_suppliers]
   before_action :only_authorize_god!, only: [:index, :new, :create, :destroy]
 
   # GET /vademecums
@@ -48,6 +48,14 @@ class VademecumsController < ApplicationController
   def destroy
     @vademecum.destroy ? flash[:notice] = 'El Vademecum ha sido eliminado correctamente.' : flash[:error] = 'No se pudo eliminar el Vademecum seleccionado. Compruebe que no tenga asociado un servicio'
     redirect_to vademecums_path
+  end
+  
+  def get_suppliers
+    @user = current_user
+    @service = PfpcService.new(suppliers: @vademecum.suppliers)
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202161116) do
+ActiveRecord::Schema.define(version: 20160216164643) do
 
   create_table "administration_routes", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -79,6 +79,14 @@ ActiveRecord::Schema.define(version: 20160202161116) do
   end
 
   add_index "pfpc_periods", ["service_id"], name: "index_pfpc_periods_on_service_id", using: :btree
+
+  create_table "pfpc_suppliers", force: :cascade do |t|
+    t.integer "pfpc_service_id", limit: 4
+    t.integer "supplier_id",     limit: 4
+  end
+
+  add_index "pfpc_suppliers", ["pfpc_service_id"], name: "index_pfpc_suppliers_on_pfpc_service_id", using: :btree
+  add_index "pfpc_suppliers", ["supplier_id"], name: "index_pfpc_suppliers_on_supplier_id", using: :btree
 
   create_table "pharmacologic_actions", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -403,6 +411,8 @@ ActiveRecord::Schema.define(version: 20160202161116) do
   add_foreign_key "period_products", "pfpc_periods"
   add_foreign_key "period_products", "products"
   add_foreign_key "pfpc_periods", "services"
+  add_foreign_key "pfpc_suppliers", "services", column: "pfpc_service_id"
+  add_foreign_key "pfpc_suppliers", "suppliers"
   add_foreign_key "points_periods", "services"
   add_foreign_key "product_discounts", "products"
   add_foreign_key "product_discounts", "vademecums"

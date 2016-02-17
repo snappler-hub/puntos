@@ -98,10 +98,10 @@ class AuthorizationFromSale
   # Porcentaje de descuento para un producto
   def discount(product)
     vademecum = @client.vademecums.detect { |vademecum| vademecum.products.include?(product) }
-    if vademecum.present? && @supplier.vademecums.include?(vademecum)
+    if vademecum.present? && @client.has_supplier?(@supplier)
       vademecum.discount(product)
     else
-      warning_msg = 'No se encontró un vademecum, por lo que no se aplicarán descuentos.'
+      warning_msg = 'No se encontró un vademecum o el prestador no está activo en ningún servicio, por lo que no se aplicarán descuentos.'
       unless @message[Const::STATUS_WARNING].include? warning_msg
         @status = Const::STATUS_WARNING
         @message[Const::STATUS_WARNING] << warning_msg

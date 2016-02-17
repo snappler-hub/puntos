@@ -1,0 +1,8 @@
+<% fields = '' %>
+<% @service.pfpc_suppliers.each do |sup| %>
+    <% fields_for "service[pfpc_suppliers_attributes][#{sup.object_id}]", sup do |p| %>
+       <% fields += render partial: "services/pfpc_supplier_fields", locals: {f: p} %>
+    <% end %>
+<% end %>
+$('#js-pfpcSuppliers').html("<%= j fields.html_safe %>");
+$('.select2').ajaxSelect();

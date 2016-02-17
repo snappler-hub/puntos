@@ -76,6 +76,16 @@
                     </li>
                 <% end %>
               </ul>
+              
+              <p class="text-muted text-center"> Prestadores habilitados </p>
+
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <% @service.pfpc_suppliers.each do |p| %>
+                    -<%= p.supplier.name %> 
+                  <% end %>
+                </li>
+              </ul>
           <% end %>
         </section>
 
