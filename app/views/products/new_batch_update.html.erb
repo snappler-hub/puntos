@@ -1,0 +1,49 @@
+<header class="content-header">
+  <%= link_to 'Volver', products_path,
+      class: 'btn btn-default pull-right' %>
+  <h1>Actualización Masiva</h1>
+</header>
+
+<section class="content">
+  <div class="row">
+    <div class="col-md-9">
+      <article class="box box-primary">
+        <section class="box-body">
+
+          <%= form_tag batch_update_products_path, method: :post do |f| %>
+
+              <div class="row">
+                <fieldset class="form-group col-md-4">
+                  <%= label_tag :points, 'Puntos' %>
+                  <%= text_field_tag :points, '', class: 'form-control', required: true %>
+                </fieldset>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <fieldset class="form-group">
+                    <%= label_tag :laboratory_id, 'Laboratorio' %>
+                    <%= hidden_field_tag :laboratory_id, '', class: 'select2',
+                          data: { behavior: 'searchLaboratory', url: search_laboratories_path } %>
+                  </fieldset>
+                </div>
+              </div>
+
+              <div class="actions">
+                <%= submit_tag 'Actualizar', class: 'btn btn-primary', data: {'disable-with' => 'Actualizando...'} %>
+              </div>
+          <% end %>
+
+        </section>
+      </article>
+    </div>
+    <div class="col-md-3">
+      <div class="callout callout-warning">
+        <h4>Notas</h4>
+
+        <p>Deje el campo <b>Laboratorio</b> en blanco si desea actualizar todos los productos.</p>
+      </div>
+    </div>
+
+  </div>
+</section>

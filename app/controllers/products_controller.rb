@@ -1,19 +1,19 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :only_authorize_god!, only: [:index, :new, :create, :destroy]  
+  before_action :only_authorize_god!, only: [:index, :new, :create, :destroy]
 
   # GET /products
   def index
     @filter = ProductFilter.new(filter_params)
     @products = @filter.call.page(params[:page])
   end
-  
+
   # GET /products/search
   def search
-    block = lambda { |record| { 
-        id: record.id, 
+    block = lambda { |record| {
+        id: record.id,
         name: record.name,
-        price: record.price, 
+        price: record.price,
         laboratory: record.laboratory.to_s,
         barcode: record.barcode || '-',
         troquel_number: record.troquel_number || '-',
@@ -67,7 +67,7 @@ class ProductsController < ApplicationController
       format.html { redirect_to products_url, notice: 'El producto ha sido eliminado correctamente.' }
     end
   end
-  
+
   # GET /products/search_for_service.json
   # Retorna los productos que no están en ningún servicio del usuario (params[:user_id])
   # que cumplen con la búsqueda
@@ -78,6 +78,14 @@ class ProductsController < ApplicationController
     render json: records.to_json, callback: params[:callback]
   end
 
+  def new_batch_update
+  end
+
+  def batch_update
+    Product.points_batch_update(params[:points], params[:laboratory_id])
+    redirect_to products_path, notice: 'Se han actualizado los productos'
+  end
+
   private
 
     def set_product
@@ -85,7 +93,7 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:name, :code, :points, 
+      params.require(:product).permit(:name, :code, :points,
           supplier_point_products_attributes: [:id, :points, :supplier_id, :_destroy])
     end
 
@@ -94,5 +102,5 @@ class ProductsController < ApplicationController
         params.require(:product_filter).permit(:name, :laboratory_id, :drug_id)
       end
     end
-  
+
 end

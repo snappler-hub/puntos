@@ -74,6 +74,11 @@ class Product < ActiveRecord::Base
     products
   end
 
+  def self.points_batch_update(points, laboratory_id)
+    products = (laboratory_id.present?) ? Product.where(laboratory_id: laboratory_id) : Product.all
+    products.update_all(points: points)
+  end
+
   def initialize_points
     self.update(points: 0)
   end
