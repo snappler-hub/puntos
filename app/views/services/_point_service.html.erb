@@ -1,0 +1,19 @@
+<!-- Servicio de Puntos -->
+<p class="text-muted text-center">
+  <%= t "service_statuses.#{@service.status}" %>
+</p>
+
+<ul class="list-group list-group-unbordered">
+  <li class="list-group-item">
+    <strong>Puntos a cumplir</strong>
+    <a class="pull-right"> <%= @service.amount %> </a>
+  </li>
+  <li class="list-group-item">
+    <strong>Períodos Vencen cada</strong>
+    <a class="pull-right"> <%= "#{@service.days} días" %> </a>
+  </li>
+  <li class="list-group-item">
+    <strong>Puntos vencen cada</strong>
+    <a class="pull-right"> <%= "#{@service.days_to_points_expiration} días" %> </a>
+  </li>
+</ul>

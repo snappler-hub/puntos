@@ -81,9 +81,9 @@ es:
         discount: Descuento
       product_pfpc:
         product_id: Producto
-        amount: Cantidad    
+        amount: Cantidad
       product_pfpcs:
-        product: Producto asociado  
+        product: Producto asociado
       product_discounts:
         product: Producto
       sale:
@@ -193,8 +193,10 @@ es:
   service_types:
     points: Por Puntos
     pfpc: PFPC
+    seller: Vendedor
     PfpcService: PFPC
     PointsService: Por Puntos
+    SellerService: Servicio Vendedor
 
   reward_kinds:
     workshop: Taller
@@ -220,7 +222,7 @@ es:
     pending: Pendiente
     in_progress: En curso
     expired: Vencido
-    closed: Cerrado Manualmente  
+    closed: Cerrado Manualmente
     accomplished: Cumplido
 
   stock_entry_codenames:

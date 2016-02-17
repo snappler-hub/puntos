@@ -21,7 +21,7 @@ class SupplierRequestsControllerTest < ActionController::TestCase
     get :new, supplier_id: @user.supplier_id
     assert_response :success
   end
-  
+
   test "should create supplier request" do
     assert_difference('SupplierRequest.count') do
       post :create, supplier_id: @user.supplier_id, supplier_request: {
@@ -30,7 +30,7 @@ class SupplierRequestsControllerTest < ActionController::TestCase
         address: @supplier_request.address, notes: @supplier_request.notes
       }
     end
-    
+
     assert_equal(assigns(:supplier_request).created_by, @user)
     assert_equal(assigns(:supplier_request).supplier, @user.supplier)
     assert_redirected_to [@user.supplier, assigns(:supplier_request)]
@@ -55,11 +55,4 @@ class SupplierRequestsControllerTest < ActionController::TestCase
     assert_redirected_to [@user.supplier, assigns(:supplier_request)]
   end
 
-  test "should destroy supplier request" do
-    assert_difference('SupplierRequest.count', -1) do
-      delete :destroy, id: @supplier_request, supplier_id: @user.supplier_id
-    end
-
-    assert_redirected_to [@user.supplier, :supplier_requests]
-  end
 end

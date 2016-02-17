@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
 
   ROLES = %w(god admin seller normal_user)
   DOCUMENT_TYPES = %w(dni cuil passport)
-  
+
   include Destroyable
 
   # -- Callbacks
@@ -60,6 +60,7 @@ class User < ActiveRecord::Base
   belongs_to :created_by, class_name: 'User'
   has_many :services, dependent: :destroy
   has_many :pfpc_services
+  has_one :seller_service
   has_many :sales, foreign_key: :seller_id
   has_many :points_services
   has_many :points_periods, through: :points_services, source: :periods
@@ -86,7 +87,7 @@ class User < ActiveRecord::Base
   end
 
   def is?(a_role)
-    a_role.to_s == role
+    (Array(a_role).collect(&:to_sym) & [role.to_sym]).any?
   end
 
   def to_param
@@ -153,7 +154,7 @@ class User < ActiveRecord::Base
     message = 'Para poder operar, es necesario que acepte los términos y condiciones. Para ello, haga clic en el siguiente botón e ingrese con su usuario y contraseña. '
     UserMailer.new_mail(self, title, message)
   end
-  
+
   def destroyable?
     services.empty? && sales.empty? && points_periods.empty?
   end

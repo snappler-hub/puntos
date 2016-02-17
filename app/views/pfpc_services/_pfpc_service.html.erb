@@ -1,0 +1,31 @@
+<p class="text-muted text-center">
+  <%= t "service_statuses.#{@service.status}" %>
+</p>
+<ul class="list-group list-group-unbordered">
+  <li class="list-group-item">
+    <strong>Vademecum</strong>
+    <a class="pull-right"> <%= "#{@service.vademecum}" %> </a>
+  </li>
+  <li class="list-group-item">
+    <strong>Vence cada</strong>
+    <a class="pull-right"> <%= "#{@service.days} días" %> </a>
+  </li>
+  <li class="list-group-item">
+    <strong>Descuenta siempre</strong>
+    <a class="pull-right">
+      <i class="fa fa-fw <%= @service.always_discount ? 'fa-check text-success' : 'fa-times text-danger' %>"></i></a>
+  </li>
+</ul>
+<p class="text-muted text-center"> Cantidades a cumplir </p>
+
+<ul class="list-group list-group-unbordered">
+  <% @service.product_pfpcs.each do |p| %>
+      <li class="list-group-item">
+        <strong><%= p.product %></strong>
+        <div class="pull-right">
+          <a><%= p.amount %></a>
+        </div>
+      </li>
+  <% end %>
+</ul>
+

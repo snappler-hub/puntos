@@ -21,98 +21,43 @@
             <%= @service.name %>
           </h3>
 
-          <% if @service.is_a?(PointsService) %>
+          <%= render @service %>
 
-              <!-- Servicio de Puntos -->
-              <p class="text-muted text-center">
-                <%= t "service_statuses.#{@service.status}" %>
-              </p>
-
-              <ul class="list-group list-group-unbordered">
-                <li class="list-group-item">
-                  <strong>Puntos a cumplir</strong>
-                  <a class="pull-right"> <%= @service.amount %> </a>
-                </li>
-                <li class="list-group-item">
-                  <strong>Períodos Vencen cada</strong>
-                  <a class="pull-right"> <%= "#{@service.days} días" %> </a>
-                </li>
-                <li class="list-group-item">
-                  <strong>Puntos vencen cada</strong>
-                  <a class="pull-right"> <%= "#{@service.days_to_points_expiration} días" %> </a>
-                </li>
-              </ul>
-
-          <% else %>
-
-              <!-- Servicio PFPC -->
-              <p class="text-muted text-center">
-                <%= t "service_statuses.#{@service.status}" %>
-              </p>
-              <ul class="list-group list-group-unbordered">
-                <li class="list-group-item">
-                  <strong>Vademecum</strong>
-                  <a class="pull-right"> <%= "#{@service.vademecum}" %> </a>
-                </li>
-                <li class="list-group-item">
-                  <strong>Vence cada</strong>
-                  <a class="pull-right"> <%= "#{@service.days} días" %> </a>
-                </li>
-                <li class="list-group-item">
-                  <strong>Descuenta siempre</strong>
-                  <a class="pull-right">
-                    <i class="fa fa-fw <%= @service.always_discount ? 'fa-check text-success' : 'fa-times text-danger' %>"></i></a>
-                </li>
-              </ul>
-              <p class="text-muted text-center"> Cantidades a cumplir </p>
-
-              <ul class="list-group list-group-unbordered">
-                <% @service.product_pfpcs.each do |p| %>
-                    <li class="list-group-item">
-                      <strong><%= p.product %></strong>
-                      <div class="pull-right">
-                        <a><%= p.amount %></a>
-                      </div>
-                    </li>
-                <% end %>
-              </ul>
-          <% end %>
         </section>
 
         <div class="box-footer">
           <% if god? %>
               <%= link_to 'Editar', [:edit, @user, @service], class: 'btn btn-success' if @service.pending? %>
-              <%= link_to 'Finalizar', [:finalize, @user, @service], class: 'btn btn-info', method: :put if @service.in_progress? %>
+              <%= link_to 'Finalizar', [:finalize, @user, @service], class: 'btn btn-info', method: :put if @service.in_progress? && !@service.is_a?(SellerService) %>
               <%= link_to 'Eliminar', [@user, @service], method: :delete, class: 'btn btn-danger', data: {confirm: '¿Está seguro?'} %>
           <% end %>
         </div>
       </article>
     </div>
 
-    <div class="col-md-4">
-      <article class="box box-<%= klass %>">
-        <section class="box-body box-profile">
-          <h3 class="profile-username text-center">
-            Período Actual
-          </h3>
+    <% unless @service.is_a?(SellerService) %>
+      <div class="col-md-4">
+        <article class="box box-<%= klass %>">
+          <section class="box-body box-profile">
+            <h3 class="profile-username text-center">
+              Período Actual
+            </h3>
 
-          <% if !@service.in_progress? %>
-              <%= render 'inactive_service' %>
-          <% elsif @service.is_a?(PointsService) %>
-              <%= render partial: 'points_period', locals: {period: @service.last_period} %>
-          <% else %>
-              <%= render partial: 'pfpc_period', locals: {period: @service.last_period} %>
+            <% if !@service.in_progress? %>
+                <%= render 'inactive_service' %>
+            <% else %>
+              <%= render @service.last_period %>
+            <% end %>
+          </section>
+        </article>
+
+        <div id="js-history" class="text-center">
+          <% periods_count = @service.periods.not_in_progress.count %>
+          <% unless periods_count == 0 %>
+              <%= link_to "Ver Historial (#{periods_count} más)", history_service_path(@service), remote: true, data: {'diable-with' => 'Cargando...'} %>
           <% end %>
-        </section>
-      </article>
-
-      <div id="js-history" class="text-center">
-        <% periods_count = @service.periods.not_in_progress.count %>
-        <% unless periods_count == 0 %>
-            <%= link_to "Ver Historial (#{periods_count} más)", history_service_path(@service), remote: true, data: {'diable-with' => 'Cargando...'} %>
-        <% end %>
+        </div>
       </div>
-
-    </div>
+    <% end %>
   </div>
 </section>

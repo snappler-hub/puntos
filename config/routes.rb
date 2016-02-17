@@ -75,7 +75,7 @@ Rails.application.routes.draw do
   resources :vademecums
 
 
-  resources :supplier_requests do
+  resources :supplier_requests, except: [:destroy] do
     member do
       post :add_card
       post :emit
