@@ -72,8 +72,10 @@ Rails.application.routes.draw do
   end
 
 
-  resources :vademecums
 
+  resources :vademecums do
+    get :get_suppliers, on: :member
+  end
 
   resources :supplier_requests, except: [:destroy] do
     member do
@@ -87,6 +89,7 @@ Rails.application.routes.draw do
 
   resources :suppliers do
     get :list_for_map, on: :collection
+    get :search, on: :collection
     resources :users do
       resources :sales, except: [:edit, :destroy, :update] do
         resources :sale_products

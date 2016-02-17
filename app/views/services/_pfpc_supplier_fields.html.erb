@@ -1,0 +1,18 @@
+<div class="nested-fields">
+  <div class="row">
+    <div class="col-md-7">
+      <fieldset class="form-group">
+        <%= f.hidden_field :supplier_id, class: 'form-control select2', 
+              data: { behavior: 'searchSupplier', url: search_suppliers_path(),
+                  record_id: f.object.supplier_id, record_text: f.object.supplier.try(:name)} %>
+      </fieldset>
+    </div>
+    
+    <div class="col-md-1">
+      <fieldset class="form-group">
+        <%= link_to_remove_association 'eliminar', f, class: 'btn btn-danger' %>
+      </fieldset>
+    </div>
+    
+  </div>
+</div>

@@ -14,6 +14,16 @@ class SuppliersController < ApplicationController
   # GET /suppliers/1.json
   def show
   end
+  
+  # GET /suppliers/search
+  def search
+    block = lambda { |record| { 
+        id: record.id, 
+        name: record.name
+    } }
+    records = RecordSearcher.call(Supplier.all, params, &block)
+    render json: records.to_json, callback: params[:callback]
+  end
 
   # GET /suppliers/new
   def new

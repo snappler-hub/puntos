@@ -31,6 +31,8 @@ class Supplier < ActiveRecord::Base
   has_many :supplier_requests
   has_many :supplier_vademecums, dependent: :destroy
   has_many :vademecums, through: :supplier_vademecums
+  has_many :pfpc_suppliers
+  has_many :pfpc_services, through: :pfpc_suppliers
   has_many :supplier_point_products, dependent: :destroy
   accepts_nested_attributes_for :supplier_point_products, allow_destroy: true
   accepts_nested_attributes_for :vademecums, allow_destroy: true
@@ -44,6 +46,7 @@ class Supplier < ActiveRecord::Base
   # -- Scopes
   scope :active, -> { where(active: true) }
   scope :with_location, -> { where('latitude is not null and longitude is not null') }
+  scope :search, ->(q) { where('name LIKE :q', q: "%#{q}%") }
 
 
   # -- Misc

@@ -42,6 +42,7 @@
 //= require gmaps
 //= require utilities
 //= require services
+//= require pfpc_suppliers
 //= require comments
 //= require sales
 //= require shopping_cart_rewards

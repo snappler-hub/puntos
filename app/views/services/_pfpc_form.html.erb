@@ -1,7 +1,7 @@
 <div class="row">
   <fieldset class="form-group col-md-5">
     <%= f.label :vademecum %>
-    <%= f.collection_select :vademecum_id, Vademecum.all, :id, :name, {}, {class: 'form-control', id: 'js-vademecumField'} %>
+    <%= f.collection_select :vademecum_id, Vademecum.all, :id, :name, {prompt: 'Seleccione un vademecum'}, {class: 'form-control', id: 'js-vademecumField'} %>
   </fieldset>
 
   <fieldset class="form-group col-md-5">
@@ -22,6 +22,16 @@
   <div class="links">
     <%= link_to_add_association 'Nuevo Producto', f, :product_pfpcs, class: 'btn btn-default' %>
   </div>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="col-md-10"> <%= label_tag :suppliers, 'Prestador' %></div>
+</div>
+
+<div id="js-pfpcSuppliers" class="pfpc_suppliers form-group">
+  <%= render partial: 'pfpc_suppliers/form', locals: { f: f } %>
 </div>
 
 <%= content_for(:form_help) do %>
