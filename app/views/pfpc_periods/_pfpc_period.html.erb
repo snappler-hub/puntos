@@ -1,14 +1,14 @@
-<% if period.in_progress? %>
+<% if pfpc_period.in_progress? %>
   <ul class="list-group list-group-unbordered">
     <li class="list-group-item">
       <b> Vence en </b>
-      <a class="pull-right"> <%= distance_of_time_in_words(DateTime.now, period.end_date) %> </a>
+      <a class="pull-right"> <%= distance_of_time_in_words(DateTime.now, pfpc_period.end_date) %> </a>
     </li>
   </ul>
 <% end %>
 <p class="text-muted text-center"> Acumulado en Período </p>
 <ul class="list-group list-group-unbordered">
-  <% period.period_products.each do |p| %>
+  <% pfpc_period.period_products.each do |p| %>
     <li class="list-group-item">
       <b> <%= p.product %> </b>
       <div class="pull-right">

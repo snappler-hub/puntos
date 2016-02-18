@@ -35,7 +35,7 @@ class SupplierRequestsController < ApplicationController
       redirect_to @supplier_request, alert: 'No pudo realizarse la acción.'
     end
   end
-  
+
   def emit
     @supplier_request.emitted!
     redirect_to @supplier_request, notice: 'Acción realizada con éxito'
@@ -52,7 +52,7 @@ class SupplierRequestsController < ApplicationController
     @supplier_request = SupplierRequest.new(supplier_request_params)
     @supplier_request.supplier = @supplier if @supplier
     @supplier_request.created_by = current_user if current_user
-    @supplier_request.user = User.find_by(document_number: params[:supplier_request][:document_number], 
+    @supplier_request.user = User.find_by(document_number: params[:supplier_request][:document_number],
                                           document_type: params[:supplier_request][:document_type])
 
     respond_to do |format|
@@ -80,21 +80,6 @@ class SupplierRequestsController < ApplicationController
       else
         format.html { render :edit }
         format.json { render json: @supplier_request.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /supplier_requests/1
-  # DELETE /supplier_requests/1.json
-  def destroy
-    respond_to do |format|
-      if @supplier_request.destroy
-        format.html { redirect_to [@supplier, :supplier_requests], notice: 'La solicitud ha sido eliminada correctamente.' }
-        format.json { head :no_content }
-      else
-        error = 'La solicitud no ha podido eliminarse.'
-        format.html { redirect_to [@supplier, :supplier_requests], notice: error  }
-        format.json { render json: [error] }
       end
     end
   end

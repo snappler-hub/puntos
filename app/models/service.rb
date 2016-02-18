@@ -26,7 +26,7 @@ class Service < ActiveRecord::Base
   scope :available, -> { where(status: [Service.statuses['pending'], Service.statuses['in_progress']]) }
 
   # -- Constants
-  TYPES = %w(points pfpc)
+  TYPES = %w(points pfpc seller)
 
   # -- Associations
   belongs_to :user
