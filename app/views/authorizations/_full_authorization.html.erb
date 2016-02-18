@@ -66,13 +66,8 @@
 
       <div class="row">
         <div class="col-md-12">
-          <% authorization.message.each_pair do |error_type, messages| %>
-              <% unless messages.empty? %>
-                  <h5><%= error_type %></h5>
-                  <% for message in messages %>
-                      <h6><%= message %></h6>
-                  <% end %>
-              <% end %>
+          <% for message in authorization.message %>
+            <h6><%= message %></h6>
           <% end %>
         </div>
       </div>

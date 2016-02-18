@@ -16,7 +16,7 @@
 class Authorization < ActiveRecord::Base
 
   serialize :products, Array
-  serialize :message, Hash
+  serialize :message, Array
 
   # -- Scopes
   default_scope -> { order('created_at DESC') }
