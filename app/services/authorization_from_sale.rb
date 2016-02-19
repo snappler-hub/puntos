@@ -1,6 +1,6 @@
 class AuthorizationFromSale
   
-  attr_accessor :client, :supplier, :response
+  attr_accessor :client, :supplier, :response, :seller
 
   def initialize(sale, seller)
     @client = sale.client
@@ -8,7 +8,8 @@ class AuthorizationFromSale
     @seller = seller
     @supplier = seller.supplier
     @response = Response.new
-    @points = 0
+    @client_points = 0
+    @seller_points = 0
   end
 
   def authorize
@@ -19,7 +20,8 @@ class AuthorizationFromSale
         products: get_products,
         status: @response.status,
         message: @response.message,
-        points: @points
+        client_points: @client_points,
+        seller_points: @seller_points
     )
   end
 
@@ -51,13 +53,16 @@ class AuthorizationFromSale
 
   def products
     products = []
+    points_giver = PointsGiver.new(self)
     @sale_products.map do |sale_product|
       # Productos con descuentos
       discounter = Discounter.new(sale_product, self).call
       products << create_product(sale_product, discounter.discount)
 
       #Puntos
-      calculate_points(sale_product)
+      points_giver.call(sale_product)
+      @client_points += points_giver.client_points
+      @seller_points += points_giver.seller_points
     end
     products
   end
@@ -74,26 +79,6 @@ class AuthorizationFromSale
         discount: discount,
         total: (total * (1- (discount * 0.01)))
     }
-  end
-
-  # Calcula puntos para el producto
-  def calculate_points(sale_product)
-    if @client.has_points_service? && @supplier.clients_get_points?
-      @points += (sale_product.amount * get_points(sale_product.product, @supplier))
-    else
-      if @supplier.clients_get_points?
-        warning = 'El cliente no posee un servicio de puntos activo.'
-      else
-        warning = 'El prestador no otorga puntos.'
-      end
-      @response.add_warning(warning)
-    end
-  end
-
-  # Devuelve un integer con los puntos particulares del supplier si es que tiene; sino devuelve los puntos del producto.
-  def get_points(product, supplier)
-    product = supplier.supplier_point_products.detect { |spp| spp.product == product } || product
-    product.points
   end
 
 end

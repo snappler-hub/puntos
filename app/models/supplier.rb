@@ -74,11 +74,11 @@ class Supplier < ActiveRecord::Base
     name
   end
 
-  def clients_get_points?
+  def give_points_to_client?
     points_to_client
   end
 
-  def sellers_get_points?
+  def give_points_to_seller?
     points_to_seller
   end
 

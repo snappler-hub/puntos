@@ -35,7 +35,7 @@ class Discounter
       product_discounts << pd unless pd.nil?
     end
     if product_discounts.empty? && (@health_insurance_id.present? || @coinsurance_id.present?)
-      @response.add_warning("#{@product.name.upcase}: no hay datos de la obra social o del coseguro asociados. Para aplicar el descuento normal, no ingrese ninguna obra social ni coseguro para este producto.")
+      @response.add_warning("#{@product.name.upcase}: no hay datos asociados de la obra social o del coseguro. Para aplicar el descuento normal, no ingrese ninguna obra social ni coseguro para este producto.")
       return 0
     else
       return product_discounts.sort_by(&:discount).last.discount

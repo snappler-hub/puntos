@@ -82,7 +82,7 @@ class ProductsController < ApplicationController
   end
 
   def batch_update
-    Product.points_batch_update(params[:points], params[:laboratory_id])
+    Product.points_batch_update(params[:client_points], params[:laboratory_id])
     redirect_to products_path, notice: 'Se han actualizado los productos'
   end
 
@@ -93,7 +93,7 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:name, :code, :points,
+      params.require(:product).permit(:name, :code, :client_points, :seller_points,
           supplier_point_products_attributes: [:id, :points, :supplier_id, :_destroy])
     end
 

@@ -10,7 +10,8 @@ class SaleFromAuthorization
         client: @authorization.client,
         seller: @authorization.seller,
         sale_products: sale_products,
-        points: @authorization.points,
+        client_points: @authorization.client_points,
+        seller_points: @authorization.seller_points,
         total: @authorization.total
     )
   end

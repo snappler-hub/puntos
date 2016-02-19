@@ -78,13 +78,13 @@ class Sale < ActiveRecord::Base
     #actualizar ultimo periodo
     if client.has_points_service?
       period = client.points_services.first.last_period
-      accumulated_points = points
+      accumulated_points = client_points
       period.update_accumulated(accumulated_points)
     end
   end
   
   def update_seller_points
-    seller.seller_service.amount += points
+    seller.seller_service.amount += seller_points
     seller.seller_service.save!
   end
 

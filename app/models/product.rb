@@ -52,7 +52,7 @@ class Product < ActiveRecord::Base
   # validates :code, :barcode, uniqueness: true
 
   # -- Callbacks
-  after_create :initialize_points, if: Proc.new { |u| u.points.nil? }
+  after_create :initialize_points, if: Proc.new { |u| u.client_points.nil? }
 
   def to_s
     s = "#{name}"
@@ -76,7 +76,7 @@ class Product < ActiveRecord::Base
 
   def self.points_batch_update(points, laboratory_id)
     products = (laboratory_id.present?) ? Product.where(laboratory_id: laboratory_id) : Product.all
-    products.update_all(points: points)
+    products.update_all(client_points: points)
   end
   
   def name_with_presentation
@@ -88,7 +88,7 @@ class Product < ActiveRecord::Base
   end
 
   def initialize_points
-    self.update(points: 0)
+    self.update(client_points: 0)
   end
 
 end

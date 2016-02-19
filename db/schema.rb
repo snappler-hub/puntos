@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218175144) do
+ActiveRecord::Schema.define(version: 20160219172713) do
 
   create_table "administration_routes", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -20,14 +20,15 @@ ActiveRecord::Schema.define(version: 20160218175144) do
   end
 
   create_table "authorizations", force: :cascade do |t|
-    t.integer  "seller_id",  limit: 4
-    t.integer  "client_id",  limit: 4
-    t.text     "products",   limit: 65535
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.string   "status",     limit: 255
-    t.text     "message",    limit: 65535
-    t.integer  "points",     limit: 4,     default: 0
+    t.integer  "seller_id",     limit: 4
+    t.integer  "client_id",     limit: 4
+    t.text     "products",      limit: 65535
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.string   "status",        limit: 255
+    t.text     "message",       limit: 65535
+    t.integer  "client_points", limit: 4,     default: 0
+    t.float    "seller_points", limit: 24
   end
 
   add_index "authorizations", ["client_id"], name: "index_authorizations_on_client_id", using: :btree
@@ -163,7 +164,7 @@ ActiveRecord::Schema.define(version: 20160218175144) do
   create_table "products", force: :cascade do |t|
     t.string   "code",                       limit: 255,                 null: false
     t.string   "name",                       limit: 255,                 null: false
-    t.float    "points",                     limit: 24
+    t.float    "client_points",              limit: 24
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
     t.string   "barcode",                    limit: 255
@@ -186,6 +187,7 @@ ActiveRecord::Schema.define(version: 20160218175144) do
     t.integer  "unit_type_id",               limit: 4
     t.integer  "administration_route_id",    limit: 4
     t.integer  "laboratory_id",              limit: 4
+    t.float    "seller_points",              limit: 24
   end
 
   add_index "products", ["administration_route_id"], name: "index_products_on_administration_route_id", using: :btree
@@ -255,12 +257,13 @@ ActiveRecord::Schema.define(version: 20160218175144) do
   add_index "sale_products", ["sale_id"], name: "index_sale_products_on_sale_id", using: :btree
 
   create_table "sales", force: :cascade do |t|
-    t.integer  "seller_id",  limit: 4
-    t.integer  "client_id",  limit: 4
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.integer  "points",     limit: 4,  default: 0
-    t.float    "total",      limit: 24, default: 0.0
+    t.integer  "seller_id",     limit: 4
+    t.integer  "client_id",     limit: 4
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.integer  "client_points", limit: 4,  default: 0
+    t.float    "total",         limit: 24, default: 0.0
+    t.float    "seller_points", limit: 24
   end
 
   add_index "sales", ["client_id"], name: "index_sales_on_client_id", using: :btree

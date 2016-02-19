@@ -59,7 +59,8 @@ es:
       product:
         code: Código
         name: Nombre
-        points: Puntos
+        client_points: Porcentaje de puntos para cliente
+        seller_points: Porcentaje de puntos para vendedor
         presentation_form: Presentación
       reward:
         code: Código

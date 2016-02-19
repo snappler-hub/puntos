@@ -31,7 +31,7 @@
         </div>
         <div class="col-md-4">
           <strong><i class="fa fa-arrow-circle-right margin-r-5"></i> Puntos para clientes</strong>
-          <% if @supplier.clients_get_points? %>
+          <% if @supplier.give_points_to_client? %>
             <p class="text-success"><%= icon_ok %> Activo</p>
           <% else %>
             <p class="text-muted"><%= icon_not_ok %> Inactivo</p>
@@ -39,7 +39,7 @@
         </div>
         <div class="col-md-4">
           <strong><i class="fa fa-arrow-circle-right margin-r-5"></i> Puntos para vendedores</strong>
-          <% if @supplier.sellers_get_points? %>
+          <% if @supplier.give_points_to_seller? %>
             <p class="text-success"><%= icon_ok %> Activo</p>
           <% else %>
             <p class="text-muted"><%= icon_not_ok %> Inactivo</p>
