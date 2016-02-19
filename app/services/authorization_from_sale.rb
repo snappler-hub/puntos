@@ -53,9 +53,8 @@ class AuthorizationFromSale
     products = []
     @sale_products.map do |sale_product|
       # Productos con descuentos
-      period_product = period_product(sale_product.product)
-      discounter = Discounter.new(sale_product.product, self).call
-      products << create_product(sale_product, sale_product.amount, discounter.discount)
+      discounter = Discounter.new(sale_product, self).call
+      products << create_product(sale_product, discounter.discount)
 
       #Puntos
       calculate_points(sale_product)
@@ -63,29 +62,15 @@ class AuthorizationFromSale
     products
   end
 
-  # Si el pfpc existe y está activo, devuelvo el período actual
-  def period_product(product)
-    pfpc = @client.pfpc_services.detect { |pfpc| pfpc.products.include?(product) }
-    if pfpc.present? && pfpc.available?
-      pfpc.last_period.period_products.detect { |pp| pp.product == product }
-    else
-      if pfpc.blank?
-        warning = "El cliente no posee ningún pfpc "
-      else
-        warning = 'El cliente no posee ningún pfpc activo '
-      end
-      @response.add_warning(warning+"con el producto #{product.name}")
-      nil
-    end
-  end
-
   # Producto con descuento aplicado
-  def create_product(sale_product, amount, discount)
-    total = sale_product.cost * amount
+  def create_product(sale_product, discount)
+    total = sale_product.cost * sale_product.amount
     {
         id: sale_product.product_id,
-        amount: amount,
+        amount: sale_product.amount,
         cost: sale_product.cost,
+        health_insurance_id: sale_product.health_insurance_id,
+        coinsurance_id: sale_product.coinsurance_id,
         discount: discount,
         total: (total * (1- (discount * 0.01)))
     }

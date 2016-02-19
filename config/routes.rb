@@ -40,7 +40,18 @@ Rails.application.routes.draw do
   end
 
   get 'my_purchases', to: 'sales#index'
-
+  
+  resources :health_insurances, only: [:show, :create, :update] do
+    collection do
+      get :search
+    end
+  end
+  
+  resources :coinsurances, only: [:show, :create, :update] do
+    collection do
+      get :search
+    end
+  end
 
   resources :products, except: [:show] do
     collection do

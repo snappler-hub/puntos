@@ -94,6 +94,8 @@ es:
         amount: Cantidad
         cost: Costo
         discount: Descuento
+        health_insurance: Obra social
+        coinsurance: Coseguro
       reward_order:
         user_id: Usuario
         supplier_id: Prestador

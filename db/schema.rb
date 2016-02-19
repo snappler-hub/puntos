@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160216193253) do
+ActiveRecord::Schema.define(version: 20160218175144) do
 
   create_table "administration_routes", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -23,15 +23,19 @@ ActiveRecord::Schema.define(version: 20160216193253) do
     t.integer  "seller_id",  limit: 4
     t.integer  "client_id",  limit: 4
     t.text     "products",   limit: 65535
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "status",     limit: 255
     t.text     "message",    limit: 65535
     t.integer  "points",     limit: 4,     default: 0
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
   end
 
   add_index "authorizations", ["client_id"], name: "index_authorizations_on_client_id", using: :btree
   add_index "authorizations", ["seller_id"], name: "index_authorizations_on_seller_id", using: :btree
+
+  create_table "coinsurances", force: :cascade do |t|
+    t.string "name", limit: 255
+  end
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -49,6 +53,10 @@ ActiveRecord::Schema.define(version: 20160216193253) do
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "health_insurances", force: :cascade do |t|
+    t.string "name", limit: 255
   end
 
   create_table "laboratories", force: :cascade do |t|
@@ -107,9 +115,9 @@ ActiveRecord::Schema.define(version: 20160216193253) do
     t.integer  "status",      limit: 4, default: 0
     t.integer  "amount",      limit: 4, default: 0
     t.integer  "accumulated", limit: 4
-    t.integer  "available",   limit: 4, default: 0
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
+    t.integer  "available",   limit: 4, default: 0
   end
 
   add_index "points_periods", ["service_id"], name: "index_points_periods_on_service_id", using: :btree
@@ -127,13 +135,17 @@ ActiveRecord::Schema.define(version: 20160216193253) do
   end
 
   create_table "product_discounts", force: :cascade do |t|
-    t.integer  "product_id",   limit: 4
-    t.integer  "vademecum_id", limit: 4
-    t.float    "discount",     limit: 24, default: 0.0
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.integer  "product_id",          limit: 4
+    t.integer  "vademecum_id",        limit: 4
+    t.float    "discount",            limit: 24, default: 0.0
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.integer  "health_insurance_id", limit: 4
+    t.integer  "coinsurance_id",      limit: 4
   end
 
+  add_index "product_discounts", ["coinsurance_id"], name: "index_product_discounts_on_coinsurance_id", using: :btree
+  add_index "product_discounts", ["health_insurance_id"], name: "index_product_discounts_on_health_insurance_id", using: :btree
   add_index "product_discounts", ["product_id"], name: "index_product_discounts_on_product_id", using: :btree
   add_index "product_discounts", ["vademecum_id"], name: "index_product_discounts_on_vademecum_id", using: :btree
 
@@ -152,9 +164,9 @@ ActiveRecord::Schema.define(version: 20160216193253) do
     t.string   "code",                       limit: 255,                 null: false
     t.string   "name",                       limit: 255,                 null: false
     t.float    "points",                     limit: 24
-    t.string   "barcode",                    limit: 255
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
+    t.string   "barcode",                    limit: 255
     t.string   "presentation_form",          limit: 255
     t.float    "price",                      limit: 24
     t.date     "expiration_date"
@@ -201,11 +213,11 @@ ActiveRecord::Schema.define(version: 20160216193253) do
     t.integer  "supplier_id",  limit: 4
     t.integer  "user_id",      limit: 4
     t.string   "state",        limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.string   "code",         limit: 255
     t.string   "qr_code_uid",  limit: 255
     t.string   "qr_code_name", limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
   end
 
   add_index "reward_orders", ["supplier_id"], name: "index_reward_orders_on_supplier_id", using: :btree
@@ -225,26 +237,30 @@ ActiveRecord::Schema.define(version: 20160216193253) do
   end
 
   create_table "sale_products", force: :cascade do |t|
-    t.integer  "product_id", limit: 4
-    t.integer  "sale_id",    limit: 4
-    t.integer  "amount",     limit: 4,  default: 1
-    t.float    "cost",       limit: 24, default: 0.0
-    t.float    "discount",   limit: 24, default: 0.0
-    t.float    "total",      limit: 24, default: 0.0
+    t.integer  "product_id",          limit: 4
+    t.integer  "sale_id",             limit: 4
+    t.integer  "amount",              limit: 4,  default: 1
+    t.float    "cost",                limit: 24, default: 0.0
+    t.float    "discount",            limit: 24, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "total",               limit: 24, default: 0.0
+    t.integer  "health_insurance_id", limit: 4
+    t.integer  "coinsurance_id",      limit: 4
   end
 
+  add_index "sale_products", ["coinsurance_id"], name: "index_sale_products_on_coinsurance_id", using: :btree
+  add_index "sale_products", ["health_insurance_id"], name: "index_sale_products_on_health_insurance_id", using: :btree
   add_index "sale_products", ["product_id"], name: "index_sale_products_on_product_id", using: :btree
   add_index "sale_products", ["sale_id"], name: "index_sale_products_on_sale_id", using: :btree
 
   create_table "sales", force: :cascade do |t|
     t.integer  "seller_id",  limit: 4
     t.integer  "client_id",  limit: 4
-    t.integer  "points",     limit: 4,  default: 0
-    t.float    "total",      limit: 24, default: 0.0
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "points",     limit: 4,  default: 0
+    t.float    "total",      limit: 24, default: 0.0
   end
 
   add_index "sales", ["client_id"], name: "index_sales_on_client_id", using: :btree
@@ -256,13 +272,13 @@ ActiveRecord::Schema.define(version: 20160216193253) do
     t.integer  "user_id",                   limit: 4
     t.integer  "last_period_id",            limit: 4
     t.integer  "amount",                    limit: 4
-    t.integer  "status",                    limit: 4,   default: 0
-    t.integer  "days",                      limit: 4,   default: 30
-    t.integer  "days_to_points_expiration", limit: 4
-    t.boolean  "always_discount",                       default: false
     t.datetime "created_at",                                            null: false
     t.datetime "updated_at",                                            null: false
+    t.integer  "days",                      limit: 4,   default: 30
     t.integer  "vademecum_id",              limit: 4
+    t.integer  "status",                    limit: 4,   default: 0
+    t.integer  "days_to_points_expiration", limit: 4
+    t.boolean  "always_discount",                       default: false
   end
 
   add_index "services", ["last_period_id"], name: "index_services_on_last_period_id", using: :btree
@@ -345,18 +361,18 @@ ActiveRecord::Schema.define(version: 20160216193253) do
   create_table "suppliers", force: :cascade do |t|
     t.string   "name",             limit: 255
     t.text     "description",      limit: 65535
+    t.boolean  "active"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "city",             limit: 255
     t.string   "address",          limit: 255
     t.string   "latitude",         limit: 255
     t.string   "longitude",        limit: 255
     t.string   "telephone",        limit: 255
     t.string   "email",            limit: 255
-    t.text     "contact_info",     limit: 65535
     t.boolean  "points_to_client"
     t.boolean  "points_to_seller"
-    t.boolean  "active"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.text     "contact_info",     limit: 65535
   end
 
   create_table "unit_types", force: :cascade do |t|
@@ -367,34 +383,33 @@ ActiveRecord::Schema.define(version: 20160216193253) do
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                           limit: 255,                 null: false
-    t.string   "username",                        limit: 255
+    t.string   "crypted_password",                limit: 255
+    t.string   "salt",                            limit: 255
     t.string   "role",                            limit: 255
     t.string   "first_name",                      limit: 255
     t.string   "last_name",                       limit: 255
-    t.integer  "supplier_id",                     limit: 4
-    t.integer  "number",                          limit: 4
-    t.string   "document_type",                   limit: 255
-    t.string   "document_number",                 limit: 255
-    t.string   "phone",                           limit: 255
-    t.string   "address",                         limit: 255
-    t.string   "card_number",                     limit: 255
-    t.string   "string",                          limit: 255
-    t.boolean  "terms_accepted",                              default: false
-    t.boolean  "card_printed",                                default: false
-    t.boolean  "card_delivered",                              default: false
-    t.integer  "cache_points",                    limit: 4,   default: 0
-    t.string   "image_uid",                       limit: 255
-    t.string   "image_name",                      limit: 255
     t.integer  "created_by_id",                   limit: 4
-    t.string   "crypted_password",                limit: 255
-    t.string   "salt",                            limit: 255
+    t.integer  "supplier_id",                     limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "remember_me_token",               limit: 255
     t.datetime "remember_me_token_expires_at"
     t.string   "reset_password_token",            limit: 255
     t.datetime "reset_password_token_expires_at"
     t.datetime "reset_password_email_sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "number",                          limit: 4
+    t.string   "document_type",                   limit: 255
+    t.string   "document_number",                 limit: 255
+    t.string   "phone",                           limit: 255
+    t.string   "address",                         limit: 255
+    t.string   "username",                        limit: 255
+    t.string   "image_uid",                       limit: 255
+    t.string   "image_name",                      limit: 255
+    t.string   "card_number",                     limit: 255
+    t.boolean  "terms_accepted",                              default: false
+    t.boolean  "card_printed",                                default: false
+    t.boolean  "card_delivered",                              default: false
+    t.integer  "cache_points",                    limit: 4,   default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -415,6 +430,8 @@ ActiveRecord::Schema.define(version: 20160216193253) do
   add_foreign_key "pfpc_suppliers", "services", column: "pfpc_service_id"
   add_foreign_key "pfpc_suppliers", "suppliers"
   add_foreign_key "points_periods", "services"
+  add_foreign_key "product_discounts", "coinsurances"
+  add_foreign_key "product_discounts", "health_insurances"
   add_foreign_key "product_discounts", "products"
   add_foreign_key "product_discounts", "vademecums"
   add_foreign_key "product_pfpcs", "products"
@@ -430,6 +447,8 @@ ActiveRecord::Schema.define(version: 20160216193253) do
   add_foreign_key "reward_order_items", "rewards"
   add_foreign_key "reward_orders", "suppliers"
   add_foreign_key "reward_orders", "users"
+  add_foreign_key "sale_products", "coinsurances"
+  add_foreign_key "sale_products", "health_insurances"
   add_foreign_key "sale_products", "products"
   add_foreign_key "sale_products", "sales"
   add_foreign_key "services", "users"

@@ -20,6 +20,8 @@ class SaleProduct < ActiveRecord::Base
   # -- Associations
   belongs_to :sale
   belongs_to :product
+  belongs_to :health_insurance
+  belongs_to :coinsurance
 
   # -- Validations
   validates :product_id, presence: true

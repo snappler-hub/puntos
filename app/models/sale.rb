@@ -48,7 +48,8 @@ class Sale < ActiveRecord::Base
   def update_services
     #Acá se van a ir llamando todos los callbacks como actualizar periodo, actualizar puntos, etc
     update_periods
-    update_points
+    update_client_points
+    update_seller_points
   end
 
   def update_periods
@@ -56,7 +57,7 @@ class Sale < ActiveRecord::Base
     id_with_amounts.each_pair do |id, amount|
       product = Product.find(id)
       period = PeriodProduct.find_period(client, product)
-      unless period.nil?
+      if period.present? && client.has_supplier?(seller.supplier) 
         period.add_to_accumulated(amount)
       end
     end
@@ -72,7 +73,7 @@ class Sale < ActiveRecord::Base
     return totals
   end
   
-  def update_points
+  def update_client_points
     #si servicio_puntos está activo
     #actualizar ultimo periodo
     if client.has_points_service?
@@ -80,6 +81,11 @@ class Sale < ActiveRecord::Base
       accumulated_points = points
       period.update_accumulated(accumulated_points)
     end
+  end
+  
+  def update_seller_points
+    seller.seller_service.amount += points
+    seller.seller_service.save!
   end
 
 end

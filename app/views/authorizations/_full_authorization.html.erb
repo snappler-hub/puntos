@@ -1,4 +1,4 @@
-<div class="col-md-5" id="js-authorization">
+<div class="col-md-4" id="js-authorization">
   <article class="box box-success">
     <section class="box-body">
 
@@ -28,6 +28,8 @@
                   <th>Nombre</th>
                   <th><span data-toggle="tooltip" data-placement="top" title="Cantidad">Cant.</span></th>
                   <th><span data-toggle="tooltip" data-placement="top" title="Precio de Venta Sugerido">PVS</span></th>
+                  <th><span data-toggle="tooltip" data-placement="top" title="Obra social">OS</span></th>
+                  <th><span data-toggle="tooltip" data-placement="top" title="Coseguro">Coseg.</span></th>
                   <th><span data-toggle="tooltip" data-placement="top" title="Costo Unitario">CU</span></th>
                   <th><span data-toggle="tooltip" data-placement="top" title="Descuento aplicado">Dto</span></th>
                   <th>Total</th>
@@ -40,6 +42,8 @@
                       <td><%= Product.find(product[:id]).to_s %></td>
                       <td><%= product[:amount] %></td>
                       <td><%= number_to_currency(p.price) %></td>
+                      <td><%= product[:health_insurance_id].nil? ? '-' : HealthInsurance.find(product[:health_insurance_id]).name %></td>
+                      <td><%= product[:coinsurance_id].nil? ? '-' : Coinsurance.find(product[:coinsurance_id]).name %></td>                      
                       <td><%= number_to_currency(product[:cost]) %></td>
                       <td><%= number_to_percentage(product[:discount], precision: 0) %></td>
                       <td><%= number_to_currency(product[:total]) %></td>

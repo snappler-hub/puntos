@@ -35,10 +35,8 @@ class SalesController < ApplicationController
     if authorization.created_at > Const::AUTHORIZATION_EXPIRATION_LIMIT.minutes.ago
       manager = SaleFromAuthorization.new(authorization)
       @sale = manager.create
-      # TODO Ver qué devuelve tras la venta
       redirect_to [current_user.supplier, current_user, @sale], notice: 'La venta ha sido creada correctamente.'
     else
-      # TODO Definir qué se muestra cuando la autorización expiró
       render text: 'La autorización ha expirado'
     end
   end

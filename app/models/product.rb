@@ -78,6 +78,14 @@ class Product < ActiveRecord::Base
     products = (laboratory_id.present?) ? Product.where(laboratory_id: laboratory_id) : Product.all
     products.update_all(points: points)
   end
+  
+  def name_with_presentation
+    unless presentation_form.nil?
+      "#{name} - #{presentation_form}"
+    else
+      "#{name}"
+    end
+  end
 
   def initialize_points
     self.update(points: 0)
