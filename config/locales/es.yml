@@ -77,9 +77,15 @@ es:
         always_discount: Descontar siempre
       vademecum:
         name: Nombre
+        product_id: Producto
+        health_insurance_id: Obra social
+        coinsurance_id: Coseguro
+        discount: 'Efvo'
+        health_insurance_discount: OS
+        coinsurance_discount: Cos.
+        health_insurance_and_coinsurance_discount: OS + Cos.
       product_discount:
         product_id: Producto
-        discount: Descuento
       product_pfpc:
         product_id: Producto
         amount: Cantidad

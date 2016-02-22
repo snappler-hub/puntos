@@ -4,5 +4,5 @@
        <% fields += render partial: "services/pfpc_supplier_fields", locals: {f: p} %>
     <% end %>
 <% end %>
-$('#js-pfpcSuppliers').html("<%= j fields.html_safe %>");
+$('#js-pfpc_supplier_fields').html("<%= j fields.html_safe %>");
 $('.select2').ajaxSelect();

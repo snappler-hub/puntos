@@ -65,7 +65,7 @@ class VademecumsController < ApplicationController
   end
 
   def vademecum_params
-    params.require(:vademecum).permit(:name, [product_discounts_attributes: [:id, :product_id, :discount, :_destroy]], supplier_ids: [])
+    params.require(:vademecum).permit(:name, [product_discounts_attributes: [:id, :product_id, :health_insurance_id, :coinsurance_id, :discount, :health_insurance_discount, :coinsurance_discount, :health_insurance_and_coinsurance_discount, :_destroy]], supplier_ids: [])
   end
 
 end

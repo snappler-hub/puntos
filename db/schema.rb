@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160219172713) do
+ActiveRecord::Schema.define(version: 20160222174924) do
 
   create_table "administration_routes", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -136,13 +136,16 @@ ActiveRecord::Schema.define(version: 20160219172713) do
   end
 
   create_table "product_discounts", force: :cascade do |t|
-    t.integer  "product_id",          limit: 4
-    t.integer  "vademecum_id",        limit: 4
-    t.float    "discount",            limit: 24, default: 0.0
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.integer  "health_insurance_id", limit: 4
-    t.integer  "coinsurance_id",      limit: 4
+    t.integer  "product_id",                                limit: 4
+    t.integer  "vademecum_id",                              limit: 4
+    t.float    "discount",                                  limit: 24, default: 0.0
+    t.datetime "created_at",                                                         null: false
+    t.datetime "updated_at",                                                         null: false
+    t.integer  "health_insurance_id",                       limit: 4
+    t.integer  "coinsurance_id",                            limit: 4
+    t.float    "health_insurance_discount",                 limit: 24, default: 0.0
+    t.float    "coinsurance_discount",                      limit: 24, default: 0.0
+    t.float    "health_insurance_and_coinsurance_discount", limit: 24, default: 0.0
   end
 
   add_index "product_discounts", ["coinsurance_id"], name: "index_product_discounts_on_coinsurance_id", using: :btree

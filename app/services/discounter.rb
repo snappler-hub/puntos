@@ -31,16 +31,27 @@ class Discounter
   def get_discount(vademecums)
     product_discounts = [] 
     for v in vademecums
-      pd = ProductDiscount.find_by(vademecum: v, health_insurance_id: @health_insurance_id, coinsurance_id: @coinsurance_id, product: @product)
+      pd = ProductDiscount.find_by(vademecum: v, product: @product)
       product_discounts << pd unless pd.nil?
     end
-    if product_discounts.empty? && (@health_insurance_id.present? || @coinsurance_id.present?)
-      @response.add_warning("#{@product.name.upcase}: no hay datos asociados de la obra social o del coseguro. Para aplicar el descuento normal, no ingrese ninguna obra social ni coseguro para este producto.")
+    if product_discounts.empty?
+      @response.add_warning("#{@product.name.upcase}: no se encontraron descuentos para el producto solicitado en ningún vademecum.")
       return 0
     else
-      return product_discounts.sort_by(&:discount).last.discount
+      return corresponding_discount(product_discounts)
     end
   end
   
+  def corresponding_discount(product_discounts)
+    if @health_insurance_id.nil? && @coinsurance_id.nil?
+      product_discounts.sort_by { |pd1| pd1.discount }.last.discount
+    elsif @health_insurance_id.nil?
+      product_discounts.sort_by { |pd1| pd1.coinsurance_discount }.last.coinsurance_discount
+    elsif @coinsurance_id.nil?
+      product_discounts.sort_by { |pd1| pd1.health_insurance_discount }.last.health_insurance_discount
+    else
+      product_discounts.sort_by { |pd1| pd1.health_insurance_and_coinsurance_discount }.last.health_insurance_and_coinsurance_discount
+    end
+  end
   
 end

@@ -27,7 +27,6 @@ class App.PfpcServiceForm
 
   # Precarga los prestadores
   bindDefaultSuppliers: (parent) ->
-    console.log('ENTRO')
     @vademecum = $('#js-vademecumField').val()
     $.ajax
       url: "/vademecums/#{@vademecum}/get_suppliers"

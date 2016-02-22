@@ -39,7 +39,6 @@ class ProductsController < ApplicationController
   # POST /products
   def create
     @product = Product.new(product_params)
-
     respond_to do |format|
       if @product.save
         format.html { redirect_to products_path, notice: 'El producto ha sido creado correctamente.' }

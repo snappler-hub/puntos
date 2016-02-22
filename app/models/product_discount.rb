@@ -18,8 +18,9 @@ class ProductDiscount < ActiveRecord::Base
   belongs_to :coinsurance
   belongs_to :health_insurance
 
-  # Validations
-  validates :product, uniqueness: {scope: [:vademecum, :health_insurance_id, :coinsurance_id],
-                                   message: 'ya está en uso. Verifique no tener productos repetidos'}
+  # -- Validations
+  validates :product_id, uniqueness: { scope: [:vademecum_id] }
+  
+  # -- Methods
 
 end

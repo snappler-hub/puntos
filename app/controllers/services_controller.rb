@@ -119,7 +119,7 @@ class ServicesController < ApplicationController
   end
 
   def build_service(parameters=nil)
-    params_type == 'pfpc' ? PfpcService.new(parameters) : PointsService.new(parameters)
+    (params_type == 'pfpc' || params_type == 'PfpcService') ? PfpcService.new(parameters) : PointsService.new(parameters)
   end
 
   def create_seller_service
