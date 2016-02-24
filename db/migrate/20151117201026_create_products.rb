@@ -3,7 +3,7 @@ class CreateProducts < ActiveRecord::Migration
     create_table :products do |t|
       t.string :code, null: false
       t.string :name, null: false
-      t.integer :points
+      t.integer :points, default: 0
       t.string :barcode
 
       t.timestamps null: false

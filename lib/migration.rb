@@ -1,5 +1,12 @@
 class Migration
 
+  def self.all
+    self.acciofar
+    self.monodroga
+    self.products
+    self.products_extra
+  end
+
   def self.acciofar
     ManesPresent::PharmacologicAction.find_each do |each|
       PharmacologicAction.create(

@@ -167,7 +167,7 @@ ActiveRecord::Schema.define(version: 20160222174924) do
   create_table "products", force: :cascade do |t|
     t.string   "code",                       limit: 255,                 null: false
     t.string   "name",                       limit: 255,                 null: false
-    t.float    "client_points",              limit: 24
+    t.float    "client_points",              limit: 24,  default: 0.0
     t.string   "barcode",                    limit: 255
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
@@ -190,7 +190,7 @@ ActiveRecord::Schema.define(version: 20160222174924) do
     t.integer  "unit_type_id",               limit: 4
     t.integer  "administration_route_id",    limit: 4
     t.integer  "laboratory_id",              limit: 4
-    t.float    "seller_points",              limit: 24
+    t.float    "seller_points",              limit: 24,  default: 0.0
   end
 
   add_index "products", ["administration_route_id"], name: "index_products_on_administration_route_id", using: :btree
