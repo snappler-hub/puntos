@@ -17,7 +17,14 @@ class ProductsController < ApplicationController
         laboratory: record.laboratory.to_s,
         barcode: record.barcode || '-',
         troquel_number: record.troquel_number || '-',
-        extra: record.code
+        extra: "<dl>
+                    <dt>Presentación</dt>
+                    <dd>#{record.presentation_form}</dd>
+                    <dt>Laboratorio</dt>
+                    <dd>#{record.laboratory.name}</dd>
+                    <dt>Código</dt>
+                    <dd>#{record.code}</dd>
+                </dl>"
     } }
     records = RecordSearcher.call(Product.all.includes(:laboratory), params, &block)
     render json: records.to_json, callback: params[:callback]
@@ -87,19 +94,19 @@ class ProductsController < ApplicationController
 
   private
 
-    def set_product
-      @product = Product.find(params[:id])
-    end
+  def set_product
+    @product = Product.find(params[:id])
+  end
 
-    def product_params
-      params.require(:product).permit(:name, :code, :client_points, :seller_points,
-          supplier_point_products_attributes: [:id, :points, :supplier_id, :_destroy])
-    end
+  def product_params
+    params.require(:product).permit(:name, :code, :client_points, :seller_points,
+                                    supplier_point_products_attributes: [:id, :points, :supplier_id, :_destroy])
+  end
 
-    def filter_params
-      if params[:product_filter]
-        params.require(:product_filter).permit(:name, :laboratory_id, :drug_id)
-      end
+  def filter_params
+    if params[:product_filter]
+      params.require(:product_filter).permit(:name, :laboratory_id, :drug_id)
     end
+  end
 
 end

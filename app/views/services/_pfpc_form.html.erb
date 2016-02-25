@@ -3,11 +3,6 @@
     <%= f.label :vademecum %>
     <%= f.collection_select :vademecum_id, Vademecum.all, :id, :name, {prompt: 'Seleccione un vademecum'}, {class: 'form-control', id: 'js-vademecumField'} %>
   </fieldset>
-
-  <fieldset class="form-group col-md-5">
-    <%= f.label :always_discount %><br />
-    <%= f.check_box :always_discount %>
-  </fieldset>
 </div>
 
 <div class="row">

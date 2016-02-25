@@ -273,17 +273,16 @@ ActiveRecord::Schema.define(version: 20160222174924) do
   add_index "sales", ["seller_id"], name: "index_sales_on_seller_id", using: :btree
 
   create_table "services", force: :cascade do |t|
-    t.string   "name",                      limit: 255,                 null: false
-    t.string   "type",                      limit: 255,                 null: false
+    t.string   "name",                      limit: 255,              null: false
+    t.string   "type",                      limit: 255,              null: false
     t.integer  "user_id",                   limit: 4
     t.integer  "last_period_id",            limit: 4
     t.integer  "amount",                    limit: 4
     t.integer  "status",                    limit: 4,   default: 0
     t.integer  "days",                      limit: 4,   default: 30
     t.integer  "days_to_points_expiration", limit: 4
-    t.boolean  "always_discount",                       default: false
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.integer  "vademecum_id",              limit: 4
   end
 

@@ -16,7 +16,7 @@ class SupplierRequestsController < ApplicationController
   end
 
   def document_form
-    authorize! is?(:admin) || is?(:seller)
+    authorize! is?(:god) || is?(:admin) || is?(:seller)
   end
 
   def load_form

@@ -10,11 +10,6 @@
     <strong>Vence cada</strong>
     <a class="pull-right"> <%= "#{@service.days} días" %> </a>
   </li>
-  <li class="list-group-item">
-    <strong>Descuenta siempre</strong>
-    <a class="pull-right">
-      <i class="fa fa-fw <%= @service.always_discount ? 'fa-check text-success' : 'fa-times text-danger' %>"></i></a>
-  </li>
 </ul>
 <p class="text-muted text-center"> Cantidades a cumplir </p>
 
@@ -34,7 +29,7 @@
 <ul class="list-group list-group-unbordered">
   <li class="list-group-item">
     <% @service.pfpc_suppliers.each do |p| %>
-      -<%= p.supplier.name %>
+        -<%= p.supplier.name %>
     <% end %>
   </li>
 </ul>

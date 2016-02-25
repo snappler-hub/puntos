@@ -2,69 +2,69 @@
   <div class="row">
     <div class="col-md-3">
       <fieldset class="form-group">
-        <%= f.hidden_field :product_id, class: 'select2', 
-              data: { behavior: 'searchProduct', url: search_products_path,
-                  record_id: f.object.product_id, record_text: f.object.product.try(:name) } %>
-      </fieldset>
-    </div>
-    
-    <div class="col-md-2">
-      <fieldset class="form-group">
-        <%= f.hidden_field :health_insurance_id, class: 'select2', 
-              data: { behavior: 'searchHealthInsurance', url: search_health_insurances_path,
-                  record_id: f.object.health_insurance_id, record_text: f.object.health_insurance.try(:name) } %>
-      </fieldset>
-    </div>
-    
-    <div class="col-md-2">
-      <fieldset class="form-group">
-        <%= f.hidden_field :coinsurance_id, class: 'select2',
-              data: { behavior: 'searchCoinsurance', url: search_coinsurances_path,
-                  record_id: f.object.coinsurance_id, record_text: f.object.coinsurance.try(:name) } %>        
+        <%= f.hidden_field :product_id, class: 'select2',
+                           data: {behavior: 'searchProduct', url: search_products_path,
+                                  record_id: f.object.product_id, record_text: f.object.product.try(:name)} %>
       </fieldset>
     </div>
 
-        <div class="col-md-1">
-          <fieldset class="form-group">
-            <div class="input-group">
-              <%= f.text_field :discount, class: 'form-control', required: true %>
-              <div class="input-group-addon custom-input-group-addon"> % </div>
-            </div>
-          </fieldset>
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        <%= f.hidden_field :health_insurance_id, class: 'select2',
+                           data: {behavior: 'searchHealthInsurance', url: search_health_insurances_path,
+                                  record_id: f.object.health_insurance_id, record_text: f.object.health_insurance.try(:name)} %>
+      </fieldset>
+    </div>
+
+    <div class="col-md-2">
+      <fieldset class="form-group">
+        <%= f.hidden_field :coinsurance_id, class: 'select2',
+                           data: {behavior: 'searchCoinsurance', url: search_coinsurances_path,
+                                  record_id: f.object.coinsurance_id, record_text: f.object.coinsurance.try(:name)} %>
+      </fieldset>
+    </div>
+
+    <div class="col-md-1">
+      <fieldset class="form-group">
+        <div class="input-group">
+          <%= f.text_field :discount, class: 'form-control', required: true %>
+          <div class="input-group-addon custom-input-group-addon"> %</div>
         </div>
-        
-        <div class="col-md-1">
-          <fieldset class="form-group">
-            <div class="input-group">
-              <%= f.text_field :health_insurance_discount, class: 'form-control', required: true %>
-              <div class="input-group-addon custom-input-group-addon"> % </div>
-            </div>
-          </fieldset>
+      </fieldset>
+    </div>
+
+    <div class="col-md-1">
+      <fieldset class="form-group">
+        <div class="input-group">
+          <%= f.text_field :health_insurance_discount, class: 'form-control', required: true %>
+          <div class="input-group-addon custom-input-group-addon"> %</div>
         </div>
-        
-        <div class="col-md-1">
-          <fieldset class="form-group">
-            <div class="input-group">
-              <%= f.text_field :coinsurance_discount, class: 'form-control', required: true %>
-              <div class="input-group-addon custom-input-group-addon"> % </div>
-            </div>
-          </fieldset>
+      </fieldset>
+    </div>
+
+    <div class="col-md-1">
+      <fieldset class="form-group">
+        <div class="input-group">
+          <%= f.text_field :coinsurance_discount, class: 'form-control', required: true %>
+          <div class="input-group-addon custom-input-group-addon"> %</div>
         </div>
-        
-        <div class="col-md-1">
-          <fieldset class="form-group">
-            <div class="input-group">
-              <%= f.text_field :health_insurance_and_coinsurance_discount, class: 'form-control', required: true %>
-              <div class="input-group-addon custom-input-group-addon"> % </div>
-            </div>
-          </fieldset>
+      </fieldset>
+    </div>
+
+    <div class="col-md-1">
+      <fieldset class="form-group">
+        <div class="input-group">
+          <%= f.text_field :health_insurance_and_coinsurance_discount, class: 'form-control', required: true %>
+          <div class="input-group-addon custom-input-group-addon"> %</div>
         </div>
-            
-        <div class="col-md-1">
-          <fieldset class="form-group">
-            <%= link_to_remove_association raw('<i class="fa fa-trash"></i>'), f, class: 'btn btn-xs btn-danger' %>
-          </fieldset>
-        </div>
-    
+      </fieldset>
+    </div>
+
+    <div class="col-md-1">
+      <fieldset class="form-group">
+        <%= link_to_remove_association raw('<i class="fa fa-trash"></i>'), f, class: 'btn btn-xs btn-danger' %>
+      </fieldset>
+    </div>
+
   </div>
 </div>

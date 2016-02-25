@@ -14,7 +14,6 @@
 #  vademecum_id              :integer
 #  status                    :integer          default(0)
 #  days_to_points_expiration :integer
-#  always_discount           :boolean          default(FALSE)
 #
 
 class Service < ActiveRecord::Base
