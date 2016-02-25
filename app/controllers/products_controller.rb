@@ -81,7 +81,7 @@ class ProductsController < ApplicationController
   end
 
   def batch_update
-    Product.points_batch_update(params[:client_points], params[:laboratory_id])
+    Product.points_batch_update(params[:client_points], params[:seller_points], params[:laboratory_id])
     redirect_to products_path, notice: 'Se han actualizado los productos'
   end
 

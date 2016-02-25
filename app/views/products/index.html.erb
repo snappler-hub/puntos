@@ -1,40 +1,40 @@
 <header class="content-header">
   <div class="pull-right">
     <%= link_to 'Actualización masiva', new_batch_update_products_path,
-        class: 'btn btn-warning' %>
+                class: 'btn btn-warning' %>
     <%= link_to 'Nuevo Producto', new_product_path,
-        class: 'btn btn-primary' %>
+                class: 'btn btn-primary' %>
   </div>
   <h1>Productos</h1>
 </header>
 
 <!-- Main content -->
 <section class="content">
-<article class="box box-primary">
-<section class="box-body">
+  <article class="box box-primary">
+    <section class="box-body">
 
-  <%= render 'filter' %>
+      <%= render 'filter' %>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th> Nombre </th>
-        <th> Laboratorio </th>
-        <th> Precio Sugerido </th>
-        <th> Monodroga </th>
-        <th> Puntos cliente </th>
-        <th> Puntos vendedor </th>
-        <th></th>
-      </tr>
-    </thead>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Laboratorio</th>
+          <th>Precio Sugerido</th>
+          <th>Monodroga</th>
+          <th>Puntos comprador</th>
+          <th>Puntos vendedor</th>
+          <th></th>
+        </tr>
+        </thead>
 
-    <tbody>
-      <%= render @products %>
-    </tbody>
-  </table>
+        <tbody>
+        <%= render @products %>
+        </tbody>
+      </table>
 
-  <%= paginate @products %>
+      <%= paginate @products %>
 
-</section>
-</article>
+    </section>
+  </article>
 </section>

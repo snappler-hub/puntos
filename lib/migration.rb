@@ -72,7 +72,6 @@ class Migration
   # IVA
   # cod_desc_PAMI
   # cod_lab
-  # cod_barra
   # heladera
   # baja_esp
   # blanco

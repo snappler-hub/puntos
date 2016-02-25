@@ -74,9 +74,10 @@ class Product < ActiveRecord::Base
     products
   end
 
-  def self.points_batch_update(points, laboratory_id)
+  def self.points_batch_update(client_points, seller_points, laboratory_id)
     products = (laboratory_id.present?) ? Product.where(laboratory_id: laboratory_id) : Product.all
-    products.update_all(client_points: points)
+    products.update_all(client_points: client_points) unless client_points.blank?
+    products.update_all(seller_points: seller_points) unless seller_points.blank?
   end
   
   def name_with_presentation
