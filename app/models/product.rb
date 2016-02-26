@@ -33,8 +33,8 @@
 class Product < ActiveRecord::Base
 
   # -- Scopes
-  default_scope { order(:code) }
-  scope :search, ->(q) { where('name LIKE :q OR code like :c', q: "%#{q}%", c: "#{q}%") }
+  default_scope { order(:name) }
+  scope :search, ->(q) { where('name LIKE :a OR barcode like :b OR troquel_number like :c', a: "%#{q}%", b: "#{q}%", c: "#{q}%") }
 
   # -- Associations
   has_many :supplier_point_products

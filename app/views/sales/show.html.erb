@@ -49,8 +49,8 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <h5>Puntos para el cliente: <strong><%= @sale.client_points %></strong></h5>
-          <h5>Puntos para el vendedor: <strong><%= @sale.seller_points %></strong></h5>
+          <h5>Puntos para el cliente: <strong><%= number_with_precision(@sale.client_points, precision: 2) %></strong></h5>
+          <h5>Puntos para el vendedor: <strong><%= number_with_precision(@sale.seller_points, precision: 2) %></strong></h5>
         </div>
       </div>
       <hr>

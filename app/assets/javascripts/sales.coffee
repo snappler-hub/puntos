@@ -4,13 +4,14 @@ class App.SaleForm
     @bindEvents()
     @bindProductSelect()
     $("[data-behavior='searchClient']").select2('focus')
+    $("[data-behavior~=searchHealthInsurance]").ajaxSelect()
+    $("[data-behavior~=searchCoinsurance]").ajaxSelect()
     
   # Binding de Eventos
   bindEvents: () ->
     that = @
     
     $('#js-productSales').on 'cocoon:after-insert', (e, insertedItem) ->
-      that.bindSelects(insertedItem)
       that.bindProductSelect(insertedItem)
   
   # Binding evento de select2 de productos
@@ -36,10 +37,6 @@ class App.SaleForm
     # Si no hay productos todavía simulo el click en Agregar Producto
     return false unless $('.nested-fields').length == 0
     $('.add_fields').trigger 'click'
-
-  bindSelects: (parent) ->
-    parent.find("[data-behavior~=searchHealthInsurance]").ajaxSelect()
-    parent.find("[data-behavior~=searchCoinsurance]").ajaxSelect()
       
 
 App.salesListEvents = ->

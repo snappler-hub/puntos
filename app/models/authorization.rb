@@ -24,6 +24,8 @@ class Authorization < ActiveRecord::Base
   # -- Associations
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id'
   belongs_to :client, class_name: 'User', foreign_key: 'client_id'
+  belongs_to :health_insurance
+  belongs_to :coinsurance
 
   # -- Validations
   validates :seller, presence: true

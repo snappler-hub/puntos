@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-10" id="js-sale">
+  <div class="col-md-7" id="js-sale">
     <article class="box box-primary">
       <section class="box-body">
 
@@ -7,19 +7,44 @@
             <% @sale.errors.full_messages.each do |message| %>
                 <p><%= message %></p>
             <% end %>
-
-            <h4>Cliente</h4>
-            <fieldset class="form-group">
-              <%= f.hidden_field :client_id, class: 'select2', auto_focus: true,
-                                 data: {behavior: 'searchClient', url: search_users_path} %>
-            </fieldset>
-
-            <div id="js-productSales" class="product_sales form-group">
-              <%= f.fields_for :sale_products do |p| %>
-                  <%= render 'sale_product_fields', f: p %>
-              <% end %>
-              <div class="links">
-                <%= link_to_add_association 'Agregar Producto', f, :sale_products, class: 'btn btn-default' %>
+            <div class="row">
+              <div class='col-md-12'>
+                <h4>Cliente</h4>
+                <fieldset class="form-group">
+                  <%= f.hidden_field :client_id, class: 'select2', auto_focus: true,
+                                     data: {behavior: 'searchClient', url: search_users_path} %>
+                </fieldset>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <fieldset class="form-group">
+                  <%= f.label :health_insurance %>
+                  <%= f.hidden_field :health_insurance_id, class: 'select2', 
+                        data: { behavior: 'searchHealthInsurance', url: search_health_insurances_path } %>
+                </fieldset>
+              </div>
+    
+              <div class="col-md-6">
+                <fieldset class="form-group">
+                  <%= f.label :coinsurance %>
+                  <%= f.hidden_field :coinsurance_id, class: 'select2',
+                        data: { behavior: 'searchCoinsurance', url: search_coinsurances_path } %>
+                </fieldset>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-12">
+                <div id="js-productSales" class="product_sales form-group">
+                  <%= f.fields_for :sale_products do |p| %>
+                      <%= render 'sale_product_fields', f: p %>
+                  <% end %>
+                  <div class="links">
+                    <%= link_to_add_association 'Agregar Producto', f, :sale_products, class: 'btn btn-default' %>
+                  </div>
+                </div>
               </div>
             </div>
 
