@@ -12,6 +12,8 @@ class SaleFromAuthorization
         sale_products: sale_products,
         client_points: @authorization.client_points,
         seller_points: @authorization.seller_points,
+        health_insurance_id: @authorization.health_insurance_id,
+        coinsurance_id: @authorization.coinsurance_id,
         total: @authorization.total
     )
   end
