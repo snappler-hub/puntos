@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(version: 20160222174924) do
     t.text     "products",      limit: 65535
     t.string   "status",        limit: 255
     t.text     "message",       limit: 65535
-    t.integer  "client_points", limit: 4,     default: 0
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-    t.float    "seller_points", limit: 24
+    t.float    "client_points", limit: 24,    default: 0.0
+    t.float    "seller_points", limit: 24,    default: 0.0
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
   add_index "authorizations", ["client_id"], name: "index_authorizations_on_client_id", using: :btree
@@ -166,23 +166,21 @@ ActiveRecord::Schema.define(version: 20160222174924) do
 
   create_table "products", force: :cascade do |t|
     t.string   "code",                       limit: 255,                 null: false
-    t.string   "name",                       limit: 255,                 null: false
-    t.float    "client_points",              limit: 24,  default: 0.0
     t.string   "barcode",                    limit: 255
-    t.datetime "created_at",                                             null: false
-    t.datetime "updated_at",                                             null: false
+    t.string   "troquel_number",             limit: 255
+    t.string   "name",                       limit: 255,                 null: false
     t.string   "presentation_form",          limit: 255
     t.float    "price",                      limit: 24
     t.date     "expiration_date"
     t.boolean  "imported"
     t.integer  "sell_type",                  limit: 4
     t.integer  "registration_number",        limit: 4
-    t.boolean  "deleted",                                default: false
     t.integer  "units",                      limit: 4,   default: 1
     t.integer  "size",                       limit: 4
     t.string   "potency",                    limit: 255
-    t.string   "troquel_number",             limit: 255
     t.integer  "relative_presentation_size", limit: 4
+    t.float    "client_points",              limit: 24,  default: 0.0
+    t.float    "seller_points",              limit: 24,  default: 0.0
     t.integer  "pharmacologic_action_id",    limit: 4
     t.integer  "drug_id",                    limit: 4
     t.integer  "pharmacologic_form_id",      limit: 4
@@ -190,25 +188,29 @@ ActiveRecord::Schema.define(version: 20160222174924) do
     t.integer  "unit_type_id",               limit: 4
     t.integer  "administration_route_id",    limit: 4
     t.integer  "laboratory_id",              limit: 4
-    t.float    "seller_points",              limit: 24,  default: 0.0
+    t.boolean  "deleted",                                default: false
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
   end
 
   add_index "products", ["administration_route_id"], name: "index_products_on_administration_route_id", using: :btree
+  add_index "products", ["barcode"], name: "index_products_on_barcode", using: :btree
   add_index "products", ["drug_id"], name: "index_products_on_drug_id", using: :btree
   add_index "products", ["laboratory_id"], name: "index_products_on_laboratory_id", using: :btree
   add_index "products", ["pharmacologic_action_id"], name: "index_products_on_pharmacologic_action_id", using: :btree
   add_index "products", ["pharmacologic_form_id"], name: "index_products_on_pharmacologic_form_id", using: :btree
   add_index "products", ["potency_unit_id"], name: "index_products_on_potency_unit_id", using: :btree
   add_index "products", ["relative_presentation_size"], name: "index_products_on_relative_presentation_size", using: :btree
+  add_index "products", ["troquel_number"], name: "index_products_on_troquel_number", using: :btree
   add_index "products", ["unit_type_id"], name: "index_products_on_unit_type_id", using: :btree
 
   create_table "reward_order_items", force: :cascade do |t|
     t.integer  "reward_order_id", limit: 4
     t.integer  "reward_id",       limit: 4
     t.integer  "amount",          limit: 4
-    t.integer  "need_points",     limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.float    "need_points",     limit: 24
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "reward_order_items", ["reward_id"], name: "index_reward_order_items_on_reward_id", using: :btree
@@ -232,7 +234,7 @@ ActiveRecord::Schema.define(version: 20160222174924) do
     t.string   "name",          limit: 255,   null: false
     t.text     "description",   limit: 65535
     t.string   "code",          limit: 255,   null: false
-    t.integer  "need_points",   limit: 4
+    t.float    "need_points",   limit: 24
     t.string   "reward_kind",   limit: 255,   null: false
     t.string   "image_uid",     limit: 255
     t.string   "image_name",    limit: 255
@@ -262,11 +264,11 @@ ActiveRecord::Schema.define(version: 20160222174924) do
   create_table "sales", force: :cascade do |t|
     t.integer  "seller_id",     limit: 4
     t.integer  "client_id",     limit: 4
-    t.integer  "client_points", limit: 4,  default: 0
+    t.float    "client_points", limit: 24, default: 0.0
+    t.float    "seller_points", limit: 24, default: 0.0
     t.float    "total",         limit: 24, default: 0.0
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
-    t.float    "seller_points", limit: 24
   end
 
   add_index "sales", ["client_id"], name: "index_sales_on_client_id", using: :btree
@@ -323,9 +325,9 @@ ActiveRecord::Schema.define(version: 20160222174924) do
   create_table "supplier_point_products", force: :cascade do |t|
     t.integer  "supplier_id", limit: 4
     t.integer  "product_id",  limit: 4
-    t.integer  "points",      limit: 4, default: 0
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.float    "points",      limit: 24, default: 0.0
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   add_index "supplier_point_products", ["product_id"], name: "index_supplier_point_products_on_product_id", using: :btree
@@ -403,7 +405,7 @@ ActiveRecord::Schema.define(version: 20160222174924) do
     t.boolean  "terms_accepted",                              default: false
     t.boolean  "card_printed",                                default: false
     t.boolean  "card_delivered",                              default: false
-    t.integer  "cache_points",                    limit: 4,   default: 0
+    t.float    "cache_points",                    limit: 24,  default: 0.0
     t.string   "image_uid",                       limit: 255
     t.string   "image_name",                      limit: 255
     t.integer  "created_by_id",                   limit: 4

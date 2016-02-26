@@ -21,7 +21,7 @@ class SorceryCore < ActiveRecord::Migration
       t.boolean :card_printed, default: false
       t.boolean :card_delivered, default: false
 
-      t.integer :cache_points, default: 0
+      t.float :cache_points, default: 0
 
       t.string :image_uid
       t.string :image_name

@@ -19,7 +19,5 @@ class CreateSupplierRequests < ActiveRecord::Migration
     end
     
     add_index :supplier_requests, :created_by_id
-
-    add_reference :users, :supplier_request, index: true, foreign_key: true
   end
 end

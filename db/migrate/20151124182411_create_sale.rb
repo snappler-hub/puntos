@@ -3,8 +3,10 @@ class CreateSale < ActiveRecord::Migration
     create_table :sales do |t|
       t.integer :seller_id
       t.integer :client_id
-      t.integer :points, default: 0
-      t.float :total, default: '0'
+      t.float :client_points, default: 0
+      t.float :seller_points, default: 0
+
+      t.float :total, default: 0
       
       t.timestamps null: false
     end

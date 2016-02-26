@@ -6,7 +6,8 @@ class CreateAuthorization < ActiveRecord::Migration
       t.text :products
       t.string :status
       t.text :message
-      t.integer :points, default: 0
+      t.float :client_points, default: 0
+      t.float :seller_points, default: 0
       
       t.timestamps null: false
     end
