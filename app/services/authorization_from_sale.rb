@@ -1,12 +1,14 @@
 class AuthorizationFromSale
   
-  attr_accessor :client, :supplier, :response, :seller
+  attr_accessor :client, :supplier, :response, :seller, :health_insurance_id, :coinsurance_id
 
   def initialize(sale, seller)
     @client = sale.client
     @sale_products = sale.sale_products
     @seller = seller
     @supplier = seller.supplier
+    @health_insurance_id = sale.health_insurance_id
+    @coinsurance_id = sale.coinsurance_id
     @response = Response.new
     @client_points = 0
     @seller_points = 0
@@ -20,6 +22,8 @@ class AuthorizationFromSale
         products: get_products,
         status: @response.status,
         message: @response.message,
+        health_insurance_id: @health_insurance_id,
+        coinsurance_id: @coinsurance_id,
         client_points: @client_points,
         seller_points: @seller_points
     )
@@ -74,8 +78,6 @@ class AuthorizationFromSale
         id: sale_product.product_id,
         amount: sale_product.amount,
         cost: sale_product.cost,
-        health_insurance_id: sale_product.health_insurance_id,
-        coinsurance_id: sale_product.coinsurance_id,
         discount: discount,
         total: (total * (1- (discount * 0.01)))
     }

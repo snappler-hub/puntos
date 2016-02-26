@@ -99,7 +99,7 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :code, :client_points, :seller_points,
+    params.require(:product).permit(:name, :code, :barcode, :troquel_number, :client_points, :seller_points,
                                     supplier_point_products_attributes: [:id, :points, :supplier_id, :_destroy])
   end
 

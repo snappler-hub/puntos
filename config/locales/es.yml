@@ -58,6 +58,8 @@ es:
         supplier_id: Prestador
       product:
         code: Código
+        barcode: 'Código de barra'
+        troquel_number: 'Número de troquel'
         name: Nombre
         client_points: Porcentaje de puntos para cliente
         seller_points: Porcentaje de puntos para vendedor
@@ -95,13 +97,13 @@ es:
       sale:
         seller_id: Vendedor
         client_id: Cliente
+        health_insurance: Obra social
+        coinsurance: Coseguro
       sale_product:
         product: Producto
         amount: Cantidad
         cost: Costo
         discount: Descuento
-        health_insurance: Obra social
-        coinsurance: Coseguro
       reward_order:
         user_id: Usuario
         supplier_id: Prestador

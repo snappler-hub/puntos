@@ -30,7 +30,7 @@ class AuthorizationsController < ApplicationController
   end
   
   def sale_params
-    params.require(:sale).permit(:seller_id, :client_id, sale_products_attributes: [:id, :product_id, :amount, :cost, :health_insurance_id, :coinsurance_id, :discount, :_destroy])
+    params.require(:sale).permit(:seller_id, :client_id, :health_insurance_id, :coinsurance_id, sale_products_attributes: [:id, :product_id, :amount, :cost, :discount, :_destroy])
   end  
   
   def filter_params

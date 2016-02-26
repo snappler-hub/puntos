@@ -17,10 +17,10 @@ authorization_one:
   seller:   seller
   client:   final_user
   products: []
-  points:   0
+  client_points:   0
   
 authorization_two:
   seller:   seller
   client:   final_user
   products: []
-  points:   0
+  client_points:   0

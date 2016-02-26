@@ -8,8 +8,8 @@ class Discounter
     @supplier = afs.supplier
     @response = afs.response
     @discount = 0
-    @health_insurance_id = sale_product.health_insurance_id
-    @coinsurance_id = sale_product.coinsurance_id
+    @health_insurance_id = afs.health_insurance_id
+    @coinsurance_id = afs.coinsurance_id
   end
 
   # Porcentaje de descuento para un producto
