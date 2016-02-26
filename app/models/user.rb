@@ -125,12 +125,16 @@ class User < ActiveRecord::Base
     points_services.count > 0 && points_services.first.in_progress?
   end
 
+  def has_seller_service?
+    seller_service.present?
+  end
+
   def active_points_service
     self.points_services.in_progress.first
   end
   
   def has_supplier?(supplier)
-    pfpc_services.in_progress.detect { |pfpc| pfpc.suppliers.include?(supplier) }
+    pfpc_services.available.detect { |pfpc| pfpc.suppliers.include?(supplier) }
   end
 
   # Resta los puntos del usuario. Va sacando los disponibles

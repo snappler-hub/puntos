@@ -57,7 +57,7 @@ class Sale < ActiveRecord::Base
     id_with_amounts.each_pair do |id, amount|
       product = Product.find(id)
       period = PeriodProduct.find_period(client, product)
-      if period.present? && client.has_supplier?(seller.supplier) 
+      if period.present? && client.has_supplier?(seller.supplier)
         period.add_to_accumulated(amount)
       end
     end
@@ -72,7 +72,7 @@ class Sale < ActiveRecord::Base
     end
     return totals
   end
-  
+
   def update_client_points
     #si servicio_puntos está activo
     #actualizar ultimo periodo
@@ -82,10 +82,12 @@ class Sale < ActiveRecord::Base
       period.update_accumulated(accumulated_points)
     end
   end
-  
+
   def update_seller_points
-    seller.seller_service.amount += seller_points
-    seller.seller_service.save!
+    if seller.has_seller_service?
+      seller.seller_service.amount += seller_points
+      seller.seller_service.save!
+    end
   end
 
 end
