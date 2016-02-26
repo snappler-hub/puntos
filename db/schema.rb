@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(version: 20160226155053) do
     t.text     "products",            limit: 65535
     t.string   "status",              limit: 255
     t.text     "message",             limit: 65535
-    t.integer  "client_points",       limit: 4,     default: 0
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
-    t.float    "seller_points",       limit: 24
+    t.float    "client_points",       limit: 24,    default: 0.0
+    t.float    "seller_points",       limit: 24,    default: 0.0
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.integer  "health_insurance_id", limit: 4
     t.integer  "coinsurance_id",      limit: 4
   end
@@ -264,11 +264,11 @@ ActiveRecord::Schema.define(version: 20160226155053) do
   create_table "sales", force: :cascade do |t|
     t.integer  "seller_id",           limit: 4
     t.integer  "client_id",           limit: 4
-    t.integer  "client_points",       limit: 4,  default: 0
+    t.float    "client_points",       limit: 24, default: 0.0
+    t.float    "seller_points",       limit: 24, default: 0.0
     t.float    "total",               limit: 24, default: 0.0
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
-    t.float    "seller_points",       limit: 24
     t.integer  "health_insurance_id", limit: 4
     t.integer  "coinsurance_id",      limit: 4
     t.integer  "authorization_id",    limit: 4
