@@ -5,7 +5,7 @@ class AuthorizationAdapter
     @errors = []
   end
 
-  def example #Meter eso en postman, cambiar símbolos por string y pegarle a http://localhost:3000/api/sales/authorize
+  def example_for_authorization #http://localhost:3000/api/sales/authorize
     {
       ticket: "12345",
       seller: "marcelo@manes.com.ar",
@@ -19,6 +19,12 @@ class AuthorizationAdapter
           {code: "9901178", amount: 4, cost: 100},
           {code: "7794640408076", amount: 2, cost: 120}
       ]
+    }
+  end
+  
+  def example_for_sale #http://localhost:3000/api/sales/confirm
+    {
+    	authorization_id: "53"
     }
   end
 
