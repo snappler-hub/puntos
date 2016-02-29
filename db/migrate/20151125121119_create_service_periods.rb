@@ -15,9 +15,8 @@ class CreateServicePeriods < ActiveRecord::Migration
       t.date :end_date
       t.integer :status, default: 0 # Enumerative
       t.float :amount, default: 0
-      t.float :accumulated
-
-      t.integer :available, default: 0
+      t.float :accumulated, default: 0
+      t.float :available, default: 0
 
       t.timestamps null: false
     end

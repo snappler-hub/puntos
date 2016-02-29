@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 20160226155053) do
     t.integer  "status",      limit: 4,  default: 0
     t.float    "amount",      limit: 24, default: 0.0
     t.float    "accumulated", limit: 24
-    t.integer  "available",   limit: 4,  default: 0
+    t.float    "available",   limit: 24, default: 0.0
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
   end
