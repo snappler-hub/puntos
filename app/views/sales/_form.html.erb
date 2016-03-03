@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-7" id="js-sale">
+  <div class="col-md-12" id="js-sale">
     <article class="box box-primary">
       <section class="box-body">
 
@@ -8,33 +8,29 @@
                 <p><%= message %></p>
             <% end %>
             <div class="row">
-              <div class='col-md-12'>
+              <div class='col-md-4'>
                 <h4>Cliente</h4>
                 <fieldset class="form-group">
                   <%= f.hidden_field :client_id, class: 'select2', auto_focus: true,
                                      data: {behavior: 'searchClient', url: search_users_path} %>
                 </fieldset>
               </div>
-            </div>
-            
-            <div class="row">
-              <div class="col-md-6">
+              <div class='col-md-4'>
+                <h4>Obra Social</h4>
                 <fieldset class="form-group">
-                  <%= f.label :health_insurance %>
-                  <%= f.hidden_field :health_insurance_id, class: 'select2', 
-                        data: { behavior: 'searchHealthInsurance', url: search_health_insurances_path } %>
+                  <%= f.hidden_field :health_insurance_id, class: 'select2',
+                                     data: {behavior: 'searchHealthInsurance', url: search_health_insurances_path} %>
                 </fieldset>
               </div>
-    
-              <div class="col-md-6">
+              <div class='col-md-4'>
+                <h4>Coseguro</h4>
                 <fieldset class="form-group">
-                  <%= f.label :coinsurance %>
                   <%= f.hidden_field :coinsurance_id, class: 'select2',
-                        data: { behavior: 'searchCoinsurance', url: search_coinsurances_path } %>
+                                     data: {behavior: 'searchCoinsurance', url: search_coinsurances_path} %>
                 </fieldset>
               </div>
             </div>
-            
+
             <div class="row">
               <div class="col-md-12">
                 <div id="js-productSales" class="product_sales form-group">
@@ -56,6 +52,11 @@
       </section>
     </article>
   </div>
-  <div id="js-authorization">
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div id="js-authorization">
+    </div>
   </div>
 </div>

@@ -20,13 +20,15 @@ class ProductsController < ApplicationController
         extra: "<dl>
                     <dt>Presentación</dt>
                     <dd>#{record.presentation_form}</dd>
+                    <dt>Monodroga</dt>
+                    <dd>#{record.drug.blank? ? 'NA' : record.drug.name}</dd>
                     <dt>Laboratorio</dt>
                     <dd>#{record.laboratory.name}</dd>
                     <dt>Código</dt>
                     <dd>#{record.code}</dd>
                 </dl>"
     } }
-    records = RecordSearcher.call(Product.all.includes(:laboratory), params, &block)
+    records = RecordSearcher.call(Product.all.includes(:laboratory, :drug).references(:drug), params, &block)
     render json: records.to_json, callback: params[:callback]
   end
 
@@ -75,7 +77,7 @@ class ProductsController < ApplicationController
   # que cumplen con la búsqueda
   def search_for_service
     user = User.find(params[:user_id])
-    products_for_search = Product.products_for_service(params[:vademecum_id], user)
+    products_for_search = Product.includes(:laboratory, :drug).products_for_service(params[:vademecum_id], user)
     records = RecordSearcher.call(products_for_search, params)
     render json: records.to_json, callback: params[:callback]
   end

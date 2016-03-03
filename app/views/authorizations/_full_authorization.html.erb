@@ -1,4 +1,4 @@
-<div class="col-md-5" id="js-authorization">
+<div id="js-authorization">
   <article class="box box-success">
     <section class="box-body">
 
@@ -28,8 +28,10 @@
                   <th>Nombre</th>
                   <th><span data-toggle="tooltip" data-placement="top" title="Cantidad">Cant.</span></th>
                   <th><span data-toggle="tooltip" data-placement="top" title="Precio de Venta Sugerido">PVS</span></th>
-                  <th><span data-toggle="tooltip" data-placement="top" title="Costo Unitario">CU</span></th>
+                  <th><span data-toggle="tooltip" data-placement="top" title="Precio">$</span></th>
                   <th><span data-toggle="tooltip" data-placement="top" title="Descuento aplicado">Dto</span></th>
+                  <th><span data-toggle="tooltip" data-placement="top" title="Puntos Cliente">Pts. Cliente</span></th>
+                  <th><span data-toggle="tooltip" data-placement="top" title="Puntos Vendedor">Pts. Vendedor</span></th>
                   <th>Total</th>
                 </tr>
                 </thead>
@@ -37,28 +39,36 @@
                 <% for product in authorization.products do %>
                     <% p = Product.find(product[:id]) %>
                     <tr>
-                      <td><%= Product.find(product[:id]).to_s %></td>
+                      <td><%= p.to_s %></td>
                       <td><%= product[:amount] %></td>
                       <td><%= number_to_currency(p.price) %></td>
                       <td><%= number_to_currency(product[:cost]) %></td>
                       <td><%= number_to_percentage(product[:discount], precision: 0) %></td>
                       <td><%= number_to_currency(product[:total]) %></td>
+                      <td> - </td>
+                      <td> - </td>
                     </tr>
                 <% end %>
                 </tbody>
               </table>
             </div>
           </div>
+
           <div class="row">
             <div class="col-md-12">
               <h5>Total: <strong><%= number_to_currency(authorization.total) %></strong></h5>
-              <h5>Puntos para cliente: <strong><%= number_with_precision(authorization.client_points, precision: 2) %></strong></h5>
-              <h5>Puntos para vendedor: <strong><%= number_with_precision(authorization.seller_points, precision: 2) %></strong></h5>
+              <h5>Puntos para cliente:
+                <strong><%= number_with_precision(authorization.client_points, precision: 2) %></strong></h5>
+              <h5>Puntos para vendedor:
+                <strong><%= number_with_precision(authorization.seller_points, precision: 2) %></strong></h5>
             </div>
           </div>
+
           <%= button_to 'Confirmar venta', [supplier, authorization.client, :sales, authorization: authorization], class: 'btn btn-success', data: {'disable-with' => 'Cargando...'}, method: :post %>
+
           <hr>
       <% end %>
+
       <div class="row">
         <div class="col-md-12">
           <h4>Estado: <%= authorization.status %></h4>
@@ -68,7 +78,7 @@
       <div class="row">
         <div class="col-md-12">
           <% for message in authorization.message %>
-            <h6><%= message %></h6>
+              <h6><%= message %></h6>
           <% end %>
         </div>
       </div>

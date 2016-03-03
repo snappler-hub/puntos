@@ -12,10 +12,13 @@
     <section class="box-body">
 
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <h5>Vendedor: <strong><%= @sale.seller %></strong></h5>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
+          <h5>Prestador: <strong><%= @sale.seller.supplier %></strong></h5>
+        </div>
+        <div class="col-md-4">
           <h5>Cliente: <strong><%= @sale.client %></strong></h5>
         </div>
       </div>
@@ -49,8 +52,13 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <h5>Puntos para el cliente: <strong><%= number_with_precision(@sale.client_points, precision: 2) %></strong></h5>
-          <h5>Puntos para el vendedor: <strong><%= number_with_precision(@sale.seller_points, precision: 2) %></strong></h5>
+          <h5>Puntos para el cliente: <strong><%= number_with_precision(@sale.client_points, precision: 2) %></strong>
+          </h5>
+
+          <% unless normal_user? %>
+              <h5>Puntos para el vendedor:
+                <strong><%= number_with_precision(@sale.seller_points, precision: 2) %></strong></h5>
+          <% end %>
         </div>
       </div>
       <hr>

@@ -20,11 +20,6 @@ class App.SaleForm
     elements.ajaxSelect
       format_name: (record) ->
         "#{record.name} (#{Utilities.formatMoney(record.price)})"
-      format_extra: (record) ->
-        "<small class='select2-extra-text'> \
-          #{record.laboratory} <br> \
-          #{record.barcode} | #{record.troquel_number}\
-        </small>"
     elements.on 'change', (e)->
       input = $(e.target).closest('.nested-fields').find('.js-cost')
       input.val(e.added.price)
