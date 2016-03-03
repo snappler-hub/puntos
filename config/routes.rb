@@ -26,32 +26,34 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :laboratories, only:[] do
+  resources :laboratories, only: [] do
     get :search, on: :collection
   end
 
-  resources :drugs, only:[] do
+  resources :drugs, only: [] do
     get :search, on: :collection
   end
 
-  resources :services, only:[] do
+  resources :services, only: [] do
     get :near_expiration, on: :collection
     get :history, on: :member
   end
 
   get 'my_purchases', to: 'sales#index'
-  
+
   resources :health_insurances, only: [:show, :create, :update] do
     collection do
       get :search
     end
   end
-  
+
   resources :coinsurances, only: [:show, :create, :update] do
     collection do
       get :search
     end
   end
+
+  resources :pathologies, except: [:show]
 
   resources :products, except: [:show] do
     collection do
@@ -81,8 +83,6 @@ Rails.application.routes.draw do
     get :change_state, on: :member
     get :voucher_pdf, on: :member
   end
-
-
 
   resources :vademecums do
     get :get_suppliers, on: :member
@@ -124,7 +124,7 @@ Rails.application.routes.draw do
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   get 'admin', to: 'application#admin', as: :admin
-  get 'profile', to:'users#edit', as: :profile
+  get 'profile', to: 'users#edit', as: :profile
 
   get 'login', to: 'sessions#login_form', as: :login
   delete 'logout', to: 'sessions#destroy', as: :logout

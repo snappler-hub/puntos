@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226155053) do
+ActiveRecord::Schema.define(version: 20160302154040) do
 
   create_table "administration_routes", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -69,6 +69,20 @@ ActiveRecord::Schema.define(version: 20160226155053) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "pathologies", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "pathologies_supplier_requests", id: false, force: :cascade do |t|
+    t.integer "pathology_id",        limit: 4
+    t.integer "supplier_request_id", limit: 4
+  end
+
+  add_index "pathologies_supplier_requests", ["pathology_id"], name: "index_pathologies_supplier_requests_on_pathology_id", using: :btree
+  add_index "pathologies_supplier_requests", ["supplier_request_id"], name: "index_pathologies_supplier_requests_on_supplier_request_id", using: :btree
 
   create_table "period_products", force: :cascade do |t|
     t.integer  "pfpc_period_id", limit: 4

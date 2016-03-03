@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:edit, :update, :destroy]
   before_action :only_authorize_god!, only: [:index, :new, :create, :destroy]
 
   # GET /products
@@ -28,10 +28,6 @@ class ProductsController < ApplicationController
     } }
     records = RecordSearcher.call(Product.all.includes(:laboratory), params, &block)
     render json: records.to_json, callback: params[:callback]
-  end
-
-  # GET /products/1
-  def show
   end
 
   # GET /products/new

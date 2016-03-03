@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-9">
+    <article class="box box-primary">
+      <section class="box-body">
+
+        <%= form_for(@pathology) do |f| %>
+            <% @pathology.errors.full_messages.each do |message| %>
+                <p><%= message %></p>
+            <% end %>
+
+            <fieldset class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: 'form-control', required: true %>
+            </fieldset>
+
+            <div class="actions">
+              <%= f.submit 'Guardar patología', class: 'btn btn-primary', data: {'disable-with' => 'Cargando...'} %>
+            </div>
+        <% end %>
+
+      </section>
+    </article>
+  </div>
+</div>

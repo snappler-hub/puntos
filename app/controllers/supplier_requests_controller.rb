@@ -109,7 +109,7 @@ class SupplierRequestsController < ApplicationController
   end
 
   def supplier_request_params
-    allow_params = [:first_name, :last_name, :document_type, :document_number, :phone, :email, :address, :notes, :user_id]
+    allow_params = [:first_name, :last_name, :document_type, :document_number, :phone, :email, :address, :notes, :user_id, pathology_ids: []]
     allow_params << :supplier_id << :status if god?
     params.require(:supplier_request).permit(allow_params)
   end

@@ -32,10 +32,6 @@
 
 class Product < ActiveRecord::Base
 
-  # -- Scopes
-  default_scope { order(:name) }
-  scope :search, ->(q) { where('name LIKE :a OR barcode like :b OR troquel_number like :c', a: "%#{q}%", b: "#{q}%", c: "#{q}%") }
-
   # -- Associations
   has_many :supplier_point_products
   accepts_nested_attributes_for :supplier_point_products, allow_destroy: true
@@ -47,18 +43,10 @@ class Product < ActiveRecord::Base
   belongs_to :pharmacologic_scope
   belongs_to :laboratory
 
-  # -- Validations
-  validates :name, presence: true
-  # validates :code, :barcode, uniqueness: true
+  # -- Scopes
+  default_scope { order(:name) }
 
-  # -- Callbacks
-  after_create :initialize_points, if: Proc.new { |u| u.client_points.nil? }
-
-  def to_s
-    s = "#{name}"
-    s += ", #{presentation_form}" unless presentation_form.nil?
-    s
-  end
+  scope :search, ->(q) { where('name LIKE :a OR barcode like :b OR troquel_number like :c', a: "%#{q}%", b: "#{q}%", c: "#{q}%") }
 
   def self.products_for_service(params_vademecum, user)
     pfpc_services = user.pfpc_services.available
@@ -78,6 +66,19 @@ class Product < ActiveRecord::Base
     products = (laboratory_id.present?) ? Product.where(laboratory_id: laboratory_id) : Product.all
     products.update_all(client_points: client_points) unless client_points.blank?
     products.update_all(seller_points: seller_points) unless seller_points.blank?
+  end
+
+  # -- Validations
+  validates :name, presence: true
+  # validates :code, :barcode, uniqueness: true
+
+  # -- Callbacks
+  after_create :initialize_points, if: Proc.new { |u| u.client_points.nil? }
+
+  def to_s
+    s = "#{name}"
+    s += ", #{presentation_form}" unless presentation_form.nil?
+    s
   end
   
   def name_with_presentation

@@ -1,5 +1,6 @@
 es:
   success: Accion realizada con exito
+
   dictionary:
     name: &first_name 'Nombre'
     last_name: &last_name 'Apellido'
@@ -14,6 +15,7 @@ es:
     models:
       User: Usuario
       Supplier: Prestador
+      Pathology: Patología
     attributes:
       supplier:
         name: Nombre
@@ -56,10 +58,12 @@ es:
         notes: Notas
         status: Estado
         supplier_id: Prestador
+      pathology:
+        name: Nombre
       product:
         code: Código
-        barcode: 'Código de barra'
-        troquel_number: 'Número de troquel'
+        barcode: Código de barra
+        troquel_number: Número de troquel
         name: Nombre
         client_points: Porcentaje de puntos para cliente
         seller_points: Porcentaje de puntos para vendedor
@@ -81,7 +85,7 @@ es:
         product_id: Producto
         health_insurance_id: Obra social
         coinsurance_id: Coseguro
-        discount: 'Efvo'
+        discount: Efvo
         health_insurance_discount: OS
         coinsurance_discount: Cos.
         health_insurance_and_coinsurance_discount: OS + Cos.
@@ -102,7 +106,7 @@ es:
       sale_product:
         product: Producto
         amount: Cantidad
-        cost: Costo
+        cost: Precio
         discount: Descuento
       reward_order:
         user_id: Usuario
@@ -240,4 +244,3 @@ es:
     arqueo_positivo: Arqueo Positivo
     canjeo_premio: Canjeo Premio
     cancelado_premio: Cancelado Premio
-
