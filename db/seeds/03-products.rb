@@ -1,7 +1,7 @@
-puts 'BEGIN Seed ALFABETA'
-
+# puts 'BEGIN Seed ALFABETA'
+#
 # Migration.all
-
+#
 #
 # lab1 = Laboratory.where(name: 'Abbott').first_or_create
 # lab2 = Laboratory.where(name: 'Alcon').first_or_create
@@ -58,5 +58,5 @@ puts 'BEGIN Seed ALFABETA'
 # ProductDiscount.where(product: p1, vademecum: v1, discount: 15).first_or_create
 # ProductDiscount.where(product: p2, vademecum: v1, discount: 25).first_or_create
 # ProductDiscount.where(product: p1, vademecum: v2, discount: 10).first_or_create
-
-puts 'END Seed ALFABETA'
+#
+# puts 'END Seed ALFABETA'
