@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: ALFABETA_Monodro
+#
+#  codigo      :integer          not null, primary key
+#  descripcion :string(32)       not null
+#
+
 module ManesPresent
   class Drug < ActiveRecord::Base
     establish_connection :manes_present

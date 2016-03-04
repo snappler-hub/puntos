@@ -1,6 +1,6 @@
 puts 'BEGIN Seed ALFABETA'
 
-Migration.all
+# Migration.all
 
 #
 # lab1 = Laboratory.where(name: 'Abbott').first_or_create

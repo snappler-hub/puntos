@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: coinsurances
+#
+#  id   :integer          not null, primary key
+#  name :string(255)
+#
+
 class Coinsurance < ActiveRecord::Base
 
   # -- Scopes

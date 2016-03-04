@@ -2,13 +2,17 @@
 #
 # Table name: sales
 #
-#  id         :integer          not null, primary key
-#  seller_id  :integer
-#  client_id  :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  points     :integer          default(0)
-#  total      :float(24)        default(0.0)
+#  id                  :integer          not null, primary key
+#  seller_id           :integer
+#  client_id           :integer
+#  client_points       :float(24)        default(0.0)
+#  seller_points       :float(24)        default(0.0)
+#  total               :float(24)        default(0.0)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  health_insurance_id :integer
+#  coinsurance_id      :integer
+#  authorization_id    :integer
 #
 
 class Sale < ActiveRecord::Base

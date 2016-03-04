@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: sale_products
+#
+#  id         :integer          not null, primary key
+#  product_id :integer
+#  sale_id    :integer
+#  amount     :integer          default(1)
+#  cost       :float(24)        default(0.0)
+#  discount   :float(24)        default(0.0)
+#  total      :float(24)        default(0.0)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 one:
   sale:       one
   product:    two    

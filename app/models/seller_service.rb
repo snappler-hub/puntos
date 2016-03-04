@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: services
+#
+#  id                        :integer          not null, primary key
+#  name                      :string(255)      not null
+#  type                      :string(255)      not null
+#  user_id                   :integer
+#  last_period_id            :integer
+#  amount                    :float(24)
+#  status                    :integer          default(0)
+#  days                      :integer          default(30)
+#  days_to_points_expiration :integer
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  vademecum_id              :integer
+#
+
 class SellerService < Service
 
   # -- Validations

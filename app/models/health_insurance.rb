@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: health_insurances
+#
+#  id   :integer          not null, primary key
+#  name :string(255)
+#
+
 class HealthInsurance < ActiveRecord::Base
 
   # -- Scopes

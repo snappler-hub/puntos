@@ -5,7 +5,7 @@
 #  id          :integer          not null, primary key
 #  supplier_id :integer
 #  product_id  :integer
-#  points      :integer          default(0)
+#  points      :float(24)        default(0.0)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

@@ -7,11 +7,11 @@
 #  start_date  :date
 #  end_date    :date
 #  status      :integer          default(0)
-#  amount      :integer          default(0)
-#  accumulated :integer
+#  amount      :float(24)        default(0.0)
+#  accumulated :float(24)
+#  available   :float(24)        default(0.0)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  available   :integer          default(0)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

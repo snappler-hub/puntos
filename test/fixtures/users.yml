@@ -19,7 +19,7 @@
 #  terms_accepted                  :boolean          default(FALSE)
 #  card_printed                    :boolean          default(FALSE)
 #  card_delivered                  :boolean          default(FALSE)
-#  cache_points                    :integer          default(0)
+#  cache_points                    :float(24)        default(0.0)
 #  image_uid                       :string(255)
 #  image_name                      :string(255)
 #  created_by_id                   :integer
@@ -32,7 +32,6 @@
 #  reset_password_email_sent_at    :datetime
 #  created_at                      :datetime
 #  updated_at                      :datetime
-#  supplier_request_id             :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
