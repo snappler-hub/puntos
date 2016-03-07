@@ -7,7 +7,7 @@ class SupplierRequestsController < ApplicationController
   # GET /supplier_requests.json
   def index
     @filter = SupplierRequestFilter.new(filter_params)
-    @supplier_requests = @filter.call(@supplier).page(params[:page])
+    @supplier_requests = @filter.call(@supplier, current_user).page(params[:page])
   end
 
   # GET /supplier_requests/1
@@ -101,7 +101,6 @@ class SupplierRequestsController < ApplicationController
   end
 
   def filter_params
-    binding.pry
     if params[:supplier_request_filter]
       allow_params = [:status, :name, :document_number]
       allow_params << :supplier_id if god?

@@ -34,7 +34,9 @@
               <th><span data-toggle="tooltip" data-placement="top" title="Costo Unitario">CU</span></th>
               <th><span data-toggle="tooltip" data-placement="top" title="Descuento aplicado">Dto</span></th>
               <th><span data-toggle="tooltip" data-placement="top" title="Puntos Cliente">Pts. Cliente</span></th>
-              <th><span data-toggle="tooltip" data-placement="top" title="Puntos Vendedor">Pts. Vendedor</span></th>
+              <% unless normal_user? %>
+                <th><span data-toggle="tooltip" data-placement="top" title="Puntos Vendedor">Pts. Vendedor</span></th>
+              <% end %>
               <th>Total</th>
             </tr>
             </thead>
@@ -46,32 +48,26 @@
                   <td><%= number_to_currency(product.cost) %></td>
                   <td><%= number_to_percentage(product.discount, precision: 0) %></td>
                   <td><%= product.client_points %></td>
-                  <td><%= product.seller_points %></td>
+                  <% unless normal_user? %>
+                    <td><%= product.seller_points %></td>
+                  <% end %>
                   <td><%= number_to_currency(product.total) %></td>
                 </tr>
             <% end %>
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="6"><strong>TOTAL:</strong></td>
+                <td colspan="4"><strong>TOTAL:</strong></td>
+                <td><strong><%= @sale.client_points %></strong></td>
+                <% unless normal_user? %>
+                  <td><strong><%= @sale.seller_points %></strong></td>
+                <% end %>
                 <td><strong><%= number_to_currency(@sale.total) %></strong></td>
               </tr>
             </tfoot>
           </table>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <h5>Puntos para el cliente: <strong><%= @sale.client_points %></strong>
-          </h5>
-
-          <% unless normal_user? %>
-              <h5>Puntos para el vendedor:
-                <strong><%= @sale.seller_points %></strong></h5>
-          <% end %>
-        </div>
-      </div>
-      <hr>
 
     </section>
   </article>
