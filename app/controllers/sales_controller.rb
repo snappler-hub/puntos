@@ -56,7 +56,7 @@ class SalesController < ApplicationController
   end
 
   def sale_params
-    params.require(:sale).permit(:seller_id, :client_id, :health_insurance_id, :coinsurance_id, sale_products_attributes: [:id, :product_id, :amount, :cost, :discount, :_destroy])
+    params.require(:sale).permit(:seller_id, :client_id, :health_insurance_id, :coinsurance_id, sale_products_attributes: [:id, :product_id, :amount, :cost, :discount, :client_points, :seller_points, :_destroy])
   end
 
   def filter_params

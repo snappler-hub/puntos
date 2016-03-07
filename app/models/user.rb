@@ -46,7 +46,8 @@ class User < ActiveRecord::Base
 
   # -- Callbacks
   # Al crear un usuario, le mando mail de bienvenida para que acepte términos y condiciones
-  after_create :send_mail, if: Proc.new { |u| !u.terms_accepted? }
+  after_create :send_mail
+  after_create :create_seller_service, if: Proc.new { |u| u.is?('seller') && u.seller_service.nil? }
 
   # -- Scopes
   scope :search, ->(q) { where('card_number LIKE :q', q: "%#{q}%") }
@@ -100,6 +101,12 @@ class User < ActiveRecord::Base
   def accept_terms_of_use
     User.transaction do
       CardManager.accept_terms_of_use!(self)
+    end
+  end
+  
+  def create_seller_service
+    User.transaction do
+      SellerService.create_for!(self)
     end
   end
 

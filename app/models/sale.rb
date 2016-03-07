@@ -89,8 +89,8 @@ class Sale < ActiveRecord::Base
 
   def update_seller_points
     if seller.has_seller_service?
-      seller.seller_service.amount += seller_points
-      seller.seller_service.save!
+      seller.cache_points += seller_points
+      seller.save!
     end
   end
 

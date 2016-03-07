@@ -12,9 +12,8 @@ class AuthorizationAdapter
       supplier: "Drogueria Manes",
       health_insurance_id: 2,
       coinsurance_id: 1,
-      date: "2016-02-26",
       subsidiary: "nombre_sucursal",
-      card_number: "49D53710790824E6",
+      card_number: "7ED1458037032796",
       products: [
           {code: "9901178", amount: 4, cost: 100},
           {code: "7794640408076", amount: 2, cost: 120}

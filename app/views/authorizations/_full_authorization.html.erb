@@ -44,23 +44,21 @@
                       <td><%= number_to_currency(p.price) %></td>
                       <td><%= number_to_currency(product[:cost]) %></td>
                       <td><%= number_to_percentage(product[:discount], precision: 0) %></td>
+                      <td><%= product[:client_points]%></td>
+                      <td><%= product[:seller_points]%></td>
                       <td><%= number_to_currency(product[:total]) %></td>
-                      <td> - </td>
-                      <td> - </td>
                     </tr>
                 <% end %>
                 </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="5"><strong>TOTAL:</strong></td>
+                    <td><strong><%= authorization.client_points %></strong></td>
+                    <td><strong><%= authorization.seller_points %></strong></td>
+                    <td><strong><%= number_to_currency(authorization.total) %></strong></td>
+                  </tr>
+                </tfoot>
               </table>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <h5>Total: <strong><%= number_to_currency(authorization.total) %></strong></h5>
-              <h5>Puntos para cliente:
-                <strong><%= number_with_precision(authorization.client_points, precision: 2) %></strong></h5>
-              <h5>Puntos para vendedor:
-                <strong><%= number_with_precision(authorization.seller_points, precision: 2) %></strong></h5>
             </div>
           </div>
 

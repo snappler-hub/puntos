@@ -101,6 +101,7 @@ class SupplierRequestsController < ApplicationController
   end
 
   def filter_params
+    binding.pry
     if params[:supplier_request_filter]
       allow_params = [:status, :name, :document_number]
       allow_params << :supplier_id if god?

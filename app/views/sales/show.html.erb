@@ -33,6 +33,8 @@
               <th><span data-toggle="tooltip" data-placement="top" title="Cantidad">Cant.</span></th>
               <th><span data-toggle="tooltip" data-placement="top" title="Costo Unitario">CU</span></th>
               <th><span data-toggle="tooltip" data-placement="top" title="Descuento aplicado">Dto</span></th>
+              <th><span data-toggle="tooltip" data-placement="top" title="Puntos Cliente">Pts. Cliente</span></th>
+              <th><span data-toggle="tooltip" data-placement="top" title="Puntos Vendedor">Pts. Vendedor</span></th>
               <th>Total</th>
             </tr>
             </thead>
@@ -43,21 +45,29 @@
                   <td><%= product.amount %></td>
                   <td><%= number_to_currency(product.cost) %></td>
                   <td><%= number_to_percentage(product.discount, precision: 0) %></td>
+                  <td><%= product.client_points %></td>
+                  <td><%= product.seller_points %></td>
                   <td><%= number_to_currency(product.total) %></td>
                 </tr>
             <% end %>
             </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="6"><strong>TOTAL:</strong></td>
+                <td><strong><%= number_to_currency(@sale.total) %></strong></td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <h5>Puntos para el cliente: <strong><%= number_with_precision(@sale.client_points, precision: 2) %></strong>
+          <h5>Puntos para el cliente: <strong><%= @sale.client_points %></strong>
           </h5>
 
           <% unless normal_user? %>
               <h5>Puntos para el vendedor:
-                <strong><%= number_with_precision(@sale.seller_points, precision: 2) %></strong></h5>
+                <strong><%= @sale.seller_points %></strong></h5>
           <% end %>
         </div>
       </div>

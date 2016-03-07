@@ -47,7 +47,7 @@ class Product < ActiveRecord::Base
   # -- Scopes
   default_scope { order(:name) }
 
-  scope :search, ->(q) { where('products.name LIKE :a OR products.barcode LIKE :b OR products.troquel_number LIKE :c OR drugs.name LIKE :a', a: "%#{q}%", b: "#{q}%", c: "#{q}%") }
+  scope :search, ->(q) { joins(:drug).where('products.name LIKE :a OR products.barcode LIKE :a OR products.troquel_number LIKE :a OR drugs.name LIKE :a OR products.presentation_form LIKE :a', a: "%#{q}%") }
 
   def self.products_for_service(params_vademecum, user)
     pfpc_services = user.pfpc_services.available

@@ -1,6 +1,6 @@
 class AuthorizationFromSale
   
-  attr_accessor :client, :supplier, :response, :seller, :health_insurance_id, :coinsurance_id
+  attr_accessor :client, :supplier, :response, :seller, :health_insurance_id, :coinsurance_id, :client_points, :seller_points
 
   def initialize(sale, seller)
     @client = sale.client
@@ -57,30 +57,40 @@ class AuthorizationFromSale
 
   def products
     products = []
-    points_giver = PointsGiver.new(self)
     @sale_products.map do |sale_product|
-      # Productos con descuentos
+      #Descuentos y puntos
       discounter = Discounter.new(sale_product, self).call
-      products << create_product(sale_product, discounter.discount)
-
-      #Puntos
+      points_giver = PointsGiver.new(self)
       points_giver.call(sale_product)
       @client_points += points_giver.client_points
       @seller_points += points_giver.seller_points
+      products << create_product(sale_product, discounter.discount, points_giver)
     end
     products
   end
 
   # Producto con descuento aplicado
-  def create_product(sale_product, discount)
-    total = sale_product.cost * sale_product.amount
+  def create_product(sale_product, discount, points_giver)
     {
         id: sale_product.product_id,
         amount: sale_product.amount,
         cost: sale_product.cost,
         discount: discount,
-        total: (total * (1- (discount * 0.01)))
+        client_points: points_giver.client_points,
+        seller_points: points_giver.seller_points,
+        total: total(sale_product, discount)
     }
+  end
+  
+  def total(sale_product, discount)
+    amount = sale_product.amount
+    cost = sale_product.cost
+    pvs = sale_product.product.price
+    if sale_product.cost != sale_product.product.price
+      return amount * (cost - (pvs * (1 - (discount * 0.01))))
+    else
+      return (cost * amount) * (1 - (discount * 0.01))
+    end
   end
 
 end

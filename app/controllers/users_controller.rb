@@ -58,7 +58,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       ActiveRecord::Base.transaction do
         if @user.save
-          CardManager.assign_card_number! @user if is?(:god)
+          CardManager.assign_card_number! @user if is?([:god, :admin])
           format.html { redirect_to [@supplier, @user], notice: 'El usuario ha sido creado correctamente.' }
           format.json { render :show, status: :created, location: @user }
         else

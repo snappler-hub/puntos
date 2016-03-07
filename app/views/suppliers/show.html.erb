@@ -81,7 +81,7 @@
 
             <ul class="text-muted list-unstyled">
               <% @supplier.supplier_point_products.each do |spp| %>
-                <li><%= spp.product %>: <%= spp.points %></li>
+                <li><%= spp.product %>: <%= spp.client_points %> | <%= spp.seller_points %></li>
               <% end %>
             </ul>
           </div>

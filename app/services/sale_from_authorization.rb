@@ -33,6 +33,8 @@ class SaleFromAuthorization
           amount: product[:amount],
           cost: product[:cost],
           discount: product[:discount],
+          client_points: product[:client_points],
+          seller_points: product[:seller_points],
           total: product[:total]
       )
     end
