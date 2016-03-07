@@ -38,7 +38,6 @@ u = User.where(email: '11797403@manes.com.ar').first_or_create do |user|
   user.supplier = manes
 end
 CardManager.assign_card_number!(u)
-SellerService.create_for!(u)
 
 u = User.where(email: '22765234@manes.com.ar').first_or_create do |user|
   user.password = '22765234@manes.com.ar'
@@ -52,7 +51,6 @@ u = User.where(email: '22765234@manes.com.ar').first_or_create do |user|
   user.supplier = manes
 end
 CardManager.assign_card_number!(u)
-SellerService.create_for!(u)
 
 u = User.where(email: '21845452@manes.com.ar').first_or_create do |user|
   user.password = '21845452@manes.com.ar'
@@ -66,7 +64,6 @@ u = User.where(email: '21845452@manes.com.ar').first_or_create do |user|
   user.supplier = manes
 end
 CardManager.assign_card_number!(u)
-SellerService.create_for!(u)
 
 u = User.where(email: '18369725@manes.com.ar').first_or_create do |user|
   user.password = '18369725@manes.com.ar'
@@ -80,7 +77,6 @@ u = User.where(email: '18369725@manes.com.ar').first_or_create do |user|
   user.supplier = manes
 end
 CardManager.assign_card_number!(u)
-SellerService.create_for!(u)
 
 u = User.where(email: '20415681@manes.com.ar').first_or_create do |user|
   user.password = '20415681@manes.com.ar'
@@ -94,7 +90,6 @@ u = User.where(email: '20415681@manes.com.ar').first_or_create do |user|
   user.supplier = manes
 end
 CardManager.assign_card_number!(u)
-SellerService.create_for!(u)
 
 u = User.where(email: '11995299@manes.com.ar').first_or_create do |user|
   user.password = '11995299@manes.com.ar'
@@ -108,7 +103,6 @@ u = User.where(email: '11995299@manes.com.ar').first_or_create do |user|
   user.supplier = manes
 end
 CardManager.assign_card_number!(u)
-SellerService.create_for!(u)
 
 u = User.where(email: '24771686@manes.com.ar').first_or_create do |user|
   user.password = '24771686@manes.com.ar'
@@ -122,7 +116,6 @@ u = User.where(email: '24771686@manes.com.ar').first_or_create do |user|
   user.supplier = manes
 end
 CardManager.assign_card_number!(u)
-SellerService.create_for!(u)
 
 u = User.where(email: '27815141@manes.com.ar').first_or_create do |user|
   user.password = '27815141@manes.com.ar'
@@ -136,7 +129,6 @@ u = User.where(email: '27815141@manes.com.ar').first_or_create do |user|
   user.supplier = manes
 end
 CardManager.assign_card_number!(u)
-SellerService.create_for!(u)
 
 u = User.where(email: '18774865@manes.com.ar').first_or_create do |user|
   user.password = '18774865@manes.com.ar'
@@ -150,7 +142,6 @@ u = User.where(email: '18774865@manes.com.ar').first_or_create do |user|
   user.supplier = manes
 end
 CardManager.assign_card_number!(u)
-SellerService.create_for!(u)
 
 u = User.where(email: '31345639@manes.com.ar').first_or_create do |user|
   user.password = '31345639@manes.com.ar'
@@ -164,7 +155,7 @@ u = User.where(email: '31345639@manes.com.ar').first_or_create do |user|
   user.supplier = manes
 end
 CardManager.assign_card_number!(u)
-SellerService.create_for!(u)
+ 
 
 u = User.where(email: '27408941@manes.com.ar').first_or_create do |user|
   user.password = '27408941@manes.com.ar'
@@ -178,7 +169,7 @@ u = User.where(email: '27408941@manes.com.ar').first_or_create do |user|
   user.supplier = manes
 end
 CardManager.assign_card_number!(u)
-SellerService.create_for!(u)
+
 
 u = User.where(email: '29371797@manes.com.ar').first_or_create do |user|
   user.password = '29371797@manes.com.ar'
