@@ -21,5 +21,6 @@ class App.SupplierForm
         limit: 10    
         
 $(document).on "page:change", ->
+  console.log('ENTRO')
   return unless $(".suppliers.new").length > 0 || $(".suppliers.edit").length > 0
   supplierForm = new App.SupplierForm()
