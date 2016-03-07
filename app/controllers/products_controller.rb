@@ -17,16 +17,24 @@ class ProductsController < ApplicationController
         laboratory: record.laboratory.to_s,
         barcode: record.barcode || '-',
         troquel_number: record.troquel_number || '-',
-        extra: "<dl>
-                    <dt>Presentación</dt>
-                    <dd>#{record.presentation_form}</dd>
-                    <dt>Monodroga</dt>
-                    <dd>#{record.drug.blank? ? 'NA' : record.drug.name}</dd>
-                    <dt>Laboratorio</dt>
-                    <dd>#{record.laboratory.name}</dd>
-                    <dt>Código</dt>
-                    <dd>#{record.code}</dd>
-                </dl>"
+        extra: "<div class='row'>
+                  <div class='col-md-6'>
+                    <dl>
+                      <dt>Presentación</dt>
+                      <dd>#{record.presentation_form}</dd>
+                      <dt>Monodroga</dt>
+                      <dd>#{record.drug.blank? ? 'NA' : record.drug.name}</dd>
+                    </dl>
+                  </div>
+                  <div class='col-md-6'>
+                    <dl>
+                      <dt>Laboratorio</dt>
+                      <dd>#{record.laboratory.name}</dd>
+                      <dt>Código</dt>
+                      <dd>#{record.code}</dd>
+                    </dl>
+                  </div>
+                </div>"
     } }
     records = RecordSearcher.call(Product.all.includes(:laboratory, :drug).references(:drug), params, &block)
     render json: records.to_json, callback: params[:callback]
