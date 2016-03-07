@@ -1,7 +1,7 @@
 class SupplierRequestsController < ApplicationController
   before_action :set_supplier
   before_action :set_supplier_request, only: [:show, :edit, :update, :destroy, :add_card, :emit]
-  before_action :only_authorize_admin!, except: [:show, :edit, :update, :destroy]
+  before_action :only_authorize_admin!, except: [:index, :show, :edit, :update, :destroy]
 
   # GET /supplier_requests
   # GET /supplier_requests.json

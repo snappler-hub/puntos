@@ -58,6 +58,8 @@
           <% elsif supplier? %>
               <%= side_link 'Usuarios', [current_user.supplier, :users], 'users' %>
 
+              <%= side_link 'Todas las solicitudes', [current_user.supplier, :supplier_requests], 'file-text-o' %>
+
               <%= side_link 'Nueva solicitud', [:document_form, current_user.supplier, :supplier_requests], 'plus text-green' %>
 
               <%= side_link 'Servicios próximos a vencer', [:near_expiration, current_user.supplier, :services], 'users' %>
