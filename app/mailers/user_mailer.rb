@@ -16,6 +16,7 @@ class UserMailer < ActionMailer::Base
     content_message = message
     subject ||= 'Nueva notificación'
     url = build_url(url)
+    binding.pry
     action = 'Ir al sitio'
     message = {
         to: [{email: user.email, name: user_name}],

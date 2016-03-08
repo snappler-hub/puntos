@@ -94,7 +94,7 @@ class RewardOrder < ActiveRecord::Base
     end
     unless subject == 0
       message = 'Para verlo, haga clic en el siguiente enlace. '
-      url = Const::URL+'/reward_orders/'+self.id.to_s
+      url = "/reward_orders/#{self.id.to_s}"
       UserMailer.new_mail(self.user, title, message, subject, url)
     end
   end
