@@ -64,7 +64,11 @@ class PfpcService < Service
 
     period
   end
-  
+
+  def can_renew?
+    last_period.can_renew?
+  end
+
   def send_mail
     title = "Debe aceptar los términos y condiciones"
     message = "Para ello, haga clic en el siguiente botón e ingrese con su usuario y contraseña. "
