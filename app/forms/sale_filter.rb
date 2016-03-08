@@ -17,7 +17,7 @@ class SaleFilter
       end
     end
 
-    sales = sales.includes(:seller)
+    sales = sales.includes(:client, :sale_products, :authorization, seller: [:supplier])
     sales = sales.between_dates(@start_date, @finish_date) if @start_date.present?
     sales = sales.all_from_supplier(@supplier_id) if @supplier_id.present?
     sales = sales.where('seller_id = ?', @seller_id) if @seller_id.present?

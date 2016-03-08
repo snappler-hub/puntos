@@ -3,7 +3,7 @@ class AuthorizationFilter
   attr_accessor :id, :status, :client_id, :seller_id, :start_date, :finish_date, :supplier_id
 
   def call
-    authorizations = Authorization.all.order(:created_at)
+    authorizations = Authorization.all.includes(:client, seller: [:supplier]).order(:created_at)
     authorizations = authorizations.where('id LIKE ?', "%#{@id}%") if @id.present?
     authorizations = authorizations.where(status: @status) if @status.present?
     authorizations = authorizations.where(client_id: @client_id ) if @client_id.present?

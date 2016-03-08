@@ -42,11 +42,11 @@ class SalesController < ApplicationController
   end
 
   def destroy
-    #Charlar si es necesario
+    # TODO Charlar si es necesario
   end
 
   def edit
-    #Charlar si es necesario
+    # TODO Charlar si es necesario
   end
 
   private

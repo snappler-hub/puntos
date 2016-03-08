@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base
   require 'mandrill'
 
-  default from: 'no-reply@manes.com'
+  default from: 'no-reply@manes.com.ar'
   layout 'mailer'
 
   def self.mandrill_client
@@ -16,7 +16,6 @@ class UserMailer < ActionMailer::Base
     content_message = message
     subject ||= 'Nueva notificación'
     url = build_url(url)
-    binding.pry
     action = 'Ir al sitio'
     message = {
         to: [{email: user.email, name: user_name}],

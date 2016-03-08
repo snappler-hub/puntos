@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
       CardManager.accept_terms_of_use!(self)
     end
   end
-  
+
   def create_seller_service
     User.transaction do
       SellerService.create_for!(self)
@@ -138,7 +138,7 @@ class User < ActiveRecord::Base
   def active_points_service
     self.points_services.in_progress.first
   end
-  
+
   def has_supplier?(supplier)
     pfpc_services.available.detect { |pfpc| pfpc.suppliers.include?(supplier) }
   end
@@ -148,15 +148,19 @@ class User < ActiveRecord::Base
   def decrease_points(points)
     return false unless self.cache_points >= points # Alcanzan los puntos?
 
-    periods = self.points_periods.where('points_periods.available > 0').order('points_periods.end_date')
-    periods.each do |period|
-      if period.available >= points
-        period.update_attribute(:available, period.available-points)
-        points = 0
-        break
-      else
-        points -= period.available
-        period.update_attribute(:available, 0)
+    if is? :seller
+      seller_service.update_attribute(:amount, seller_service.amount-points)
+    elsif is? :normal_user
+      periods = self.points_periods.where('points_periods.available > 0').order('points_periods.end_date')
+      periods.each do |period|
+        if period.available >= points
+          period.update_attribute(:available, period.available-points)
+          points = 0
+          break
+        else
+          points -= period.available
+          period.update_attribute(:available, 0)
+        end
       end
     end
 

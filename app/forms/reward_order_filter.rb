@@ -3,7 +3,7 @@ class RewardOrderFilter
   attr_accessor :state, :supplier_id, :user_id, :code, :from, :to
 
   def call(user=nil)
-    reward_orders = RewardOrder.all
+    reward_orders = RewardOrder.all.includes(:user, :supplier)
     if user.present?
       if user.role == 'admin' || user.role == 'seller'
         reward_orders = reward_orders.where(supplier_id: user.supplier_id)
