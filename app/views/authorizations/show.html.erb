@@ -1,0 +1,65 @@
+<header class="content-header">
+  <%= link_to 'Volver', authorizations_path, class: 'btn btn-default pull-right' %>
+  <h1>Información de la autorización <strong>#<%= @authorization.id %></strong></h1>
+</header>
+
+<section class="content">
+  <article class="box box-primary">
+    <section class="box-body">
+
+      <div class="row">
+        <div class="col-md-4">
+          <h5>Vendedor: <strong><%= @authorization.seller %></strong></h5>
+        </div>
+        <div class="col-md-4">
+          <h5>Prestador: <strong><%= @authorization.seller.supplier %></strong></h5>
+        </div>
+        <div class="col-md-4">
+          <h5>Cliente: <strong><%= @authorization.client %></strong></h5>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h5>Detalle de descuentos aplicados:</h5>
+          <table id="css-authorizations-table" class="table table-striped table-condensed">
+            <thead>
+            <tr>
+              <th>Nombre</th>
+              <th><span data-toggle="tooltip" data-placement="top" title="Cantidad">Cant.</span></th>
+              <th><span data-toggle="tooltip" data-placement="top" title="Costo Unitario">CU</span></th>
+              <th><span data-toggle="tooltip" data-placement="top" title="Descuento aplicado">Dto</span></th>
+              <th><span data-toggle="tooltip" data-placement="top" title="Puntos Cliente">Pts. Cliente</span></th>
+              <th><span data-toggle="tooltip" data-placement="top" title="Puntos Vendedor">Pts. Vendedor</span></th>
+              <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @authorization.products.each do |product| %>
+              <tr>
+                <td><%= Product.find(product[:id]) %></td>
+                <td><%= product[:amount] %></td>
+                <td><%= number_to_currency(product[:cost]) %></td>
+                <td><%= number_to_percentage(product[:discount], precision: 0) %></td>
+                <td><%= product[:client_points] %></td>
+                <td><%= product[:seller_points] %></td>
+                <td><%= number_to_currency(product[:total]) %></td>
+              </tr>
+            <% end %>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4"><strong>TOTAL:</strong></td>
+                <td><strong><%= @authorization.client_points %></strong></td>
+                <td><strong><%= @authorization.seller_points %></strong></td>
+                <td><strong><%= number_to_currency(@authorization.total) %></strong></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+    </section>
+  </article>
+
+</section>

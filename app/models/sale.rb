@@ -16,6 +16,9 @@
 #
 
 class Sale < ActiveRecord::Base
+  
+  # -- Callbacks
+  after_create :send_mail_to_gods, if: :price_greater_than_pvs?
 
   # -- Scopes
   default_scope -> { order('created_at DESC') }
@@ -38,6 +41,25 @@ class Sale < ActiveRecord::Base
   validates :client, presence: true
 
   # -- Methods
+  def price_greater_than_pvs?
+    greater = false
+    sale_products.map do |sp|
+      if sp.cost > Product.find(sp.product_id).price
+        greater = true
+      end
+    end
+    return greater
+  end
+  
+  def send_mail_to_gods
+    title = "Han vendido un producto con costo mayor al PVS"
+    message = "Para verla, haga clic en el siguiente botón e ingrese con su usuario y contraseña. "
+    User.with_role('god').map do |god|
+      url = "/users/#{god.id}/sales/#{id}"
+      UserMailer.new_mail(god, title, message, 'Nueva venta con costo mayor a pvs', url)
+    end
+  end
+  
   def total
     sale_products.reduce(0) { |sum, sale_product| sum + sale_product.total }
   end

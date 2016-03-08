@@ -5,4 +5,5 @@
   <td><%= authorization.client %></td>
   <td><%= authorization.status %></td>
   <td><%= authorization.created_at %></td>
+  <td class="pull-right"><%= link_to 'Ver', authorization_path(authorization), class: 'btn btn-xs btn-primary' %></td>
 </tr>
