@@ -17,6 +17,7 @@ class SaleFilter
       end
     end
 
+    sales = sales.includes(:seller)
     sales = sales.between_dates(@start_date, @finish_date) if @start_date.present?
     sales = sales.all_from_supplier(@supplier_id) if @supplier_id.present?
     sales = sales.where('seller_id = ?', @seller_id) if @seller_id.present?
@@ -27,6 +28,7 @@ class SaleFilter
       sales = sales.joins('INNER JOIN products ON (products.id = sale_products.product_id)').where('laboratory_id = ?', @laboratory_id)
       @laboratory_name = Laboratory.find(@laboratory_id).try(:name)
     end
+
     if @drug_id.present?
       sales = sales.joins(:sale_products)
       sales = sales.joins('INNER JOIN products ON (products.id = sale_products.product_id)').where('drug_id = ?', @drug_id)

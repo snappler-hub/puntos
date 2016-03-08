@@ -44,6 +44,8 @@ gem 'stock', git: 'git@git.sistematis.com.ar:snappler/gems/stock'
 group :development, :test do
   gem 'byebug'
   gem 'pry'
+  gem 'bullet'
+  gem 'rack-mini-profiler', require: false
 end
 
 group :test do
