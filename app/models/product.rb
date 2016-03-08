@@ -33,6 +33,9 @@
 
 class Product < ActiveRecord::Base
 
+  # -- Callbacks
+  after_create :initialize_points, if: Proc.new { |u| u.client_points.nil? }  
+
   # -- Associations
   has_many :supplier_point_products
   accepts_nested_attributes_for :supplier_point_products, allow_destroy: true
@@ -43,12 +46,16 @@ class Product < ActiveRecord::Base
   belongs_to :unit_type
   belongs_to :pharmacologic_scope
   belongs_to :laboratory
+  
+  # -- Validations
+  validates :name, presence: true
+  # validates :code, :barcode, uniqueness: true
 
   # -- Scopes
   default_scope { order(:name) }
-
   scope :search, ->(q) { joins(:drug).where('products.name LIKE :a OR products.barcode LIKE :a OR products.troquel_number LIKE :a OR drugs.name LIKE :a OR products.presentation_form LIKE :a', a: "%#{q}%") }
 
+  # -- Methods
   def self.products_for_service(params_vademecum, user)
     pfpc_services = user.pfpc_services.available
     products_in_services = pfpc_services.joins(:product_pfpcs)
@@ -68,13 +75,6 @@ class Product < ActiveRecord::Base
     products.update_all(client_points: client_points) unless client_points.blank?
     products.update_all(seller_points: seller_points) unless seller_points.blank?
   end
-
-  # -- Validations
-  validates :name, presence: true
-  # validates :code, :barcode, uniqueness: true
-
-  # -- Callbacks
-  after_create :initialize_points, if: Proc.new { |u| u.client_points.nil? }
 
   def to_s
     s = "#{name}"

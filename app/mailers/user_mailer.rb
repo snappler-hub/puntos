@@ -15,10 +15,10 @@ class UserMailer < ActionMailer::Base
     content_title = title
     content_message = message
     subject ||= 'Nueva notificación'
-    url ||= Const::URL
+    url = build_url(url)
     action = 'Ir al sitio'
     message = {
-        to: [{email: 'francisco@snappler.com', name: user_name}],
+        to: [{email: user.email, name: user_name}],
         subject: "[Sistema Manes] #{subject}",
         global_merge_vars: [
             {name: 'USER_NAME', content: user_name},
@@ -31,6 +31,13 @@ class UserMailer < ActionMailer::Base
 
     mandrill_client.messages.send_template template_name, template_content, message
   end
+  
+  def build_url(url)
+    if url.nil?
+      Const::URL
+    else
+      Const::URL + url
+    end
+  end
 end
-
 

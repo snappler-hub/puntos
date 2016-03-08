@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:edit, :update, :destroy]
-  before_action :only_authorize_god!, only: [:index, :new, :create, :destroy]
+  before_action :only_authorize_god!, only: [:index, :new, :create, :destroy, :edit]
 
   # GET /products
   def index

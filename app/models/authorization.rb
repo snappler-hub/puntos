@@ -20,7 +20,10 @@ class Authorization < ActiveRecord::Base
 
   serialize :products, Array
   serialize :message, Array
-
+  
+  # -- Callbacks
+  # after_create :send_mail_to_god, if: :pvs_greater_than_cost?
+  
   # -- Associations
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id'
   belongs_to :client, class_name: 'User', foreign_key: 'client_id'
@@ -46,4 +49,5 @@ class Authorization < ActiveRecord::Base
   def without_error?
     status == Const::STATUS_OK || status == Const::STATUS_WARNING
   end
+
 end
