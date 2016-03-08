@@ -7,23 +7,23 @@ class AuthorizationAdapter
 
   def example_for_authorization #http://localhost:3000/api/sales/authorize
     {
-      ticket: "12345",
-      seller: "marcelo@manes.com.ar",
-      supplier: "Drogueria Manes",
-      health_insurance_id: 2,
-      coinsurance_id: 1,
-      subsidiary: "nombre_sucursal",
-      card_number: "7ED1458037032796",
-      products: [
-          {code: "9901178", amount: 4, cost: 100},
-          {code: "7794640408076", amount: 2, cost: 120}
-      ]
+        ticket: '12345',
+        seller: 'marcelo@manes.com.ar',
+        supplier: 'Drogueria Manes',
+        health_insurance_id: 2,
+        coinsurance_id: 1,
+        subsidiary: 'nombre_sucursal',
+        card_number: '7ED1458037032796',
+        products: [
+            {code: '9901178', amount: 4, cost: 100},
+            {code: '7794640408076', amount: 2, cost: 120}
+        ]
     }
   end
-  
+
   def example_for_sale #http://localhost:3000/api/sales/confirm
     {
-    	authorization_id: "53"
+        authorization_id: '53'
     }
   end
 
