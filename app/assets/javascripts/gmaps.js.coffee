@@ -126,9 +126,9 @@ App.Map =
     if navigator.geolocation
       options =
         enableHighAccuracy: true
-        timeout: 5000
+        timeout: 2000
         maximumAge: 0
-      navigator.geolocation.getCurrentPosition current_position_success, current_position_error, options
+      navigator.geolocation.getCurrentPosition App.Map.current_position_success, App.Map.current_position_error, options
 
   current_position_success: (position)->
     App.Map.map.setCenter new (google.maps.LatLng)(position.coords.latitude, position.coords.longitude)

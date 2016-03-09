@@ -22,6 +22,7 @@ class SaleFromAuthorization
   def create
     obj = build
     obj.save!
+    @authorization.update(sale: obj)
     obj
   end
 

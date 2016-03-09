@@ -5,5 +5,9 @@
   <td><%= authorization.client %></td>
   <td><%= authorization.status %></td>
   <td><%= authorization.created_at %></td>
-  <td class="pull-right"><%= link_to 'Ver', authorization_path(authorization), class: 'btn btn-xs btn-primary' %></td>
+  <td class="pull-right">
+    <% unless normal_user? || authorization.sale.nil? %>
+      <%= link_to 'Ir a la venta', user_sales_path(authorization.sale), class: 'btn btn-xs btn-success' %>
+    <% end %>
+    <%= link_to 'Ver', authorization_path(authorization), class: 'btn btn-xs btn-primary' %></td>
 </tr>
