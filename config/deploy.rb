@@ -89,7 +89,8 @@
      invoke :'rails:db_migrate:force'
      invoke :'rails:assets_precompile'
      invoke :'deploy:cleanup'
-     invoke :'unicorn:restart'
+     invoke :'unicorn:stop'
+     invoke :'unicorn:start'
 
      # to :launch do
      #   queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
