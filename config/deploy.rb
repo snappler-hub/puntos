@@ -42,13 +42,13 @@
 
    # For those using RVM, use this to load an RVM version@gemset.
 
-   invoke :"rvm:use[ruby-2.2.1@manes]"
+   invoke :'rvm:use[ruby-2.2.1@manes]'
  end
 
  # Put any custom mkdir's in here for when `mina setup` is ran.
  # For Rails apps, we'll make some of the shared paths that are shared between
  # all releases.
- task :setup => :environment do
+ task setup: :environment do
    queue! %[mkdir -p "#{deploy_to}/#{shared_path}/log"]
    queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/log"]
    queue! %[mkdir -p "#{deploy_to}/#{shared_path}/unicorn_shared"]
@@ -74,10 +74,11 @@
  end
 
  desc "Deploys the current version to the server."
- task :deploy => :environment do
+ task deploy: :environment do
    to :before_hook do
      # Put things to run locally before ssh
    end
+
    deploy do
      # Put things that will set up an empty directory into a fully set-up
      # instance of your project.
@@ -88,29 +89,37 @@
      invoke :'rails:db_migrate:force'
      invoke :'rails:assets_precompile'
      invoke :'deploy:cleanup'
+     invoke :'unicorn:restart'
 
-     to :launch do
-       queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
-       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
-     end
+     # to :launch do
+     #   queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
+     #   queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
+     # end
    end
  end
 
-
-
- desc 'Reiniciar el servidor nginx'
- task :restart do
-   queue 'sudo service nginx restart'
+ namespace :nginx do
+   desc 'Reiniciar el servidor nginx'
+   task :restart do
+     queue 'sudo service nginx restart'
+   end
  end
 
- desc 'Iniciar la applicaion unicorn - con environment'
- task :app_start do
-   queue "sudo /etc/init.d/unicorn_manes_#{rails_env} start"
- end
+ namespace :unicorn do
+   desc 'Iniciar la applicaion unicorn - con environment'
+   task :start do
+     queue "sudo /etc/init.d/unicorn_manes_#{rails_env} start"
+   end
 
- desc 'Iniciar la applicaion unicorn - con environment'
- task :app_stop do
-   queue "sudo /etc/init.d/unicorn_manes_#{rails_env} stop"
+   desc 'Iniciar la applicaion unicorn - con environment'
+   task :stop do
+     queue "sudo /etc/init.d/unicorn_manes_#{rails_env} stop"
+   end
+
+   desc 'Iniciar la applicaion unicorn - con environment'
+   task :restart do
+     queue "sudo /etc/init.d/unicorn_manes_#{rails_env} restart"
+   end
  end
 
  namespace logs do
