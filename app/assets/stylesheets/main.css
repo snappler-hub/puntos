@@ -163,7 +163,7 @@ html.turbolinks-progress-bar::before {
   text-align: right;
   float: right;
   width: 50%;
-  color: #3c8dbc;  
+  color: #3c8dbc;
 }
 
 .list_rewards .item .item-description .full-description span.description{
@@ -171,7 +171,7 @@ html.turbolinks-progress-bar::before {
   height: 72px;
   overflow: auto;
   white-space: pre-line;
-  width: 100%; 
+  width: 100%;
 }
 
 
@@ -184,10 +184,10 @@ html.turbolinks-progress-bar::before {
 .list_rewards .item.open .item-image{
   height: 120px;
 }
-  
+
 
 #shopping-cart-snippet > a{
-  padding-top: 10px; 
+  padding-top: 10px;
   padding-bottom: 10px;
 }
 #shopping-cart-snippet > a > span.badge{
@@ -203,13 +203,21 @@ html.turbolinks-progress-bar::before {
   padding-right: 5px;
   border-bottom: 1px dashed #ccc;
   margin-bottom: 5px;
-  padding-bottom: 5px;  
+  padding-bottom: 5px;
 }
 
 #shopping-cart-snippet > ul.dropdown-menu > li:last-child{
   border-bottom: 0;
   margin-bottom: 0;
   padding-bottom: 0;
+}
+
+
+.product_discounts .info {
+  margin-left: 10px;
+}
+.product_discounts .info i {
+  padding: 3px;
 }
 
 .footer-link {

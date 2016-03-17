@@ -132,12 +132,12 @@ ActiveRecord::Schema.define(version: 20160309150654) do
     t.integer  "service_id",  limit: 4
     t.date     "start_date"
     t.date     "end_date"
-    t.integer  "status",      limit: 4,  default: 0
-    t.float    "amount",      limit: 24, default: 0.0
-    t.float    "accumulated", limit: 24
-    t.float    "available",   limit: 24, default: 0.0
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.integer  "status",      limit: 4, default: 0
+    t.integer  "amount",      limit: 4, default: 0
+    t.integer  "accumulated", limit: 4
+    t.integer  "available",   limit: 4, default: 0
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   add_index "points_periods", ["service_id"], name: "index_points_periods_on_service_id", using: :btree
@@ -302,7 +302,7 @@ ActiveRecord::Schema.define(version: 20160309150654) do
     t.string   "type",                      limit: 255,              null: false
     t.integer  "user_id",                   limit: 4
     t.integer  "last_period_id",            limit: 4
-    t.float    "amount",                    limit: 24
+    t.integer  "amount",                    limit: 4
     t.integer  "status",                    limit: 4,   default: 0
     t.integer  "days",                      limit: 4,   default: 30
     t.integer  "days_to_points_expiration", limit: 4

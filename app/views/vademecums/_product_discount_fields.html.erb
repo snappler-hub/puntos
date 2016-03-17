@@ -60,9 +60,21 @@
       </fieldset>
     </div>
 
-    <div class="col-md-1">
+    <div class="col-md-1 js-actions">
       <fieldset class="form-group">
         <%= link_to_remove_association raw('<i class="fa fa-trash"></i>'), f, class: 'btn btn-xs btn-danger' %>
+        <% if f.object.persisted? %>
+          <%
+            product = f.object.product
+            title = "<b>Presentación</b><br> #{product.presentation_form}<br> \
+                      <b>Laboratorio</b><br> #{product.laboratory}<br> \
+                      <b>Monodroga</b><br> #{product.drug}<br> \
+                      <b>Código</b><br> #{product.code}"
+          %>
+          <span class="info js-info btn btn-default btn-xs" data-html="true" data-toggle="tooltip" title="<%= title %>">
+            <i class="fa fa-info"></i>
+          </span>
+        <% end %>
       </fieldset>
     </div>
 
