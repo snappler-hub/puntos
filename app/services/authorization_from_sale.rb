@@ -85,12 +85,15 @@ class AuthorizationFromSale
   def total(sale_product, discount)
     amount = sale_product.amount
     cost = sale_product.cost
-    pvs = sale_product.product.price
-    if sale_product.cost != sale_product.product.price
-      return amount * (cost - (pvs * (1 - (discount * 0.01))))
-    else
-      return (cost * amount) * (1 - (discount * 0.01))
-    end
+
+    # pvs = sale_product.product.price
+    # if sale_product.cost != pvs
+    #   return amount * (cost - (pvs * (1 - discount)))
+    # else
+    #   return (cost * amount) * (1 - discount)
+    # end
+
+    (cost * amount) * (1 - discount)
   end
 
 end

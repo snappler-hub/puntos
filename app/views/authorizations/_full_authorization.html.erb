@@ -43,7 +43,7 @@
                       <td><%= product[:amount] %></td>
                       <td><%= number_to_currency(p.price) %></td>
                       <td><%= number_to_currency(product[:cost]) %></td>
-                      <td><%= number_to_percentage(product[:discount], precision: 0) %></td>
+                      <td><%= number_to_percentage(product[:discount] * 100, precision: 0) %></td>
                       <td><%= product[:client_points]%></td>
                       <td><%= product[:seller_points]%></td>
                       <td><%= number_to_currency(product[:total]) %></td>
