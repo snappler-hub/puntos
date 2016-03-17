@@ -17,6 +17,9 @@ class ProductsController < ApplicationController
         laboratory: record.laboratory.to_s,
         barcode: record.barcode || '-',
         troquel_number: record.troquel_number || '-',
+        presentation_form: record.presentation_form,
+        code: record.code,
+        drug: record.drug.blank? ? 'NA' : record.drug.name,
         extra: "<div class='row'>
                   <div class='col-md-6'>
                     <dl>
