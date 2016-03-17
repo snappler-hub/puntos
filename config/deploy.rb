@@ -90,11 +90,6 @@
      invoke :'rails:assets_precompile'
      invoke :'deploy:cleanup'
 
-     # invoke :'unicorn:stop'
-     # invoke :'unicorn:start'
-     queue "sudo /etc/init.d/unicorn_manes_#{rails_env} stop"
-     queue "sudo /etc/init.d/unicorn_manes_#{rails_env} start"
-
      # to :launch do
      #   queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
      #   queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
