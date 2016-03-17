@@ -1,5 +1,7 @@
 # Recordar hacer el bump de la versión en config/initializers/version.rb
 
+0.7 - RC de la primer version del sistema
+
 0.6 - Funcionalidad inicial de la aplicacion
 
 0.1 - Aplicación Base: Gerencial, Prestadores, Usuarios Finales
