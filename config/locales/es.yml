@@ -126,6 +126,7 @@ es:
         document_number: Número de documento
         card_state: Estado de tarjeta
         filter: Filtrar
+        supplier_id: Prestador
       supplier_request_filter:
         status: *status
         name: Solicitante

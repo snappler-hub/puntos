@@ -17,7 +17,7 @@
         <p class="small text-muted">Sin tarjeta</p>
     <% elsif user.terms_accepted? %>
         <p class="small text-success">
-          <%= format_card_number user.card_number, separator: ' - ' %>
+          <%= user.card_number %>
         </p>
     <% else %>
         <p class="small text-warning">Aún debe aceptar condiciones</p>

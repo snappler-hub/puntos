@@ -3,7 +3,7 @@
     <%= link_to 'Usuarios', [@supplier, :users], class: 'btn btn-info' if admin? %>
     <%= link_to 'Editar', [:edit, @supplier, @user], class: 'btn btn-success' %>
     <%= link_to 'Eliminar', [@supplier, @user], method: :delete, class: 'btn btn-danger',
-         data: {confirm: '¿Está seguro?'} unless is_me?(@user) %>
+                data: {confirm: '¿Está seguro?'} unless is_me?(@user) %>
   </div>
   <h1>Información del usuario</h1>
 </header>
@@ -23,37 +23,47 @@
           <p class="text-muted text-center"><%= @user.email %></p>
           <ul class="list-group list-group-unbordered">
 
+            <ul class="list-unstyled">
+              <li></li>
+              <li></li>
+            </ul>
+
+
             <li class="list-group-item">
-              <b><%= I18n.t @user.document_type, scope: :document_types %></b>
-              <a class="pull-right">
-                <%= @user.document_number %>
-              </a>
+              <ul class="list-unstyled">
+                <li><b><%= I18n.t @user.document_type, scope: :document_types %></b></li>
+                <li><a><%= @user.document_number %></a></li>
+              </ul>
             </li>
 
             <li class="list-group-item">
-              <b>Permisos</b>
-              <a class="pull-right">
-                <%= I18n.t @user.role, scope: 'roles' %>
-              </a>
+              <ul class="list-unstyled">
+                <li><b>Permisos</b></li>
+                <li><a><%= I18n.t @user.role, scope: 'roles' %></a></li>
+              </ul>
             </li>
 
             <li class="list-group-item">
-              <b>Prestador</b>
-              <a class="pull-right">
-                <%= @user.supplier.name %>
-              </a>
+              <ul class="list-unstyled">
+                <li><b>Prestador</b></li>
+                <li><a><%= @user.supplier.name %></a></li>
+              </ul>
             </li>
 
             <li class="list-group-item">
-              <b>Puntos</b>
-              <span class="pull-right">
-                <% if god? %>
-                  <%= link_to edit_points_user_path(@user), data: { behavior: 'ajax-modal', target: '#modal_one' } do %>
-                    <i class="fa fa-fw fa-pencil"></i>
-                  <% end %>
-                <% end %>
-                <%= @user.cache_points %>
-              </span>
+              <ul class="list-unstyled">
+                <li><b>Puntos</b></li>
+                <li>
+                  <span>
+                    <% if god? %>
+                      <%= link_to edit_points_user_path(@user), data: {behavior: 'ajax-modal', target: '#modal_one'} do %>
+                        <i class="fa fa-fw fa-pencil"></i>
+                      <% end %>
+                    <% end %>
+                    <%= @user.cache_points %>
+                  </span>
+                </li>
+              </ul>
             </li>
 
           </ul>
@@ -66,41 +76,49 @@
         <section class="box-body box-profile">
           <h3 class="profile-username text-center">Información adicional</h3>
           <ul class="list-group list-group-unbordered">
-
             <li class="list-group-item">
-              <b>Teléfono(s)</b>
-              <a class="pull-right"><%= @user.phone %></a>
+              <ul class="list-unstyled">
+                <li><b>Teléfono(s)</b></li>
+                <li><a><%= @user.phone %></a></li>
+              </ul>
             </li>
 
             <li class="list-group-item">
-              <b>Dirección</b>
-              <a class="pull-right"><%= @user.address %></a>
+              <ul class="list-unstyled">
+                <li><b>Dirección</b></li>
+                <li><a><%= @user.address %></a></li>
+              </ul>
             </li>
 
             <li class="list-group-item">
-              <b>Número Interno</b>
-              <a class="pull-right"><%= @user.number %></a>
+              <ul class="list-unstyled">
+                <li><b>Número Interno</b></li>
+                <li><a><%= @user.number %></a></li>
+              </ul>
             </li>
 
             <li class="list-group-item">
-              <b>Nombre de usuario</b>
-              <a class="pull-right"><%= @user.username %></a>
+              <ul class="list-unstyled">
+                <li><b>Nombre de usuario</b></li>
+                <li><a><%= @user.username %></a></li>
+              </ul>
             </li>
 
             <% if @user.created_by %>
+                <li class="list-group-item">
+                  <ul class="list-unstyled">
+                    <li><b>Creado por</b></li>
+                    <li><a><%= @user.created_by.email %></a></li>
+                  </ul>
+                </li>
 
-              <li class="list-group-item">
-                <b>Creado por</b>
-                <a class="pull-right"><%= @user.created_by.email %></a>
-              </li>
-
-              <li class="list-group-item">
-                <b>Fecha de creación</b>
-                <a class="pull-right"><%= l @user.created_at, format: :short %></a>
-              </li>
-
+                <li class="list-group-item">
+                  <ul class="list-unstyled">
+                    <li><b>Fecha de creación</b></li>
+                    <li><a><%= l @user.created_at, format: :short %></a></li>
+                  </ul>
+                </li>
             <% end %>
-
           </ul>
         </section>
       </article>
@@ -112,57 +130,58 @@
           <h3 class="profile-username text-center">Información de tarjeta</h3>
 
           <% if @user.card_number %>
-            <ul class="list-group list-group-unbordered">
-
-              <li class="list-group-item">
-                <b>Número de tarjeta</b>
-                <a class="pull-right"><%= format_card_number @user.card_number %></a>
-              </li>
-
-              <li class="list-group-item">
-                <b>Estado</b>
-                <a class="pull-right">
-                  <%= @user.terms_accepted? ? 'Activa' : 'Aún no ha aceptado los términos de uso' %>
-                </a>
-              </li>
-
-              <li class="list-group-item">
-                <b> Servicios</b>
-                <% if @user.services.empty? %>
-                  <a class="pull-right"> Sin Servicios </a>
-                <% else %>
-                  <ul class="no-bullets">
-                    <% @user.services.each do |service| %>
-                      <li>
-                        <%= link_to service, [@user, service] %>
-                        <span class="text-muted"> (<%= t "service_types.#{service.type}" %>)</span>
-                      </li>
-                    <% end %>
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <ul class="list-unstyled">
+                    <li><b>Número de tarjeta</b></li>
+                    <li><a><%= @user.card_number %></a></li>
                   </ul>
-                <% end %>
-              </li>
-            </ul>
+                </li>
+
+                <li class="list-group-item">
+                  <ul class="list-unstyled">
+                    <li><b>Estado</b></li>
+                    <li><a><%= @user.terms_accepted? ? 'Activa' : 'Aún no ha aceptado los términos de uso' %></a></li>
+                  </ul>
+                </li>
+
+                <li class="list-group-item">
+                  <b> Servicios</b>
+                  <% if @user.services.empty? %>
+                      <a class="pull-right"> Sin Servicios </a>
+                  <% else %>
+                      <ul class="no-bullets">
+                        <% @user.services.each do |service| %>
+                            <li>
+                              <%= link_to service, [@user, service] %>
+                              <span class="text-muted"> (<%= t "service_types.#{service.type}" %>)</span>
+                            </li>
+                        <% end %>
+                      </ul>
+                  <% end %>
+                </li>
+              </ul>
           <% else %>
-            <p class="text-muted text-center">Aún no tiene tarjeta</p>
-            <% if god? %>
-              <p class="text-center"><%= link_to 'Asignar Tarjeta', [:assign_card, @user], method: :patch %></p>
-            <% end %>
+              <p class="text-muted text-center">Aún no tiene tarjeta</p>
+              <% if god? %>
+                  <p class="text-center"><%= link_to 'Asignar Tarjeta', [:assign_card, @user], method: :patch %></p>
+              <% end %>
           <% end %>
 
           <!-- Create a service -->
           <% if god? %>
-            <div class="btn-group">
-              <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Nuevo Servicio <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu">
-                <% available_services_for(@user).each do |type| %>
-                  <li> <%= link_to t("service_types.#{type}"), new_user_service_path(@user, type: type) %> </li>
-                <% end %>
-              </ul>
-            </div>
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Nuevo Servicio <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <% available_services_for(@user).each do |type| %>
+                      <li> <%= link_to t("service_types.#{type}"), new_user_service_path(@user, type: type) %> </li>
+                  <% end %>
+                </ul>
+              </div>
 
-            </ul>
+              </ul>
           <% end %>
 
         </section>

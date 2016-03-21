@@ -28,6 +28,7 @@ class PointsService < Service
   # -- Callbacks
   before_save :activate_service
   after_create :create_period
+  after_initialize :default_values
 
   # -- Methods
   def self.model_name
@@ -60,6 +61,11 @@ class PointsService < Service
   # True si no existe otro servicio de puntos activo para el usuario
   def can_be_activated?
     !PointsService.where.not(id: self.id).exists?(user: user, status: Service.statuses['in_progress'])
+  end
+
+  private
+  def default_values
+    self.name ||= 'SISTEMA DE PUNTOS'
   end
 
 end
