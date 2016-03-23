@@ -73,27 +73,27 @@ class Migration
           # imported: each.importado,
           # sell_type: each.tipo_venta,
           # deleted: each.baja,
+          # expiration_date: each.fecha.to_date,
+          # units: each.unidades,
+          # size: each.tamanio,
+          # potency: each.potency,
 
           troquel_number: each.troquel,
           barcode: each.cod_barras,
           name: each.name,
           price: each.prec_pub,
-
-          presentation_form: each.presentation_form,
-          expiration_date: each.fecha.to_date,
-
-          units: each.unidades,
-          size: each.tamanio,
-          laboratory: Laboratory.where(name: each.laboratory).first_or_create,
-          potency: each.potency,
+          laboratory_id: each.cod_labo,
           drug_id: each.cod_mono_v2
+          # presentation_form: each.presentation_form,
       ); nil
     end
 
     # `TROQUEL` int(11) NOT NULL DEFAULT '0'
     # `COD_BARRAS` varchar(17) NOT NULL DEFAULT ''
-    # `PREC_PUB` double(16, 4) NOT NULL DEFAULT '0.0000'
     # `NOMBRE` varchar(38) NOT NULL DEFAULT ''
+    # `PREC_PUB` double(16, 4) NOT NULL DEFAULT '0.0000'
+    # `COD_LABO` int(11) NOT NULL DEFAULT '0'
+    # `cod_mono_v2` bigint(20) NOT NULL DEFAULT '0'
 
 
     # `NOMBRE_2` varchar(30) NOT NULL DEFAULT ''
@@ -108,9 +108,7 @@ class Migration
     # `FORM2_UNI` varchar(18) NOT NULL DEFAULT ''
     # `VOLUM2_NRO` double(16, 4) NOT NULL DEFAULT '0.0000'
     # `VOLUM2_UNI` varchar(8) NOT NULL DEFAULT ''
-    # `COD_LABO` int(11) NOT NULL DEFAULT '0'
     # `PATOLOGIA` int(11) NOT NULL DEFAULT '0'
-    # `cod_mono_v2` bigint(20) NOT NULL DEFAULT '0'
     # `cod_alfabeta` bigint(20) NOT NULL
 
   end
