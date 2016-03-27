@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309150654) do
+ActiveRecord::Schema.define(version: 20160327133728) do
 
   create_table "administration_routes", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -132,12 +132,12 @@ ActiveRecord::Schema.define(version: 20160309150654) do
     t.integer  "service_id",  limit: 4
     t.date     "start_date"
     t.date     "end_date"
-    t.integer  "status",      limit: 4, default: 0
-    t.integer  "amount",      limit: 4, default: 0
-    t.integer  "accumulated", limit: 4
-    t.integer  "available",   limit: 4, default: 0
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.integer  "status",      limit: 4,  default: 0
+    t.float    "amount",      limit: 24, default: 0.0
+    t.float    "accumulated", limit: 24
+    t.float    "available",   limit: 24, default: 0.0
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   add_index "points_periods", ["service_id"], name: "index_points_periods_on_service_id", using: :btree
@@ -157,14 +157,14 @@ ActiveRecord::Schema.define(version: 20160309150654) do
   create_table "product_discounts", force: :cascade do |t|
     t.integer  "product_id",                                limit: 4
     t.integer  "vademecum_id",                              limit: 4
-    t.float    "discount",                                  limit: 24, default: 0.0
-    t.datetime "created_at",                                                         null: false
-    t.datetime "updated_at",                                                         null: false
+    t.integer  "discount",                                  limit: 4, default: 0
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.integer  "health_insurance_id",                       limit: 4
     t.integer  "coinsurance_id",                            limit: 4
-    t.float    "health_insurance_discount",                 limit: 24, default: 0.0
-    t.float    "coinsurance_discount",                      limit: 24, default: 0.0
-    t.float    "health_insurance_and_coinsurance_discount", limit: 24, default: 0.0
+    t.integer  "health_insurance_discount",                 limit: 4, default: 0
+    t.integer  "coinsurance_discount",                      limit: 4, default: 0
+    t.integer  "health_insurance_and_coinsurance_discount", limit: 4, default: 0
   end
 
   add_index "product_discounts", ["coinsurance_id"], name: "index_product_discounts_on_coinsurance_id", using: :btree
@@ -302,7 +302,7 @@ ActiveRecord::Schema.define(version: 20160309150654) do
     t.string   "type",                      limit: 255,              null: false
     t.integer  "user_id",                   limit: 4
     t.integer  "last_period_id",            limit: 4
-    t.integer  "amount",                    limit: 4
+    t.float    "amount",                    limit: 24
     t.integer  "status",                    limit: 4,   default: 0
     t.integer  "days",                      limit: 4,   default: 30
     t.integer  "days_to_points_expiration", limit: 4

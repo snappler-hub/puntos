@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-md-7">
       <fieldset class="form-group">
-        <%= f.hidden_field :supplier_id, class: 'form-control select2', 
-              data: { behavior: 'searchSupplier', url: search_suppliers_path(),
-                  record_id: f.object.supplier_id, record_text: f.object.supplier.try(:name)} %>
+        <%= f.select :supplier_id,
+				    Supplier.all.map{ |s| [s.name, s.id] },
+						  {include_blank: true}, {class: 'form-control'} %>									
       </fieldset>
     </div>
     

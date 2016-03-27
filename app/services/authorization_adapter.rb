@@ -9,7 +9,6 @@ class AuthorizationAdapter
     {
         ticket: '12345',
         seller: 'marcelo@manes.com.ar',
-        supplier: 'Drogueria Manes',
         health_insurance_id: 2,
         coinsurance_id: 1,
         subsidiary: 'nombre_sucursal',
@@ -69,7 +68,6 @@ class AuthorizationAdapter
     end
 
     unless valid_products?
-      @errors << 'Producto inválido'
       return false
     end
 
@@ -83,7 +81,14 @@ class AuthorizationAdapter
   private
 
   def valid_products?
-    @query[:products].all? { |product| Product.find_by(barcode: product[:code]) || Product.find_by(troquel_number: product[:code]) }
+    valid = true
+    @query[:products].map do |product|
+      unless Product.find_by(barcode: product[:code]) || Product.find_by(troquel_number: product[:code])
+        valid = false
+        @errors << "Código de producto #{product[:code]} es inválido."
+      end
+    end
+    valid
   end
 
 end

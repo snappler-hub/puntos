@@ -82,6 +82,7 @@ es:
         days: Días
       vademecum:
         name: Nombre
+      product_discount:
         product_id: Producto
         health_insurance_id: Obra social
         coinsurance_id: Coseguro
@@ -89,8 +90,6 @@ es:
         health_insurance_discount: OS
         coinsurance_discount: Cos.
         health_insurance_and_coinsurance_discount: OS + Cos.
-      product_discount:
-        product_id: Producto
       product_pfpc:
         product_id: Producto
         amount: Cantidad

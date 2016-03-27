@@ -93,7 +93,7 @@ class AuthorizationFromSale
     #   return (cost * amount) * (1 - discount)
     # end
 
-    (cost * amount) * (1 - discount)
+    (cost * amount) * ((100 - discount) * 0.01)
   end
 
 end
