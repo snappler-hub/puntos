@@ -9,6 +9,7 @@ class AuthorizationAdapter
     {
         ticket: '12345',
         seller: 'marcelo@manes.com.ar',
+        supplier_id: 1, 
         health_insurance_id: 2,
         coinsurance_id: 1,
         subsidiary: 'nombre_sucursal',
@@ -37,6 +38,10 @@ class AuthorizationAdapter
   def seller
     User.find_by(email: @query[:seller])
   end
+  
+  def supplier
+    Supplier.find_by(id: @query[:supplier_id])
+  end
 
   def sale_products
     @query[:products].map do |sale_product|
@@ -61,9 +66,19 @@ class AuthorizationAdapter
       @errors << 'Cliente inválido'
       return false
     end
+    
+    if supplier.blank?
+      @errors << 'Prestador inválido'
+      return false
+    end
 
     if seller.blank?
       @errors << 'Vendedor inválido'
+      return false
+    end
+    
+    if seller.supplier != supplier
+      @errors << 'Vendedor inválido para el prestador ingresado'
       return false
     end
 
