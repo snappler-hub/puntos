@@ -6,12 +6,6 @@ class CreateProductReferences < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    create_table :pharmacologic_actions do |t|
-      t.string :name
-
-      t.timestamps null: false
-    end
-
     create_table :pharmacologic_forms do |t|
       t.string :name
 

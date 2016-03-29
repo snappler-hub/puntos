@@ -1,27 +1,5 @@
 class Migration
 
-  def self.all
-    self.cleanup
-    # self.acciofar
-    self.drugs
-    self.laboratories
-    self.products
-    # self.products_extra
-  end
-
-
-  #
-  # TODO borrar el modelo?
-  #
-  # def self.acciofar
-  #   ManesPresent::PharmacologicAction.find_each do |each|
-  #     PharmacologicAction.create(
-  #         id: each.id,
-  #         name: each.description
-  #     ); nil
-  #   end
-  # end
-
   def self.cleanup
     Sale.destroy_all
     Authorization.destroy_all
@@ -29,7 +7,6 @@ class Migration
     PeriodProduct.destroy_all
     PfpcPeriod.destroy_all
     PfpcSupplier.destroy_all
-    PharmacologicAction.destroy_all
     PointsPeriod.destroy_all
     ProductDiscount.destroy_all
     ProductPfpc.destroy_all
@@ -37,48 +14,84 @@ class Migration
     RewardOrder.destroy_all
     Reward.destroy_all
     SaleProduct.destroy_all
+    SupplierPointProduct.destroy_all
     Service.destroy_all
     Vademecum.destroy_all
   end
 
 
+  # def self.drugs
+  #   Drug.destroy_all
+  #   ManesPresent::Drug.find_each do |each|
+  #     Drug.create(
+  #         id: each.codigo,
+  #         name: each.nombre
+  #     ); nil
+  #   end
+  # end
 
-  def self.drugs
-    # Drug.destroy_all
-    ActiveRecord::Base.connection.execute('TRUNCATE drugs RESTART IDENTITY')
-    ManesPresent::Drug.find_each do |each|
-      Drug.create(
-          id: each.codigo,
-          name: each.nombre
-      ); nil
+
+  # def self.laboratories
+  #   Laboratory.destroy_all
+  #   ManesPresent::Laboratory.all.each do |each|
+  #     Laboratory.create(
+  #         id: each.codigo,
+  #         name: each.nombre
+  #     ); nil
+  #   end
+  #   Laboratory.create(
+  #       name: 'Sin identificar'
+  #   ); nil
+  # end
+
+
+  def self.alfabeta
+
+    Product.destroy_all
+    Drug.destroy_all
+    Laboratory.destroy_all
+
+
+    filename = Rails.root.join('lib', 'data', 'monodro.txt')
+
+    File.open(filename, 'r:CP850:utf-8') do |file|
+      file.each_line do |line|
+        Drug.create(
+            id: line[0, 5],
+            name: "#{line[5, 32].squeeze(' ').strip}",
+        )
+      end
     end
-  end
 
 
-  def self.laboratories
-    # Laboratory.destroy_all
-    ActiveRecord::Base.connection.execute('TRUNCATE laboratories RESTART IDENTITY')
-    ManesPresent::Laboratory.find_each do |each|
-      Laboratory.create(
-          id: each.codigo,
-          name: each.nombre
-      ); nil
+    filename = Rails.root.join('lib', 'data', 'manual.dat')
+
+    File.open(filename, 'r:CP850:utf-8') do |file|
+      file.each_line do |line|
+        Product.create(
+            troquel_number: line[0, 7],
+            name: "#{line[7, 44].squeeze(' ').strip}",
+            presentation_form: "#{line[51, 24].squeeze(' ').strip}",
+            full_name: "#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}",
+            laboratory: Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create,
+            price_in_cents: line[101, 9],
+            alfabeta_identifier: line[126, 5],
+            barcode: line[132, 13]
+        )
+      end
     end
-  end
 
 
-  def self.products
-    # Product.destroy_all
-    ActiveRecord::Base.connection.execute('TRUNCATE products RESTART IDENTITY')
-    ManesPresent::Product.find_each do |each|
-      Product.create(
-          name: each.nombre_largo.squeeze(' ').strip,
-          price: each.prec_pub,
-          troquel_number: each.troquel,
-          barcode: each.cod_barra,
-          drug_id: each.cod_mono_v2,
-          laboratory_id: each.cod_labo
-      ); nil
+    filename = Rails.root.join('lib', 'data', 'manextra.txt')
+
+    File.open(filename, 'r:CP850:utf-8') do |file|
+      file.each_line do |line|
+        p = Product.where(alfabeta_identifier: line[0, 5]).take
+        unless p.nil?
+          p.update_column(:drug_id, line[12, 5])
+          p.save
+        end
+      end
     end
 
     ### Campos de Product no usados
@@ -89,7 +102,6 @@ class Migration
     # imported
     # potency
     # presentation_form
-    # pharmacologic_action_id
     # pharmacologic_form_id
     # potency_unit_id
     # relative_presentation_size
@@ -148,7 +160,6 @@ class Migration
   #       p.relative_presentation_size = each.cod_tam_rel_pres
   #       p.drug_id = each.cod_droga
   #       # No se migraron
-  #       # p.pharmacologic_action_id = each.cod_acc_farma
   #       # p.pharmacologic_form_id = each.cod_forma_farma
   #       # p.potency_unit_id = each.cod_uni_potencia
   #       # p.unit_type_id = each.cod_tipo_uni

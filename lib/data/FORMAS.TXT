@@ -62,3 +62,4 @@
 00068Emulsiones orales                                 
 00069Gotas/Aerosoles nasales                           
 00070Inhalador HFA                                     
+00071Espumas/emulsiones                                

@@ -1,29 +1,30 @@
 puts 'BEGIN Seed Users'
 
+supramanes = Supplier.where(name: 'SupraManes').first
 manes = Supplier.where(name: 'Farmacia Manes').first
 
-# u = User.where(email: 'marcelo@manes.com.ar').first_or_create do |user|
-#   user.password = 'marcelo@manes.com.ar'
-#   user.role = 'god'
-#   user.first_name = 'Marcelo'
-#   user.last_name = 'Bauer'
-#   user.document_number = '12938281'
-#   user.document_type = 'dni'
-#   user.supplier = manes
-# end
-# CardManager.assign_card_number!(u)
+u = User.where(email: 'marcelo@manes.com.ar').first_or_create do |user|
+  user.password = 'marcelo@manes.com.ar'
+  user.role = 'god'
+  user.first_name = 'Marcelo'
+  user.last_name = 'Bauer'
+  user.document_number = '12938281'
+  user.document_type = 'dni'
+  user.supplier = supramanes
+end
+CardManager.assign_card_number!(u)
 
-# u = User.where(email: 'perla@manes.com.ar').first_or_create do |user|
-#   user.password = 'perla@manes.com.ar'
-#   user.role = 'god'
-#   user.first_name = 'Perla'
-#   user.last_name = 'Benigni'
-#   user.document_number = '28967543'
-#   user.document_type = 'dni'
-#   user.created_by_id = 1
-#   user.supplier = manes
-# end
-# CardManager.assign_card_number!(u)
+u = User.where(email: 'perla@manes.com.ar').first_or_create do |user|
+  user.password = 'perla@manes.com.ar'
+  user.role = 'god'
+  user.first_name = 'Perla'
+  user.last_name = 'Benigni'
+  user.document_number = '28967543'
+  user.document_type = 'dni'
+  user.created_by_id = 1
+  user.supplier = supramanes
+end
+CardManager.assign_card_number!(u)
 
 
 u = User.where(email: '11797403@manes.com.ar').first_or_create do |user|
@@ -68,7 +69,7 @@ CardManager.assign_card_number!(u)
 u = User.where(email: '18369725@manes.com.ar').first_or_create do |user|
   user.password = '18369725@manes.com.ar'
   user.number = 5028
-  user.last_name = 'Mend\rCardManager.assign_card_number!(u)ez'
+  user.last_name = 'Mendez'
   user.first_name = 'Ramon Eduardo'
   user.document_type = 'dni'
   user.document_number = '18369725'

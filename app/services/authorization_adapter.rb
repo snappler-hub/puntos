@@ -80,6 +80,8 @@ class AuthorizationAdapter
 
   private
 
+  # TODO: agregar codigo de barra, codigo de troque, etc... que procese la venta igual sin esos productos
+  # Loggear la situación completa: farmacia, vendedor, codigo
   def valid_products?
     valid = true
     @query[:products].map do |product|

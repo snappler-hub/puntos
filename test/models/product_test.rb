@@ -19,7 +19,6 @@
 #  relative_presentation_size :integer
 #  client_points              :float(24)        default(0.0)
 #  seller_points              :float(24)        default(0.0)
-#  pharmacologic_action_id    :integer
 #  drug_id                    :integer
 #  pharmacologic_form_id      :integer
 #  potency_unit_id            :integer

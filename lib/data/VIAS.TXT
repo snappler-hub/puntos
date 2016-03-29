@@ -29,3 +29,5 @@
 00030sublingual                                        
 00031sobres con l mina dispersable bucal               
 00032intralesional                                     
+00033endovesical                                       
+00034inyectable                                        

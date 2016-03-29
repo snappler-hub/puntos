@@ -32,31 +32,52 @@
 module ManesPresent
   class Product < ActiveRecord::Base
     establish_connection :manes_present
-    self.table_name = :ALFABETA_Manual_DAT
+    self.table_name = :productos
 
-    def sanitize_string(str)
-      replacement_rules = {
-          '¢' => 'ó',
-          '¡' => 'í'
-      }
-      matcher = /#{replacement_rules.keys.join('|')}/
-
-      str.strip.gsub(matcher) do |match|
-        replacement_rules[match] || match
-      end
+    def nombre_largo
+      self.NOMBRE_LARGO
     end
 
-    def name
-      sanitize_string nombre
+    def prec_pub
+      self.PREC_PUB
     end
 
-    def laboratory
-      sanitize_string laboratorio
+    def troquel
+      self.TROQUEL
     end
 
-    def presentation_form
-      sanitize_string presentacion
+    def cod_barra
+      self.COD_BARRAS
     end
+
+    def cod_labo
+      self.COD_LABO
+    end
+
+      # self.table_name = :ALFABETA_Manual_DAT
+      # def sanitize_string(str)
+      #   replacement_rules = {
+      #       '¢' => 'ó',
+      #       '¡' => 'í'
+      #   }
+      #   matcher = /#{replacement_rules.keys.join('|')}/
+      #
+      #   str.strip.gsub(matcher) do |match|
+      #     replacement_rules[match] || match
+      #   end
+      # end
+      #
+      # def name
+      #   sanitize_string nombre
+      # end
+      #
+      # def laboratory
+      #   sanitize_string laboratorio
+      # end
+      #
+      # def presentation_form
+      #   sanitize_string presentacion
+      # end
 
   end
 end

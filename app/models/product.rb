@@ -8,10 +8,7 @@
 #  troquel_number             :string(255)
 #  name                       :string(255)      not null
 #  presentation_form          :string(255)
-#  price                      :float(24)
-#  expiration_date            :date
-#  imported                   :boolean
-#  sell_type                  :integer
+#  price_in_cents             :float(24)
 #  registration_number        :integer
 #  units                      :integer          default(1)
 #  size                       :integer
@@ -19,7 +16,6 @@
 #  relative_presentation_size :integer
 #  client_points              :float(24)        default(0.0)
 #  seller_points              :float(24)        default(0.0)
-#  pharmacologic_action_id    :integer
 #  drug_id                    :integer
 #  pharmacologic_form_id      :integer
 #  potency_unit_id            :integer
@@ -34,7 +30,7 @@
 class Product < ActiveRecord::Base
 
   # -- Callbacks
-  after_create :initialize_points, if: Proc.new { |u| u.client_points.nil? }  
+  after_create :initialize_points, if: Proc.new { |u| u.client_points.nil? }
 
   # -- Associations
   has_many :supplier_point_products
@@ -46,9 +42,9 @@ class Product < ActiveRecord::Base
   belongs_to :unit_type
   belongs_to :pharmacologic_scope
   belongs_to :laboratory
-  
+
   # -- Validations
-  validates :name, presence: true
+  # validates :name, presence: true
   # validates :code, :barcode, uniqueness: true
 
   # -- Scopes
@@ -81,7 +77,11 @@ class Product < ActiveRecord::Base
     s += ", #{presentation_form}" unless presentation_form.nil?
     s
   end
-  
+
+  def price
+    price_in_cents.to_d / 100 if price_in_cents
+  end
+
   def name_with_presentation
     unless presentation_form.nil?
       "#{name} - #{presentation_form}"
