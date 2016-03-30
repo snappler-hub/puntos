@@ -6,9 +6,8 @@ class CreateSale < ActiveRecord::Migration
       t.decimal :client_points, precision: 12, scale: 2, default: 0
       t.decimal :seller_points, precision: 12, scale: 2, default: 0
 
-      t.references :health_insurance, index: true
-      t.references :coinsurance, index: true
-      t.references :authorization, index: true
+      t.references :health_insurance, index: true, foreign_key: true
+      t.references :coinsurance, index: true, foreign_key: true
 
       t.float :total, default: 0
       

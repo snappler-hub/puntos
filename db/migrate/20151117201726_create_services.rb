@@ -11,7 +11,7 @@ class CreateServices < ActiveRecord::Migration
       t.integer :days, default: 30
       t.integer :days_to_points_expiration
 
-      t.references :vademecum, index: true
+      t.references :vademecum, index: true, foreign_key: true
 
       t.timestamps null: false
     end
