@@ -32,8 +32,8 @@ class Discounter
     product_discounts = []
 
     for v in vademecums
-      pd = ProductDiscount.find_by(vademecum: v, product: @product)
-      product_discounts << pd unless pd.nil?
+      pd = ProductDiscount.find_by(vademecum: v, product: @product, health_insurance_id: @health_insurance_id, coinsurance_id: @coinsurance_id)
+      product_discounts << pd unless pd.nil? || product_discounts.include?(pd)
     end
 
     if product_discounts.empty?
