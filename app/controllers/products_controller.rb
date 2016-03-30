@@ -18,7 +18,7 @@ class ProductsController < ApplicationController
         barcode: record.barcode || '-',
         troquel_number: record.troquel_number || '-',
         presentation_form: record.presentation_form,
-        code: record.code,
+        alfabeta_identifier: record.alfabeta_identifier,
         drug: record.drug.blank? ? 'NA' : record.drug.name,
         extra: "<div class='row'>
                   <div class='col-md-6'>
@@ -33,8 +33,8 @@ class ProductsController < ApplicationController
                     <dl>
                       <dt>Laboratorio</dt>
                       <dd>#{record.laboratory.name}</dd>
-                      <dt>Código</dt>
-                      <dd>#{record.code}</dd>
+                      <dt>Código de barra</dt>
+                      <dd>#{record.barcode}</dd>
                     </dl>
                   </div>
                 </div>"

@@ -28,7 +28,7 @@
 # puts 'BEGIN Seed Products'
 #
 # p1 = Product.where(code: '123').first_or_create do |product|
-#   product.code = '123'
+#   product.barcode = '123'
 #   product.name = 'Bayaspirina C'
 #   product.laboratory = lab1
 #   product.drug = drug1
@@ -36,7 +36,7 @@
 # end
 #
 # p2 = Product.where(code: '1234').first_or_create do |product|
-#   product.code = '1234'
+#   product.barcode = '1234'
 #   product.name = 'Tafirol'
 #   product.laboratory = lab2
 #   product.drug = drug2
@@ -44,7 +44,7 @@
 # end
 #
 # Product.where(code: '12345').first_or_create do |product|
-#   product.code = '12345'
+#   product.barcode = '12345'
 #   product.name = 'Ibupirac'
 #   product.laboratory = lab3
 #   product.drug = drug3

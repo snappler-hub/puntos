@@ -12,15 +12,9 @@
 #  registration_number        :integer
 #  units                      :integer          default(1)
 #  size                       :integer
-#  potency                    :string(255)
-#  relative_presentation_size :integer
 #  client_points              :float(24)        default(0.0)
 #  seller_points              :float(24)        default(0.0)
 #  drug_id                    :integer
-#  pharmacologic_form_id      :integer
-#  potency_unit_id            :integer
-#  unit_type_id               :integer
-#  administration_route_id    :integer
 #  laboratory_id              :integer
 #  deleted                    :boolean          default(FALSE)
 #  created_at                 :datetime         not null
@@ -35,17 +29,11 @@ class Product < ActiveRecord::Base
   # -- Associations
   has_many :supplier_point_products
   accepts_nested_attributes_for :supplier_point_products, allow_destroy: true
-  belongs_to :administration_route
   belongs_to :drug
-  belongs_to :pharmacologic_form
-  belongs_to :potency_unit
-  belongs_to :unit_type
-  belongs_to :pharmacologic_scope
   belongs_to :laboratory
 
   # -- Validations
-  # validates :name, presence: true
-  # validates :code, :barcode, uniqueness: true
+  validates :name, :alfabeta_identifier, presence: true
 
   # -- Scopes
   default_scope { order(:name) }
@@ -80,14 +68,6 @@ class Product < ActiveRecord::Base
 
   def price
     price_in_cents.to_d / 100 if price_in_cents
-  end
-
-  def name_with_presentation
-    unless presentation_form.nil?
-      "#{name} - #{presentation_form}"
-    else
-      "#{name}"
-    end
   end
 
   def initialize_points

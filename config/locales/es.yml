@@ -37,7 +37,7 @@ es:
         first_name: *first_name
         last_name: *last_name
         created_by: 'Creado por' # TODO: No se usa
-        document_type: Tipo de Documento
+        document_type: Tipo Doc.
         document_number: Nro. de Documento
         number: Número
         username: Nombre de usuario
@@ -50,7 +50,7 @@ es:
       supplier_request:
         first_name: *first_name
         last_name: *last_name
-        document_type: Tipo de Documento
+        document_type: Tipo Doc.
         document_number: Nro de Documento
         phone: *phone
         email: *email
@@ -169,7 +169,7 @@ es:
         role: Permisos
         first_name: *first_name
         last_name: *last_name
-        document_type: Tipo de Documento
+        document_type: Tipo Doc.
         document_number: Nro. de Documento
         number: Número
         username: Nombre de usuario

@@ -13,12 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20160327133728) do
 
-  create_table "administration_routes", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "authorizations", force: :cascade do |t|
     t.integer  "seller_id",           limit: 4
     t.integer  "client_id",           limit: 4
@@ -116,12 +110,6 @@ ActiveRecord::Schema.define(version: 20160327133728) do
   add_index "pfpc_suppliers", ["pfpc_service_id"], name: "index_pfpc_suppliers_on_pfpc_service_id", using: :btree
   add_index "pfpc_suppliers", ["supplier_id"], name: "index_pfpc_suppliers_on_supplier_id", using: :btree
 
-  create_table "pharmacologic_forms", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "points_periods", force: :cascade do |t|
     t.integer  "service_id",  limit: 4
     t.date     "start_date"
@@ -135,12 +123,6 @@ ActiveRecord::Schema.define(version: 20160327133728) do
   end
 
   add_index "points_periods", ["service_id"], name: "index_points_periods_on_service_id", using: :btree
-
-  create_table "potency_units", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
 
   create_table "presentation_sizes", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -182,7 +164,7 @@ ActiveRecord::Schema.define(version: 20160327133728) do
     t.string   "troquel_number",      limit: 255
     t.string   "name",                limit: 255,                                        null: false
     t.string   "full_name",           limit: 255
-    t.float    "price",               limit: 24
+    t.float    "price_in_cents",      limit: 24
     t.string   "presentation_form",   limit: 255
     t.integer  "alfabeta_identifier", limit: 4
     t.decimal  "client_points",                   precision: 12, scale: 2, default: 0.0
@@ -380,12 +362,6 @@ ActiveRecord::Schema.define(version: 20160327133728) do
     t.boolean  "active"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-  end
-
-  create_table "unit_types", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
   end
 
   create_table "users", force: :cascade do |t|

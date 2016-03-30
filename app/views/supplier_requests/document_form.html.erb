@@ -15,7 +15,7 @@
               <div class="row">
                 <div class="col-md-4">
                   <fieldset class="form-group">
-                    <%= label_tag :document_type, 'Tipo de documento' %>
+                    <%= label_tag :document_type, 'Tipo Doc.' %>
                     <%= select_tag 'document_type',
                                    options_for_select(User::DOCUMENT_TYPES.map { |type| [t("document_types.#{type}"), type] }),
                                    include_blank: false, class: 'form-control' %>

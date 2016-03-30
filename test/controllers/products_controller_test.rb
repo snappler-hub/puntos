@@ -36,7 +36,7 @@ class ProductsControllerTest < ActionController::TestCase
   end
 
   test "should update product" do
-    patch :update, id: @product, product: { code: @product.code, name: @product.name, points: @product.points }
+    patch :update, id: @product, product: { barcode: @product.barcode, name: @product.name, points: @product.points }
     assert_redirected_to products_path
   end
 
