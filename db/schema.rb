@@ -124,12 +124,6 @@ ActiveRecord::Schema.define(version: 20160327133728) do
 
   add_index "points_periods", ["service_id"], name: "index_points_periods_on_service_id", using: :btree
 
-  create_table "presentation_sizes", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "product_discounts", force: :cascade do |t|
     t.integer  "product_id",                                limit: 4
     t.integer  "vademecum_id",                              limit: 4

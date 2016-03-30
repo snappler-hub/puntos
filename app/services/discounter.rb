@@ -1,5 +1,5 @@
 class Discounter
-
+  
   attr_accessor :discount
 
   def initialize(sale_product, afs)
@@ -45,15 +45,23 @@ class Discounter
   end
 
   def corresponding_discount(product_discounts)
-    if @health_insurance_id.nil? && @coinsurance_id.nil?
-      product_discounts.sort_by { |pd1| pd1.discount }.last.discount
-    elsif @health_insurance_id.nil?
-      product_discounts.sort_by { |pd1| pd1.coinsurance_discount }.last.coinsurance_discount
-    elsif @coinsurance_id.nil?
-      product_discounts.sort_by { |pd1| pd1.health_insurance_discount }.last.health_insurance_discount
-    else
-      product_discounts.sort_by { |pd1| pd1.health_insurance_and_coinsurance_discount }.last.health_insurance_and_coinsurance_discount
-    end
+    collection = product_discounts.select { |pd| pd.health_insurance_id == @health_insurance_id && pd.coinsurance_id == @coinsurance_id }
+    if collection.empty? #Chequear por OS o por COS
+      hi_collection = product_discounts.select { |pd| pd.health_insurance_id == @health_insurance_id }
+      co_collection = product_discounts.select { |pd| pd.coinsurance_id == @coinsurance_id }
+      if hi_collection.empty? && co_collection.empty?
+        discount = product_discounts.collect { |pd| pd.discount }.max
+      else #Descuento Obra Social o Descuento Coseguro
+        hi_discount = hi_collection.collect { |pd| pd.health_insurance_discount }.max
+        co_discount = co_collection.collect { |pd| pd.coinsurance_discount }.max
+        discount = [hi_discount, co_discount].compact.max
+      end
+    else #Descuento OS + COS
+      discount = collection.collect { |pd| pd.health_insurance_and_coinsurance_discount }.max
+    end  
+    
+    discount
+    
   end
 
 end
