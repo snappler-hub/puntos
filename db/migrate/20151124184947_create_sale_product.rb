@@ -7,6 +7,11 @@ class CreateSaleProduct < ActiveRecord::Migration
       t.float :cost, default: 0
       t.float :discount, default: 0
       t.float :total, default: 0
+      t.decimal :client_points, precision: 12, scale: 2, default: 0
+      t.decimal :seller_points, precision: 12, scale: 2, default: 0
+
+      t.references :health_insurance, index: true
+      t.references :coinsurance, index: true
       
       t.timestamps
     end

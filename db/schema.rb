@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160327133728) do
+ActiveRecord::Schema.define(version: 20160302154040) do
 
   create_table "authorizations", force: :cascade do |t|
     t.integer  "seller_id",           limit: 4
@@ -21,16 +21,17 @@ ActiveRecord::Schema.define(version: 20160327133728) do
     t.text     "message",             limit: 65535
     t.decimal  "client_points",                     precision: 12, scale: 2, default: 0.0
     t.decimal  "seller_points",                     precision: 12, scale: 2, default: 0.0
-    t.datetime "created_at",                                                               null: false
-    t.datetime "updated_at",                                                               null: false
+    t.integer  "sale_id",             limit: 4
     t.integer  "health_insurance_id", limit: 4
     t.integer  "coinsurance_id",      limit: 4
-    t.integer  "sale_id",             limit: 4
+    t.datetime "created_at",                                                               null: false
+    t.datetime "updated_at",                                                               null: false
   end
 
   add_index "authorizations", ["client_id"], name: "index_authorizations_on_client_id", using: :btree
   add_index "authorizations", ["coinsurance_id"], name: "index_authorizations_on_coinsurance_id", using: :btree
   add_index "authorizations", ["health_insurance_id"], name: "index_authorizations_on_health_insurance_id", using: :btree
+  add_index "authorizations", ["sale_id"], name: "index_authorizations_on_sale_id", using: :btree
   add_index "authorizations", ["seller_id"], name: "index_authorizations_on_seller_id", using: :btree
 
   create_table "coinsurances", force: :cascade do |t|
@@ -124,23 +125,17 @@ ActiveRecord::Schema.define(version: 20160327133728) do
 
   add_index "points_periods", ["service_id"], name: "index_points_periods_on_service_id", using: :btree
 
-  create_table "presentation_sizes", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "product_discounts", force: :cascade do |t|
     t.integer  "product_id",                                limit: 4
     t.integer  "vademecum_id",                              limit: 4
     t.integer  "discount",                                  limit: 4, default: 0
-    t.datetime "created_at",                                                      null: false
-    t.datetime "updated_at",                                                      null: false
-    t.integer  "health_insurance_id",                       limit: 4
-    t.integer  "coinsurance_id",                            limit: 4
     t.integer  "health_insurance_discount",                 limit: 4, default: 0
     t.integer  "coinsurance_discount",                      limit: 4, default: 0
     t.integer  "health_insurance_and_coinsurance_discount", limit: 4, default: 0
+    t.integer  "health_insurance_id",                       limit: 4
+    t.integer  "coinsurance_id",                            limit: 4
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
   end
 
   add_index "product_discounts", ["coinsurance_id"], name: "index_product_discounts_on_coinsurance_id", using: :btree
@@ -164,7 +159,7 @@ ActiveRecord::Schema.define(version: 20160327133728) do
     t.string   "troquel_number",      limit: 255
     t.string   "name",                limit: 255,                                        null: false
     t.string   "full_name",           limit: 255
-    t.float    "price_in_cents",      limit: 24
+    t.integer  "price_in_cents",      limit: 4
     t.string   "presentation_form",   limit: 255
     t.integer  "alfabeta_identifier", limit: 4
     t.decimal  "client_points",                   precision: 12, scale: 2, default: 0.0
@@ -221,18 +216,22 @@ ActiveRecord::Schema.define(version: 20160327133728) do
   end
 
   create_table "sale_products", force: :cascade do |t|
-    t.integer  "product_id",    limit: 4
-    t.integer  "sale_id",       limit: 4
-    t.integer  "amount",        limit: 4,                           default: 1
-    t.float    "cost",          limit: 24,                          default: 0.0
-    t.float    "discount",      limit: 24,                          default: 0.0
-    t.float    "total",         limit: 24,                          default: 0.0
+    t.integer  "product_id",          limit: 4
+    t.integer  "sale_id",             limit: 4
+    t.integer  "amount",              limit: 4,                           default: 1
+    t.float    "cost",                limit: 24,                          default: 0.0
+    t.float    "discount",            limit: 24,                          default: 0.0
+    t.float    "total",               limit: 24,                          default: 0.0
+    t.decimal  "client_points",                  precision: 12, scale: 2, default: 0.0
+    t.decimal  "seller_points",                  precision: 12, scale: 2, default: 0.0
+    t.integer  "health_insurance_id", limit: 4
+    t.integer  "coinsurance_id",      limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "client_points",            precision: 12, scale: 2, default: 0.0
-    t.decimal  "seller_points",            precision: 12, scale: 2, default: 0.0
   end
 
+  add_index "sale_products", ["coinsurance_id"], name: "index_sale_products_on_coinsurance_id", using: :btree
+  add_index "sale_products", ["health_insurance_id"], name: "index_sale_products_on_health_insurance_id", using: :btree
   add_index "sale_products", ["product_id"], name: "index_sale_products_on_product_id", using: :btree
   add_index "sale_products", ["sale_id"], name: "index_sale_products_on_sale_id", using: :btree
 
@@ -241,12 +240,12 @@ ActiveRecord::Schema.define(version: 20160327133728) do
     t.integer  "client_id",           limit: 4
     t.decimal  "client_points",                  precision: 12, scale: 2, default: 0.0
     t.decimal  "seller_points",                  precision: 12, scale: 2, default: 0.0
-    t.float    "total",               limit: 24,                          default: 0.0
-    t.datetime "created_at",                                                            null: false
-    t.datetime "updated_at",                                                            null: false
     t.integer  "health_insurance_id", limit: 4
     t.integer  "coinsurance_id",      limit: 4
     t.integer  "authorization_id",    limit: 4
+    t.float    "total",               limit: 24,                          default: 0.0
+    t.datetime "created_at",                                                            null: false
+    t.datetime "updated_at",                                                            null: false
   end
 
   add_index "sales", ["authorization_id"], name: "index_sales_on_authorization_id", using: :btree
@@ -264,9 +263,9 @@ ActiveRecord::Schema.define(version: 20160327133728) do
     t.integer  "status",                    limit: 4,   default: 0
     t.integer  "days",                      limit: 4,   default: 30
     t.integer  "days_to_points_expiration", limit: 4
+    t.integer  "vademecum_id",              limit: 4
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
-    t.integer  "vademecum_id",              limit: 4
   end
 
   add_index "services", ["last_period_id"], name: "index_services_on_last_period_id", using: :btree
@@ -307,9 +306,9 @@ ActiveRecord::Schema.define(version: 20160327133728) do
     t.integer  "supplier_id",   limit: 4
     t.integer  "product_id",    limit: 4
     t.decimal  "client_points",           precision: 12, scale: 2, default: 0.0
+    t.decimal  "seller_points",           precision: 12, scale: 2, default: 0.0
     t.datetime "created_at",                                                     null: false
     t.datetime "updated_at",                                                     null: false
-    t.decimal  "seller_points",           precision: 12, scale: 2, default: 0.0
   end
 
   add_index "supplier_point_products", ["product_id"], name: "index_supplier_point_products_on_product_id", using: :btree
@@ -407,8 +406,6 @@ ActiveRecord::Schema.define(version: 20160327133728) do
     t.datetime "updated_at",             null: false
   end
 
-  add_foreign_key "authorizations", "coinsurances"
-  add_foreign_key "authorizations", "health_insurances"
   add_foreign_key "comments", "users"
   add_foreign_key "period_products", "pfpc_periods"
   add_foreign_key "period_products", "products"
@@ -430,11 +427,7 @@ ActiveRecord::Schema.define(version: 20160327133728) do
   add_foreign_key "reward_orders", "users"
   add_foreign_key "sale_products", "products"
   add_foreign_key "sale_products", "sales"
-  add_foreign_key "sales", "authorizations"
-  add_foreign_key "sales", "coinsurances"
-  add_foreign_key "sales", "health_insurances"
   add_foreign_key "services", "users"
-  add_foreign_key "services", "vademecums"
   add_foreign_key "supplier_point_products", "products"
   add_foreign_key "supplier_point_products", "suppliers"
   add_foreign_key "supplier_requests", "suppliers"

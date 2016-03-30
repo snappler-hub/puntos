@@ -5,7 +5,5 @@ class CreateVademecums < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-
-    add_reference :services, :vademecum, index: true, foreign_key: true
   end
 end

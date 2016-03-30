@@ -6,8 +6,11 @@ class CreateAuthorization < ActiveRecord::Migration
       t.text :products
       t.string :status
       t.text :message
-      t.float :client_points, default: 0
-      t.float :seller_points, default: 0
+      t.decimal :client_points, precision: 12, scale: 2, default: 0
+      t.decimal :seller_points, precision: 12, scale: 2, default: 0
+      t.references :sale, index: true
+      t.references :health_insurance, index: true
+      t.references :coinsurance, index: true
       
       t.timestamps null: false
     end

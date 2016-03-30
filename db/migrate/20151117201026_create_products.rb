@@ -7,15 +7,15 @@ class CreateProducts < ActiveRecord::Migration
 
       t.string :name, null: false
       t.string :full_name
-      t.float :price_in_cents
+      t.integer :price_in_cents
       t.string :presentation_form
       # t.boolean :imported
       t.integer :alfabeta_identifier
       # t.integer :units, default: 1
       # t.integer :size # Enumerativo
 
-      t.float :client_points, default: 0
-      t.float :seller_points, default: 0
+      t.decimal :client_points, precision: 12, scale: 2, default: 0
+      t.decimal :seller_points, precision: 12, scale: 2, default: 0
 
       # t.boolean :deleted, default: 0
 
