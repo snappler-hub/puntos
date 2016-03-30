@@ -1,5 +1,11 @@
 class CreateServices < ActiveRecord::Migration
   def change
+    create_table :vademecums do |t|
+      t.string :name
+
+      t.timestamps null: false
+    end
+
     create_table :services do |t|
       t.string :name, null: false
       t.string :type, null: false
