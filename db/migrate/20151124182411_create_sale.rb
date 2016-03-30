@@ -8,7 +8,6 @@ class CreateSale < ActiveRecord::Migration
 
       t.references :health_insurance, index: true, foreign_key: true
       t.references :coinsurance, index: true, foreign_key: true
-      t.references :authorization, index: true, foreign_key: true
 
       t.float :total, default: 0
 
