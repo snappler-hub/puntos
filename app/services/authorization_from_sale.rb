@@ -2,14 +2,14 @@ class AuthorizationFromSale
   
   attr_accessor :client, :supplier, :response, :seller, :health_insurance_id, :coinsurance_id, :client_points, :seller_points
 
-  def initialize(sale, seller)
+  def initialize(sale, seller, response=nil)
     @client = sale.client
     @sale_products = sale.sale_products
     @seller = seller
     @supplier = seller.supplier
     @health_insurance_id = sale.health_insurance_id
     @coinsurance_id = sale.coinsurance_id
-    @response = Response.new
+    @response = (response.nil? ? Response.new : response)
     @client_points = 0
     @seller_points = 0
   end

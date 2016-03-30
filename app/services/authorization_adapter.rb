@@ -1,8 +1,11 @@
 class AuthorizationAdapter
+  
+  attr_accessor :response
 
   def initialize(query)
     @query = query
     @errors = []
+    @response = nil
   end
 
   def example_for_authorization #http://localhost:3000/api/sales/authorize
@@ -82,10 +85,10 @@ class AuthorizationAdapter
       return false
     end
 
-    unless valid_products?
+    unless validate_products()
       return false
     end
-
+      
     true
   end
 
@@ -97,12 +100,17 @@ class AuthorizationAdapter
 
   # TODO: agregar codigo de barra, codigo de troque, etc... que procese la venta igual sin esos productos
   # Loggear la situación completa: farmacia, vendedor, codigo
-  def valid_products?
-    valid = true
+  def validate_products
+    valid = false
+    @response = Response.new
     @query[:products].map do |product|
-      unless Product.find_by(barcode: product[:code]) || Product.find_by(troquel_number: product[:code])
-        valid = false
-        @errors << "Código de producto #{product[:code]} es inválido."
+      if Product.find_by(barcode: product[:code]) || Product.find_by(troquel_number: product[:code])
+        valid = true
+      else
+        message = "El código de producto #{product[:code]} es inválido."
+        @response.add_warning(message)
+        @errors << message
+        @query[:products].delete(product)
       end
     end
     valid
