@@ -70,8 +70,8 @@ class PfpcService < Service
   end
 
   def send_mail
-    title = "Debe aceptar los términos y condiciones"
-    message = "Para ello, haga clic en el siguiente botón e ingrese con su usuario y contraseña. "
+    title = 'Debe aceptar los términos y condiciones'
+    message = 'Para ello, haga clic en el siguiente botón e ingrese con su usuario y contraseña. '
     UserMailer.new_mail(self.user, title, message)
   end
 

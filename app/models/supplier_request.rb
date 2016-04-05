@@ -60,11 +60,11 @@ class SupplierRequest < ActiveRecord::Base
   end
   
   def send_mail_to_gods
-    title = "Hay una nueva solicitud"
-    message = "Para verla, haga clic en el siguiente botón e ingrese con su usuario y contraseña. "
+    title = 'Hay una nueva solicitud'
+    message = 'Para verla, haga clic en el siguiente botón e ingrese con su usuario y contraseña. '
     url = "/supplier_requests/#{id}"
     User.with_role('god').map do |god|
-      UserMailer.new_mail(god, title, message, 'Nueva solicitud', )
+      UserMailer.new_mail(god, title, message, 'Nueva solicitud', url)
     end
   end
   

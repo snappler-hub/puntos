@@ -2,7 +2,7 @@ class MandrillPasswordReset
   require 'mandrill'
   include Rails.application.routes.url_helpers
 
-  HOST = 'localhost:3000'
+  HOST = Rails.env.development? ? 'localhost:3000' : '159.203.127.247:88'
   TEMPLATE_NAME = 'manes-reset-password-with-style'
 
   def initialize(user)
@@ -17,7 +17,7 @@ class MandrillPasswordReset
 
   def message
     {
-        from_email: 'develop@snappler.com',
+        from_email: 'no-reply@manes.com.ar',
         to: [{email: @email, name: @name}],
         subject: 'Reiniciar contraseña',
         global_merge_vars: [
@@ -28,7 +28,7 @@ class MandrillPasswordReset
   end
 
   def mandrill_api
-    Mandrill::API.new('Ge8QzfGINPwInzV4F7gPAg').messages
+    Mandrill::API.new(ENV['MANDRILL_API_KEY']).messages
   end
 
 end
