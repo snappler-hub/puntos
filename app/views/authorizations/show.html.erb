@@ -38,24 +38,24 @@
                 </thead>
                 <tbody>
                 <% @authorization.products.each do |product| %>
-                  <tr>
-                    <td><%= Product.find(product[:id]) %></td>
-                    <td><%= product[:amount] %></td>
-                    <td><%= number_to_currency(product[:cost]) %></td>
-                    <td><%= number_to_percentage(product[:discount], precision: 0) %></td>
-                    <td><%= product[:client_points] %></td>
-                    <td><%= product[:seller_points] %></td>
-                    <td><%= number_to_currency(product[:total]) %></td>
-                  </tr>
+                    <tr>
+                      <td><%= Product.find(product[:id]) %></td>
+                      <td><%= product[:amount] %></td>
+                      <td><%= number_to_currency(product[:cost]) %></td>
+                      <td><%= number_to_percentage(product[:discount], precision: 0) %></td>
+                      <td><%= product[:client_points] %></td>
+                      <td><%= product[:seller_points] %></td>
+                      <td><%= number_to_currency(product[:total]) %></td>
+                    </tr>
                 <% end %>
                 </tbody>
                 <tfoot>
-                  <tr>
-                    <td colspan="4"><strong>TOTAL:</strong></td>
-                    <td><strong><%= @authorization.client_points %></strong></td>
-                    <td><strong><%= @authorization.seller_points %></strong></td>
-                    <td><strong><%= number_to_currency(@authorization.total) %></strong></td>
-                  </tr>
+                <tr>
+                  <td colspan="4"><strong>TOTAL:</strong></td>
+                  <td><strong><%= @authorization.client_points %></strong></td>
+                  <td><strong><%= @authorization.seller_points %></strong></td>
+                  <td><strong><%= number_to_currency(@authorization.total) %></strong></td>
+                </tr>
                 </tfoot>
               </table>
             </div><!-- /.col-md-12-->
@@ -67,10 +67,10 @@
       <article class="box box-success">
         <section class="box-body">
           <% if @authorization.sale.present? %>
-            <p>Hay una venta asociada con esta autorización</p>
-            <center><%= link_to 'Ver venta', user_sales_path(@authorization.sale), class: 'btn btn-success' %></center>
+              <p>Hay una venta asociada con esta autorización</p>
+              <center><%= link_to 'Ver venta', user_sales_path(@authorization.sale), class: 'btn btn-success' %></center>
           <% else %>
-            <p>No existe una venta asociada con esta autorización</p>
+              <p>No existe una venta asociada con esta autorización</p>
           <% end %>
         </section>
       </article>

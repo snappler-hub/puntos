@@ -73,7 +73,7 @@
    # ]
  end
 
- desc "Deploys the current version to the server."
+ desc 'Deploys the current version to the server.'
  task deploy: :environment do
    to :before_hook do
      # Put things to run locally before ssh
@@ -90,10 +90,18 @@
      invoke :'rails:assets_precompile'
      invoke :'deploy:cleanup'
 
-     # to :launch do
+     to :launch do
+       queue! %[echo "-----> Unicorn Stop"]
+       queue "sudo /etc/init.d/unicorn_manes_#{rails_env} stop"
+       queue "sudo /etc/init.d/unicorn_manes_#{rails_env} stop"
+       queue "sudo /etc/init.d/unicorn_manes_#{rails_env} stop"
+       sleep 5
+       queue! %[echo "-----> Unicorn Start"]
+       queue "sudo /etc/init.d/unicorn_manes_#{rails_env} start"
+
      #   queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
      #   queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
-     # end
+     end
    end
  end
 
