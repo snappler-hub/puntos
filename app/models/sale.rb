@@ -52,12 +52,13 @@ class Sale < ActiveRecord::Base
   end
   
   def send_mail_to_gods
-    title = 'Han vendido un producto con costo mayor al PVS'
-    message = 'Para verla, haga clic en el siguiente botón e ingrese con su usuario y contraseña. '
-    User.with_role('god').map do |god|
-      url = "/users/#{god.id}/sales/#{id}"
-      UserMailer.new_mail(god, title, message, 'Nueva venta con costo mayor a pvs', url)
-    end
+    # TODO activar
+    # title = 'Han vendido un producto con costo mayor al PVS'
+    # message = 'Para verla, haga clic en el siguiente botón e ingrese con su usuario y contraseña. '
+    # User.with_role('god').map do |god|
+    #   url = "/users/#{god.id}/sales/#{id}"
+    #   UserMailer.new_mail(god, title, message, 'Nueva venta con costo mayor a pvs', url)
+    # end
   end
   
   def total

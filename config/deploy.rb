@@ -137,7 +137,7 @@
 
    desc 'Muestra logs de la aplicacion'
    task :app do
-     queue 'tail -f #{deploy_to}/current/logs/*'
+     queue "tail -f #{deploy_to}/current/logs/*"
    end
  end
 
