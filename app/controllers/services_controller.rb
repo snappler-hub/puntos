@@ -154,6 +154,7 @@ class ServicesController < ApplicationController
     allowed_params = [:name, :days]
 
     if params[:service][:type] == 'PointsService'
+      params[:service][:days_to_points_expiration] = params[:days_to_points_expiration]
       allowed_params << :amount << :days_to_points_expiration
     else
       allowed_params << :vademecum_id << [product_pfpcs_attributes: [:id, :product_id, :amount, :_destroy]] << [pfpc_suppliers_attributes: [:id, :supplier_id, :_destroy]]

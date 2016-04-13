@@ -1,5 +1,5 @@
 class Discounter
-  
+
   attr_accessor :discount
 
   def initialize(sale_product, afs)
@@ -60,10 +60,10 @@ class Discounter
       
     else #Descuento OS + COS
       discount = collection.collect { |pd| pd.health_insurance_and_coinsurance_discount }.max
-    end  
-    
+    end
+
     discount
-    
+
   end
   
   def health_insurance_and_coinsurance? 

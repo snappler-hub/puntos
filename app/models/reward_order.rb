@@ -90,8 +90,10 @@ class RewardOrder < ActiveRecord::Base
         subject = 'Tu pedido está listo para retirar!'
         title = "El pedido ##{self.code} ya está disponible para ser retirado. "
       else
+        title = ''
         subject = 0
     end
+
     unless subject == 0
       message = 'Para verlo, haga clic en el siguiente enlace. '
       url = "/reward_orders/#{self.id.to_s}"

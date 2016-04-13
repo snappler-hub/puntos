@@ -30,6 +30,10 @@ class AuthorizationAdapter
     }
   end
 
+  def query
+    @query
+  end
+
   def sale
     Sale.new(client: client, health_insurance_id: @query[:health_insurance_id], coinsurance_id: @query[:coinsurance_id], sale_products: sale_products)
   end
