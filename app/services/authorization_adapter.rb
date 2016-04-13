@@ -18,8 +18,8 @@ class AuthorizationAdapter
         subsidiary: 'nombre_sucursal',
         card_number: '7ED1458037032796',
         products: [
-            {code: '9901178', amount: 4, cost: 100},
-            {code: '7794640408076', amount: 2, cost: 120}
+            {code: '9901178', amount: 4, to_pay: 100},
+            {code: '7794640408076', amount: 2, to_pay: 120}
         ]
     }
   end
@@ -59,7 +59,7 @@ class AuthorizationAdapter
                   Product.find_by(troquel_number: code)
                 end
 
-      SaleProduct.new(product: product, amount: sale_product[:amount], cost: sale_product[:cost])
+      SaleProduct.new(product: product, amount: sale_product[:amount], cost: sale_product[:to_pay])
     end
   end
 
