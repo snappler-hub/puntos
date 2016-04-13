@@ -2,7 +2,7 @@ class AuthorizationFromSale
   
   attr_accessor :client, :supplier, :response, :seller, :health_insurance_id, :coinsurance_id, :client_points, :seller_points
 
-  def initialize(sale, seller, response=nil)
+  def initialize(sale, seller, ticket=nil, response=nil)
     @client = sale.client
     @sale_products = sale.sale_products
     @seller = seller
@@ -12,6 +12,7 @@ class AuthorizationFromSale
     @response = (response.nil? ? Response.new : response)
     @client_points = 0
     @seller_points = 0
+    @ticket = ticket
   end
 
   def authorize
@@ -31,7 +32,7 @@ class AuthorizationFromSale
 
   def authorize!
     authorization = authorize
-    authorization.save!
+    authorization.save! unless @ticket == 'INFO'
     authorization
   end
 

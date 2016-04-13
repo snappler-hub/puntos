@@ -1,7 +1,7 @@
 puts 'BEGIN Seed HealthInsurances'
 
-HealthInsurance.where(id: 1).first_or_create do |hi|
-  hi.name = 'UPCN PROVINCIA'
+HealthInsurance.where(id: 4).first_or_create do |hi|
+  hi.name = 'PAMI MIXTA'
 end
 
 HealthInsurance.where(id: 1).first_or_create do |hi|
@@ -1215,5 +1215,6 @@ end
 HealthInsurance.where(id: 10030).first_or_create do |hi|
   hi.name = 'OBRA SOCIAL DE PETROLEROS O S PE'
 end
+
 
 puts 'END Seed HealthInsurance'
