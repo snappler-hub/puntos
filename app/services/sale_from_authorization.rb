@@ -33,7 +33,7 @@ class SaleFromAuthorization
       SaleProduct.new(
           product_id: product[:id],
           amount: product[:amount],
-          cost: product[:cost],
+          cost: product[:to_pay],
           discount: product[:discount],
           client_points: product[:client_points],
           seller_points: product[:seller_points],

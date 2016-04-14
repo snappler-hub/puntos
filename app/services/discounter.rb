@@ -73,10 +73,6 @@ class Discounter
 
   end
   
-  # def health_insurance_and_coinsurance?
-  #   @health_insurance_id.present? && @coinsurance_id.present?
-  # end
-  
   def not_health_insurance_and_coinsurance? 
     @health_insurance_id.nil? && @coinsurance_id.nil?
   end

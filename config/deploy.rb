@@ -93,9 +93,7 @@ task deploy: :environment do
     to :launch do
       queue! %[echo "-----> Unicorn Stop"]
       queue "sudo /etc/init.d/unicorn_manes_#{rails_env} stop"
-      queue "sudo /etc/init.d/unicorn_manes_#{rails_env} stop"
-      queue "sudo /etc/init.d/unicorn_manes_#{rails_env} stop"
-      sleep 5
+      queue "sleep 3"
       queue! %[echo "-----> Unicorn Start"]
       queue "sudo /etc/init.d/unicorn_manes_#{rails_env} start"
 
