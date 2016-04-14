@@ -76,10 +76,7 @@
             <%
                product = f.object.product
                unless product.nil?
-                 title = "<b>Presentación</b><br> #{product.presentation_form}<br>
-                      <b>Laboratorio</b><br> #{product.laboratory}<br>
-                      <b>Monodroga</b><br> #{product.drug}<br>
-                      <b>Código de barra</b><br> #{product.barcode}".html_safe
+                 title = "<b>Presentación</b><br> #{product.presentation_form}<br><b>Laboratorio</b><br> #{product.laboratory}<br><b>Monodroga</b><br> #{product.drug}<br><b>Código de barra</b><br> #{product.barcode}".html_safe
                end
             %>
             <span class="info js-info btn btn-default btn-xs" data-html="true" data-toggle="tooltip" title="<%= title %>">
