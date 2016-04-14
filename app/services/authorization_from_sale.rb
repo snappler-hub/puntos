@@ -7,8 +7,8 @@ class AuthorizationFromSale
     @sale_products = sale.sale_products
     @seller = seller
     @supplier = seller.supplier
-    @health_insurance_id = sale.health_insurance_id
-    @coinsurance_id = sale.coinsurance_id
+    @health_insurance_id = get_health_insurance_id(sale.health_insurance_id)
+    @coinsurance_id = get_coinsurance_id(sale.coinsurance_id)
     @response = (response.nil? ? Response.new : response)
     @client_points = 0
     @seller_points = 0
@@ -95,6 +95,22 @@ class AuthorizationFromSale
     # end
 
     (cost * amount) * ((100 - discount) * 0.01)
+  end
+  
+  def get_health_insurance_id(health_insurance_id)
+    if health_insurance_id.present?
+      HealthInsurance.find_by(id: health_insurance_id).nil? ? nil : health_insurance_id
+    else
+      nil
+    end
+  end
+  
+  def get_coinsurance_id(coinsurance_id)
+    if coinsurance_id.present?
+      Coinsurance.find_by(id: coinsurance_id).nil? ? nil : coinsurance_id
+    else
+      nil
+    end
   end
 
 end
