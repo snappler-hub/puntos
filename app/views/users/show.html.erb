@@ -146,19 +146,37 @@
                 </li>
 
                 <li class="list-group-item">
-                  <b> Servicios</b>
-                  <% if @user.services.empty? %>
-                      <a class="pull-right"> Sin Servicios </a>
-                  <% else %>
-                      <ul class="no-bullets">
-                        <% @user.services.each do |service| %>
+
+                  <ul class="list-unstyled">
+                    <li><b>Servicios disponibles</b></li>
+
+                    <% if @user.services.available.empty? %>
+                        <li><a> Sin Servicios </a></li>
+                    <% else %>
+                        <% @user.services.available.each do |service| %>
                             <li>
                               <%= link_to service, [@user, service] %>
                               <span class="text-muted"> (<%= t "service_types.#{service.type}" %>)</span>
                             </li>
                         <% end %>
-                      </ul>
-                  <% end %>
+                    <% end %>
+                  </ul>
+
+
+                  <ul class="list-unstyled">
+                    <li><b>Servicios finalizados</b></li>
+
+                    <% if @user.services.finished.empty? %>
+                        <li><a> Sin Servicios </a></li>
+                    <% else %>
+                        <% @user.services.finished.each do |service| %>
+                            <li>
+                              <%= link_to service, [@user, service] %>
+                              <span class="text-muted"> (<%= t "service_types.#{service.type}" %>)</span>
+                            </li>
+                        <% end %>
+                    <% end %>
+                  </ul>
                 </li>
               </ul>
           <% else %>

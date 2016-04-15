@@ -23,6 +23,7 @@ class Service < ActiveRecord::Base
   scope :in_progress, -> { where(status: Service.statuses['in_progress']) }
   scope :pending, -> { where(status: Service.statuses['pending']) }
   scope :available, -> { where(status: [Service.statuses['pending'], Service.statuses['in_progress']]) }
+  scope :finished, -> { where(status: [Service.statuses['expired'], Service.statuses['closed']]) }
 
   # -- Constants
   TYPES = %w(points pfpc seller)

@@ -1,3 +1,3 @@
-class ActiveRecord::Base
-  include ::Rollback
-end
+# class ActiveRecord::Base
+#   include ::Rollback
+# end
