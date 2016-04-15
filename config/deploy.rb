@@ -171,4 +171,4 @@ namespace :db do
   end
 end
 
-# manes-puntos-deploy@d1g1t4l0c34n
+# https://github.com/mina-deploy/mina
