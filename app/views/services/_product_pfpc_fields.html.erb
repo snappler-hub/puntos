@@ -6,14 +6,6 @@
                            data: {behavior: 'searchProduct', url: search_for_service_products_path(user_id: @user.id),
                                   record_id: f.object.product_id, record_text: f.object.product.try(:name),
                            } %>
-
-
-
-
-
-        <%= f.hidden_field :product_id, class: 'select2',
-                           data: {behavior: 'searchProduct', url: search_products_path,
-                                  record_id: f.object.product_id, record_text: f.object.product.try(:name)} %>
       </fieldset>
     </div>
 
