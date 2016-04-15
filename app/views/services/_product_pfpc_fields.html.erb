@@ -2,24 +2,32 @@
   <div class="row">
     <div class="col-md-7">
       <fieldset class="form-group">
-        <%= f.hidden_field :product_id, class: 'form-control select2', 
-              data: { behavior: 'searchProduct', url: search_for_service_products_path(user_id: @user.id),
-                  record_id: f.object.product_id, record_text: f.object.product.try(:name),
-                   } %>
+        <%= f.hidden_field :product_id, class: 'form-control select2',
+                           data: {behavior: 'searchProduct', url: search_for_service_products_path(user_id: @user.id),
+                                  record_id: f.object.product_id, record_text: f.object.product.try(:name),
+                           } %>
+
+
+
+
+
+        <%= f.hidden_field :product_id, class: 'select2',
+                           data: {behavior: 'searchProduct', url: search_products_path,
+                                  record_id: f.object.product_id, record_text: f.object.product.try(:name)} %>
       </fieldset>
     </div>
-    
+
     <div class="col-md-3">
       <fieldset class="form-group">
         <%= f.text_field :amount, class: 'form-control', required: true, placeholder: 'Cantidad' %>
       </fieldset>
     </div>
-    
+
     <div class="col-md-1">
       <fieldset class="form-group">
         <%= link_to_remove_association 'eliminar', f, class: 'btn btn-danger' %>
       </fieldset>
     </div>
-    
+
   </div>
 </div>
