@@ -19,7 +19,7 @@ class Discounter
       @discount = get_discount(vademecums)
     else
       if vademecums.empty?
-        warning = "#{@product.name.upcase}: no se encontró un vademecum, "
+        warning = "#{@product.barcode}, #{@product.name.upcase}: no se encontró un vademecum, "
       else
         warning = 'El prestador no figura entre los servicios del cliente, '
       end
@@ -37,7 +37,7 @@ class Discounter
     end
 
     if product_discounts.empty?
-      @response.add_warning("#{@product.name.upcase}: no se encontraron descuentos para el producto solicitado en ningún vademecum.")
+      @response.add_warning("#{@product.barcode}, #{@product.name.upcase}: no se encontraron descuentos para el producto solicitado en ningún vademecum.")
       0
     else
       corresponding_discount(product_discounts)

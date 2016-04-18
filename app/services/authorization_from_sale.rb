@@ -74,8 +74,11 @@ class AuthorizationFromSale
   def create_product(sale_product, discount, points_giver)
     {
         id: sale_product.product_id,
+        name: sale_product.product.full_name,
+        barcode: sale_product.product.barcode,
         amount: sale_product.amount,
-        cost: sale_product.cost,
+        to_pay: sale_product.cost,
+        pvp: sale_product.product.price.to_f,
         discount: discount,
         client_points: points_giver.client_points,
         seller_points: points_giver.seller_points,
