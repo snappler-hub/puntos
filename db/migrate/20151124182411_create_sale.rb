@@ -3,11 +3,14 @@ class CreateSale < ActiveRecord::Migration
     create_table :sales do |t|
       t.integer :seller_id
       t.integer :client_id
-      t.float :client_points, default: 0
-      t.float :seller_points, default: 0
+      t.decimal :client_points, precision: 12, scale: 2, default: 0
+      t.decimal :seller_points, precision: 12, scale: 2, default: 0
+
+      t.references :health_insurance, index: true, foreign_key: true
+      t.references :coinsurance, index: true, foreign_key: true
 
       t.float :total, default: 0
-      
+
       t.timestamps null: false
     end
     add_index :sales, :seller_id

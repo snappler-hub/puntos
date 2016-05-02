@@ -12,10 +12,10 @@
 #
 
 class Comment < ActiveRecord::Base
-  
+
   # -- Callbacks
-  after_create :send_mail_to_gods, if: Proc.new { |c| c.user.is?('admin') } 
-  after_create :send_mail_to_admins, if: Proc.new { |c| c.user.is?('god') } 
+  after_create :send_mail_to_gods, if: Proc.new { |c| c.user.is?('admin') }
+  after_create :send_mail_to_admins, if: Proc.new { |c| c.user.is?('god') }
 
   # -- Scopes
   default_scope { order(created_at: :desc) }
@@ -31,19 +31,19 @@ class Comment < ActiveRecord::Base
   def is_owner?(aUser)
     aUser == self.user
   end
-  
+
   def send_mail_to_gods
-    title = "Han hecho un comentario"
-    message = "Para verlo, haga clic en el siguiente botón e ingrese con su usuario y contraseña. "
+    title = 'Han hecho un comentario'
+    message = 'Para verlo, haga clic en el siguiente botón e ingrese con su usuario y contraseña. '
     url = "/supplier_requests/#{commentable.id}"
     User.with_role('god').map do |god|
       UserMailer.new_mail(god, title, message, 'Nuevo comentario', url)
     end
   end
-  
+
   def send_mail_to_admins
-    title = "Han hecho un comentario"
-    message = "Para verlo, haga clic en el siguiente botón e ingrese con su usuario y contraseña. "
+    title = 'Han hecho un comentario'
+    message = 'Para verlo, haga clic en el siguiente botón e ingrese con su usuario y contraseña. '
     url = "/supplier_requests/#{commentable.id}"
     User.all_from_supplier(commentable.supplier).with_role('admin').map do |admin|
       UserMailer.new_mail(admin, title, message, 'Nuevo comentario', url)

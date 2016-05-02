@@ -21,7 +21,7 @@ class PfpcService < Service
   # -- Associations
   has_many :product_pfpcs, foreign_key: :service_id, dependent: :destroy
   has_many :products, through: :product_pfpcs
-  has_many :pfpc_suppliers
+  has_many :pfpc_suppliers, dependent: :destroy
   has_many :suppliers, through: :pfpc_suppliers
   accepts_nested_attributes_for :product_pfpcs, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :pfpc_suppliers, reject_if: :all_blank, allow_destroy: true
@@ -70,8 +70,8 @@ class PfpcService < Service
   end
 
   def send_mail
-    title = "Debe aceptar los términos y condiciones"
-    message = "Para ello, haga clic en el siguiente botón e ingrese con su usuario y contraseña. "
+    title = 'Debe aceptar los términos y condiciones'
+    message = 'Para ello, haga clic en el siguiente botón e ingrese con su usuario y contraseña. '
     UserMailer.new_mail(self.user, title, message)
   end
 

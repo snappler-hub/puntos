@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @filter = UserFilter.new(filter_params)
-    @users = @filter.call(@supplier).page(params[:page])
+    @users = @filter.call(current_user).page(params[:page])
   end
 
   # GET /users/1
@@ -147,6 +147,6 @@ class UsersController < ApplicationController
   end
 
   def filter_params
-    params.require(:user_filter).permit(:email, :role, :card_number, :document_number, :card_state) if params[:user_filter]
+    params.require(:user_filter).permit(:email, :role, :card_number, :document_number, :card_state, :supplier_id) if params[:user_filter]
   end
 end

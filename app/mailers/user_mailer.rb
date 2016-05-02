@@ -1,7 +1,6 @@
 class UserMailer < ActionMailer::Base
   require 'mandrill'
 
-  default from: 'no-reply@manes.com.ar'
   layout 'mailer'
 
   def self.mandrill_client
@@ -18,6 +17,7 @@ class UserMailer < ActionMailer::Base
     url = build_url(url)
     action = 'Ir al sitio'
     message = {
+        from: 'no-reply@manes.com.ar',
         to: [{email: user.email, name: user_name}],
         subject: "[Sistema Manes] #{subject}",
         global_merge_vars: [
@@ -31,7 +31,7 @@ class UserMailer < ActionMailer::Base
 
     mandrill_client.messages.send_template template_name, template_content, message
   end
-  
+
   def build_url(url)
     if url.nil?
       Const::URL

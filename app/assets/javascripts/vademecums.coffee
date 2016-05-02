@@ -42,7 +42,7 @@ class App.VademecumForm
     "<b>Presentación</b><br> #{product.presentation_form}<br> \
      <b>Laboratorio</b><br> #{product.laboratory}<br> \
      <b>Monodroga</b><br> #{product.drug}<br> \
-     <b>Código</b><br> #{product.code}"
+     <b>Código de barra</b><br> #{product.barcode}"
 
 
 $(document).on "page:change", ->

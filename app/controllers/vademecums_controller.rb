@@ -46,7 +46,15 @@ class VademecumsController < ApplicationController
 
   # DELETE /vademecums/1
   def destroy
-    @vademecum.destroy ? flash[:notice] = 'El Vademecum ha sido eliminado correctamente.' : flash[:error] = 'No se pudo eliminar el Vademecum seleccionado. Compruebe que no tenga asociado un servicio'
+    if @vademecum.destroy
+      flash[:notice] = 'El Vademecum ha sido eliminado correctamente.'
+    else
+      if @vademecum.pfpc_services.empty?
+        flash[:error] = 'No se pudo eliminar el Vademecum seleccionado.'
+      else
+        flash[:error] = 'No se pudo eliminar el Vademecum seleccionado ya que hay servicios PFPC asociados.'
+      end
+    end
     redirect_to vademecums_path
   end
   

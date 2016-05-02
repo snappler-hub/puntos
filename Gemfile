@@ -5,7 +5,9 @@ gem 'mysql2', '~> 0.3.20'
 
 gem 'unicorn'
 
-# gem 'sass-rails', '~> 5.0'
+gem 'whenever', require: false
+
+gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'therubyracer', platforms: :ruby

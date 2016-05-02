@@ -12,6 +12,5 @@
 # end
 #
 # CardManager.assign_card_number!(user)
-# CardManager.assign_card_number!(user2)
 #
 # puts 'END Seed Cards'

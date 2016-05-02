@@ -11,13 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309150654) do
-
-  create_table "administration_routes", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
+ActiveRecord::Schema.define(version: 20160327133728) do
 
   create_table "authorizations", force: :cascade do |t|
     t.integer  "seller_id",           limit: 4
@@ -116,55 +110,31 @@ ActiveRecord::Schema.define(version: 20160309150654) do
   add_index "pfpc_suppliers", ["pfpc_service_id"], name: "index_pfpc_suppliers_on_pfpc_service_id", using: :btree
   add_index "pfpc_suppliers", ["supplier_id"], name: "index_pfpc_suppliers_on_supplier_id", using: :btree
 
-  create_table "pharmacologic_actions", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "pharmacologic_forms", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "points_periods", force: :cascade do |t|
     t.integer  "service_id",  limit: 4
     t.date     "start_date"
     t.date     "end_date"
-    t.integer  "status",      limit: 4, default: 0
-    t.integer  "amount",      limit: 4, default: 0
-    t.integer  "accumulated", limit: 4
-    t.integer  "available",   limit: 4, default: 0
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.integer  "status",      limit: 4,  default: 0
+    t.float    "amount",      limit: 24, default: 0.0
+    t.float    "accumulated", limit: 24, default: 0.0
+    t.float    "available",   limit: 24, default: 0.0
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   add_index "points_periods", ["service_id"], name: "index_points_periods_on_service_id", using: :btree
 
-  create_table "potency_units", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "presentation_sizes", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "product_discounts", force: :cascade do |t|
     t.integer  "product_id",                                limit: 4
     t.integer  "vademecum_id",                              limit: 4
-    t.float    "discount",                                  limit: 24, default: 0.0
-    t.datetime "created_at",                                                         null: false
-    t.datetime "updated_at",                                                         null: false
+    t.integer  "discount",                                  limit: 4, default: 0
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.integer  "health_insurance_id",                       limit: 4
     t.integer  "coinsurance_id",                            limit: 4
-    t.float    "health_insurance_discount",                 limit: 24, default: 0.0
-    t.float    "coinsurance_discount",                      limit: 24, default: 0.0
-    t.float    "health_insurance_and_coinsurance_discount", limit: 24, default: 0.0
+    t.integer  "health_insurance_discount",                 limit: 4, default: 0
+    t.integer  "coinsurance_discount",                      limit: 4, default: 0
+    t.integer  "health_insurance_and_coinsurance_discount", limit: 4, default: 0
   end
 
   add_index "product_discounts", ["coinsurance_id"], name: "index_product_discounts_on_coinsurance_id", using: :btree
@@ -184,44 +154,26 @@ ActiveRecord::Schema.define(version: 20160309150654) do
   add_index "product_pfpcs", ["service_id"], name: "index_product_pfpcs_on_service_id", using: :btree
 
   create_table "products", force: :cascade do |t|
-    t.string   "code",                       limit: 255,                                          null: false
-    t.string   "barcode",                    limit: 255
-    t.string   "troquel_number",             limit: 255
-    t.string   "name",                       limit: 255,                                          null: false
-    t.string   "presentation_form",          limit: 255
-    t.float    "price",                      limit: 24
-    t.date     "expiration_date"
-    t.boolean  "imported"
-    t.integer  "sell_type",                  limit: 4
-    t.integer  "registration_number",        limit: 4
-    t.integer  "units",                      limit: 4,                            default: 1
-    t.integer  "size",                       limit: 4
-    t.string   "potency",                    limit: 255
-    t.integer  "relative_presentation_size", limit: 4
-    t.decimal  "client_points",                          precision: 12, scale: 2, default: 0.0
-    t.decimal  "seller_points",                          precision: 12, scale: 2, default: 0.0
-    t.integer  "pharmacologic_action_id",    limit: 4
-    t.integer  "drug_id",                    limit: 4
-    t.integer  "pharmacologic_form_id",      limit: 4
-    t.integer  "potency_unit_id",            limit: 4
-    t.integer  "unit_type_id",               limit: 4
-    t.integer  "administration_route_id",    limit: 4
-    t.integer  "laboratory_id",              limit: 4
-    t.boolean  "deleted",                                                         default: false
-    t.datetime "created_at",                                                                      null: false
-    t.datetime "updated_at",                                                                      null: false
+    t.string   "barcode",             limit: 255
+    t.string   "troquel_number",      limit: 255
+    t.string   "name",                limit: 255,                                        null: false
+    t.string   "full_name",           limit: 255
+    t.float    "price_in_cents",      limit: 24
+    t.string   "presentation_form",   limit: 255
+    t.integer  "alfabeta_identifier", limit: 4
+    t.decimal  "client_points",                   precision: 12, scale: 2, default: 0.0
+    t.decimal  "seller_points",                   precision: 12, scale: 2, default: 0.0
+    t.integer  "drug_id",             limit: 4
+    t.integer  "laboratory_id",       limit: 4
+    t.datetime "created_at",                                                             null: false
+    t.datetime "updated_at",                                                             null: false
   end
 
-  add_index "products", ["administration_route_id"], name: "index_products_on_administration_route_id", using: :btree
+  add_index "products", ["alfabeta_identifier"], name: "index_products_on_alfabeta_identifier", using: :btree
   add_index "products", ["barcode"], name: "index_products_on_barcode", using: :btree
   add_index "products", ["drug_id"], name: "index_products_on_drug_id", using: :btree
   add_index "products", ["laboratory_id"], name: "index_products_on_laboratory_id", using: :btree
-  add_index "products", ["pharmacologic_action_id"], name: "index_products_on_pharmacologic_action_id", using: :btree
-  add_index "products", ["pharmacologic_form_id"], name: "index_products_on_pharmacologic_form_id", using: :btree
-  add_index "products", ["potency_unit_id"], name: "index_products_on_potency_unit_id", using: :btree
-  add_index "products", ["relative_presentation_size"], name: "index_products_on_relative_presentation_size", using: :btree
   add_index "products", ["troquel_number"], name: "index_products_on_troquel_number", using: :btree
-  add_index "products", ["unit_type_id"], name: "index_products_on_unit_type_id", using: :btree
 
   create_table "reward_order_items", force: :cascade do |t|
     t.integer  "reward_order_id", limit: 4
@@ -302,7 +254,7 @@ ActiveRecord::Schema.define(version: 20160309150654) do
     t.string   "type",                      limit: 255,              null: false
     t.integer  "user_id",                   limit: 4
     t.integer  "last_period_id",            limit: 4
-    t.integer  "amount",                    limit: 4
+    t.float    "amount",                    limit: 24
     t.integer  "status",                    limit: 4,   default: 0
     t.integer  "days",                      limit: 4,   default: 30
     t.integer  "days_to_points_expiration", limit: 4
@@ -406,12 +358,6 @@ ActiveRecord::Schema.define(version: 20160309150654) do
     t.datetime "updated_at",                     null: false
   end
 
-  create_table "unit_types", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                           limit: 255,                 null: false
     t.string   "username",                        limit: 255
@@ -470,13 +416,8 @@ ActiveRecord::Schema.define(version: 20160309150654) do
   add_foreign_key "product_discounts", "vademecums"
   add_foreign_key "product_pfpcs", "products"
   add_foreign_key "product_pfpcs", "services"
-  add_foreign_key "products", "administration_routes"
   add_foreign_key "products", "drugs"
   add_foreign_key "products", "laboratories"
-  add_foreign_key "products", "pharmacologic_actions"
-  add_foreign_key "products", "pharmacologic_forms"
-  add_foreign_key "products", "potency_units"
-  add_foreign_key "products", "unit_types"
   add_foreign_key "reward_order_items", "reward_orders"
   add_foreign_key "reward_order_items", "rewards"
   add_foreign_key "reward_orders", "suppliers"

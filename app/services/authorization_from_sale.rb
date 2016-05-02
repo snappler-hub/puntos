@@ -2,16 +2,17 @@ class AuthorizationFromSale
   
   attr_accessor :client, :supplier, :response, :seller, :health_insurance_id, :coinsurance_id, :client_points, :seller_points
 
-  def initialize(sale, seller)
+  def initialize(sale, seller, ticket=nil, response=nil)
     @client = sale.client
     @sale_products = sale.sale_products
     @seller = seller
     @supplier = seller.supplier
-    @health_insurance_id = sale.health_insurance_id
-    @coinsurance_id = sale.coinsurance_id
-    @response = Response.new
+    @health_insurance_id = get_health_insurance_id(sale.health_insurance_id)
+    @coinsurance_id = get_coinsurance_id(sale.coinsurance_id)
+    @response = (response.nil? ? Response.new : response)
     @client_points = 0
     @seller_points = 0
+    @ticket = ticket
   end
 
   def authorize
@@ -31,7 +32,7 @@ class AuthorizationFromSale
 
   def authorize!
     authorization = authorize
-    authorization.save!
+    authorization.save! unless @ticket == 'INFO'
     authorization
   end
 
@@ -73,8 +74,11 @@ class AuthorizationFromSale
   def create_product(sale_product, discount, points_giver)
     {
         id: sale_product.product_id,
+        name: sale_product.product.full_name,
+        barcode: sale_product.product.barcode,
         amount: sale_product.amount,
-        cost: sale_product.cost,
+        to_pay: sale_product.cost,
+        pvp: sale_product.product.price.to_f,
         discount: discount,
         client_points: points_giver.client_points,
         seller_points: points_giver.seller_points,
@@ -93,7 +97,23 @@ class AuthorizationFromSale
     #   return (cost * amount) * (1 - discount)
     # end
 
-    (cost * amount) * (1 - discount)
+    (cost * amount) * ((100 - discount) * 0.01)
+  end
+  
+  def get_health_insurance_id(health_insurance_id)
+    if health_insurance_id.present?
+      HealthInsurance.find_by(id: health_insurance_id).nil? ? nil : health_insurance_id
+    else
+      nil
+    end
+  end
+  
+  def get_coinsurance_id(coinsurance_id)
+    if coinsurance_id.present?
+      Coinsurance.find_by(id: coinsurance_id).nil? ? nil : coinsurance_id
+    else
+      nil
+    end
   end
 
 end

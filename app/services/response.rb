@@ -19,7 +19,7 @@ class Response
   end
   
   def ok?
-    @status == Const::STATUS_OK
+    @status == Const::STATUS_OK || @status == Const::STATUS_WARNING
   end
   
   def message

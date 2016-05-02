@@ -20,7 +20,7 @@ class PointsGiver
   def calculate_client_points(sale_product)
     if @client.has_points_service? && @supplier.give_points_to_client?
       total = sale_product.amount * sale_product.cost
-      points = (total * get_client_points(sale_product.product)) / 100
+      points = (total * get_client_points(sale_product.product))
       sale_product.update(client_points: points) #Cada producto de la autorización tiene que tener su detalle de puntos
       @client_points += points
     else
@@ -44,7 +44,7 @@ class PointsGiver
     if @supplier.give_points_to_seller?
       total = sale_product.amount * sale_product.cost
       product = @supplier.supplier_point_products.detect { |spp| spp.product == sale_product.product } || sale_product.product
-      points = (total * product.seller_points) / 100
+      points = (total * product.seller_points)
       sale_product.update(seller_points: points)
       @seller_points += points
     else

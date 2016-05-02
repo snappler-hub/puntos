@@ -8,5 +8,5 @@ class Const
   
   # URL PARA ENVIO DE MAILS
 
-  URL = 'http://localhost:3000'
+  URL = Rails.env.development? ? 'localhost:3000' : '159.203.127.247:88'
 end

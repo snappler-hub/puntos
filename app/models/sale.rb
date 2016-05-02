@@ -16,7 +16,7 @@
 #
 
 class Sale < ActiveRecord::Base
-  
+
   # -- Callbacks
   after_create :send_mail_to_gods, if: :price_greater_than_pvs?
 
@@ -48,18 +48,19 @@ class Sale < ActiveRecord::Base
         greater = true
       end
     end
-    return greater
+    greater
   end
-  
+
   def send_mail_to_gods
-    title = "Han vendido un producto con costo mayor al PVS"
-    message = "Para verla, haga clic en el siguiente botón e ingrese con su usuario y contraseña. "
-    User.with_role('god').map do |god|
-      url = "/users/#{god.id}/sales/#{id}"
-      UserMailer.new_mail(god, title, message, 'Nueva venta con costo mayor a pvs', url)
-    end
+    # TODO activar
+    # title = 'Han vendido un producto con costo mayor al PVS'
+    # message = 'Para verla, haga clic en el siguiente botón e ingrese con su usuario y contraseña. '
+    # User.with_role('god').map do |god|
+    #   url = "/users/#{god.id}/sales/#{id}"
+    #   UserMailer.new_mail(god, title, message, 'Nueva venta con costo mayor a pvs', url)
+    # end
   end
-  
+
   def total
     sale_products.reduce(0) { |sum, sale_product| sum + sale_product.total }
   end
@@ -97,12 +98,12 @@ class Sale < ActiveRecord::Base
       id_total = sales_array.reduce(0) { |sum, sa| sum + sa.amount }
       totals[id] = id_total
     end
-    return totals
+    totals
   end
 
   def update_client_points
-    #si servicio_puntos está activo
-    #actualizar ultimo periodo
+    # si servicio_puntos está activo
+    # actualizar ultimo periodo
     if client.has_points_service?
       period = client.points_services.first.last_period
       accumulated_points = client_points

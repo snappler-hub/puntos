@@ -23,16 +23,6 @@
             <br>
 
             <h4> Descuentos </h4>
-            <div class="row">
-              <div class="col-md-3"><%= f.label :product_id %></div>
-              <div class="col-md-2"><%= f.label :health_insurance_id %></div>
-              <div class="col-md-2"><%= f.label :coinsurance_id %></div>
-              <div class="col-md-1"><%= f.label :discount %></div>
-              <div class="col-md-1"><%= f.label :health_insurance_discount %></div>
-              <div class="col-md-1"><%= f.label :coinsurance_discount %></div>
-              <div class="col-md-1"><%= f.label :health_insurance_and_coinsurance_discount %></div>
-            </div>
-
             <div id="js-vademecum-product-discounts" class="product_discounts form-group">
               <%= f.fields_for :product_discounts do |p| %>
                   <%= render 'product_discount_fields', f: p %>

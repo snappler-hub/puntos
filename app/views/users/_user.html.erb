@@ -17,7 +17,7 @@
         <p class="small text-muted">Sin tarjeta</p>
     <% elsif user.terms_accepted? %>
         <p class="small text-success">
-          <%= format_card_number user.card_number, separator: ' - ' %>
+          <%= user.card_number %>
         </p>
     <% else %>
         <p class="small text-warning">Aún debe aceptar condiciones</p>
@@ -26,12 +26,12 @@
 
   <td class="pull-right">
     <%= link_to 'Ver', [@supplier, user], class: 'btn btn-xs btn-primary' %>
-    <%= link_to 'Editar', [:edit, @supplier, user], class: 'btn btn-xs btn-success' %>
-    <% if is_me?(user) %>
-        <button type="button" class="btn btn-xs btn-danger disabled">Eliminar</button>
-    <% else %>
-        <%= link_to 'Eliminar', [@supplier, user], method: :delete,
+    <%#= link_to 'Editar', [:edit, @supplier, user], class: 'btn btn-xs btn-success' %>
+    <%# if is_me?(user) %>
+        <!--<button type="button" class="btn btn-xs btn-danger disabled">Eliminar</button>-->
+    <%# else %>
+        <%#= link_to 'Eliminar', [@supplier, user], method: :delete,
                     data: {confirm: '¿Está seguro?'}, class: 'btn btn-xs btn-danger' %>
-    <% end %>
+    <%# end %>
   </td>
 </tr>
