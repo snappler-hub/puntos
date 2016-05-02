@@ -7,11 +7,11 @@
 #  start_date  :date
 #  end_date    :date
 #  status      :integer          default(0)
-#  amount      :integer          default(0)
-#  accumulated :integer
+#  amount      :float(24)        default(0.0)
+#  accumulated :float(24)
+#  available   :float(24)        default(0.0)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  available   :integer          default(0)
 #
 
 class PointsPeriod < ActiveRecord::Base
@@ -55,8 +55,6 @@ class PointsPeriod < ActiveRecord::Base
   # Renuevo el período 
   def renew
     self.service.create_period
-    self.status = :accomplished
-    self.save
   end
 
   # Reinicio el período reseteando los días y pongo el estado En Curso

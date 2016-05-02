@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: authorizations
+#
+#  id                  :integer          not null, primary key
+#  seller_id           :integer
+#  client_id           :integer
+#  products            :text(65535)
+#  status              :string(255)
+#  message             :text(65535)
+#  client_points       :float(24)        default(0.0)
+#  seller_points       :float(24)        default(0.0)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  health_insurance_id :integer
+#  coinsurance_id      :integer
+#
+
+authorization_one:
+  seller:   seller
+  client:   final_user
+  products: []
+  client_points:   0
+  
+authorization_two:
+  seller:   seller
+  client:   final_user
+  products: []
+  client_points:   0

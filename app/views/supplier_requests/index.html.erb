@@ -1,34 +1,39 @@
 <header class="content-header">
-  <%= link_to 'Nueva Solicitud', [:document_form, @supplier, :supplier_requests],
-      class: 'btn btn-primary pull-right' if @supplier %>
+  <% if god? %>
+      <%= link_to 'Nueva Solicitud', [:document_form, current_user.supplier, :supplier_requests],
+                  class: 'btn btn-primary pull-right' %>
+  <% elsif @supplier %>
+      <%= link_to 'Nueva Solicitud', [:document_form, @supplier, :supplier_requests],
+                  class: 'btn btn-primary pull-right' %>
+  <% end %>
   <h1>Solicitudes</h1>
 </header>
 
 <section class="content">
-<article class="box box-primary">
-<section class="box-body">
+  <article class="box box-primary">
+    <section class="box-body">
 
-  <%= render 'filter' %>
+      <%= render 'filter' %>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Fecha</th>
-        <th>Cliente</th>
-        <th>Estado</th>
-        <th>Documento</th>
-        <th>Correo</th>
-        <th></th>
-      </tr>
-    </thead>
-  
-    <tbody>
-      <%= render @supplier_requests %>
-    </tbody>
-  </table>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Cliente</th>
+          <th>Estado</th>
+          <th>Documento</th>
+          <th>Correo</th>
+          <th></th>
+        </tr>
+        </thead>
 
-  <%= paginate @supplier_requests %>
+        <tbody>
+        <%= render @supplier_requests %>
+        </tbody>
+      </table>
 
-</section>
-</article>
+      <%= paginate @supplier_requests %>
+
+    </section>
+  </article>
 </section>

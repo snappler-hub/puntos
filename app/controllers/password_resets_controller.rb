@@ -4,9 +4,10 @@ class PasswordResetsController < ApplicationController
 
   def new
   end
+
   # request password reset.
   # you get here when the user entered his email in the reset password form and submitted it.
-  def create 
+  def create
     @user = User.find_by_email(params[:email])
 
     # This line sends an email to the user with instructions on how to reset their password (a url with a random token)
@@ -28,7 +29,6 @@ class PasswordResetsController < ApplicationController
 
     if @user.blank?
       not_authenticated
-      return
     end
   end
 

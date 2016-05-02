@@ -5,13 +5,13 @@ class RecordSearcher
 
   def initialize(records, params = {})
     unless records.respond_to? :search
-      raise ArgumentError, "records must repond to .search"
+      raise ArgumentError, 'records must repond to .search'
     end
 
     default_params = {
-      query: nil,
-      page: nil,
-      limit: nil
+        query: nil,
+        page: nil,
+        limit: nil
     }
 
     params.reverse_merge!(default_params)
@@ -20,14 +20,15 @@ class RecordSearcher
 
   def call(&block)
     {
-      total: records.total_count,
-      records: records.map do |record|
-        if block_given?
-          block.call(record)
-        else
-          { name: record.name, id: record.id }
+        total: records.total_count,
+        records: records.map do |record|
+          if block_given?
+            block.call(record)
+          else
+            name = record.name
+            {name: name, id: record.id}
+          end
         end
-      end
     }
   end
 

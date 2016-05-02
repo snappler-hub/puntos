@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class StockMigration < ActiveRecord::Migration
   def change
     create_table :stocks do |t|
@@ -8,6 +7,7 @@ class StockMigration < ActiveRecord::Migration
       t.references :store, polymorphic: true
       t.timestamps null: false
     end
+
     create_table :stock_entries do |t|
       t.string :codename
       t.references :owner, polymorphic: true, index: true

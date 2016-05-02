@@ -33,6 +33,7 @@ class UsersControllerTest < ActionController::TestCase
     
     assert_equal(assigns(:user).created_by, @user)
     assert_equal(assigns(:user).supplier, @user.supplier)
+    assert_not_nil(user.card_number)
     assert_redirected_to [@user.supplier, assigns(:user)]
   end
 

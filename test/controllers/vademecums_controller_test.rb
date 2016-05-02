@@ -6,6 +6,7 @@ class VademecumsControllerTest < ActionController::TestCase
   
   setup do
     @vademecum = vademecums(:one)
+    @independent = vademecums(:independent)
     @product1 = products(:one)
     @product2 = products(:two)
     
@@ -26,11 +27,11 @@ class VademecumsControllerTest < ActionController::TestCase
   end
 
   test "should create vademecum" do
-    # TODO Products discount association
-    assert_difference('Vademecum.count') do
-      post :create, vademecum: { name: @vademecum.name }
+    discounts = [{product_id: @product1.id, discount: 10},{product_id: @product2.id, discount: 20}]
+    assert_differences([['Vademecum.count', 1], ['ProductDiscount.count', 2]]) do
+      post :create, vademecum: { name: @vademecum.name,
+             product_discounts_attributes: discounts}
     end
-
     assert_redirected_to vademecums_path
   end
 
@@ -40,13 +41,20 @@ class VademecumsControllerTest < ActionController::TestCase
   end
 
   test "should update vademecum" do
-    # TODO Products discount association
     patch :update, id: @vademecum, vademecum: { name: @vademecum.name }
     assert_redirected_to vademecums_path
   end
 
   test "should destroy vademecum" do
     assert_difference('Vademecum.count', -1) do
+      delete :destroy, id: @independent
+    end
+
+    assert_redirected_to vademecums_path
+  end
+  
+  test "should not destroy vademecum if it has products" do
+    assert_difference('Vademecum.count', 0) do
       delete :destroy, id: @vademecum
     end
 

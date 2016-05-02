@@ -1,0 +1,8 @@
+<div id="js-pfpc_supplier_fields">
+  <%= f.fields_for :pfpc_suppliers do |p| %>
+      <%= render partial: "services/pfpc_supplier_fields", locals: {f: p} %>
+  <% end %>
+</div>
+<div class="links">
+  <%= link_to_add_association 'Nuevo prestador', f, :pfpc_suppliers, class: 'btn btn-default', partial: 'services/pfpc_supplier_fields' %>
+</div>

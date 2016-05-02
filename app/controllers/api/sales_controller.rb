@@ -3,9 +3,10 @@ class Api::SalesController < Api::MainController
   def authorize
     adapter = AuthorizationAdapter.new(query)
     if adapter.valid_input?
-      manager = AuthorizationFromSale.new(adapter.sale, adapter.seller)
+      manager = AuthorizationFromSale.new(adapter.sale, adapter.seller, adapter.query[:ticket], adapter.response)
       authorization = manager.authorize!
-      render json: {status: :ok, authorization: authorization}, status: :ok
+      # TODO mejorar
+      render json: {status: :ok, authorization: authorization.as_json.merge(client_accumulated_points: authorization.client.cache_points)}, status: :ok
     else
       render json: adapter.errors, status: 400
     end

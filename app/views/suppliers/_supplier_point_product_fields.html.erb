@@ -1,6 +1,6 @@
 <div class="nested-fields">
   <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-4">
       <fieldset class="form-group">
         <%= f.hidden_field :product_id, class: 'select2', 
               data: { behavior: 'searchProduct', url: search_products_path,
@@ -10,7 +10,13 @@
     
     <div class="col-md-3">
       <fieldset class="form-group">
-        <%= f.text_field :points, class: 'form-control', required: true, placeholder: 'Puntos' %>
+        <%= f.text_field :client_points, class: 'form-control', required: true, placeholder: 'Puntos cliente' %>
+      </fieldset>
+    </div>
+    
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <%= f.text_field :seller_points, class: 'form-control', required: true, placeholder: 'Puntos vendedor' %>
       </fieldset>
     </div>
     

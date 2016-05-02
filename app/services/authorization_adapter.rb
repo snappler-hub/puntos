@@ -1,50 +1,65 @@
 class AuthorizationAdapter
+  
+  attr_accessor :response
 
   def initialize(query)
     @query = query
     @errors = []
+    @response = nil
   end
 
-  def example
+  def example_for_authorization #http://localhost:3000/api/sales/authorize
     {
         ticket: '12345',
-        vendedor: 'DNI34841823',
-        prestador: 'prestador1',
-        fecha: '2016-05-05',
-        sucursal: 'nombre_sucursal',
-        total: 4000.0,
-        numero_tarjeta: '1234-5678',
-        productos: [
-            {codigo: '5487561', cantidad: 100, costo: 50},
-            {codigo: '987687945789', cantidad: 80, costo: 40},
-            {codigo: '4856546', cantidad: 70, costo: 30}
+        seller: 'marcelo@manes.com.ar',
+        supplier_id: 1, 
+        health_insurance_id: 2,
+        coinsurance_id: 1,
+        subsidiary: 'nombre_sucursal',
+        card_number: '7ED1458037032796',
+        products: [
+            {code: '9901178', amount: 4, to_pay: 100},
+            {code: '7794640408076', amount: 2, to_pay: 120}
         ]
     }
   end
 
+  def example_for_sale #http://localhost:3000/api/sales/confirm
+    {
+        authorization_id: '53'
+    }
+  end
+
+  def query
+    @query
+  end
+
   def sale
-    Sale.new(client: client, sale_products: sale_products)
+    Sale.new(client: client, health_insurance_id: @query[:health_insurance_id], coinsurance_id: @query[:coinsurance_id], sale_products: sale_products)
   end
 
   def client
-    User.find_by(card_number: @query[:numero_tarjeta])
+    User.find_by(card_number: @query[:card_number])
   end
 
   def seller
-    User.find_by(email: @query[:vendedor])
+    User.find_by(email: @query[:seller])
+  end
+  
+  def supplier
+    Supplier.find_by(id: @query[:supplier_id])
   end
 
   def sale_products
-    @query[:productos].map do |sale_product|
-      codigo = sale_product[:codigo]
-
-      product = if codigo.length == 13
-                  Product.find_by(bar_code: codigo)
+    @query[:products].map do |sale_product|
+      code = sale_product[:code]
+      product = if code.length == 13
+                  Product.find_by(barcode: code)
                 else
-                  Product.find_by(code: codigo)
+                  Product.find_by(troquel_number: code)
                 end
 
-      SaleProduct.new(product: product, amount: sale_product[:cantidad], cost: sale_product[:costo])
+      SaleProduct.new(product: product, amount: sale_product[:amount], cost: sale_product[:to_pay])
     end
   end
 
@@ -58,17 +73,26 @@ class AuthorizationAdapter
       @errors << 'Cliente inválido'
       return false
     end
+    
+    if supplier.blank?
+      @errors << 'Prestador inválido'
+      return false
+    end
 
     if seller.blank?
       @errors << 'Vendedor inválido'
       return false
     end
-
-    unless valid_products?
-      @errors << 'Producto inválido'
+    
+    if seller.supplier != supplier
+      @errors << 'Vendedor inválido para el prestador ingresado'
       return false
     end
 
+    unless validate_products()
+      return false
+    end
+      
     true
   end
 
@@ -78,8 +102,22 @@ class AuthorizationAdapter
 
   private
 
-  def valid_products?
-    @query[:productos].all? { |product| Product.find_by(code: product[:codigo]) }
+  # TODO: agregar codigo de barra, codigo de troque, etc... que procese la venta igual sin esos productos
+  # Loggear la situación completa: farmacia, vendedor, codigo
+  def validate_products
+    valid = false
+    @response = Response.new
+    @query[:products].map do |product|
+      if Product.find_by(barcode: product[:code]) || Product.find_by(troquel_number: product[:code])
+        valid = true
+      else
+        message = "El código de producto #{product[:code]} es inválido."
+        @response.add_warning(message)
+        @errors << message
+        @query[:products].delete(product)
+      end
+    end
+    valid
   end
 
 end

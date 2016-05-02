@@ -8,7 +8,7 @@
 00008dosis                                             
 00009cm                                                
 00010metros                                            
-00011galón                                             
+00011gal¢n                                             
 00012unidades de 2 ml                                  
 00013unidades de 1 ml                                  
 00014unidades de 5 ml                                  
@@ -532,3 +532,29 @@
 00533unidades de 212 g                                 
 00534unidades de 0.71 g                                
 00535unidades de 8.5 g                                 
+00536unidades de 370 g                                 
+00537unidades de 0.9 g                                 
+00538unidades de 53.4 g                                
+00539unidades de 920 g                                 
+00540unidades de 154 g                                 
+00541unidades de 156 g                                 
+00542unidades de 187 g                                 
+00543unidades de 18.2 g                                
+00544unidades de 12.5 g                                
+00545unidades de 29 g                                  
+00546unidades de 62.5 ml                               
+00547unidades de 4.2 g                                 
+00548unidades de 5.2 g                                 
+00549unidades de 38 ml                                 
+00550unidades de 3.3 ml                                
+00551unidades de 1600 g                                
+00552unidades de 375 g                                 
+00553unidades de 1250 ml                               
+00554unidades de 16.7 ml                               
+00555unidades de 675 g                                 
+00556unidades de 1250 g                                
+00557unidades de 2.1 g                                 
+00558Unidades de 700 ml                                
+00559unidades de 363 g                                 
+00560unidades de 238 g                                 
+00561unidades de 850 g                                 

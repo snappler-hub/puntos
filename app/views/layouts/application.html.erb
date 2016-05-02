@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head><%= render 'application/head' %></head>
-<body class="skin-blue fixed <%= "#{controller_name} #{action_name}" %>">
+<body class="<%= god? ? 'skin-red' : 'skin-blue' %> fixed <%= "#{controller_name} #{action_name}" %>">
 <div class="wrapper">
 
   <%= render 'application/navbar' %>
 
   <%= render 'application/aside' %>
-
 
   <article class="content-wrapper">
     <%= yield %>
@@ -24,7 +23,7 @@
         </li>
         <li>
           <b>Version</b>
-          <%= Plenario::Application::VERSION %>
+          <%= Manes::Application::VERSION %>
         </li>
       </ul>
     </div>

@@ -1,11 +1,12 @@
 module ApplicationHelper
 
   def flash_message(klass, message)
-    #klass = 'success' if klass == 'notice'
-    #klass = 'danger'  if klass == 'alert'
+    snack_klass = "#{klass} callout " 
+    snack_klass += 'callout-success' if klass == 'success'
+    snack_klass += 'callout-danger'  if klass == 'error' || klass == 'danger'
     flash.discard(klass)
-    content_tag :span, '', class: 'snackbar-message',
-                data: {toggle: :snackbar, content: message, timeout: 10000}
+    content_tag :span, '', class: "snackbar-message klass",
+                data: {toggle: :snackbar, style: snack_klass, content: message, timeout: 10000}
   end
 
   def flash_messages
@@ -38,8 +39,12 @@ module ApplicationHelper
     end
   end
 
-  def permitted_roles
+  def filter_permitted_roles
     god? ? User::ROLES : User::ROLES - ['god']
+  end
+
+  def form_permitted_roles
+    god? ? User::ROLES : User::ROLES - ['god', 'normal_user']
   end
 
   def god?

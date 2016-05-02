@@ -6,7 +6,7 @@
 #  reward_order_id :integer
 #  reward_id       :integer
 #  amount          :integer
-#  need_points     :integer
+#  need_points     :float(24)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #

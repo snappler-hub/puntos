@@ -8,13 +8,17 @@
 <article class="box box-primary">
 <section class="box-body">
 
+  <%= render 'filter' %>
+  
   <table class="table">
     <thead>
       <tr>
+        <th>Código</th>
+        <th>Prestador</th>
         <th>Vendedor</th>
         <th>Cliente</th>
+        <th>Estado</th>
         <th>Fecha</th>
-        <th>Detalle de productos</th>
         <th></th>
       </tr>
     </thead>
@@ -23,6 +27,8 @@
       <%= render @authorizations %>
     </tbody>
   </table>
+  
+  <%= paginate @authorizations %>
 
 </section>
 </article>

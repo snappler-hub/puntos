@@ -12,10 +12,13 @@
     <section class="box-body">
 
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <h5>Vendedor: <strong><%= @sale.seller %></strong></h5>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
+          <h5>Prestador: <strong><%= @sale.seller.supplier %></strong></h5>
+        </div>
+        <div class="col-md-4">
           <h5>Cliente: <strong><%= @sale.client %></strong></h5>
         </div>
       </div>
@@ -28,9 +31,12 @@
             <tr>
               <th>Nombre</th>
               <th><span data-toggle="tooltip" data-placement="top" title="Cantidad">Cant.</span></th>
-              <th><span data-toggle="tooltip" data-placement="top" title="Precio de Venta Sugerido">PVS</span></th>
               <th><span data-toggle="tooltip" data-placement="top" title="Costo Unitario">CU</span></th>
               <th><span data-toggle="tooltip" data-placement="top" title="Descuento aplicado">Dto</span></th>
+              <th><span data-toggle="tooltip" data-placement="top" title="Puntos Cliente">Pts. Cliente</span></th>
+              <% unless normal_user? %>
+                <th><span data-toggle="tooltip" data-placement="top" title="Puntos Vendedor">Pts. Vendedor</span></th>
+              <% end %>
               <th>Total</th>
             </tr>
             </thead>
@@ -39,26 +45,35 @@
                 <tr>
                   <td><%= product.product.to_s %></td>
                   <td><%= product.amount %></td>
-                  <td>nil</td>
                   <td><%= number_to_currency(product.cost) %></td>
                   <td><%= number_to_percentage(product.discount, precision: 0) %></td>
+                  <td><%= product.client_points %></td>
+                  <% unless normal_user? %>
+                    <td><%= product.seller_points %></td>
+                  <% end %>
                   <td><%= number_to_currency(product.total) %></td>
                 </tr>
             <% end %>
             </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4"><strong>TOTAL:</strong></td>
+                <td><strong><%= @sale.client_points %></strong></td>
+                <% unless normal_user? %>
+                  <td><strong><%= @sale.seller_points %></strong></td>
+                <% end %>
+                <td><strong><%= number_to_currency(@sale.total) %></strong></td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <h5>Puntos acumulados en la venta: <strong><%= @sale.points %></strong></h5>
-        </div>
-      </div>
-      <hr>
 
     </section>
   </article>
 
-  <%= link_to 'Nueva venta', [:new, @supplier, current_user, :sale], class: 'btn btn-success btn-block' %>
+  <% unless normal_user? %>
+      <%= link_to 'Nueva venta', [:new, @supplier, current_user, :sale], class: 'btn btn-success btn-block' %>
+  <% end %>
 
 </section>

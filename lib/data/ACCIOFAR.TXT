@@ -883,6 +883,45 @@
 00883F¢rm.lactante de 6 meses a 1 a¤o
 00884Antibi¢tico de uso inhalatorio  
 00885Disp.intrauterino-Preservativo  
+00886Trat.hipotricosis de pesta¤as   
+00887Maquillajes Cosmeticos          
+00888Antitusivo Expect. Mucolitico   
+00889Antiendometri¢sico              
+00890Fluidificante de las v¡as a‚reas
+00891Antiparatiroideo                
+00892Antihipertensivo Hipolipemiante 
+00893Agente Antidisquin‚tico         
+00894Trat.p/hiperfenilalaninemia     
+00895Tratamiento HPB/Tratamiento DE  
+00896Trat.de la disfunci¢n er‚ctil   
+00897Analg‚sico Antiinfl.Antifebril  
+00898Trat.p/CAPS                     
+00899Alimentos prop¢s.m‚dico espec¡f.
+00900Bloqueante neuromuscular        
+00901Trat.de la fibrosis ideop tica  
+00902bloq.del factor necrosis tumoral
+00903Antiinfeccioso Antibacteriano   
+00904Ag.inmun.Vac.c/influenza        
+00905Polineuropat¡a diab‚tica        
+00906Cosm‚tico Capilar               
+00907Estimulante folicular sostenido 
+00908Hipnotico no benzodiazepinico   
+00909Inhibidor del Factor XA         
+00910Selenito de Sodio               
+00911Antial‚rgico Corticosteroide    
+00912Inhibidor de la janus quinasa   
+00913Trat.de la tos y ronquera       
+00914Antagonista muscar¡nico         
+00915Estimulante sexual femenino     
+00916F¢rm.p/prop¢s.m‚dico+antidiarre.
+00917F¢rm.p/prop¢s.m‚dico+antiflatul.
+00918F¢rmula hipoalerg‚nica+trat.APLV
+00919F¢rm.p/prop¢s.m‚dico+trat.APLV  
+00920F¢rmula p/prop¢sito m‚dico      
+00921Trat.de cicat.hipert.y queloides
+00922Vacuna contra el herpes zoster  
+00923Vac.s‚xtuple acelular           
+00924Anticonvulsivo Anticiclante     
 00999Pendiente                       
 01000Citot¢xico                      
 01001Vacuna antitet nica/antigripal  
@@ -901,3 +940,22 @@
 01014Trat.n useas/v¢mitos en embarazo
 01015Trat.d‚ficit atenc/hiperac(ADHD)
 01016Prevenci¢n de la migra¤a        
+01017Control del apetito             
+01018Antihistaminico/simpaticomimetic
+01019Trat.del mal aliento cr¢nico y o
+01020Trat. de la afectaci¢n pseudobul
+01021Moviliz. de C‚lulas Madres Hemat
+01022inhib.de la secrec. cida g stric
+01023Trat.de la tracci¢n vitreomacula
+01024Anticuerpo monoclonal. Inhib. de
+01025Supl.dietario a base de Calcio y
+01026F¢rmula de continuaci¢n s/lactos
+01027F¢rmula infantil s/lactosa      
+01028Estimulante de la motilidad inte
+01029Protector Hep tico.Antit¢xico   
+01030Agonista adrenorreceptor alfa-2 
+01031Inhibidor de protiosoma         
+01032Trat.de la esclerosis m£ltiple  
+01033Antiem‚tico Antinauseoso        
+01034Antagonista de la Angiotensina I
+01035Inhib. Neprilisina y Angiotensin

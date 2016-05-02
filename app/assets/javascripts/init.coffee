@@ -1,5 +1,26 @@
 window.App ||= {}
 
+
+App.flash_snackbar_render = (flashMessages) ->
+  $.each flashMessages, (key, value) ->
+    style = ''
+    switch key
+      when 'success'
+        style = 'callout callout-success'
+      when 'danger'
+        style = 'callout callout-danger'
+      when 'error'
+        style = 'callout callout-danger'
+      else
+        style = 'callout'
+        break
+    $.snackbar
+      content: value
+      style: style
+      timeout: 10000
+    return
+  return
+
 App.initSnackbar = ->
   if $('.snackbar-message').length > 0
     $('.snackbar-message').snackbar 'show'
@@ -75,3 +96,7 @@ $(document).on "page:change", ->
   App.initSnackbar()
   App.initModals()
   $("select").normalSelect()
+
+$(document).on 'flash:send', (e, flashMessages) ->
+  App.flash_snackbar_render flashMessages
+  return

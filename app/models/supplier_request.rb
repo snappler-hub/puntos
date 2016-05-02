@@ -21,6 +21,11 @@
 #
 
 class SupplierRequest < ActiveRecord::Base
+  
+  include Destroyable
+  
+  # -- Callbacks
+  after_create :send_mail_to_gods
 
   # -- Scopes
   default_scope { order(created_at: :desc) }
@@ -29,7 +34,8 @@ class SupplierRequest < ActiveRecord::Base
   belongs_to :supplier
   belongs_to :created_by, class_name: 'User'
   has_many :comments, as: :commentable
-  has_one :user
+  belongs_to :user
+  has_and_belongs_to_many :pathologies
 
   # -- Validations
   validates :first_name, :last_name, :document_type, :document_number, :supplier, :created_by, presence: true
@@ -51,5 +57,18 @@ class SupplierRequest < ActiveRecord::Base
 
   def can_be_viewed_by?(user)
     (user.is? :god) || (user.is?(:admin) && (user.supplier == self.supplier))
+  end
+  
+  def send_mail_to_gods
+    title = 'Hay una nueva solicitud'
+    message = 'Para verla, haga clic en el siguiente botón e ingrese con su usuario y contraseña. '
+    url = "/supplier_requests/#{id}"
+    User.with_role('god').map do |god|
+      UserMailer.new_mail(god, title, message, 'Nueva solicitud', url)
+    end
+  end
+  
+  def destroyable?
+    false
   end
 end

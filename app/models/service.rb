@@ -7,13 +7,13 @@
 #  type                      :string(255)      not null
 #  user_id                   :integer
 #  last_period_id            :integer
-#  amount                    :integer
+#  amount                    :float(24)
+#  status                    :integer          default(0)
+#  days                      :integer          default(30)
+#  days_to_points_expiration :integer
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
-#  days                      :integer          default(30)
 #  vademecum_id              :integer
-#  status                    :integer          default(0)
-#  days_to_points_expiration :integer
 #
 
 class Service < ActiveRecord::Base
@@ -21,19 +21,18 @@ class Service < ActiveRecord::Base
   # -- Scopes
   default_scope { order(:name) }
   scope :in_progress, -> { where(status: Service.statuses['in_progress']) }
+  scope :pending, -> { where(status: Service.statuses['pending']) }
+  scope :available, -> { where(status: [Service.statuses['pending'], Service.statuses['in_progress']]) }
+  scope :finished, -> { where(status: [Service.statuses['expired'], Service.statuses['closed']]) }
 
   # -- Constants
-  TYPES = %w(points pfpc)
+  TYPES = %w(points pfpc seller)
 
   # -- Associations
   belongs_to :user
 
   # -- Validations
   validates :name, :user, :days, presence: true
-  
-  # -- Callbacks
-  after_create :reject_terms_of_use
-  
 
   # Statuses
   # pending: Servicio creado pero no habilitado (default)
@@ -52,17 +51,8 @@ class Service < ActiveRecord::Base
     self.save
   end
 
-  # Retorna la cantidad de días para la expiración
-  def days_to_expire
-    (self.last_period.end_date - Date.today).to_i
-  end
-
   def can_be_activated?
     true
-  end
-  
-  def reject_terms_of_use
-    user.update(terms_accepted: false)
   end
 
 end

@@ -59,8 +59,6 @@ class PfpcPeriod < ActiveRecord::Base
       }
     }
     new_period.period_products.create(service_products)
-    self.status = :accomplished
-    self.save
   end
 
   # Reinicio el período reseteando los días y pongo el estado En Curso
@@ -69,6 +67,11 @@ class PfpcPeriod < ActiveRecord::Base
     self.end_date = Date.today + (self.service.days).days
     self.status = :in_progress
     self.save
+  end
+  
+  #Retorna un array de objetos en vez de active record associaton
+  def array_of_period_products
+    period_products.to_a
   end
 
 end

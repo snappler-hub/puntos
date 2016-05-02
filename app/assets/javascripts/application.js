@@ -40,10 +40,15 @@
 //= require init
 
 //= require gmaps
+//= require utilities
 //= require services
+//= require pfpc_suppliers
 //= require comments
 //= require sales
 //= require shopping_cart_rewards
 //= require reward_orders
 //= require suppliers
 //= require rewards
+//= require vademecums
+//= require products
+//= require supplier_requests

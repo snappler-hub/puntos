@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @filter = UserFilter.new(filter_params)
-    @users = @filter.call(@supplier).page(params[:page])
+    @users = @filter.call(current_user).page(params[:page])
   end
 
   # GET /users/1
@@ -56,12 +56,15 @@ class UsersController < ApplicationController
     @user.supplier = @supplier if @supplier
     @user.created_by = current_user if current_user
     respond_to do |format|
-      if @user.save
-        format.html { redirect_to [@supplier, @user], notice: 'El usuario ha sido creado correctamente.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+      ActiveRecord::Base.transaction do
+        if @user.save
+          CardManager.assign_card_number! @user if is?([:god, :admin])
+          format.html { redirect_to [@supplier, @user], notice: 'El usuario ha sido creado correctamente.' }
+          format.json { render :show, status: :created, location: @user }
+        else
+          format.html { render :new }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -88,10 +91,15 @@ class UsersController < ApplicationController
     if is_me?
       redirect_to [@supplier, :users], alert: 'No puede eliminarse a si mismo.'
     else
-      @user.destroy
       respond_to do |format|
-        format.html { redirect_to [@supplier, :users], notice: 'El usuario ha sido eliminado correctamente.' }
-        format.json { head :no_content }
+        if @user.destroy
+          format.html { redirect_to [@supplier, :users], notice: 'El usuario ha sido eliminado correctamente. ' }
+          format.json { head :no_content }
+        else
+          error = 'El usuario no ha podido eliminarse. Puede que tenga servicios, ventas o puntos asociados. '
+          format.html { redirect_to [@supplier, :users], notice: error }
+          format.json { render json: [error] } 
+        end
       end
     end
   end
@@ -133,12 +141,12 @@ class UsersController < ApplicationController
 
   # Un usuario no debe poder cambiar su propio +role+ ni +supplier+.
   def user_params
-    permitted_params = [:email, :password, :password_confirmation, :first_name, :last_name, :number, :username, :document_type, :document_number, :phone, :address, :image, :remove_image]
-    permitted_params += [:role, :supplier_id] unless is_me?
+    permitted_params = [:email, :password, :password_confirmation, :first_name, :last_name, :username, :document_type, :document_number, :phone, :address, :image, :remove_image]
+    permitted_params += [:role, :supplier_id] unless is_me? and !god?
     params.require(:user).permit(*permitted_params)
   end
 
   def filter_params
-    params.require(:user_filter).permit(:email, :role, :card_number, :document_number, :card_state) if params[:user_filter]
+    params.require(:user_filter).permit(:email, :role, :card_number, :document_number, :card_state, :supplier_id) if params[:user_filter]
   end
 end

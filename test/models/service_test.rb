@@ -7,13 +7,13 @@
 #  type                      :string(255)      not null
 #  user_id                   :integer
 #  last_period_id            :integer
-#  amount                    :integer
+#  amount                    :float(24)
+#  status                    :integer          default(0)
+#  days                      :integer          default(30)
+#  days_to_points_expiration :integer
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
-#  days                      :integer          default(30)
 #  vademecum_id              :integer
-#  status                    :integer          default(0)
-#  days_to_points_expiration :integer
 #
 
 require 'test_helper'
@@ -35,7 +35,7 @@ class ServiceTest < ActiveSupport::TestCase
     service = services(:pfpc)
     service.run_callbacks(:create)
     assert_not_nil service.last_period
-    assert_equal 2, service.last_period.period_products.count
+    assert_equal service.product_pfpcs.count, service.last_period.period_products.count
     assert_equal 'pending', service.status, service.last_period.status
     assert_equal service.last_period.start_date, Date.today
     assert_equal service.last_period.end_date, Date.today + service.days.days

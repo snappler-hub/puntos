@@ -9,7 +9,13 @@
   <td> <%= service.user.email %> </td>
   <td> <%= t service.type, scope: :service_types %> </td>
   <td> <%= link_to service, [service.user, service] %> </td>
-  <td> <%= l service.last_period.end_date %> </td>
+
+  <% if service.user.is?('seller') || service.user.is?('admin') %>
+    <td>-</td>
+  <% else %>
+    <td> <%= l service.last_period.end_date %> </td>
+  <% end %>
+
   <% unless @supplier %>
     <td> <%= service.user.supplier %> </td>
   <% end %>

@@ -1,2 +1,0 @@
-Comando helper:
-Product.pluck(:id, :name).select{|i,n| n=~ /�/}

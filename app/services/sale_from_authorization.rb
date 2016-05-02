@@ -5,18 +5,24 @@ class SaleFromAuthorization
   end
 
   def build
+    @authorization.client.activate_pending_services
     Sale.new(
-      client: @authorization.client,
-      seller: @authorization.seller,
-      sale_products: sale_products,
-      points: @authorization.points,
-      total: @authorization.total
+        client: @authorization.client,
+        seller: @authorization.seller,
+        sale_products: sale_products,
+        client_points: @authorization.client_points,
+        seller_points: @authorization.seller_points,
+        health_insurance_id: @authorization.health_insurance_id,
+        coinsurance_id: @authorization.coinsurance_id,
+        total: @authorization.total,
+        authorization: @authorization
     )
   end
 
   def create
     obj = build
     obj.save!
+    @authorization.update(sale: obj)
     obj
   end
 
@@ -25,11 +31,13 @@ class SaleFromAuthorization
   def sale_products
     @authorization.products.map do |product|
       SaleProduct.new(
-        product_id: product[:id],
-        amount:     product[:amount],
-        cost:       product[:cost],
-        discount:   product[:discount],
-        total:      product[:total]
+          product_id: product[:id],
+          amount: product[:amount],
+          cost: product[:to_pay],
+          discount: product[:discount],
+          client_points: product[:client_points],
+          seller_points: product[:seller_points],
+          total: product[:total]
       )
     end
   end

@@ -1,0 +1,28 @@
+<header class="content-header">
+  <div class="pull-right">
+    <%= link_to 'Nueva Patologia', new_pathology_path,
+                class: 'btn btn-primary' %>
+  </div>
+  <h1>Patologías</h1>
+</header>
+
+<!-- Main content -->
+<section class="content">
+  <article class="box box-primary">
+    <section class="box-body">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Nombre</th>
+          <th># Solicitudes</th>
+          <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <%= render @pathologies %>
+        </tbody>
+      </table>
+    </section>
+  </article>
+</section>

@@ -10,6 +10,8 @@
 
 class Vademecum < ActiveRecord::Base
 
+  include Destroyable
+
   # -- Scopes
   default_scope -> { order(:name) }
 
@@ -18,17 +20,21 @@ class Vademecum < ActiveRecord::Base
   has_many :products, through: :product_discounts
   has_many :supplier_vademecums
   has_many :suppliers, through: :supplier_vademecums
+  has_many :pfpc_services
   accepts_nested_attributes_for :product_discounts, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :suppliers
 
   # -- Validations
   validates :name, presence: true
+  
+  # -- Misc
+  include Destroyable
 
   # -- Methods
 
-  def discount(product)
-    product_discounts.detect { |discount| discount.product == product }.discount
-  end
+  # def discount(product)
+  #   product_discounts.detect { |discount| discount.product == product }.discount
+  # end
 
   def has?(product)
     product_discounts.any? { |discount| discount.product == product }
@@ -36,6 +42,10 @@ class Vademecum < ActiveRecord::Base
 
   def to_s
     name
+  end
+
+  def destroyable?
+    supplier_vademecums.empty? && pfpc_services.empty?
   end
 
 end

@@ -1,0 +1,9 @@
+<tr>
+  <td> <%= pathology.name %> </td>
+  <td> <%= pathology.supplier_requests.count %> </td>
+  <td class="pull-right">
+    <%= link_to 'Editar', edit_pathology_path(pathology), class: 'btn btn-xs btn-success' %>
+    <%= link_to 'Eliminar', pathology, method: :delete,
+        data: {confirm: '¿Está seguro?'}, class: 'btn btn-xs btn-danger' %>
+  </td>
+</tr>

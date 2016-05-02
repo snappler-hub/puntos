@@ -1,6 +1,5 @@
 <header class="content-header">
-  <%= link_to 'Nuevo Usuario', [:new, @supplier, :user],
-      class: 'btn btn-primary pull-right' %>
+  <%= link_to 'Nuevo Usuario', [:new, @supplier, :user], class: 'btn btn-primary pull-right' %>
   <% if @supplier %>
     <h1>Usuarios de <%= @supplier.name %></h1>
   <% else %>

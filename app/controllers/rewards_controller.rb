@@ -2,8 +2,6 @@ class RewardsController < ApplicationController
   before_action :set_reward, only: [:show, :edit, :update, :destroy, :down_stock, :up_stock, :down_stock_update, :up_stock_update]
   before_action :only_authorize_god!
 
-
-
   def down_stock
     respond_to do |format|
       format.js
@@ -21,10 +19,10 @@ class RewardsController < ApplicationController
     down_stock = params[:down_stock].to_i
     observation = params[:observation]
 
-    unless(down_stock.zero?)
+    unless down_stock.zero?
       @new_stock_entry = @reward.stock_hard_down({amount: down_stock, owner: @reward, codename: 'arqueo_negativo', observation: observation})
     end
-  
+
     respond_to do |format|
       flash[:success] = t(:success)
       format.js { render :stock_update }
@@ -35,8 +33,8 @@ class RewardsController < ApplicationController
   def up_stock_update
     up_stock = params[:up_stock].to_i
     observation = params[:observation]
-    
-    unless(up_stock.zero?)
+
+    unless up_stock.zero?
       @new_stock_entry = @reward.stock_hard_up({amount: up_stock, owner: @reward, codename: 'arqueo_positivo', observation: observation})
     end
 
@@ -100,20 +98,20 @@ class RewardsController < ApplicationController
 
   private
 
-    def set_reward
-      @reward = Reward.find(params[:id])
-    end
+  def set_reward
+    @reward = Reward.find(params[:id])
+  end
 
 
-    def reward_params
-      params['reward']['service_types'] = params['reward']['service_types'] || []
-      params['reward']['service_types'] = params['reward']['service_types'].reject(&:blank?)
-      params.require(:reward).permit(:name, :description, :code, :need_points, :reward_kind, :image, :remove_image, :service_types => [])
-    end
+  def reward_params
+    params['reward']['service_types'] = params['reward']['service_types'] || []
+    params['reward']['service_types'] = params['reward']['service_types'].reject(&:blank?)
+    params.require(:reward).permit(:name, :description, :code, :need_points, :reward_kind, :image, :remove_image, :service_types => [])
+  end
 
-    def filter_params
-      if params[:reward_filter]
-        params.require(:reward_filter).permit(:name, :code, :need_points, :reward_kind)
-      end
+  def filter_params
+    if params[:reward_filter]
+      params.require(:reward_filter).permit(:name, :code, :need_points, :reward_kind)
     end
+  end
 end

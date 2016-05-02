@@ -4,7 +4,7 @@ class CreateRewardOrderItems < ActiveRecord::Migration
       t.references :reward_order, index: true, foreign_key: true
       t.references :reward, index: true, foreign_key: true
       t.integer :amount
-      t.integer :need_points
+      t.float :need_points
 
       t.timestamps null: false
     end

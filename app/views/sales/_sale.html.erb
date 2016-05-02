@@ -1,8 +1,16 @@
 <tr>
   <td><%= sale.seller %></td>
+  <% unless @supplier %>
+      <td><%= sale.seller.supplier %></td>
+  <% end %>
   <td><%= sale.client %></td>
   <td><%= sale.client.card_number %></td>
   <td><%= sale.created_at.strftime('%d-%m-%Y %H:%M:%S') %></td>
   <td><%= number_to_currency(sale.total) %></td>
-  <td class="pull-right"><%= link_to 'Ver', user_sale_path(current_user, sale), class: 'btn btn-xs btn-primary' %></td>
+  <td class="pull-right">
+    <% unless normal_user? %>
+        <%= link_to 'Ir a la autorización', authorization_path(sale.authorization), class: 'btn btn-xs btn-default' %>
+    <% end %>
+    <%= link_to 'Ver', user_sale_path(current_user, sale), class: 'btn btn-xs btn-primary' %>
+  </td>
 </tr>

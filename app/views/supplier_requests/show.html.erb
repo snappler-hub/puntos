@@ -7,7 +7,7 @@
 <section class="content">
 
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
       <article class="box box-primary">
         <section class="box-body box-profile">
           <h3 class="profile-username text-center">
@@ -50,20 +50,20 @@
         </section>
         <div class="box-footer">
           <% if @supplier_request.user %>
-              <%= link_to 'Ver tarjeta', [@supplier, @supplier_request.user],
-                          class: 'btn btn-primary' if @supplier_request.user %>
+              <%= link_to 'Finalizar Solicitud', [:emit, @supplier_request],
+                          class: 'btn btn-warning', method: :post if god? && !@supplier_request.emitted? %>
+              <%= link_to 'Ver usuario', [@supplier, @supplier_request.user],
+                          class: 'btn btn-primary' %>
           <% else %>
               <%= link_to 'Asignar tarjeta', [:add_card, @supplier_request],
                           method: :post, class: 'btn btn-primary' if god? %>
           <% end %>
           <%= link_to 'Editar', [:edit, @supplier, @supplier_request],
                       class: 'btn btn-success' %>
-          <%= link_to 'Eliminar', [@supplier, @supplier_request], method: :delete, class: 'btn btn-danger',
-                      data: {confirm: '¿Está seguro?'} unless is_me?(@user) %>
-        </div>
+      </div>
       </article>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-7">
       <%= comment_widget(url_for([@supplier_request, :comments])) %>
     </div>
   </div>

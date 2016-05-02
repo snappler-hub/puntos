@@ -31,7 +31,7 @@
         </div>
         <div class="col-md-4">
           <strong><i class="fa fa-arrow-circle-right margin-r-5"></i> Puntos para clientes</strong>
-          <% if @supplier.clients_get_points? %>
+          <% if @supplier.give_points_to_client? %>
             <p class="text-success"><%= icon_ok %> Activo</p>
           <% else %>
             <p class="text-muted"><%= icon_not_ok %> Inactivo</p>
@@ -39,7 +39,7 @@
         </div>
         <div class="col-md-4">
           <strong><i class="fa fa-arrow-circle-right margin-r-5"></i> Puntos para vendedores</strong>
-          <% if @supplier.sellers_get_points? %>
+          <% if @supplier.give_points_to_seller? %>
             <p class="text-success"><%= icon_ok %> Activo</p>
           <% else %>
             <p class="text-muted"><%= icon_not_ok %> Inactivo</p>
@@ -58,24 +58,14 @@
           </strong>
 
           <ul class="text-muted list-unstyled">
-            <% @supplier.users.first(10).each do |user| %>
-              <li><%= user.first_name %> <%= user.last_name %></li>
+            <% @supplier.users.where(role: %w(seller admin)).order(:role, :last_name).first(10).each do |user| %>
+              <li><%= "#{user.last_name}, #{user.first_name}" %> (<%= t("roles.#{user.role}")%>)</li>
             <% end %>
           </ul>
           <%= link_to 'Administrar usuarios', [@supplier, :users] %>
         </div>
         
         <div class="col-md-6">
-          <strong>
-            Vademecums
-            (<%= @supplier.vademecums.count %>)
-          </strong>
-
-          <ul class="text-muted list-unstyled">
-            <% @supplier.vademecums.each do |vademecum| %>
-              <li><%= vademecum.name %> </li>
-            <% end %>
-          </ul>
         </div>
       </div>
       
@@ -91,7 +81,7 @@
 
             <ul class="text-muted list-unstyled">
               <% @supplier.supplier_point_products.each do |spp| %>
-                <li><%= spp.product %>: <%= spp.points %></li>
+                <li><%= spp.product %>: <%= spp.client_points %> | <%= spp.seller_points %></li>
               <% end %>
             </ul>
           </div>
@@ -102,7 +92,7 @@
 
 </div>
 
-<% unless @supplier.address.nil?  %>
+<% unless @supplier.address.nil? %>
   <div class="col-md-5">
     <article class="box box-primary">
       <header class="box-header with-border">

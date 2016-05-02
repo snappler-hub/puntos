@@ -7,13 +7,13 @@
 #  type                      :string(255)      not null
 #  user_id                   :integer
 #  last_period_id            :integer
-#  amount                    :integer
+#  amount                    :float(24)
+#  status                    :integer          default(0)
+#  days                      :integer          default(30)
+#  days_to_points_expiration :integer
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
-#  days                      :integer          default(30)
 #  vademecum_id              :integer
-#  status                    :integer          default(0)
-#  days_to_points_expiration :integer
 #
 
 class PfpcService < Service
@@ -21,7 +21,10 @@ class PfpcService < Service
   # -- Associations
   has_many :product_pfpcs, foreign_key: :service_id, dependent: :destroy
   has_many :products, through: :product_pfpcs
+  has_many :pfpc_suppliers, dependent: :destroy
+  has_many :suppliers, through: :pfpc_suppliers
   accepts_nested_attributes_for :product_pfpcs, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :pfpc_suppliers, reject_if: :all_blank, allow_destroy: true
   belongs_to :vademecum
   has_many :periods, class_name: 'PfpcPeriod', foreign_key: 'service_id', dependent: :destroy
   belongs_to :last_period, class_name: 'PfpcPeriod', foreign_key: 'last_period_id'
@@ -31,11 +34,12 @@ class PfpcService < Service
 
   # -- Callbacks
   after_create :create_period_and_products
+  after_create :send_mail #Los términos y condiciones tienen que volver a aceptarse cada vez q le crean un pfpc, así que le envío mail
 
-  # -- Methods 
+  # -- Methods
 
-  def in_progress?
-    status == 'in_progress'
+  def available?
+    status == 'in_progress' || status == 'pending'
   end
 
   def self.model_name
@@ -45,7 +49,7 @@ class PfpcService < Service
   # Crea un período y le asigna los productos del servicio
   def create_period_and_products
     period = self.create_period
-    service_products = self.product_pfpcs.collect { |p| {product_id: p.product_id, amount: p.amount, accumulated: 0} }
+    service_products = self.product_pfpcs.collect { |p| {product: p.product, amount: p.amount, accumulated: 0} }
     period.period_products.create(service_products)
   end
 
@@ -59,6 +63,16 @@ class PfpcService < Service
     self.update(last_period: period)
 
     period
+  end
+
+  def can_renew?
+    last_period.can_renew?
+  end
+
+  def send_mail
+    title = 'Debe aceptar los términos y condiciones'
+    message = 'Para ello, haga clic en el siguiente botón e ingrese con su usuario y contraseña. '
+    UserMailer.new_mail(self.user, title, message)
   end
 
 end

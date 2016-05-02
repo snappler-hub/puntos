@@ -7,13 +7,13 @@
 #  type                      :string(255)      not null
 #  user_id                   :integer
 #  last_period_id            :integer
-#  amount                    :integer
+#  amount                    :float(24)
+#  status                    :integer          default(0)
+#  days                      :integer          default(30)
+#  days_to_points_expiration :integer
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
-#  days                      :integer          default(30)
 #  vademecum_id              :integer
-#  status                    :integer          default(0)
-#  days_to_points_expiration :integer
 #
 
 points:
@@ -26,4 +26,4 @@ pfpc:
   name: PFPC
   type: PfpcService
   user: final_user
-  vademecum: vademecums(:one)
+  vademecum: one

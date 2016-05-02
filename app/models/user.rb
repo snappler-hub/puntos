@@ -4,34 +4,34 @@
 #
 #  id                              :integer          not null, primary key
 #  email                           :string(255)      not null
-#  crypted_password                :string(255)
-#  salt                            :string(255)
+#  username                        :string(255)
 #  role                            :string(255)
 #  first_name                      :string(255)
 #  last_name                       :string(255)
-#  created_by_id                   :integer
 #  supplier_id                     :integer
-#  created_at                      :datetime
-#  updated_at                      :datetime
-#  remember_me_token               :string(255)
-#  remember_me_token_expires_at    :datetime
-#  reset_password_token            :string(255)
-#  reset_password_token_expires_at :datetime
-#  reset_password_email_sent_at    :datetime
 #  number                          :integer
 #  document_type                   :string(255)
 #  document_number                 :string(255)
 #  phone                           :string(255)
 #  address                         :string(255)
-#  username                        :string(255)
-#  image_uid                       :string(255)
-#  image_name                      :string(255)
 #  card_number                     :string(255)
+#  string                          :string(255)
 #  terms_accepted                  :boolean          default(FALSE)
 #  card_printed                    :boolean          default(FALSE)
 #  card_delivered                  :boolean          default(FALSE)
-#  supplier_request_id             :integer
-#  cache_points                    :integer          default(0)
+#  cache_points                    :float(24)        default(0.0)
+#  image_uid                       :string(255)
+#  image_name                      :string(255)
+#  created_by_id                   :integer
+#  crypted_password                :string(255)
+#  salt                            :string(255)
+#  remember_me_token               :string(255)
+#  remember_me_token_expires_at    :datetime
+#  reset_password_token            :string(255)
+#  reset_password_token_expires_at :datetime
+#  reset_password_email_sent_at    :datetime
+#  created_at                      :datetime
+#  updated_at                      :datetime
 #
 
 class User < ActiveRecord::Base
@@ -42,19 +42,28 @@ class User < ActiveRecord::Base
   ROLES = %w(god admin seller normal_user)
   DOCUMENT_TYPES = %w(dni cuil passport)
 
+  include Destroyable
+
+  # -- Callbacks
+  # Al crear un usuario, le mando mail de bienvenida para que acepte términos y condiciones
+  after_create :send_mail
+  after_create :create_seller_service, if: Proc.new { |u| u.is?('seller') && u.seller_service.nil? }
+
   # -- Scopes
   scope :search, ->(q) { where('card_number LIKE :q', q: "%#{q}%") }
   scope :with_role, ->(role) { where(role: role) }
   scope :all_from_supplier, ->(supplier) { where('supplier_id = ? AND role != ?', supplier.id, 'normal_user') }
+  scope :sellers, -> { where.not(role: 'normal_user') }
 
   # -- Associations
   belongs_to :supplier
-  belongs_to :supplier_request
   belongs_to :created_by, class_name: 'User'
   has_many :services, dependent: :destroy
   has_many :pfpc_services
+  has_one :seller_service
   has_many :sales, foreign_key: :seller_id
   has_many :points_services
+  has_many :points_periods, through: :points_services, source: :periods
 
   # -- Validations
   validates :first_name, :last_name, :supplier, :document_type, :document_number, presence: true
@@ -64,12 +73,21 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
   validates :document_number, uniqueness: {scope: :document_type}
 
+  def self.visible_sellers_for(user)
+    return [] if user.is? :normal_user
+    user.is?(:god) ? User.sellers : User.all_from_supplier(user.supplier)
+  end
+
   def to_s
+    fullname
+  end
+
+  def fullname
     "#{first_name} #{last_name}"
   end
 
   def is?(a_role)
-    role == a_role.to_s
+    (Array(a_role).collect(&:to_sym) & [role.to_sym]).any?
   end
 
   def to_param
@@ -77,22 +95,23 @@ class User < ActiveRecord::Base
   end
 
   def vademecums # TODO: and service is active
-    services.where("type = 'PfpcService' AND status = 1").map &:vademecum
+    pfpc_services.available.map &:vademecum
   end
 
   def accept_terms_of_use
     User.transaction do
       CardManager.accept_terms_of_use!(self)
-      self.activate_pending_services
+    end
+  end
+
+  def create_seller_service
+    User.transaction do
+      SellerService.create_for!(self)
     end
   end
 
   def activate_pending_services
-    pending_services.map { |serv| serv.update(status: 1) }
-  end
-
-  def pending_services
-    services.select { |serv| serv.pending? }
+    pfpc_services.pending.map { |serv| serv.update(status: Service.statuses['in_progress']) }
   end
 
   def can_view?(resource)
@@ -108,12 +127,54 @@ class User < ActiveRecord::Base
     self.save
   end
 
-  def redeem_points
-
-  end
-
   def has_points_service?
     points_services.count > 0 && points_services.first.in_progress?
+  end
+
+  def has_seller_service?
+    seller_service.present?
+  end
+
+  def active_points_service
+    self.points_services.in_progress.first
+  end
+
+  def has_supplier?(supplier)
+    pfpc_services.available.detect { |pfpc| pfpc.suppliers.include?(supplier) }
+  end
+
+  # Resta los puntos del usuario. Va sacando los disponibles
+  # desde el período más viejo al más nuevo.
+  def decrease_points(points)
+    return false unless self.cache_points >= points # Alcanzan los puntos?
+
+    if is? :seller
+      seller_service.update_attribute(:amount, seller_service.amount-points)
+    elsif is? :normal_user
+      periods = self.points_periods.where('points_periods.available > 0').order('points_periods.end_date')
+      periods.each do |period|
+        if period.available >= points
+          period.update_attribute(:available, period.available-points)
+          points = 0
+          break
+        else
+          points -= period.available
+          period.update_attribute(:available, 0)
+        end
+      end
+    end
+
+    self.update_attribute(:cache_points, self.reload.cache_points-points) unless points == 0
+  end
+
+  def send_mail
+    title = 'Bienvenido al sistema Manes'
+    message = 'Para poder operar, es necesario que acepte los términos y condiciones. Para ello, haga clic en el siguiente botón e ingrese con su usuario y contraseña. '
+    UserMailer.new_mail(self, title, message)
+  end
+
+  def destroyable?
+    services.empty? && sales.empty? && points_periods.empty?
   end
 
 end

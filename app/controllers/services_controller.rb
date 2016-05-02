@@ -8,7 +8,11 @@ class ServicesController < ApplicationController
 
   # GET /users/X/services/new
   def new
-    @service = build_service
+    if params_type == 'seller'
+      create_seller_service # Se crea sin necesidad de formulario
+    else
+      @service = build_service
+    end
   end
 
   # POST /users/X/services/new
@@ -94,6 +98,11 @@ class ServicesController < ApplicationController
   def near_expiration
     @filter = NearExpirationFilter.new(filter_params)
     @services = @filter.call(@supplier).page(params[:page])
+
+    respond_to do |format|
+      format.xlsx
+      format.html
+    end
   end
 
   # GET /services/X/history
@@ -105,12 +114,20 @@ class ServicesController < ApplicationController
 
   private
 
+  def params_type
+    params[:type] || params[:service][:type]
+  end
+
   def build_service(parameters=nil)
-    if params[:type]
-      params[:type] == 'pfpc' ? PfpcService.new(parameters) : PointsService.new(parameters)
-    else
-      params[:service][:type] == 'PointsService' ? PointsService.new(parameters) : PfpcService.new(parameters)
-    end
+    (params_type == 'pfpc' || params_type == 'PfpcService') ? PfpcService.new(parameters) : PointsService.new(parameters)
+  end
+
+  def create_seller_service
+    SellerService.create_for!(@user)
+    redirect_to @user, notice: 'Se ha creado el servicio'
+  rescue Exception => e
+    flash[:error] = e.message
+    redirect_to @user
   end
 
   def set_user
@@ -137,9 +154,10 @@ class ServicesController < ApplicationController
     allowed_params = [:name, :days]
 
     if params[:service][:type] == 'PointsService'
+      params[:service][:days_to_points_expiration] = params[:days_to_points_expiration]
       allowed_params << :amount << :days_to_points_expiration
     else
-      allowed_params << :always_discount << :vademecum_id << [product_pfpcs_attributes: [:id, :product_id, :amount, :_destroy]]
+      allowed_params << :vademecum_id << [product_pfpcs_attributes: [:id, :product_id, :amount, :_destroy]] << [pfpc_suppliers_attributes: [:id, :supplier_id, :_destroy]]
     end
 
     params.require(:service).permit(allowed_params)

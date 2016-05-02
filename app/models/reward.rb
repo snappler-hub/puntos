@@ -6,7 +6,7 @@
 #  name          :string(255)      not null
 #  description   :text(65535)
 #  code          :string(255)      not null
-#  need_points   :integer
+#  need_points   :float(24)
 #  reward_kind   :string(255)      not null
 #  image_uid     :string(255)
 #  image_name    :string(255)
@@ -19,8 +19,8 @@ class Reward < ActiveRecord::Base
 
   include ActsAsStock
   include ActsAsStockEntry
-  
-	dragonfly_accessor :image
+
+  dragonfly_accessor :image
 
   serialize :service_types, Array
   REWARD_KINDS = %w(workshop product other)

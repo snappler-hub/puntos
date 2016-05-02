@@ -3,15 +3,24 @@
   <div class="row">
     <div class="col-md-3">
       <fieldset class="form-group">
-        <%= f.label :code %>
-        <%= f.text_field :code, class: 'form-control' %>
-      </fieldset>
-    </div>
-
-    <div class="col-md-3">
-      <fieldset class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, class: 'form-control' %>
+      </fieldset>
+    </div>
+    
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <%= f.label :laboratory_id %>
+        <%= f.hidden_field :laboratory_id, class: 'select2',
+              data: { behavior: 'searchLaboratory', url: search_laboratories_path, 'record-id' => @filter.laboratory_id, 'record-text' => @filter.laboratory_name } %>
+      </fieldset>
+    </div>
+    
+    <div class="col-md-3">
+      <fieldset class="form-group">
+        <%= f.label :drug_id %>
+        <%= f.hidden_field :drug_id, class: 'select2',
+              data: { behavior: 'searchDrug', url: search_drugs_path, 'record-id' => @filter.drug_id, 'record-text' => @filter.drug_name } %>
       </fieldset>
     </div>
 

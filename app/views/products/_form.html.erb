@@ -9,8 +9,13 @@
             <% end %>
 
             <fieldset class="form-group">
-              <%= f.label :code %>
-              <%= f.text_field :code, class: 'form-control', required: true %>
+              <%= f.label :barcode %>
+              <%= f.text_field :barcode, class: 'form-control', required: true %>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <%= f.label :troquel_number %>
+              <%= f.text_field :troquel_number, class: 'form-control', required: true %>
             </fieldset>
 
             <fieldset class="form-group">
@@ -18,16 +23,26 @@
               <%= f.text_field :name, class: 'form-control', required: true %>
             </fieldset>
 
+            <fieldset class="form-group">
+              <%= f.label :presentation_form %>
+              <%= f.text_field :presentation_form, class: 'form-control' %>
+            </fieldset>
+
             <div class="row">
               <fieldset class="form-group col-md-4">
-                <%= f.label :points %>
-                <%= f.number_field :points, class: 'form-control', required: true %>
+                <%= f.label :client_points %>
+                <%= f.text_field :client_points, class: 'form-control', required: true %>
+              </fieldset>
+              <fieldset class="form-group col-md-4">
+                <%= f.label :seller_points %>
+                <%= f.text_field :seller_points, class: 'form-control', required: true %>
               </fieldset>
             </div>
 
             <div class="row">
-              <div class="col-md-7"> <%= label_tag :supplier_point_products, 'Prestador' %> </div>
-              <div class="col-md-3"> <%= label_tag :supplier_point_products, 'Puntos' %> </div>
+              <div class="col-md-4"> <%= label_tag :supplier_point_products, 'Prestador' %> </div>
+              <div class="col-md-3"> <%= label_tag :supplier_point_products, '% de puntos cliente' %> </div>
+              <div class="col-md-3"> <%= label_tag :supplier_point_products, '% de puntos vendedor' %> </div>
             </div>
 
             <div class="supplier_point_products form-group">
