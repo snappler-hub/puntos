@@ -26,7 +26,7 @@ set :rvm_path, '/home/deploy/.rvm/scripts/rvm'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, %w(config/database.yml config/secrets.yml log config/unicorn.rb unicorn_shared)
+set :shared_paths, %w(public/uploads config/database.yml config/secrets.yml log config/unicorn.rb unicorn_shared)
 
 # Optional settings:
 
@@ -49,6 +49,9 @@ end
 # For Rails apps, we'll make some of the shared paths that are shared between
 # all releases.
 task setup: :environment do
+  queue! %[mkdir -p "#{deploy_to}/shared/public/uploads"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/public/uploads"]
+
   queue! %[mkdir -p "#{deploy_to}/#{shared_path}/log"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/log"]
   queue! %[mkdir -p "#{deploy_to}/#{shared_path}/unicorn_shared"]
@@ -91,11 +94,9 @@ task deploy: :environment do
     invoke :'deploy:cleanup'
 
     to :launch do
-      queue! %[echo "-----> Unicorn Stop"]
-      queue "sudo /etc/init.d/unicorn_manes_#{rails_env} stop"
-      queue "sleep 3"
-      queue! %[echo "-----> Unicorn Start"]
-      queue "sudo /etc/init.d/unicorn_manes_#{rails_env} start"
+      queue! 'echo "-----> Unicorn Restart"'
+      invoke :'unicorn:restart'
+      invoke :'whenever:update'
 
       #   queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
       #   queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
@@ -116,18 +117,20 @@ namespace :unicorn do
     queue "sudo /etc/init.d/unicorn_manes_#{rails_env} start"
   end
 
-  desc 'Iniciar la applicaion unicorn - con environment'
+  desc 'Frena la applicaion unicorn - con environment'
   task :stop do
     queue "sudo /etc/init.d/unicorn_manes_#{rails_env} stop"
   end
 
-  desc 'Iniciar la applicaion unicorn - con environment'
+  desc 'Reinicia la applicaion unicorn - con environment'
   task :restart do
-    queue "sudo /etc/init.d/unicorn_manes_#{rails_env} restart"
+    queue "sudo /etc/init.d/unicorn_manes_#{rails_env} stop"
+    queue 'sleep 3'
+    queue "sudo /etc/init.d/unicorn_manes_#{rails_env} start"
   end
 end
 
-namespace logs do
+namespace :logs do
   desc 'Muestra logs del servidor'
   task :server do
     queue 'tail -f /var/log/nginx/error.log'
@@ -170,5 +173,18 @@ namespace :db do
     %x[rm dump.sql]
   end
 end
+
+
+# HOLA = <<-BASH
+#  function culo {
+#    echo `date` >> /tmp/test.do.txt
+#  };
+# BASH
+#
+# namespace :test do
+#   task :do do
+#     %x[#{HOLA} culo]
+#   end
+# end
 
 # https://github.com/mina-deploy/mina
