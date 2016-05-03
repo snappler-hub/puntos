@@ -2949,7 +2949,6 @@
 10815aceite de halibut               
 10816besofloxacina clorh.            
 10817poractant alfa                  
-10818lamivudina+zidovudina+abacavir  
 10819memantine clorh.+donepecilo clor
 10820febuxostat                      
 10821arnica montana                  
@@ -3255,7 +3254,51 @@
 11127ombitasvir                      
 11128paritaprevir                    
 11129dasabuvir                       
-11130ombistavir+asoc.                
+11130ombitasvir+asoc.                
 11131sacubitrilo+valsart n           
 11132lisado bacteriano+vit.a         
 11136rilpivirina+emtricitabina+tenofo
+11137racotumomab                     
+11138aciclovir+hidrocortisona        
+11140interfer¢n beta 1 A             
+11141interfer¢n beta 1 A sin albumina
+11142treprostinil                    
+11143rosuvastatina+ezetimibe         
+11144doxercalciferol                 
+11145rasburicasa                     
+11146soluc.p/conservaci¢n de ¢rganos 
+11147erwinia crisantaspasa           
+11148pembrolizumab                   
+11149vorinostat                      
+11150afatinib                        
+11151tipranavir                      
+11152miglustat                       
+11153macitentan                      
+11154nilotinib                       
+11155ruxolitinib                     
+11156pasireotida                     
+11157ixabepilona                     
+11158ipilimumab                      
+11159natalizumab                     
+11160tafamidis meglumina             
+11161palbociclib                     
+11162belimumab                       
+11163ambrisentan                     
+11164ofatumumab                      
+11165eltrombopag                     
+11166dabrafenib                      
+11167ibrutinib                       
+11168telaprevir                      
+11169etravirina                      
+11170simeprevir                      
+11171golimumab                       
+11172ustekinujmab                    
+11173sufentanil, citrato             
+11174trabectedina                    
+11175lapatinib                       
+11176teriflunomida                   
+11177enzimas prote¢liticas           
+11178regorafenib                     
+11179sorafenib                       
+11180aflibercept                     
+11181riociguat                       
