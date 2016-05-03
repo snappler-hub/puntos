@@ -7,7 +7,7 @@ namespace :alfabeta do
     Laboratory.destroy_all
 
 
-    filename = Rails.root.join('lib', 'data', 'MONODRO.TXT')
+    filename = Rails.root.join('lib', 'data', 'monodro.txt')
 
     File.open(filename, 'r:CP850:utf-8') do |file|
       file.each_line do |line|
@@ -37,7 +37,7 @@ namespace :alfabeta do
     end
 
 
-    filename = Rails.root.join('lib', 'data', 'MANEXTRA.TXT')
+    filename = Rails.root.join('lib', 'data', 'manextra.txt')
 
     File.open(filename, 'r:CP850:utf-8') do |file|
       file.each_line do |line|
