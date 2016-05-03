@@ -66,7 +66,7 @@ Drug.destroy_all
 Laboratory.destroy_all
 
 
-filename = Rails.root.join('lib', 'data', 'monodro.txt')
+filename = Rails.root.join('lib', 'data', 'MONODRO.TXT')
 
 File.open(filename, 'r:CP850:utf-8') do |file|
   file.each_line do |line|
@@ -96,7 +96,7 @@ File.open(filename, 'r:CP850:utf-8') do |file|
 end
 
 
-filename = Rails.root.join('lib', 'data', 'manextra.txt')
+filename = Rails.root.join('lib', 'data', 'MANEXTRA.TXT')
 
 File.open(filename, 'r:CP850:utf-8') do |file|
   file.each_line do |line|
