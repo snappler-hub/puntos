@@ -1,6 +1,10 @@
 # Recordar hacer el bump de la versión en config/initializers/version.rb
 
-0.7 - RC de la primer version del sistema
+0.7.1
+- Actualizado a Mayo los archivos de Alfabeta
+
+0.7
+- RC de la primer version del sistema
 
 0.6.1 hotfix
 - Hice una prueba con git flow hotfix
