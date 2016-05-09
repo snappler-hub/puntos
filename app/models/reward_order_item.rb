@@ -15,10 +15,8 @@ class RewardOrderItem < ActiveRecord::Base
 
   include ActsAsStockEntry
 
-
   belongs_to :reward_order
   belongs_to :reward
-
 
   def change_stock
 		params = {owner: self, amount: amount, codename: 'canjeo_premio', date: DateTime.now}

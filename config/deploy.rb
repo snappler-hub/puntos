@@ -134,12 +134,13 @@ end
 namespace :logs do
   desc 'Muestra logs del servidor'
   task :server do
-    queue 'tail -f /var/log/nginx/error.log'
+    # queue 'tail -f /var/log/nginx/error.log'
+    queue "tail -f #{deploy_to}/#{shared_path}/log/nginx.*"
   end
 
   desc 'Muestra logs de la aplicacion'
   task :app do
-    queue "tail -f #{deploy_to}/current/logs/*"
+    queue "tail -f #{deploy_to}/#{shared_path}/log/#{rails_env}.log"
   end
 end
 

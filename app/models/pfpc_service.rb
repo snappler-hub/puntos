@@ -34,7 +34,10 @@ class PfpcService < Service
 
   # -- Callbacks
   after_create :create_period_and_products
-  after_create :send_mail #Los términos y condiciones tienen que volver a aceptarse cada vez q le crean un pfpc, así que le envío mail
+
+  # #Los términos y condiciones tienen que volver a aceptarse cada vez q le crean un pfpc, así que le envío mail
+  # after_create :send_mail
+
 
   # -- Methods
 
