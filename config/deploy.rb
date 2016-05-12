@@ -134,7 +134,6 @@ end
 namespace :logs do
   desc 'Muestra logs del servidor'
   task :server do
-    # queue 'tail -f /var/log/nginx/error.log'
     queue "tail -f #{deploy_to}/#{shared_path}/log/nginx.*"
   end
 
