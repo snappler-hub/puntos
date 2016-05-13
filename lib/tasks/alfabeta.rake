@@ -126,6 +126,8 @@ namespace :alfabeta do
       UpdateLog.create(description: reporte, identifier: id.to_i)
     end
 
+    FileUtils.rm_rf(Dir.glob(Rails.root.join('lib', 'data', '*')))
+
   end
 
   task seed: :environment do
