@@ -2,19 +2,14 @@ namespace :get_db_files do
   desc 'Obtiene de la API REST los zip de la base de datos'
   task execute: :environment do
     reporte = {drug: [], product: []}
-    if UpdateLog.last.nil?
-      id = '14000'
-    else
-      id = UpdateLog.last.identifier.to_s
-    end
+
+    UpdateLog.last.nil? ? id = '14000' : id = UpdateLog.last.identifier.to_s
 
     while true
       response_me = RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=ME&id=#{id}"
       response_md = RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=MD&id=#{id}"
 
-      if response_md.code == 204
-        break
-      end
+      break if response_md.code == 204
 
       filename_me = response_me.headers[:content_disposition].split('=').last
       filename_md = response_md.headers[:content_disposition].split('=').last
