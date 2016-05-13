@@ -23,3 +23,7 @@ every 1.hours do
   rake 'services:check_periods'
   rake 'services:points_expiration'
 end
+
+every 2.hours do
+  rake 'alfabeta:update'
+end
