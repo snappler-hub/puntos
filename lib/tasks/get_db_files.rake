@@ -1,5 +1,6 @@
 namespace :get_db_files do
   desc 'Obtiene de la API REST los zip de la base de datos'
+
   task :execute => :environment do
     
     if UpdateLog.last.nil?
@@ -12,9 +13,7 @@ namespace :get_db_files do
       response_me = RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=ME&id=#{id}"
       response_md = RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=MD&id=#{id}"
 
-      if response_md.code == 204
-        break
-      end
+      break if response_md.code == 204
 
       filename_me = response_me.headers[:content_disposition].split('=').last
       filename_md = response_md.headers[:content_disposition].split('=').last
@@ -27,6 +26,7 @@ namespace :get_db_files do
           file.write binary_response
         end
       end
+
       Zip::File.open(zip_file_path_me) do |zip_file|
         entry = zip_file.glob('monodro.txt').first
         FileUtils::mkdir_p(unzip_file_path)
@@ -34,6 +34,7 @@ namespace :get_db_files do
         entry = zip_file.glob('manextra.txt').first
         zip_file.extract(entry, "#{unzip_file_path}/#{entry.name}")
       end
+
       File.open(zip_file_path_md, 'wb') do |file|
         RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=MD&id=#{id}" do |binary_response|
           file.write binary_response
@@ -85,18 +86,20 @@ namespace :get_db_files do
       File.open(filename, 'r:CP850:utf-8') do |file|
         file.each_line do |line|
           product = Product.find_by alfabeta_identifier: line[126, 5]
+
          	product_hash = {description: "Product alfabeta_identifier: #{line[126, 5]}"}
           
-          file_product = Product.new
-          file_product.troquel_number = line[0, 7]
-          file_product.name = "#{line[7, 44].squeeze(' ').strip}"
-          file_product.presentation_form = "#{line[51, 24].squeeze(' ').strip}"
-          file_product.full_name = "#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}"
-          file_product.laboratory = Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create
-          file_product.price_in_cents = line[101, 9]
-          file_product.alfabeta_identifier = line[126, 5]
-          file_product.barcode = line[132, 13]
-          file_product.drug_id = 0
+          # file_product = Product.new
+          # file_product.troquel_number = line[0, 7]
+          # file_product.name = "#{line[7, 44].squeeze(' ').strip}"
+          # file_product.presentation_form = "#{line[51, 24].squeeze(' ').strip}"
+          # file_product.full_name = "#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}"
+          # file_product.laboratory = Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create
+          # file_product.price_in_cents = line[101, 9]
+          # file_product.alfabeta_identifier = line[126, 5]
+          # file_product.barcode = line[132, 13]
+          # file_product.drug_id = 0
+
           if product.nil?
             reporte[:product] << product_hash.merge({action: 'Create'})
             # Product.create(
