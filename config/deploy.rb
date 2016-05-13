@@ -81,6 +81,8 @@ desc 'Deploys the current version to the server.'
 task deploy: :environment do
   to :before_hook do
     # Put things to run locally before ssh
+    # BASH
+    # if git branch -v | grep feature/ | grep -q ahead; then echo 1; else echo 0; fi
   end
 
   deploy do
