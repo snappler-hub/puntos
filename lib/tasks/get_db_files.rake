@@ -1,6 +1,6 @@
 namespace :get_db_files do
   desc 'Obtiene de la API REST los zip de la base de datos'
-  task :execute => :environment do
+  task execute: :environment do
     reporte = {drug: [], product: []}
     if UpdateLog.last.nil?
       id = '14000'
@@ -28,6 +28,7 @@ namespace :get_db_files do
           file.write binary_response
         end
       end
+
       Zip::File.open(zip_file_path_me) do |zip_file|
         entry = zip_file.glob('monodro.txt').first
         FileUtils::mkdir_p(unzip_file_path)
@@ -35,6 +36,7 @@ namespace :get_db_files do
         entry = zip_file.glob('manextra.txt').first
         zip_file.extract(entry, "#{unzip_file_path}/#{entry.name}")
       end
+
       File.open(zip_file_path_md, 'wb') do |file|
         RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=MD&id=#{id}" do |binary_response|
           file.write binary_response
@@ -87,6 +89,7 @@ namespace :get_db_files do
               alfabeta_identifier: line[126, 5],
               barcode: line[132, 13]
           }
+
           if product.nil?
             reporte[:product] << product_hash.merge({action: 'Create'})
             Product.create(
