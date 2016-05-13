@@ -43,6 +43,11 @@ gem 'geokit-rails'
 
 gem 'stock', git: 'git@git.sistematis.com.ar:snappler/gems/stock'
 
+gem 'netrc'
+gem 'rest-client'
+gem 'rubyzip'
+gem 'activerecord-import', '>= 0.2.0'
+
 group :development, :test do
   gem 'byebug'
   gem 'pry'
