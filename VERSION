@@ -1,5 +1,8 @@
 # Recordar hacer el bump de la versión en config/initializers/version.rb
 
+0.8
+- Migrador vivo de alfabeta
+
 0.7.1, 0.7.2 hotfix
 - Actualizado a Mayo los archivos de Alfabeta
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160302154040) do
+ActiveRecord::Schema.define(version: 20160509112948) do
 
   create_table "authorizations", force: :cascade do |t|
     t.integer  "seller_id",           limit: 4
@@ -124,6 +124,14 @@ ActiveRecord::Schema.define(version: 20160302154040) do
   end
 
   add_index "points_periods", ["service_id"], name: "index_points_periods_on_service_id", using: :btree
+
+  create_table "price_histories", force: :cascade do |t|
+    t.integer  "product_id", limit: 4
+    t.float    "price",      limit: 24
+    t.integer  "identifier", limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
 
   create_table "product_discounts", force: :cascade do |t|
     t.integer  "product_id",                                limit: 4
@@ -355,6 +363,13 @@ ActiveRecord::Schema.define(version: 20160302154040) do
     t.boolean  "points_to_client"
     t.boolean  "points_to_seller"
     t.boolean  "active"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  create_table "update_logs", force: :cascade do |t|
+    t.text     "description", limit: 4294967295
+    t.integer  "identifier",  limit: 4
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
   end

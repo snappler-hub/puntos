@@ -36,6 +36,8 @@ GEM
       activemodel (= 4.2.4)
       activesupport (= 4.2.4)
       arel (~> 6.0)
+    activerecord-import (0.13.0)
+      activerecord (>= 3.0)
     activesupport (4.2.4)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
@@ -78,6 +80,8 @@ GEM
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.0)
     debug_inspector (0.0.2)
+    domain_name (0.5.20160310)
+      unf (>= 0.0.5, < 1.0.0)
     dragonfly (1.0.12)
       addressable (~> 2.3)
       multi_json (~> 1.0)
@@ -99,6 +103,8 @@ GEM
     hashids (1.0.2)
     hirb (0.7.3)
     htmlentities (4.3.4)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
     i18n (0.7.0)
     jbuilder (2.3.2)
       activesupport (>= 3.0.0, < 5)
@@ -141,6 +147,7 @@ GEM
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     mysql2 (0.3.20)
+    netrc (0.11.0)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     oauth (0.4.7)
@@ -194,6 +201,10 @@ GEM
     rdoc (4.2.1)
       json (~> 1.4)
     ref (2.0.0)
+    rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     rqrcode (0.8.0)
       chunky_png (~> 1.0)
     rqrcode_png (0.1.5)
@@ -238,6 +249,9 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.2)
     unicorn (5.0.1)
       kgio (~> 2.6)
       rack
@@ -255,6 +269,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-import (>= 0.2.0)
   annotate
   axlsx_rails
   bootstrap3-datetimepicker-rails
@@ -277,12 +292,15 @@ DEPENDENCIES
   minitest-reporters
   momentjs-rails
   mysql2 (~> 0.3.20)
+  netrc
   prawn
   prawn-table
   pry
   rack-mini-profiler
   rails (= 4.2.4)
+  rest-client
   rqrcode_png
+  rubyzip
   sass-rails
   sdoc (~> 0.4.0)
   sorcery
@@ -296,4 +314,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

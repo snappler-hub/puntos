@@ -28,8 +28,8 @@ class Comment < ActiveRecord::Base
   validates :text, :user, presence: true
 
   # -- Methods
-  def is_owner?(aUser)
-    aUser == self.user
+  def is_owner?(user)
+    user == self.user
   end
 
   def send_mail_to_gods

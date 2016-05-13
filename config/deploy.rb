@@ -4,6 +4,7 @@ require 'mina/rails'
 require 'mina/git'
 # require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
 require 'mina/rvm' # for rvm support. (http://rvm.io)
+require 'mina/whenever'
 
 
 # Basic settings:
@@ -80,6 +81,8 @@ desc 'Deploys the current version to the server.'
 task deploy: :environment do
   to :before_hook do
     # Put things to run locally before ssh
+    # BASH
+    # if git branch -v | grep feature/ | grep -q ahead; then echo 1; else echo 0; fi
   end
 
   deploy do
@@ -133,12 +136,12 @@ end
 namespace :logs do
   desc 'Muestra logs del servidor'
   task :server do
-    queue 'tail -f /var/log/nginx/error.log'
+    queue "tail -f #{deploy_to}/#{shared_path}/log/nginx.*"
   end
 
   desc 'Muestra logs de la aplicacion'
   task :app do
-    queue "tail -f #{deploy_to}/current/logs/*"
+    queue "tail -f #{deploy_to}/#{shared_path}/log/#{rails_env}.log"
   end
 end
 
