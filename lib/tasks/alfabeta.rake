@@ -11,6 +11,7 @@ namespace :alfabeta do
 
       break if response_md.code == 204
 
+
       filename_me = response_me.headers[:content_disposition].split('=').last
       filename_md = response_md.headers[:content_disposition].split('=').last
       zip_file_path_me = File.join(Rails.root, 'lib', 'data', filename_me)
