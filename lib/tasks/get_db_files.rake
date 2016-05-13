@@ -8,10 +8,10 @@ namespace :get_db_files do
     else
       id = UpdateLog.last.identifier.to_s
     end
+
     while true
       response_me = RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=ME&id=#{id}"
       response_md = RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=MD&id=#{id}"
-      #binding.pry
 
       break if response_md.code == 204
 
@@ -71,25 +71,48 @@ namespace :get_db_files do
         puts "terminaron las drogas"
       end
 
+
+
       filename = "#{unzip_file_path}/manual.dat"
       File.open(filename, 'r:CP850:utf-8') do |file|
         file.each_line do |line|
           product = Product.find_by alfabeta_identifier: line[126, 5]
          	product_hash = {description: "Product alfabeta_identifier: #{line[126, 5]}"}
+
           if product.nil?
             reporte[:product] << product_hash.merge({action: 'Create'})
+            product = Product.new
+            product.troquel_number = line[0, 7]
+            product.name = "#{line[7, 44].squeeze(' ').strip}"
+            product.presentation_form = "#{line[51, 24].squeeze(' ').strip}"
+            product.full_name = "#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}"
+            product.laboratory_id = (Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create).id
+            product.price_in_cents = line[101, 9]
+            product.alfabeta_identifier = line[126, 5]
+            product.barcode = line[132, 13]
           else
             prices << [product.id, product.price, id.to_i]
             reporte[:product] << product_hash.merge({action: 'Update'})
+            product.troquel_number = line[0, 7]
+            product.name = "#{line[7, 44].squeeze(' ').strip}"
+            product.presentation_form = "#{line[51, 24].squeeze(' ').strip}"
+            product.full_name = "#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}"
+            product.laboratory_id = (Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create).id
+            product.price_in_cents = line[101, 9]
+            product.alfabeta_identifier = line[126, 5]
+            product.barcode = line[132, 13]
           end
-        	products << [line[132, 13],line[0, 7],"#{line[7, 44].squeeze(' ').strip}","#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}",line[101, 9],"#{line[51, 24].squeeze(' ').strip}",line[126, 5],(Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create).id]  
+        	products << product
+          #products << [line[132, 13],line[0, 7],"#{line[7, 44].squeeze(' ').strip}","#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}",line[101, 9],"#{line[51, 24].squeeze(' ').strip}",line[126, 5],(Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create).id]
         end
         p "productos creados y cargados al array"
-        Product.import [:barcode, :troquel_number, :name, :full_name, :price_in_cents, :presentation_form, :alfabeta_identifier, :laboratory_id], products, :on_duplicate_key_update => [:barcode, :troquel_number,:name, :full_name, :price_in_cents, :presentation_form, :alfabeta_identifier, :laboratory_id]
+        #Product.import [:barcode, :troquel_number, :name, :full_name, :price_in_cents, :presentation_form, :alfabeta_identifier, :laboratory_id], products, :on_duplicate_key_update => [:barcode, :troquel_number,:name, :full_name, :price_in_cents, :presentation_form, :alfabeta_identifier, :laboratory_id]
+        Product.import products, :on_duplicate_key_update => [:barcode,:troquel_number,:name,:full_name,:price_in_cents,:presentation_form,:alfabeta_identifier,:laboratory_id]
         p "productos en la db"
         PriceHistory.import [:product_id, :price, :identifier], prices
         p "hitorial de precios en la db"
       end
+
 
       filename = "#{unzip_file_path}/manextra.txt"
       File.open(filename, 'r:CP850:utf-8') do |file|
@@ -103,6 +126,7 @@ namespace :get_db_files do
         Product.import update_product, :on_duplicate_key_update => [:drug_id]
         p "se updatearon los drug_id"
       end
+
       id = response_me.headers[:numero]
       UpdateLog.create(description: reporte, identifier: id.to_i)
     end
