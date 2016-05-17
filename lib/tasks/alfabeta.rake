@@ -74,34 +74,24 @@ namespace :alfabeta do
         file.each_line do |line|
           product = Product.find_by alfabeta_identifier: line[126, 5]
           product_hash = {description: "Product alfabeta_identifier: #{line[126, 5]}"}
-
+          file_product = Product.new
+          file_product.troquel_number = line[0, 7]
+          file_product.name = "#{line[7, 44].squeeze(' ').strip}"
+          file_product.presentation_form = "#{line[51, 24].squeeze(' ').strip}"
+          file_product.full_name = "#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}"
+          file_product.laboratory_id = (Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create).id
+          file_product.price_in_cents = line[101, 9]
+          file_product.alfabeta_identifier = line[126, 5]
+          file_product.barcode = line[132, 13]
           if product.nil?
             reporte[:product] << product_hash.merge({action: 'Create'})
-            product = Product.new
-            product.troquel_number = line[0, 7]
-            product.name = "#{line[7, 44].squeeze(' ').strip}"
-            product.presentation_form = "#{line[51, 24].squeeze(' ').strip}"
-            product.full_name = "#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}"
-            product.laboratory_id = (Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create).id
-            product.price_in_cents = line[101, 9]
-            product.alfabeta_identifier = line[126, 5]
-            product.barcode = line[132, 13]
           else
             prices << [product.id, product.price, id.to_i]
             reporte[:product] << product_hash.merge({action: 'Update'})
-            product.troquel_number = line[0, 7]
-            product.name = "#{line[7, 44].squeeze(' ').strip}"
-            product.presentation_form = "#{line[51, 24].squeeze(' ').strip}"
-            product.full_name = "#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}"
-            product.laboratory_id = (Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create).id
-            product.price_in_cents = line[101, 9]
-            product.alfabeta_identifier = line[126, 5]
-            product.barcode = line[132, 13]
           end
-          products << product
+          products << file_product
         end
         p 'productos creados y cargados al array'
-
         Product.import products, on_duplicate_key_update: [:barcode, :troquel_number, :name, :full_name, :price_in_cents, :presentation_form, :alfabeta_identifier, :laboratory_id]
         p 'productos en la db'
         PriceHistory.import [:product_id, :price, :identifier], prices
