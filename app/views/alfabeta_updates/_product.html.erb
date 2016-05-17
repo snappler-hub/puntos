@@ -1,0 +1,13 @@
+<tr>
+  <td> <%= product %> </td>
+  <td> <%= product.laboratory %> </td>
+  <td> <%= number_to_currency product.price %> </td>
+  <td> <%= product.drug %> </td>
+  <td> <%= product.client_points %> </td>
+  <td> <%= product.seller_points %> </td>
+  <td class="pull-right">
+    <%= link_to 'Editar', edit_product_path(product), class: 'btn btn-xs btn-success' %>
+    <%= link_to 'Eliminar', product, method: :delete,
+        data: {confirm: '¿Está seguro?'}, class: 'btn btn-xs btn-danger' %>
+  </td>
+</tr>

@@ -1,0 +1,33 @@
+<header class="content-header">
+  <h1>Actualizaciones de Alfabeta</h1>
+</header>
+
+<!-- Main content -->
+<section class="content">
+  <article class="box box-primary">
+    <section class="box-body">
+
+      <%= render 'filter' %>
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Fecha y hora</th>
+          <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @alfabeta_updates.each do |update| %>
+            <tr>
+              <td> <%= link_to update.created_at, alfabeta_update_path(update), class: 'btn btn-xs btn-success' %> </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+      <%= paginate @alfabeta_updates %>
+
+    </section>
+  </article>
+</section>

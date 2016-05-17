@@ -43,7 +43,7 @@ task :environment do
 
   # For those using RVM, use this to load an RVM version@gemset.
 
-  invoke :'rvm:use[ruby-2.2.1@manes]'
+  invoke :'rvm:use[ruby-2.3.0@manes]'
 end
 
 # Put any custom mkdir's in here for when `mina setup` is ran.

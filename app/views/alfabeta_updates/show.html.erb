@@ -1,0 +1,22 @@
+<header class="content-header">
+  <% if normal_user? %>
+      <%= link_to 'Volver', alfabeta_updates_path, class: 'btn btn-default pull-right' %>
+  <% end %>
+  <h1>Información de la actualización <strong>#<%= @alfabeta_update.id %></strong></h1>
+</header>
+
+<section class="content">
+  <article class="box box-primary">
+    <section class="box-body">
+
+      <div class="row">
+        <div class="col-md-12">
+          <h5>Fecha y hora: <strong><%= @alfabeta_update.created_at %></strong></h5>
+          <p><%#= @alfabeta_update.description %></p>
+        </div>
+      </div>
+
+    </section>
+  </article>
+
+</section>
