@@ -3,7 +3,7 @@ namespace :alfabeta do
   desc 'Obtiene de la API REST los zip de la base de datos'
   task update: :environment do
 
-    id = (UpdateLog.last.nil? ? '14000' : UpdateLog.last.identifier.to_s)
+    id = (AlfabetaUpdate.last.nil? ? '14000' : AlfabetaUpdate.last.identifier.to_s)
 
     while true
       response_me = RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=ME&id=#{id}"
@@ -127,7 +127,7 @@ namespace :alfabeta do
       end
 
       id = response_me.headers[:numero]
-      UpdateLog.create(description: YAML.dump(reporte), identifier: id.to_i)
+      AlfabetaUpdate.create(description: YAML.dump(reporte), identifier: id.to_i)
     end
 
     FileUtils.rm_rf(Dir.glob(Rails.root.join('lib', 'data', '*')))

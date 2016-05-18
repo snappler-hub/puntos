@@ -66,6 +66,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :alfabeta_updates, only: [:index, :show]
+
   get 'rewards/:id/down_stock', to: 'rewards#down_stock', as: :reward_down_stock
   get 'rewards/:id/up_stock', to: 'rewards#up_stock', as: :reward_up_stock
   post 'rewards/down_stock_update', to: 'rewards#down_stock_update', as: :reward_down_stock_update

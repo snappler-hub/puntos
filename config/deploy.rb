@@ -43,7 +43,7 @@ task :environment do
 
   # For those using RVM, use this to load an RVM version@gemset.
 
-  invoke :'rvm:use[ruby-2.2.1@manes]'
+  invoke :'rvm:use[ruby-2.3.0@manes]'
 end
 
 # Put any custom mkdir's in here for when `mina setup` is ran.
@@ -176,18 +176,5 @@ namespace :db do
     %x[rm dump.sql]
   end
 end
-
-
-# HOLA = <<-BASH
-#  function culo {
-#    echo `date` >> /tmp/test.do.txt
-#  };
-# BASH
-#
-# namespace :test do
-#   task :do do
-#     %x[#{HOLA} culo]
-#   end
-# end
 
 # https://github.com/mina-deploy/mina

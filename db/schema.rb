@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160509112948) do
+ActiveRecord::Schema.define(version: 20160516172345) do
+
+  create_table "alfabeta_updates", force: :cascade do |t|
+    t.text     "description", limit: 4294967295
+    t.integer  "identifier",  limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
 
   create_table "alfabeta_updates", force: :cascade do |t|
     t.text     "description", limit: 4294967295
@@ -369,13 +376,6 @@ ActiveRecord::Schema.define(version: 20160509112948) do
     t.boolean  "points_to_client"
     t.boolean  "points_to_seller"
     t.boolean  "active"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-  end
-
-  create_table "update_logs", force: :cascade do |t|
-    t.text     "description", limit: 4294967295
-    t.integer  "identifier",  limit: 4
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
   end
