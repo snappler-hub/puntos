@@ -10,6 +10,9 @@ namespace :alfabeta do
       response_md = RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=MD&id=#{id}"
 
       break if response_md.code == 204
+      
+      alfabeta_update = AlfabetaUpdate.new
+      alfabeta_update.identifier = id.to_i
 
       filename_me = response_me.headers[:content_disposition].split('=').last
       filename_md = response_md.headers[:content_disposition].split('=').last
@@ -68,7 +71,7 @@ namespace :alfabeta do
           drugs << drug
         end
         Drug.import drugs, :on_duplicate_key_update => [:name]
-        puts 'terminaron las drogas'
+        p "Terminaron las drogas, alfabeta update id: #{id}"
       end
 
 
@@ -90,7 +93,12 @@ namespace :alfabeta do
             product.alfabeta_identifier = line[126, 5]
             product.barcode = line[132, 13]
           else
-            prices << [product.id, product.price, id.to_i]
+            price = PriceHistory.new
+            price.product = product
+            price.price = product.price
+            price.alfabeta_update = alfabeta_update
+            prices << price
+            #prices << [product.id, product.price, alfabeta_update.identifier]
             product_hash = {description: "Product alfabeta_id: #{line[126, 5]}, precio anterior: #{product.price}, precio actual: #{line[101, 9].to_d / 100}",
                             action: 'Update'}
             reporte[:product] << product_hash
@@ -105,11 +113,11 @@ namespace :alfabeta do
           end
           products << product
         end
-        p 'productos creados y cargados al array'
+        
         Product.import products, on_duplicate_key_update: [:barcode, :troquel_number, :name, :full_name, :price_in_cents, :presentation_form, :alfabeta_identifier, :laboratory_id]
-        p 'productos en la db'
-        PriceHistory.import [:product_id, :price, :alfabeta_update_id], prices
-        p 'hitorial de precios en la db'
+        p "Productos en la db, alfabeta update id: #{id}"
+        PriceHistory.import prices
+        p "Hitorial de precios en la db, alfabeta update id: #{id}"
       end
 
 
@@ -123,11 +131,12 @@ namespace :alfabeta do
           end
         end
         Product.import update_product, on_duplicate_key_update: [:drug_id]
-        p 'se updatearon los drug_id'
+        p "Se updatearon los drug_id, alfabeta update id: #{id}"
       end
 
       id = response_me.headers[:numero]
-      AlfabetaUpdate.create(description: YAML.dump(reporte), identifier: id.to_i)
+      alfabeta_update.description = YAML.dump(reporte)
+      alfabeta_update.save
     end
 
     FileUtils.rm_rf(Dir.glob(Rails.root.join('lib', 'data', '*')))
