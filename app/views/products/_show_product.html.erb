@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-9">
+    <article class="box box-primary">
+      <section class="box-body">
+        <%= form_for(@product) do |f| %>
+            <% @product.errors.full_messages.each do |message| %>
+                <p><%= message %></p>
+            <% end %>
+
+            <fieldset class="form-group">
+              <%= f.label :barcode %>
+              <%= f.text_field :barcode, class: 'form-control', disabled: true %>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <%= f.label :troquel_number %>
+              <%= f.text_field :troquel_number, class: 'form-control', disabled: true %>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: 'form-control', disabled: true %>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <%= f.label :presentation_form %>
+              <%= f.text_field :presentation_form, class: 'form-control', disabled: true  %>
+            </fieldset>
+
+            <div class="row">
+              <fieldset class="form-group col-md-4">
+                <%= f.label :client_points %>
+                <%= f.text_field :client_points, class: 'form-control', disabled: true %>
+              </fieldset>
+              <fieldset class="form-group col-md-4">
+                <%= f.label :seller_points %>
+                <%= f.text_field :seller_points, class: 'form-control', disabled: true %>
+              </fieldset>
+            </div>
+            <%= link_to 'Editar', edit_product_path(@product), class: 'btn btn-xs btn-success' %>
+            <%= link_to 'Eliminar', @product, method: :delete, data: {confirm: '¿Está seguro?'}, class: 'btn btn-xs btn-danger' %>      
+        <% end %>
+      </section>
+      
+    </article>
+  </div>
+</div>

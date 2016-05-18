@@ -1,0 +1,10 @@
+<tr>
+  <td> <%= update_log.id %> </td>
+  <td> <%= update_log.created_at.strftime("%d/%m/%Y - %T") %> </td>
+  <td> <%= update_log.identifier %> </td>
+  <td>
+    <%= link_to 'Ver', update_log, method: :get, class: 'btn btn-xs btn-info' %>
+    <%= link_to 'Eliminar', update_log, method: :delete,
+        data: {confirm: '¿Está seguro?'}, class: 'btn btn-xs btn-danger' %>
+  </td>
+</tr>

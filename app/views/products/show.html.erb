@@ -1,0 +1,40 @@
+<header class="content-header">
+  <%= link_to 'Volver', products_path, class: 'btn btn-default pull-right' %>
+  <h1>Producto</h1>
+</header>
+
+<section class="content">
+  <%= render 'show_product' %>
+	  <% unless @price_history.nil?  %>
+	    <div class="row">
+	    	<div class="col-md-9">
+			    <article class="box box-primary">
+			    	<section class="box-header">
+			    		<h5>Historial de precios</h5>
+			    	</section>
+			      <section class="box-body">
+							<table class="table">
+				        <thead>
+				        <tr>
+				          <th>Fecha</th>
+				          <th>Identificador Alfabeta</th>
+				          <th>Precio</th>
+				        </tr>
+				        </thead>
+
+				        <tbody>
+				        <% @price_history.each do |f| %>
+				          <tr>
+				            <td> <%= f.created_at.strftime("%d/%m/%Y - %T") %> </td>
+				            <td> <%= f.identifier %> </td>
+				            <td> <%= number_to_currency f.price %> </td>
+				          </tr>           
+				        <% end %>
+				        </tbody>
+				      </table>		
+						</section>
+					</article>			
+				</div>    
+	    </div>
+	  <% end %>
+</section>

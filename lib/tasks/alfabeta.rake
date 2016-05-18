@@ -54,15 +54,18 @@ namespace :alfabeta do
         file.each_line do |line|
           drug = Drug.find_by name: "#{line[5, 32].squeeze(' ').strip}"
           drug_hash = {description: "Drug id: #{line[0, 5]}"}
-          file_drug = Drug.new
-          file_drug.id = line[0, 5]
-          file_drug.name = "#{line[5, 32].squeeze(' ').strip}"
+          
           if drug.nil?
             reporte[:drug] << drug_hash.merge({action: 'Create'})
+            drug = Drug.new
+            drug.id = line[0, 5]
+            drug.name = "#{line[5, 32].squeeze(' ').strip}"
           else
             reporte[:drug] << drug_hash.merge({action: 'Update'})
+            drug.id = line[0, 5]
+            drug.name = "#{line[5, 32].squeeze(' ').strip}"
           end
-          drugs << file_drug
+          drugs << drug
         end
         Drug.import drugs, :on_duplicate_key_update => [:name]
         puts 'terminaron las drogas'
@@ -73,23 +76,34 @@ namespace :alfabeta do
       File.open(filename, 'r:CP850:utf-8') do |file|
         file.each_line do |line|
           product = Product.find_by alfabeta_identifier: line[126, 5]
-          product_hash = {description: "Product alfabeta_identifier: #{line[126, 5]}"}
-          file_product = Product.new
-          file_product.troquel_number = line[0, 7]
-          file_product.name = "#{line[7, 44].squeeze(' ').strip}"
-          file_product.presentation_form = "#{line[51, 24].squeeze(' ').strip}"
-          file_product.full_name = "#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}"
-          file_product.laboratory_id = (Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create).id
-          file_product.price_in_cents = line[101, 9]
-          file_product.alfabeta_identifier = line[126, 5]
-          file_product.barcode = line[132, 13]
           if product.nil?
-            reporte[:product] << product_hash.merge({action: 'Create'})
+            product_hash = {description: "Product alfabeta_identifier: #{line[126, 5]}",
+                            action: 'Create'}
+            reporte[:product] << product_hash
+            product = Product.new
+            product.troquel_number = line[0, 7]
+            product.name = "#{line[7, 44].squeeze(' ').strip}"
+            product.presentation_form = "#{line[51, 24].squeeze(' ').strip}"
+            product.full_name = "#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}"
+            product.laboratory_id = (Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create).id
+            product.price_in_cents = line[101, 9]
+            product.alfabeta_identifier = line[126, 5]
+            product.barcode = line[132, 13]
           else
             prices << [product.id, product.price, id.to_i]
-            reporte[:product] << product_hash.merge({action: 'Update'})
+            product_hash = {description: "Product alfabeta_id: #{line[126, 5]}, precio anterior: #{product.price}, precio actual: #{line[101, 9].to_d / 100}",
+                            action: 'Update'}
+            reporte[:product] << product_hash
+            product.troquel_number = line[0, 7]
+            product.name = "#{line[7, 44].squeeze(' ').strip}"
+            product.presentation_form = "#{line[51, 24].squeeze(' ').strip}"
+            product.full_name = "#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}"
+            product.laboratory_id = (Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create).id
+            product.price_in_cents = line[101, 9]
+            product.alfabeta_identifier = line[126, 5]
+            product.barcode = line[132, 13]
           end
-          products << file_product
+          products << product
         end
         p 'productos creados y cargados al array'
         Product.import products, on_duplicate_key_update: [:barcode, :troquel_number, :name, :full_name, :price_in_cents, :presentation_form, :alfabeta_identifier, :laboratory_id]
@@ -113,7 +127,7 @@ namespace :alfabeta do
       end
 
       id = response_me.headers[:numero]
-      UpdateLog.create(description: reporte, identifier: id.to_i)
+      UpdateLog.create(description: YAML.dump(reporte), identifier: id.to_i)
     end
 
     FileUtils.rm_rf(Dir.glob(Rails.root.join('lib', 'data', '*')))
