@@ -20,13 +20,6 @@ ActiveRecord::Schema.define(version: 20160516172345) do
     t.datetime "updated_at",                     null: false
   end
 
-  create_table "alfabeta_updates", force: :cascade do |t|
-    t.text     "description", limit: 4294967295
-    t.integer  "identifier",  limit: 4
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-  end
-
   create_table "authorizations", force: :cascade do |t|
     t.integer  "seller_id",           limit: 4
     t.integer  "client_id",           limit: 4

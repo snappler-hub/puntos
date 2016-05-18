@@ -3,7 +3,7 @@ namespace :alfabeta do
   desc 'Obtiene de la API REST los zip de la base de datos'
   task update: :environment do
 
-    id = (AlfabetaUpdate.last.nil? ? '14000' : AlfabetaUpdate.last.identifier.to_s)
+    id = AlfabetaUpdate.last.nil? ? '14000' : AlfabetaUpdate.last.identifier.to_s
 
     while true
       response_me = RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=ME&id=#{id}"
@@ -108,7 +108,7 @@ namespace :alfabeta do
         p 'productos creados y cargados al array'
         Product.import products, on_duplicate_key_update: [:barcode, :troquel_number, :name, :full_name, :price_in_cents, :presentation_form, :alfabeta_identifier, :laboratory_id]
         p 'productos en la db'
-        PriceHistory.import [:product_id, :price, :identifier], prices
+        PriceHistory.import [:product_id, :price, :alfabeta_update_id], prices
         p 'hitorial de precios en la db'
       end
 

@@ -23,11 +23,11 @@
 				        </thead>
 
 				        <tbody>
-				        <% @price_history.each do |f| %>
+				        <% @price_history.each do |price| %>
 				          <tr>
-				            <td> <%= f.created_at.strftime("%d/%m/%Y - %T") %> </td>
-				            <td> <%= f.identifier %> </td>
-				            <td> <%= number_to_currency f.price %> </td>
+				            <td> <%= price.created_at.strftime('%d/%m/%Y - %T') %> </td>
+				            <td> <%= price.alfabeta_update_id %> </td>
+				            <td> <%= number_to_currency price.price %> </td>
 				          </tr>           
 				        <% end %>
 				        </tbody>

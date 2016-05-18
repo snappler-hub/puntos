@@ -55,8 +55,6 @@ Rails.application.routes.draw do
 
   resources :pathologies, except: [:show]
 
-  resources :update_logs, except:[]
-
   resources :products, except: [] do
     collection do
       get :search
