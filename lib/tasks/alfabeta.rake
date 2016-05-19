@@ -3,6 +3,8 @@ namespace :alfabeta do
   desc 'Obtiene de la API REST los zip de la base de datos'
   task update: :environment do
 
+    FileUtils.rm_rf(Dir.glob(Rails.root.join('lib', 'data', '*')))
+
     id = AlfabetaUpdate.last.nil? ? '14000' : AlfabetaUpdate.last.identifier.to_s
 
     while true
