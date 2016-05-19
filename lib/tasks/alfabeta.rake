@@ -77,7 +77,7 @@ namespace :alfabeta do
 
       ############ MANUAL.DAT
 
-      products, batch_size = [], 1000
+      products, batch_size = [], 100
       prices = []
 
       filename = "#{unzip_file_path}/manual.dat"
@@ -137,31 +137,37 @@ namespace :alfabeta do
         p "Productos en la db, alfabeta update id: #{id}"
         p "Hitorial de precios en la db, alfabeta update id: #{id}"
       end
-    end
 
 
-    ############ MANEXTRA.TXT
+      ############ MANEXTRA.TXT
 
-    update_product = []
-    filename = "#{unzip_file_path}/manextra.txt"
-    File.open(filename, 'r:CP850:utf-8') do |file|
-      file.each_line do |line|
-        p = Product.where(alfabeta_identifier: line[0, 5]).take
-        unless p.nil?
-          p.drug_id = line[12, 5]
-          update_product << p
+      update_product, batch_size = [], 100
+      filename = "#{unzip_file_path}/manextra.txt"
+      File.open(filename, 'r:CP850:utf-8') do |file|
+        file.each_line do |line|
+          p = Product.where(alfabeta_identifier: line[0, 5]).take
+          unless p.nil?
+            p.drug_id = line[12, 5]
+            update_product << p
+          end
+
+          if update_product.size >= batch_size
+            Product.import update_product, on_duplicate_key_update: [:drug_id]
+            update_product = []
+          end
         end
+        Product.import update_product, on_duplicate_key_update: [:drug_id]
+        p "Se updatearon los drug_id, alfabeta update id: #{id}"
       end
-      Product.import update_product, on_duplicate_key_update: [:drug_id]
-      p "Se updatearon los drug_id, alfabeta update id: #{id}"
+
+      ############ ALFABETA UPDATE
+
+      alfabeta_update.description = YAML.dump(reporte)
+      alfabeta_update.save
+
+      FileUtils.rm_rf(Dir.glob(Rails.root.join('lib', 'data', '*')))
     end
-
-    alfabeta_update.description = YAML.dump(reporte)
-    alfabeta_update.save
-
-    FileUtils.rm_rf(Dir.glob(Rails.root.join('lib', 'data', '*')))
   end
-
 end
 
 task seed: :environment do
@@ -169,7 +175,6 @@ task seed: :environment do
   Product.destroy_all
   Drug.destroy_all
   Laboratory.destroy_all
-
 
   filename = Rails.root.join('lib', 'data', 'MONODRO.TXT')
 
