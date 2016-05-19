@@ -3,9 +3,8 @@ namespace :alfabeta do
   desc 'Obtiene de la API REST los zip de la base de datos'
   task update: :environment do
 
-    id = AlfabetaUpdate.last.nil? ? '14000' : AlfabetaUpdate.last.identifier.to_s
-
     while true
+      id = AlfabetaUpdate.last.nil? ? '14000' : AlfabetaUpdate.last.identifier.to_s
       # Elimino cualquier residuo de archivo descargado en lib/data/
       FileUtils.rm_rf(Dir.glob(Rails.root.join('lib', 'data', '*')))
 
@@ -133,12 +132,10 @@ namespace :alfabeta do
         end
 
         # Hago los imports que falten
-
         Product.import products, on_duplicate_key_update: [:barcode, :troquel_number, :name, :full_name, :price_in_cents, :presentation_form, :alfabeta_identifier, :laboratory_id]
         PriceHistory.import prices
         p "Productos en la db, alfabeta update id: #{id}"
         p "Hitorial de precios en la db, alfabeta update id: #{id}"
-
       end
     end
 
