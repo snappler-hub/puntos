@@ -22,7 +22,6 @@ class ProductsController < ApplicationController
 
   # GET /products/1
   def show
-    @price_history = PriceHistory.find_product_id(@product.id)
   end
 
   # POST /products

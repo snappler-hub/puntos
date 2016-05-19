@@ -5,36 +5,37 @@
 
 <section class="content">
   <%= render 'show_product' %>
-	  <% unless @price_history.nil?  %>
-	    <div class="row">
-	    	<div class="col-md-9">
-			    <article class="box box-primary">
-			    	<section class="box-header">
-			    		<h5>Historial de precios</h5>
-			    	</section>
-			      <section class="box-body">
-							<table class="table">
-				        <thead>
-				        <tr>
-				          <th>Fecha</th>
-				          <th>Identificador Alfabeta</th>
-				          <th>Precio</th>
-				        </tr>
-				        </thead>
 
-				        <tbody>
-				        <% @price_history.each do |price| %>
-				          <tr>
-				            <td> <%= price.created_at.strftime('%d/%m/%Y - %T') %> </td>
-				            <td> <%= price.alfabeta_update_id %> </td>
-				            <td> <%= number_to_currency price.price %> </td>
-				          </tr>           
-				        <% end %>
-				        </tbody>
-				      </table>		
-						</section>
-					</article>			
-				</div>    
-	    </div>
-	  <% end %>
+  <% unless @product.price_histories.empty? %>
+      <div class="row">
+        <div class="col-md-9">
+          <article class="box box-primary">
+            <section class="box-header">
+              <h5>Historial de precios</h5>
+            </section>
+            <section class="box-body">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Identificador Alfabeta</th>
+                  <th>Precio</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <% @product.price_histories.each do |price| %>
+                    <tr>
+                      <td> <%= price.created_at.strftime('%d/%m/%Y - %T') %> </td>
+                      <td> <%= price.alfabeta_update_id %> </td>
+                      <td> <%= number_to_currency price.price %> </td>
+                    </tr>
+                <% end %>
+                </tbody>
+              </table>
+            </section>
+          </article>
+        </div>
+      </div>
+  <% end %>
 </section>

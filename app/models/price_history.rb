@@ -1,3 +1,4 @@
 class PriceHistory < ActiveRecord::Base
-	scope :find_product_id, ->(id) { where("product_id = ?", id) }
+  belongs_to :product
+  belongs_to :alfabeta_update
 end

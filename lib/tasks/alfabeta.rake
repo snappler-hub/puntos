@@ -3,17 +3,18 @@ namespace :alfabeta do
   desc 'Obtiene de la API REST los zip de la base de datos'
   task update: :environment do
 
-    FileUtils.rm_rf(Dir.glob(Rails.root.join('lib', 'data', '*')))
-
     id = AlfabetaUpdate.last.nil? ? '14000' : AlfabetaUpdate.last.identifier.to_s
 
     while true
+      # Elimino cualquier residuo de archivo descargado en lib/data/
+      FileUtils.rm_rf(Dir.glob(Rails.root.join('lib', 'data', '*')))
+
       response_me = RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=ME&id=#{id}"
       response_md = RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=MD&id=#{id}"
 
       break if response_md.code == 204
-      
-      alfabeta_update = AlfabetaUpdate.new
+
+      alfabeta_update = AlfabetaUpdate.create
       alfabeta_update.identifier = id.to_i
 
       filename_me = response_me.headers[:content_disposition].split('=').last
@@ -49,17 +50,15 @@ namespace :alfabeta do
       end
 
       reporte = {drug: [], product: []}
-      products = []
+
       drugs = []
-      prices = []
-      update_product = []
 
       filename = "#{unzip_file_path}/monodro.txt"
       File.open(filename, 'r:CP850:utf-8') do |file|
         file.each_line do |line|
           drug = Drug.find_by name: "#{line[5, 32].squeeze(' ').strip}"
           drug_hash = {description: "Drug id: #{line[0, 5]}"}
-          
+
           if drug.nil?
             reporte[:drug] << drug_hash.merge({action: 'Create'})
             drug = Drug.new
@@ -77,9 +76,17 @@ namespace :alfabeta do
       end
 
 
+      ############ MANUAL.DAT
+
+      products, batch_size = [], 1000
+      prices = []
+
       filename = "#{unzip_file_path}/manual.dat"
       File.open(filename, 'r:CP850:utf-8') do |file|
         file.each_line do |line|
+          #
+          # Proceso una fila y agrego el elemento procesado al arreglo
+          #
           product = Product.find_by alfabeta_identifier: line[126, 5]
           if product.nil?
             product_hash = {description: "Product alfabeta_identifier: #{line[126, 5]}",
@@ -100,8 +107,8 @@ namespace :alfabeta do
             price.price = product.price
             price.alfabeta_update = alfabeta_update
             prices << price
-            #prices << [product.id, product.price, alfabeta_update.identifier]
-            product_hash = {description: "Product alfabeta_id: #{line[126, 5]}, precio anterior: #{product.price}, precio actual: #{line[101, 9].to_d / 100}",
+
+            product_hash = {description: "Producto alfabeta_id: #{line[126, 5]}, precio anterior: #{product.price}, precio actual: #{line[101, 9].to_d / 100}",
                             action: 'Update'}
             reporte[:product] << product_hash
             product.troquel_number = line[0, 7]
@@ -114,87 +121,101 @@ namespace :alfabeta do
             product.barcode = line[132, 13]
           end
           products << product
-        end
-        
-        Product.import products, on_duplicate_key_update: [:barcode, :troquel_number, :name, :full_name, :price_in_cents, :presentation_form, :alfabeta_identifier, :laboratory_id]
-        p "Productos en la db, alfabeta update id: #{id}"
-        PriceHistory.import prices
-        p "Hitorial de precios en la db, alfabeta update id: #{id}"
-      end
 
+          if products.size >= batch_size
 
-      filename = "#{unzip_file_path}/manextra.txt"
-      File.open(filename, 'r:CP850:utf-8') do |file|
-        file.each_line do |line|
-          p = Product.where(alfabeta_identifier: line[0, 5]).take
-          unless p.nil?
-            p.drug_id = line[12, 5]
-            update_product << p
+            Product.import products, on_duplicate_key_update: [:barcode, :troquel_number, :name, :full_name, :price_in_cents, :presentation_form, :alfabeta_identifier, :laboratory_id]
+            PriceHistory.import prices
+
+            products = []
+            prices = []
           end
         end
-        Product.import update_product, on_duplicate_key_update: [:drug_id]
-        p "Se updatearon los drug_id, alfabeta update id: #{id}"
-      end
 
-      id = response_me.headers[:numero]
-      alfabeta_update.description = YAML.dump(reporte)
-      alfabeta_update.save
-    end
+        # Hago los imports que falten
 
-    FileUtils.rm_rf(Dir.glob(Rails.root.join('lib', 'data', '*')))
+        Product.import products, on_duplicate_key_update: [:barcode, :troquel_number, :name, :full_name, :price_in_cents, :presentation_form, :alfabeta_identifier, :laboratory_id]
+        PriceHistory.import prices
+        p "Productos en la db, alfabeta update id: #{id}"
+        p "Hitorial de precios en la db, alfabeta update id: #{id}"
 
-  end
-
-  task seed: :environment do
-
-    Product.destroy_all
-    Drug.destroy_all
-    Laboratory.destroy_all
-
-
-    filename = Rails.root.join('lib', 'data', 'MONODRO.TXT')
-
-    File.open(filename, 'r:CP850:utf-8') do |file|
-      file.each_line do |line|
-        Drug.create(
-            id: line[0, 5],
-            name: "#{line[5, 32].squeeze(' ').strip}",
-        )
       end
     end
 
 
-    filename = Rails.root.join('lib', 'data', 'manual.dat')
+    ############ MANEXTRA.TXT
 
-    File.open(filename, 'r:CP850:utf-8') do |file|
-      file.each_line do |line|
-        Product.create(
-            troquel_number: line[0, 7],
-            name: "#{line[7, 44].squeeze(' ').strip}",
-            presentation_form: "#{line[51, 24].squeeze(' ').strip}",
-            full_name: "#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}",
-            laboratory: Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create,
-            price_in_cents: line[101, 9],
-            alfabeta_identifier: line[126, 5],
-            barcode: line[132, 13]
-        )
-      end
-    end
-
-
-    filename = Rails.root.join('lib', 'data', 'MANEXTRA.TXT')
-
+    update_product = []
+    filename = "#{unzip_file_path}/manextra.txt"
     File.open(filename, 'r:CP850:utf-8') do |file|
       file.each_line do |line|
         p = Product.where(alfabeta_identifier: line[0, 5]).take
         unless p.nil?
-          p.update_column(:drug_id, line[12, 5])
-          p.save
+          p.drug_id = line[12, 5]
+          update_product << p
         end
       end
+      Product.import update_product, on_duplicate_key_update: [:drug_id]
+      p "Se updatearon los drug_id, alfabeta update id: #{id}"
     end
 
+    alfabeta_update.description = YAML.dump(reporte)
+    alfabeta_update.save
+
+    FileUtils.rm_rf(Dir.glob(Rails.root.join('lib', 'data', '*')))
   end
+
+end
+
+task seed: :environment do
+
+  Product.destroy_all
+  Drug.destroy_all
+  Laboratory.destroy_all
+
+
+  filename = Rails.root.join('lib', 'data', 'MONODRO.TXT')
+
+  File.open(filename, 'r:CP850:utf-8') do |file|
+    file.each_line do |line|
+      Drug.create(
+          id: line[0, 5],
+          name: "#{line[5, 32].squeeze(' ').strip}",
+      )
+    end
+  end
+
+
+  filename = Rails.root.join('lib', 'data', 'manual.dat')
+
+  File.open(filename, 'r:CP850:utf-8') do |file|
+    file.each_line do |line|
+      Product.create(
+          troquel_number: line[0, 7],
+          name: "#{line[7, 44].squeeze(' ').strip}",
+          presentation_form: "#{line[51, 24].squeeze(' ').strip}",
+          full_name: "#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}",
+          laboratory: Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create,
+          price_in_cents: line[101, 9],
+          alfabeta_identifier: line[126, 5],
+          barcode: line[132, 13]
+      )
+    end
+  end
+
+
+  filename = Rails.root.join('lib', 'data', 'MANEXTRA.TXT')
+
+  File.open(filename, 'r:CP850:utf-8') do |file|
+    file.each_line do |line|
+      p = Product.where(alfabeta_identifier: line[0, 5]).take
+      unless p.nil?
+        p.update_column(:drug_id, line[12, 5])
+        p.save
+      end
+    end
+  end
+
 end
 
 namespace :database do
