@@ -22,6 +22,7 @@ namespace :alfabeta do
       zip_file_path_md = File.join(Rails.root, 'lib', 'data', filename_md)
       unzip_file_path = File.join(Rails.root, 'lib', 'data', filename_md[0..filename_md.size-10]) # Es indistinto que filename use
 
+
       File.open(zip_file_path_me, 'wb') do |file|
         RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=ME&id=#{id}" do |binary_response|
           file.write binary_response
@@ -162,7 +163,8 @@ namespace :alfabeta do
 
       ############ ALFABETA UPDATE
 
-      alfabeta_update.description = YAML.dump(reporte)
+      # alfabeta_update.description = YAML.dump(reporte)
+      alfabeta_update.description = ''
       alfabeta_update.save
 
       FileUtils.rm_rf(Dir.glob(Rails.root.join('lib', 'data', '*')))
