@@ -11,37 +11,27 @@
 
       <div class="row">
         <div class="col-md-12">
-          <h5>Fecha y hora: <strong><%= @alfabeta_update.created_at %></strong></h5>
+          <h5>Fecha y hora: <strong><%= @alfabeta_update.created_at.strftime("%d/%m/%Y - %H:%M:%S") %></strong></h5>
           <p><%#= @alfabeta_update.description %></p>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="dl-horizontal">
+                <h4 class="box-title">Acciones en la actualización:</h4>
+              <div class="box-body">
+                <dl class="dl-horizontal">
+                  <pre><%= JSON.pretty_generate(@reporte) %></pre>
+                </dl>
+              </div>
 
+          </dl>
+        </div>
+      </div>
     </section>
   </article>
 
+  
+
 </section>
 
-
-
-
-
-
-
-<div class="box-body">
-  <div class="row">
-    <div class="col-md-12">
-      <dl class="dl-horizontal">
-        <div class="box box-primary">
-          <div class="box-header">
-            <h3 class="box-title">Acciones en la actualización:</h3>
-          </div>
-          <div class="box-body">
-            <dl class="dl-horizontal">
-              <pre><%= JSON.pretty_generate(@reporte) %></pre>
-            </dl>
-          </div>
-        </div>
-      </dl>
-    </div>
-  </div>
-</div>

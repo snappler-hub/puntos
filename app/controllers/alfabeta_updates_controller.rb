@@ -12,8 +12,8 @@ class AlfabetaUpdatesController < ApplicationController
 
   # GET /alfabeta_updates/show/:id
   def show
-    desc = AlfabetaUpdate.find(params[:id]).description
-    @alfabeta_update = YAML.load(desc)
+    @alfabeta_update = AlfabetaUpdate.find(params[:id])
+    @reporte = YAML.load(@alfabeta_update.description)
   end
 
 
