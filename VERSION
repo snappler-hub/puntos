@@ -1,5 +1,8 @@
 # Recordar hacer el bump de la versión en config/initializers/version.rb
 
+0.9
+- Mejoras en el migrador
+
 0.8
 - Migrador vivo de alfabeta
 
