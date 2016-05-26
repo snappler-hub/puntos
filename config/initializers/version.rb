@@ -1,5 +1,5 @@
 module Manes
   class Application
-    VERSION = '0.7.2'
+    VERSION = '0.9'
   end
 end

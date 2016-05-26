@@ -1,0 +1,38 @@
+<header class="content-header">
+  <h1>Actualizaciones de Alfabeta</h1>
+</header>
+
+<!-- Main content -->
+<section class="content">
+  <article class="box box-primary">
+    <section class="box-body">
+
+      <%= render 'filter' %>
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Fecha y hora</th>
+          <th>Identificador Alfabeta</th>
+          <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @alfabeta_updates.each do |update| %>
+            <tr>
+              <td> <%= update.created_at.strftime('%d/%m/%Y - %T') %> </td>
+              <td> <%= update.identifier %> </td>
+              <td>
+                <%= link_to 'Ver', alfabeta_update_path(update), class: 'btn btn-xs btn-info' %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+      <%= paginate @alfabeta_updates %>
+
+    </section>
+  </article>
+</section>

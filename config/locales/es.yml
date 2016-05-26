@@ -153,6 +153,9 @@ es:
         supplier_id: Prestador
         date: Vencen antes de
         filter: *filter
+      alfabeta_update_filter:
+        start_date: Fecha inicio
+        finish_date: Fecha fin
       sale_filter:
         client_id: Cliente
         seller_id: Vendedor

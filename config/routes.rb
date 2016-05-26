@@ -55,7 +55,7 @@ Rails.application.routes.draw do
 
   resources :pathologies, except: [:show]
 
-  resources :products, except: [:show] do
+  resources :products, except: [] do
     collection do
       get :search
       get :search_for_service
@@ -63,6 +63,8 @@ Rails.application.routes.draw do
       post :batch_update
     end
   end
+
+  resources :alfabeta_updates, only: [:index, :show]
 
   get 'rewards/:id/down_stock', to: 'rewards#down_stock', as: :reward_down_stock
   get 'rewards/:id/up_stock', to: 'rewards#up_stock', as: :reward_up_stock
