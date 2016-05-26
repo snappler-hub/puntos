@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160509112948) do
+ActiveRecord::Schema.define(version: 20160516172345) do
+
+  create_table "alfabeta_updates", force: :cascade do |t|
+    t.text     "description", limit: 4294967295
+    t.integer  "identifier",  limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
 
   create_table "authorizations", force: :cascade do |t|
     t.integer  "seller_id",           limit: 4
@@ -126,12 +133,15 @@ ActiveRecord::Schema.define(version: 20160509112948) do
   add_index "points_periods", ["service_id"], name: "index_points_periods_on_service_id", using: :btree
 
   create_table "price_histories", force: :cascade do |t|
-    t.integer  "product_id", limit: 4
-    t.float    "price",      limit: 24
-    t.integer  "identifier", limit: 4
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.float    "price",              limit: 24
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "product_id",         limit: 4
+    t.integer  "alfabeta_update_id", limit: 4
   end
+
+  add_index "price_histories", ["alfabeta_update_id"], name: "index_price_histories_on_alfabeta_update_id", using: :btree
+  add_index "price_histories", ["product_id"], name: "index_price_histories_on_product_id", using: :btree
 
   create_table "product_discounts", force: :cascade do |t|
     t.integer  "product_id",                                limit: 4
@@ -367,13 +377,6 @@ ActiveRecord::Schema.define(version: 20160509112948) do
     t.datetime "updated_at",                     null: false
   end
 
-  create_table "update_logs", force: :cascade do |t|
-    t.text     "description", limit: 4294967295
-    t.integer  "identifier",  limit: 4
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                           limit: 255,                 null: false
     t.string   "username",                        limit: 255
@@ -426,6 +429,8 @@ ActiveRecord::Schema.define(version: 20160509112948) do
   add_foreign_key "pfpc_suppliers", "services", column: "pfpc_service_id"
   add_foreign_key "pfpc_suppliers", "suppliers"
   add_foreign_key "points_periods", "services"
+  add_foreign_key "price_histories", "alfabeta_updates"
+  add_foreign_key "price_histories", "products"
   add_foreign_key "product_discounts", "coinsurances"
   add_foreign_key "product_discounts", "health_insurances"
   add_foreign_key "product_discounts", "products"

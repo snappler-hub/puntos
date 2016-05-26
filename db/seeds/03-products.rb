@@ -61,49 +61,49 @@
 #
 # puts 'END Seed ALFABETA'
 
-Product.destroy_all
-Drug.destroy_all
-Laboratory.destroy_all
-
-
-filename = Rails.root.join('lib', 'data', 'MONODRO.TXT')
-
-File.open(filename, 'r:CP850:utf-8') do |file|
-  file.each_line do |line|
-    Drug.create(
-        id: line[0, 5],
-        name: "#{line[5, 32].squeeze(' ').strip}",
-    )
-  end
-end
-
-
-filename = Rails.root.join('lib', 'data', 'manual.dat')
-
-File.open(filename, 'r:CP850:utf-8') do |file|
-  file.each_line do |line|
-    Product.create(
-        troquel_number: line[0, 7],
-        name: "#{line[7, 44].squeeze(' ').strip}",
-        presentation_form: "#{line[51, 24].squeeze(' ').strip}",
-        full_name: "#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}",
-        laboratory: Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create,
-        price_in_cents: line[101, 9],
-        alfabeta_identifier: line[126, 5],
-        barcode: line[132, 13]
-    )
-  end
-end
-
-
-filename = Rails.root.join('lib', 'data', 'MANEXTRA.TXT')
-
-File.open(filename, 'r:CP850:utf-8') do |file|
-  file.each_line do |line|
-    p = Product.where(alfabeta_identifier: line[0, 5]).take
-    unless p.nil?
-      p.update_column(:drug_id, line[12, 5])
-      p.save
-    end
-  end
-end
+# Product.destroy_all
+# Drug.destroy_all
+# Laboratory.destroy_all
+#
+#
+# filename = Rails.root.join('lib', 'data', 'MONODRO.TXT')
+#
+# File.open(filename, 'r:CP850:utf-8') do |file|
+#   file.each_line do |line|
+#     Drug.create(
+#         id: line[0, 5],
+#         name: "#{line[5, 32].squeeze(' ').strip}",
+#     )
+#   end
+# end
+#
+#
+# filename = Rails.root.join('lib', 'data', 'manual.dat')
+#
+# File.open(filename, 'r:CP850:utf-8') do |file|
+#   file.each_line do |line|
+#     Product.create(
+#         troquel_number: line[0, 7],
+#         name: "#{line[7, 44].squeeze(' ').strip}",
+#         presentation_form: "#{line[51, 24].squeeze(' ').strip}",
+#         full_name: "#{line[7, 44].squeeze(' ').strip}, #{line[51, 24].squeeze(' ').strip}",
+#         laboratory: Laboratory.where(name: "#{line[85, 16].squeeze(' ').strip}").first_or_create,
+#         price_in_cents: line[101, 9],
+#         alfabeta_identifier: line[126, 5],
+#         barcode: line[132, 13]
+#     )
+#   end
+# end
+#
+#
+# filename = Rails.root.join('lib', 'data', 'MANEXTRA.TXT')
+#
+# File.open(filename, 'r:CP850:utf-8') do |file|
+#   file.each_line do |line|
+#     p = Product.where(alfabeta_identifier: line[0, 5]).take
+#     unless p.nil?
+#       p.update_column(:drug_id, line[12, 5])
+#       p.save
+#     end
+#   end
+# end

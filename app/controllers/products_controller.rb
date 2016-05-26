@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :only_authorize_god!, only: [:index, :new, :create, :destroy, :edit]
 
 
@@ -20,6 +20,9 @@ class ProductsController < ApplicationController
   def edit
   end
 
+  # GET /products/1
+  def show
+  end
 
   # POST /products
   def create

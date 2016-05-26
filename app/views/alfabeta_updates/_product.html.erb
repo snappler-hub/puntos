@@ -6,7 +6,6 @@
   <td> <%= product.client_points %> </td>
   <td> <%= product.seller_points %> </td>
   <td class="pull-right">
-    <%= link_to 'Ver', product, method: :get, class: 'btn btn-xs btn-info' %>
     <%= link_to 'Editar', edit_product_path(product), class: 'btn btn-xs btn-success' %>
     <%= link_to 'Eliminar', product, method: :delete,
         data: {confirm: '¿Está seguro?'}, class: 'btn btn-xs btn-danger' %>
