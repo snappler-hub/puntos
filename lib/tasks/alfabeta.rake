@@ -2,19 +2,22 @@ namespace :alfabeta do
 
   desc 'Obtiene de la API REST los zip de la base de datos'
   task update: :environment do
-    id = AlfabetaUpdate.last.nil? ? '14000' : AlfabetaUpdate.last.identifier.to_s
+
     while true
+
+      AlfabetaUpdate.where(identifier: nil).delete_all
+      current_id = AlfabetaUpdate.last.nil? ? '14000' : AlfabetaUpdate.last.identifier.to_s
       
       # Elimino cualquier residuo de archivo descargado en lib/data/
       FileUtils.rm_rf(Dir.glob(Rails.root.join('lib', 'data', '*')))
 
-      response_me = RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=ME&id=#{id}"
-      response_md = RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=MD&id=#{id}"
+      response_me = RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=ME&id=#{current_id}"
+      response_md = RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=MD&id=#{current_id}"
       
       break if response_md.code == 204
-      id = response_me.headers[:numero]
+      new_id = response_me.headers[:numero]
       alfabeta_update = AlfabetaUpdate.create
-      alfabeta_update.identifier = id.to_i
+      alfabeta_update.identifier = new_id.to_i
 
       filename_me = response_me.headers[:content_disposition].split('=').last
       filename_md = response_md.headers[:content_disposition].split('=').last
@@ -24,7 +27,7 @@ namespace :alfabeta do
 
 
       File.open(zip_file_path_me, 'wb') do |file|
-        RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=ME&id=#{id}" do |binary_response|
+        RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=ME&id=#{current_id}" do |binary_response|
           file.write binary_response
         end
       end
@@ -38,7 +41,7 @@ namespace :alfabeta do
       end
 
       File.open(zip_file_path_md, 'wb') do |file|
-        RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=MD&id=#{id}" do |binary_response|
+        RestClient.get "http://web.alfabeta.net/update?usr=alejandra&pw=ale372&src=MD&id=#{current_id}" do |binary_response|
           file.write binary_response
         end
       end
@@ -72,7 +75,7 @@ namespace :alfabeta do
           drugs << drug
         end
         Drug.import drugs, :on_duplicate_key_update => [:name]
-        p "Terminaron las drogas, alfabeta update id: #{id}"
+        p "Terminaron las drogas, alfabeta update id: #{new_id}"
       end
 
 
@@ -135,8 +138,8 @@ namespace :alfabeta do
         # Hago los imports que falten
         Product.import products, on_duplicate_key_update: [:barcode, :troquel_number, :name, :full_name, :price_in_cents, :presentation_form, :alfabeta_identifier, :laboratory_id]
         PriceHistory.import prices
-        p "Productos en la db, alfabeta update id: #{id}"
-        p "Hitorial de precios en la db, alfabeta update id: #{id}"
+        p "Productos en la db, alfabeta update id: #{new_id}"
+        p "Hitorial de precios en la db, alfabeta update id: #{new_id}"
       end
 
 
@@ -158,13 +161,12 @@ namespace :alfabeta do
           end
         end
         Product.import update_product, on_duplicate_key_update: [:drug_id]
-        p "Se updatearon los drug_id, alfabeta update id: #{id}"
+        p "Se updatearon los drug_id, alfabeta update id: #{new_id}"
       end
 
       ############ ALFABETA UPDATE
 
-      # alfabeta_update.description = YAML.dump(reporte)
-      alfabeta_update.description = ''
+      alfabeta_update.description = YAML.dump(reporte)
       alfabeta_update.save
 
       FileUtils.rm_rf(Dir.glob(Rails.root.join('lib', 'data', '*')))

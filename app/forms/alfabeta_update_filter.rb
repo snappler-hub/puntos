@@ -4,7 +4,7 @@ class AlfabetaUpdateFilter
 
   def call
 
-    alfabeta_updates = AlfabetaUpdate.all
+    alfabeta_updates = AlfabetaUpdate.all.order(created_at: :desc)
     alfabeta_updates = alfabeta_updates.where(created_at: @start_date..@finish_date) if @start_date.present?
 
     alfabeta_updates

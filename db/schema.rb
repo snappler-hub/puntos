@@ -28,16 +28,17 @@ ActiveRecord::Schema.define(version: 20160516172345) do
     t.text     "message",             limit: 65535
     t.decimal  "client_points",                     precision: 12, scale: 2, default: 0.0
     t.decimal  "seller_points",                     precision: 12, scale: 2, default: 0.0
-    t.datetime "created_at",                                                               null: false
-    t.datetime "updated_at",                                                               null: false
+    t.integer  "sale_id",             limit: 4
     t.integer  "health_insurance_id", limit: 4
     t.integer  "coinsurance_id",      limit: 4
-    t.integer  "sale_id",             limit: 4
+    t.datetime "created_at",                                                               null: false
+    t.datetime "updated_at",                                                               null: false
   end
 
   add_index "authorizations", ["client_id"], name: "index_authorizations_on_client_id", using: :btree
   add_index "authorizations", ["coinsurance_id"], name: "index_authorizations_on_coinsurance_id", using: :btree
   add_index "authorizations", ["health_insurance_id"], name: "index_authorizations_on_health_insurance_id", using: :btree
+  add_index "authorizations", ["sale_id"], name: "index_authorizations_on_sale_id", using: :btree
   add_index "authorizations", ["seller_id"], name: "index_authorizations_on_seller_id", using: :btree
 
   create_table "coinsurances", force: :cascade do |t|
@@ -146,13 +147,13 @@ ActiveRecord::Schema.define(version: 20160516172345) do
     t.integer  "product_id",                                limit: 4
     t.integer  "vademecum_id",                              limit: 4
     t.integer  "discount",                                  limit: 4, default: 0
-    t.datetime "created_at",                                                      null: false
-    t.datetime "updated_at",                                                      null: false
-    t.integer  "health_insurance_id",                       limit: 4
-    t.integer  "coinsurance_id",                            limit: 4
     t.integer  "health_insurance_discount",                 limit: 4, default: 0
     t.integer  "coinsurance_discount",                      limit: 4, default: 0
     t.integer  "health_insurance_and_coinsurance_discount", limit: 4, default: 0
+    t.integer  "health_insurance_id",                       limit: 4
+    t.integer  "coinsurance_id",                            limit: 4
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
   end
 
   add_index "product_discounts", ["coinsurance_id"], name: "index_product_discounts_on_coinsurance_id", using: :btree
@@ -176,7 +177,7 @@ ActiveRecord::Schema.define(version: 20160516172345) do
     t.string   "troquel_number",      limit: 255
     t.string   "name",                limit: 255,                                        null: false
     t.string   "full_name",           limit: 255
-    t.float    "price_in_cents",      limit: 24
+    t.integer  "price_in_cents",      limit: 4
     t.string   "presentation_form",   limit: 255
     t.integer  "alfabeta_identifier", limit: 4
     t.decimal  "client_points",                   precision: 12, scale: 2, default: 0.0
@@ -239,10 +240,10 @@ ActiveRecord::Schema.define(version: 20160516172345) do
     t.float    "cost",          limit: 24,                          default: 0.0
     t.float    "discount",      limit: 24,                          default: 0.0
     t.float    "total",         limit: 24,                          default: 0.0
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.decimal  "client_points",            precision: 12, scale: 2, default: 0.0
     t.decimal  "seller_points",            precision: 12, scale: 2, default: 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "sale_products", ["product_id"], name: "index_sale_products_on_product_id", using: :btree
@@ -253,15 +254,15 @@ ActiveRecord::Schema.define(version: 20160516172345) do
     t.integer  "client_id",           limit: 4
     t.decimal  "client_points",                  precision: 12, scale: 2, default: 0.0
     t.decimal  "seller_points",                  precision: 12, scale: 2, default: 0.0
+    t.integer  "health_insurance_id", limit: 4
+    t.integer  "coinsurance_id",      limit: 4
     t.float    "total",               limit: 24,                          default: 0.0
     t.datetime "created_at",                                                            null: false
     t.datetime "updated_at",                                                            null: false
-    t.integer  "health_insurance_id", limit: 4
-    t.integer  "coinsurance_id",      limit: 4
     t.integer  "authorization_id",    limit: 4
   end
 
-  add_index "sales", ["authorization_id"], name: "index_sales_on_authorization_id", using: :btree
+  add_index "sales", ["authorization_id"], name: "fk_rails_a5f6c2f085", using: :btree
   add_index "sales", ["client_id"], name: "index_sales_on_client_id", using: :btree
   add_index "sales", ["coinsurance_id"], name: "index_sales_on_coinsurance_id", using: :btree
   add_index "sales", ["health_insurance_id"], name: "index_sales_on_health_insurance_id", using: :btree
@@ -276,9 +277,9 @@ ActiveRecord::Schema.define(version: 20160516172345) do
     t.integer  "status",                    limit: 4,   default: 0
     t.integer  "days",                      limit: 4,   default: 30
     t.integer  "days_to_points_expiration", limit: 4
+    t.integer  "vademecum_id",              limit: 4
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
-    t.integer  "vademecum_id",              limit: 4
   end
 
   add_index "services", ["last_period_id"], name: "index_services_on_last_period_id", using: :btree
@@ -319,9 +320,9 @@ ActiveRecord::Schema.define(version: 20160516172345) do
     t.integer  "supplier_id",   limit: 4
     t.integer  "product_id",    limit: 4
     t.decimal  "client_points",           precision: 12, scale: 2, default: 0.0
+    t.decimal  "seller_points",           precision: 12, scale: 2, default: 0.0
     t.datetime "created_at",                                                     null: false
     t.datetime "updated_at",                                                     null: false
-    t.decimal  "seller_points",           precision: 12, scale: 2, default: 0.0
   end
 
   add_index "supplier_point_products", ["product_id"], name: "index_supplier_point_products_on_product_id", using: :btree
